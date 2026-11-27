@@ -10,6 +10,8 @@ import {
 } from '@gaudi/design-system/core/CodeBlock';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
+  CardHeader,
+  CardTitle,
   CardRoot as Card,
   CardContent,
   CardFooter
@@ -96,8 +98,8 @@ export function Pattern() {
   const [decision, setDecision] = useState('pending');
   return (
     <Card className='w-full max-w-2xl gap-0 py-0'>
-      <div className='border-ui-border flex flex-wrap items-center gap-2 border-b px-3 py-2'>
-        <span className='text-sm font-medium'>{files.length} files changed</span>
+      <CardHeader className='border-ui-border flex flex-wrap items-center gap-2 border-b px-3 py-2'>
+        <CardTitle as='span' className='text-sm font-medium'>{files.length} files changed</CardTitle>
         <Counts plus={added} minus={removed} />
         <ToggleGroup
           aria-label='Diff view'
@@ -112,7 +114,7 @@ export function Pattern() {
           <ToggleGroupItem value='patch'>Patch</ToggleGroupItem>
           <ToggleGroupItem value='split'>Before and after</ToggleGroupItem>
         </ToggleGroup>
-      </div>
+      </CardHeader>
 
       <CardContent className='p-0'>
         {/* One ScrollArea scrolls every block at once; the cap sits on the

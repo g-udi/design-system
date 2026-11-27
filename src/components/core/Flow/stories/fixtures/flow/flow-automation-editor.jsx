@@ -1,4 +1,6 @@
 'use client';
+import { NativeSelect, NativeSelectOption } from '@gaudi/design-system/core/Select';
+import { useHotkey } from '@gaudi/design-system/hooks/interaction/use-hotkey';
 import { useRef, useState } from 'react';
 import { useElementSize } from '@gaudi/design-system/hooks/layout/use-element-size';
 import { useMergedRefs } from '@gaudi/design-system/hooks/state/use-merged-refs';
@@ -42,10 +44,13 @@ import {
   ContextMenuTrigger
 } from '@gaudi/design-system/core/DropdownMenu';
 import { default as Field, FieldInput, FieldLabel } from '@gaudi/design-system/core/Field';
-import { KbdRoot as Kbd, KbdGroup } from '@gaudi/design-system/core/Kbd';
+import Kbd from '@gaudi/design-system/core/Kbd';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@gaudi/design-system/core/Sheet';
 import { TooltipRoot as Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@gaudi/design-system/core/Tooltip';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
+
+const undoKeys = ['mod+z', 'ctrl+z', 'meta+z'];
+const redoKeys = ['mod+shift+z', 'ctrl+shift+z', 'meta+shift+z'];
 
 const people = {
   maya: { name: 'Mei Castellanos', src: '/avatars/person-20.svg' },
@@ -89,15 +94,14 @@ function Inspector({ node, onChange, onFocus, onClose, onDelete }) {
       </Field>
       <Field>
         <FieldLabel>Owner</FieldLabel>
-        <FieldInput
-          as='select'
+        <NativeSelect className='w-full'
           value={Object.keys(people).find((key) => people[key].name === node.data.owner?.name) || ''}
           onFocus={onFocus}
           onChange={(event) => onChange({ owner: people[event.target.value] })}
         >
-          <option value=''>Unassigned</option>
-          {Object.entries(people).map(([key, person]) => <option key={key} value={key}>{person.name}</option>)}
-        </FieldInput>
+          <NativeSelectOption value=''>Unassigned</NativeSelectOption>
+          {Object.entries(people).map(([key, person]) => <NativeSelectOption key={key} value={key}>{person.name}</NativeSelectOption>)}
+        </NativeSelect>
       </Field>
       <div className='flex gap-2'>
         <Button size='sm' variant='outline' tone='danger' onClick={onDelete}>
@@ -174,12 +178,13 @@ function LeadRouting() {
     }
   }));
 
-  const onKeyDown = (event) => {
-    if (!(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== 'z' || event.target.closest('input, select, textarea')) return;
+  const handleHistoryKey = (event, action) => {
+    if (event.target.closest('input, select, textarea, [contenteditable="true"]')) return;
     event.preventDefault();
-    if (event.shiftKey) redo();
-    else undo();
+    action();
   };
+  const undoShortcut = useHotkey(undoKeys, (event) => handleHistoryKey(event, undo), { target: frame, preventDefault: false });
+  const redoShortcut = useHotkey(redoKeys, (event) => handleHistoryKey(event, redo), { target: frame, preventDefault: false });
 
   const inspector = selected && (
     <Inspector
@@ -192,7 +197,7 @@ function LeadRouting() {
   );
 
   return (
-    <div ref={frameRef} className='grid w-full gap-3' onKeyDown={onKeyDown}>
+    <div ref={frameRef} className='grid w-full gap-3'>
       <div className='flex flex-wrap items-center gap-2'>
         <Breadcrumb>
           <BreadcrumbList>
@@ -205,19 +210,19 @@ function LeadRouting() {
           <ButtonGroup aria-label='History'>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button size='icon-sm' variant='outline' tone='neutral' aria-label='Undo' aria-keyshortcuts='Meta+Z Control+Z' disabled={!canUndo} onClick={undo}>
+                <Button size='icon-sm' variant='outline' tone='neutral' aria-label='Undo' aria-keyshortcuts={undoShortcut.ariaKeyShortcuts} disabled={!canUndo} onClick={undo}>
                   <RegistryIcon lucide='UndoIcon' aria-hidden='true' />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent>Undo <KbdGroup><Kbd>⌘</Kbd><Kbd>Z</Kbd></KbdGroup></TooltipContent>
+              <TooltipContent>Undo <Kbd keys={undoShortcut.kbdKeys} size='xs' /></TooltipContent>
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button size='icon-sm' variant='outline' tone='neutral' aria-label='Redo' aria-keyshortcuts='Meta+Shift+Z Control+Shift+Z' disabled={!canRedo} onClick={redo}>
+                <Button size='icon-sm' variant='outline' tone='neutral' aria-label='Redo' aria-keyshortcuts={redoShortcut.ariaKeyShortcuts} disabled={!canRedo} onClick={redo}>
                   <RegistryIcon lucide='RedoIcon' aria-hidden='true' />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent>Redo <KbdGroup><Kbd>⇧</Kbd><Kbd>⌘</Kbd><Kbd>Z</Kbd></KbdGroup></TooltipContent>
+              <TooltipContent>Redo <Kbd keys={redoShortcut.kbdKeys} size='xs' /></TooltipContent>
             </Tooltip>
           </ButtonGroup>
           <Button size='sm' onClick={() => addStep()}>

@@ -1,4 +1,5 @@
 'use client';
+import { Item, ItemMedia, ItemContent } from '@gaudi/design-system/core/Item';
 import { useEffect, useRef, useState } from 'react';
 import { ChatPromptComposer, ChatPromptQueue } from '@gaudi/design-system/chat/ChatInput';
 import { LoaderRoot as Loader } from '@gaudi/design-system/core/Loader';
@@ -59,10 +60,10 @@ export function Pattern() {
         ))}
       </ol>
       {status === 'streaming' ? (
-        <div className='bg-surface flex items-center gap-2 rounded-(--ds-radius-card) border px-3 py-2 text-sm'>
-          <Loader className='text-accent size-4' />
-          <span className='min-w-0 flex-1 truncate'>Working on: {current}</span>
-        </div>
+        <Item variant='outline' size='sm' className='flex-nowrap'>
+          <ItemMedia><Loader className='text-accent size-4' /></ItemMedia>
+          <ItemContent className='min-w-0 truncate'>Working on: {current}</ItemContent>
+        </Item>
       ) : (
         <p className='text-text-muted text-sm'>Gaudi is idle. Anything you send starts right away.</p>
       )}

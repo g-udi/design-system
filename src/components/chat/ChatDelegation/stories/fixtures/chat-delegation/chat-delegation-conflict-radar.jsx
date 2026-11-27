@@ -1,4 +1,5 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
 import { ToggleGroupRoot, ToggleGroupItem } from '@gaudi/design-system/core/ToggleGroup';
 import { useId, useRef, useState } from 'react';
 import Button from '@gaudi/design-system/core/Button';
@@ -65,7 +66,7 @@ export function Pattern() {
   }
   const columns = [
     { key: 'path', header: 'File', width: '34%', render: file => <div className='grid min-w-48 gap-1'>
-      {file.conflict ? <Button variant='ghost' aria-label={`Compare ${file.path}`} aria-controls={compareId} aria-pressed={selectedId === file.id} onClick={() => inspect(file)} className='h-auto min-w-0 justify-start px-0 py-1 text-start whitespace-normal'><span dir='ltr' className='wrap-anywhere'>{file.path}</span></Button> : <span dir='ltr' className='text-sm wrap-anywhere'>{file.path}</span>}
+      {file.conflict ? <Button variant='ghost' aria-label={`Compare ${file.path}`} aria-controls={compareId} aria-current={selectedId === file.id ? 'true' : undefined} onClick={() => inspect(file)} className='h-auto min-w-0 justify-start px-0 py-1 text-start whitespace-normal'><span dir='ltr' className='wrap-anywhere'>{file.path}</span></Button> : <span dir='ltr' className='text-sm wrap-anywhere'>{file.path}</span>}
       <span className='flex items-center gap-1 text-xs text-text-muted'><RegistryIcon lucide={file.conflict ? resolutions[file.id] ? 'Check' : 'GitMerge' : 'FileCheck'} className='size-3' />{file.conflict ? resolutions[file.id] ? 'Settled' : 'Overlapping edits' : file.edits.length > 1 ? 'Separate ranges' : 'Independent edit'}</span>
     </div> },
     ...agents.map(agent => ({ key: agent.id, header: <div className='flex min-w-36 items-center gap-2'>
@@ -89,7 +90,7 @@ export function Pattern() {
   return (
     <section aria-labelledby={titleId} className='ds-touch-controls mx-auto grid w-full min-w-0 max-w-5xl gap-5'>
       <header className='flex flex-wrap items-start justify-between gap-3'>
-        <div className='grid gap-1'><h2 id={titleId} className='m-0 text-lg font-semibold'>Conflict radar</h2><p className='m-0 text-sm text-text-muted'>Invitation workflow · parallel edits</p></div>
+        <div className='grid gap-1'><h2 id={titleId} className='m-0 text-lg font-semibold'>Conflict radar</h2><p className='m-0 text-sm text-text-muted'>Invitation workflow <MetaSeparator /> parallel edits</p></div>
         <div className='flex flex-wrap gap-2'><Badge variant={merged ? 'success-light' : 'secondary'}><bdi>{empty ? 'No changes' : merged ? 'Demo merged' : `${done} of ${agents.length} agents done`}</bdi></Badge>{!empty && <Badge variant={unsettled ? 'warning-light' : 'success-light'}><bdi>{unsettled ? `${unsettled} open ${unsettled === 1 ? 'conflict' : 'conflicts'}` : 'Conflicts settled'}</bdi></Badge>}</div>
       </header>
       {empty ? <Empty><EmptyHeader><EmptyTitle>No edits to compare</EmptyTitle><EmptyDescription>Start the demo to inspect where three agents changed the same files.</EmptyDescription></EmptyHeader><Button onClick={() => reset()}>Start demo</Button></Empty> : <>
@@ -109,7 +110,7 @@ export function Pattern() {
               </ToggleGroupItem>
             ))}
           </ToggleGroupRoot>
-          <div className='grid gap-1'><p dir='ltr' className='m-0 text-sm font-medium wrap-anywhere'>{selected.path}</p><p className='m-0 text-sm text-text-muted'><bdi>{selected.overlap}</bdi> · {selected.reason}</p></div>
+          <div className='grid gap-1'><p dir='ltr' className='m-0 text-sm font-medium wrap-anywhere'>{selected.path}</p><p className='m-0 text-sm text-text-muted'><bdi>{selected.overlap}</bdi> <MetaSeparator /> {selected.reason}</p></div>
           <RadioGroup label={`Approaches for ${selected.path}`} value={resolutions[selected.id] || ''} onValueChange={choose} disabled={merged} options={selected.edits.map(edit => ({value:edit.agent,label:agents.find(agent => agent.id === edit.agent).name,description:<span className='grid gap-1'><span>{edit.approach}</span><span>{edit.tradeoff}</span></span>}))} />
           <div className='flex flex-wrap items-center justify-between gap-2'><p className='m-0 text-xs text-text-muted'>A choice keeps one approach for this file. It does not combine both changes.</p><Button size='sm' variant='ghost' disabled={merged || !resolutions[selected.id]} onClick={() => {setResolutions(previous => {const next = {...previous}; delete next[selected.id]; return next;});setNotice(`Choice cleared for ${selected.path}.`);comparison.current?.querySelector('[data-slot="radio-group-item"]')?.focus();}}>Clear choice</Button></div>
         </section>

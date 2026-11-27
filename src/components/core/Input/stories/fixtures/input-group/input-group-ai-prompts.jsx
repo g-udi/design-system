@@ -1,7 +1,11 @@
 'use client';
+import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
+import { Badge } from '@gaudi/design-system/core/Pill';
 import { useState } from 'react';
 import {
   DropdownMenuRoot as DropdownMenu,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuContent,
   DropdownMenuItemPrimitive as DropdownMenuItem,
   DropdownMenuSeparatorPrimitive as DropdownMenuSeparator,
@@ -16,8 +20,7 @@ import {
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-  InputGroupTextarea,
-  InputGroupText
+  InputGroupTextarea
 } from '@gaudi/design-system/core/Input';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 
@@ -93,28 +96,23 @@ export function Pattern() {
             <InputGroupButton aria-label='Mention someone' disabled title='Mentions require a host directory' variant='outline' size='icon-xs'>
               <RegistryIcon lucide='AtSignIcon' className='size-3.5' />
             </InputGroupButton>
-            <InputGroupText className='gap-1 rounded-sm border px-1.5 text-xs'>
+            <Badge variant='outline' size='sm' className='gap-1'>
               <RegistryIcon lucide='PaperclipIcon' className='size-3.5' />
               brief.pdf
-            </InputGroupText>
-            <InputGroupText className='gap-1 rounded-sm border px-1.5 text-xs'>
+            </Badge>
+            <Badge variant='outline' size='sm' className='gap-1'>
               <RegistryIcon lucide='FileTextIcon' className='size-3.5' />1 tab
-            </InputGroupText>
+            </Badge>
           </InputGroupAddon>
           <InputGroupTextarea value={draft} onChange={(event) => setDraft(event.target.value)} aria-label='Plan, search, build anything' placeholder='Plan, search, build anything' className='min-h-16' />
           <InputGroupAddon align='block-end' className='gap-1'>
             <InputGroupButton aria-label='Use microphone' disabled title='Recording requires a host integration' variant='ghost' size='icon-xs'>
               <RegistryIcon lucide='MicIcon' className='size-4' />
             </InputGroupButton>
-            <InputGroupButton
-              variant={webSearch ? 'secondary' : 'ghost'}
-              size='xs'
-              aria-pressed={webSearch}
-              onClick={() => setWebSearch((current) => !current)}
-            >
+            <Toggle size='sm' pressed={webSearch} onPressedChange={setWebSearch}>
               <RegistryIcon lucide='GlobeIcon' className='size-3.5' />
               Search
-            </InputGroupButton>
+            </Toggle>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <InputGroupButton variant='ghost' size='xs' aria-label={`Model: ${model}`}>
@@ -123,11 +121,9 @@ export function Pattern() {
                 </InputGroupButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent align='start' className='min-w-36'>
-                {models.map((item) => (
-                  <DropdownMenuItem key={item} onSelect={() => setModel(item)}>
-                    {item}
-                  </DropdownMenuItem>
-                ))}
+                <DropdownMenuRadioGroup value={model} onValueChange={setModel}>
+                  {models.map((item) => <DropdownMenuRadioItem key={item} value={item}>{item}</DropdownMenuRadioItem>)}
+                </DropdownMenuRadioGroup>
               </DropdownMenuContent>
             </DropdownMenu>
             <div className='ml-auto flex items-center gap-1'>

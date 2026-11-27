@@ -13,8 +13,7 @@ import {
   CardRoot as Card,
   CardContent
 } from '@gaudi/design-system/core/Card';
-import { Label } from '@gaudi/design-system/core/Field';
-import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
+import Switch from '@gaudi/design-system/core/Switch';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 
 function ImageCard({ bleed }) {
@@ -84,10 +83,7 @@ export function Pattern() {
   const [bleed, setBleed] = useState(false);
   return (
     <div className='mx-auto grid w-full max-w-2xl gap-3'>
-      <Label className='gap-2 text-sm font-normal'>
-        <Switch size='sm' checked={bleed} onCheckedChange={setBleed} />
-        Full-bleed image
-      </Label>
+      <Switch label='Full-bleed image' size='sm' checked={bleed} onCheckedChange={setBleed} />
       <div className='grid gap-3 sm:grid-cols-2'>
         <ImageCard bleed={bleed} />
         <OverlayCard />

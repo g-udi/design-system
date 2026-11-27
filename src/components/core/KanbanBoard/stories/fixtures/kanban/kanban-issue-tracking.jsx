@@ -1,4 +1,5 @@
 'use client';
+import { CardRoot as Card } from '@gaudi/design-system/core/Card';
 import { useMemo, useState } from 'react';
 import { useCopyToClipboard } from '@gaudi/design-system/hooks/interaction/use-copy-to-clipboard';
 import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
@@ -13,7 +14,7 @@ import {
   KanbanItemHandle,
   KanbanOverlay
 } from '@gaudi/design-system/core/KanbanBoard';
-import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
+import { Avatar } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
   DropdownMenuRoot as DropdownMenu,
@@ -73,7 +74,7 @@ const INITIAL = {
 function IssueCard({ item, isOverlay }) {
   const status = STATUS[item.status];
   const body = (
-    <div className='grid gap-2 rounded-lg border border-border bg-surface p-3 text-sm shadow-xs'>
+    <Card variant='elevated' radius='lg' padding='md' className='grid gap-2 text-sm'>
       <div className='flex items-center gap-2 text-xs text-text-muted'>
         <Badge variant='outline' size='sm'>{item.area}</Badge>
         <span className='tabular-nums'>{item.id}</span>
@@ -85,10 +86,7 @@ function IssueCard({ item, isOverlay }) {
       </div>
       <p className='font-medium text-text'>{item.title}</p>
       <div className='flex items-center gap-2 text-xs text-text-muted'>
-        <Avatar className='size-5'>
-          <AvatarImage src={item.avatar} alt='' />
-          <AvatarFallback>{item.owner.charAt(0)}</AvatarFallback>
-        </Avatar>
+        <Avatar size='xs' surface='tinted' src={item.avatar} name={item.owner} alt='' />
         <span className='min-w-0 flex-1 truncate'>{item.owner}</span>
         <span className='inline-flex items-center gap-1'>
           <RegistryIcon lucide='CalendarIcon' className='size-3.5' />
@@ -97,7 +95,7 @@ function IssueCard({ item, isOverlay }) {
         <ProgressRing value={item.done} size='xs' tone={RING_TONE(item.done)} label={`${item.id} completion`} />
         <span className='w-8 text-end tabular-nums'>{item.done}%</span>
       </div>
-    </div>
+    </Card>
   );
   return <KanbanItem value={item.id}>{isOverlay ? body : <KanbanItemHandle>{body}</KanbanItemHandle>}</KanbanItem>;
 }

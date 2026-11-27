@@ -352,57 +352,62 @@ export const Crm = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const page = within(document.body);
+    const page = within(canvasElement.ownerDocument.body);
+    const toolbar = within(canvasElement.querySelector('[data-slot=card-header]'));
+    const stages = within(canvas.getByRole('tablist'));
     // Grid rows only: each revenue trend also carries its own small data table.
     const gridRows = () => canvasElement.querySelectorAll('tr[data-row-id]');
     const headers = () => [...canvasElement.querySelectorAll('thead th[data-pinned], thead th')].map((cell) => cell.textContent.trim());
     // Status tabs count each stage and filter the stage column.
     await waitFor(() => expect(gridRows()).toHaveLength(24));
-    await userEvent.click(canvas.getByRole('tab', { name: 'Won, 5' }));
+    await userEvent.click(stages.getByRole('tab', { name: 'Won, 5' }));
     await waitFor(() => expect(gridRows()).toHaveLength(5));
-    await userEvent.click(canvas.getByRole('tab', { name: 'All, 24' }));
+    await userEvent.click(stages.getByRole('tab', { name: 'All, 24' }));
     await waitFor(() => expect(gridRows()).toHaveLength(24));
     // View settings: hide a column, reorder another, switch density.
-    await userEvent.click(canvas.getByRole('button', { name: 'View', exact: true }));
-    await userEvent.click(await page.findByRole('checkbox', { name: 'Health' }));
+    await userEvent.click(toolbar.getByRole('button', { name: 'View', exact: true }));
+    const viewSettings = within(await page.findByRole('dialog', { name: 'View settings' }));
+    await userEvent.click(viewSettings.getByRole('checkbox', { name: 'Health' }));
     await waitFor(() => expect(headers()).not.toContain('Health'));
-    await userEvent.click(page.getByRole('button', { name: 'Move Owner down' }));
-    await expect(await page.findByText('Owner moved to position 2 of 7')).toBeInTheDocument();
-    await expect(page.getByRole('button', { name: 'Move Owner down' })).toHaveFocus();
-    await userEvent.click(page.getByRole('radio', { name: 'Compact' }));
+    await userEvent.click(viewSettings.getByRole('button', { name: 'Move Owner down' }));
+    await expect(await viewSettings.findByText('Owner moved to position 2 of 7')).toBeInTheDocument();
+    await expect(viewSettings.getByRole('button', { name: 'Move Owner down' })).toHaveFocus();
+    await userEvent.click(viewSettings.getByRole('radio', { name: 'Compact' }));
     await userEvent.keyboard('{Escape}');
     // The change reads as a custom layout; save it, then reset.
-    const layoutsTrigger = canvas.getByRole('button', { name: /^Layouts:/ });
+    const layoutsTrigger = toolbar.getByRole('button', { name: /^Layouts:/ });
     await waitFor(() => expect(layoutsTrigger).toHaveAccessibleName('Layouts: Custom, Modified'));
     await userEvent.click(layoutsTrigger);
-    await userEvent.type(await page.findByRole('textbox', { name: 'Layout name' }), 'Weekly review');
-    await userEvent.click(page.getByRole('button', { name: 'Save' }));
+    const savedLayouts = within(await page.findByRole('dialog', { name: 'Saved layouts' }));
+    await userEvent.click(savedLayouts.getByRole('textbox', { name: 'Layout name' }));
+    await userEvent.paste('Weekly review');
+    await userEvent.click(savedLayouts.getByRole('button', { name: 'Save' }));
     await waitFor(() => expect(layoutsTrigger).toHaveAccessibleName('Layouts: Weekly review'));
-    await userEvent.click(page.getByRole('button', { name: 'Reset layout' }));
+    await userEvent.click(savedLayouts.getByRole('button', { name: 'Reset layout' }));
     await waitFor(() => expect(layoutsTrigger).toHaveAccessibleName('Layouts: Default'));
     await waitFor(() => expect(headers()).toContain('Health'));
-    await userEvent.click(page.getByRole('button', { name: 'Apply Weekly review' }));
+    await userEvent.click(savedLayouts.getByRole('button', { name: 'Apply Weekly review' }));
     await waitFor(() => expect(headers()).not.toContain('Health'));
     await userEvent.keyboard('{Escape}');
     // Header menus carry column stats.
-    await userEvent.click(canvas.getByRole('button', { name: 'Amount' }));
+    await userEvent.click(within(canvasElement.querySelector('thead')).getByRole('button', { name: 'Amount' }));
     const stats = await page.findByRole('group', { name: 'Column stats' });
     await expect(within(stats).getByRole('menuitem', { name: /^Sum\s*\$1\.7M$/ })).toBeVisible();
     await expect(within(stats).getByRole('menuitem', { name: /^Average/ })).toBeVisible();
     await userEvent.keyboard('{Escape}');
     // Add a column from the Cascader registry.
-    await userEvent.click(canvas.getByRole('combobox', { name: 'Add column' }));
+    await userEvent.click(toolbar.getByRole('combobox', { name: 'Add column' }));
     await userEvent.click(await page.findByRole('option', { name: /Support/ }));
     await userEvent.click(await page.findByRole('option', { name: /CSAT/ }));
     await waitFor(() => expect(headers()).toContain('CSAT'));
     // Cards read the same rows and share the selection.
-    await userEvent.click(canvas.getByRole('radio', { name: 'Cards' }));
+    await userEvent.click(toolbar.getByRole('radio', { name: 'Cards' }));
     await waitFor(() => expect(canvasElement.querySelectorAll('[data-slot=data-grid-card]')).toHaveLength(24));
     await userEvent.click(canvas.getByRole('checkbox', { name: 'Select Adatum' }));
-    await userEvent.click(canvas.getByRole('radio', { name: 'Table' }));
+    await userEvent.click(toolbar.getByRole('radio', { name: 'Table' }));
     await waitFor(() => expect(canvasElement.querySelector('tr[data-row-id="deal-4"]')).toHaveAttribute('data-state', 'selected'));
     await expect(canvas.getByText(/1 selected/)).toBeInTheDocument();
-    await checkLayoutDeletion(canvasElement);
+    await checkLayoutDeletion(layoutsTrigger);
   }
 };
 export const ShipmentExceptions = {

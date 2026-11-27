@@ -23,6 +23,14 @@ export const AutomationEditor = {
     await waitFor(() => expect(canvas.getByRole('button', { name: 'Undo' })).toBeEnabled());
     await userEvent.click(canvas.getByRole('button', { name: 'Undo' }));
     await waitFor(() => expect(canvas.queryByText('New step')).not.toBeInTheDocument());
+    await userEvent.click(canvas.getByRole('button', { name: 'Add step' }));
+    await userEvent.keyboard('{Control>}z{/Control}');
+    await waitFor(() => expect(canvas.queryByText('New step')).not.toBeInTheDocument());
+    await userEvent.dblClick(canvasElement.querySelector('.react-flow__node[data-id="enrich"]'));
+    const owner = await within(canvasElement.ownerDocument.body).findByRole('combobox', { name: 'Owner' });
+    await expect(owner).toHaveValue('maya');
+    await userEvent.selectOptions(owner, 'sam');
+    await expect(owner).toHaveValue('sam');
   }
 };
 

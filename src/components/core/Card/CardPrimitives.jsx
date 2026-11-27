@@ -1,9 +1,9 @@
 import { cn } from '../../../utilities/cn/index.js';
 import { cardVariants } from './cardVariants.js';
 
-function Card({ className, fill = false, padding = 'sections', radius = 'xl', size = 'default', variant = 'compound', ...props }) {
+function Card({ as: Component = 'div', className, fill = false, padding = 'sections', radius = 'xl', size = 'default', variant = 'compound', ...props }) {
   return (
-    <div
+    <Component
       data-slot='card'
       data-size={size}
       data-padding={padding}

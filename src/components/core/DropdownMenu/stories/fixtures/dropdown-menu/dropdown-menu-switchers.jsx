@@ -4,7 +4,7 @@ import { ClaudeAiIcon } from '@gaudi/design-system/icons/brands/claudeAiIcon';
 import { Gemini } from '@gaudi/design-system/icons/brands/gemini';
 import { Openai } from '@gaudi/design-system/icons/brands/openai';
 import { OpenaiDark } from '@gaudi/design-system/icons/brands/openaiDark';
-import {
+import { getAvatarInitials,
   AvatarRoot as Avatar,
   AvatarFallback,
   AvatarImage
@@ -42,7 +42,7 @@ function WorkspaceImage({ workspace, className }) {
   return (
     <Avatar className={className}>
       <AvatarImage src={workspace.image} alt='' />
-      <AvatarFallback className='rounded-md text-xs'>{workspace.name.charAt(0)}</AvatarFallback>
+      <AvatarFallback className='rounded-md text-xs'>{getAvatarInitials(workspace.name)}</AvatarFallback>
     </Avatar>
   );
 }

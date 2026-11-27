@@ -1,4 +1,6 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
 import { GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
 import { useState } from 'react';
 import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
@@ -248,7 +250,7 @@ function AccountMenu({ onSelect, organization, setOrganization }) {
                 <span className='text-text-muted flex items-center gap-1 text-xs'>
                   <StatusDot className={`size-2 ${current.tone}`} />
                   {current.name}
-                  <span aria-hidden='true'>·</span>
+                  <span aria-hidden='true'><MetaSeparator /></span>
                   {user.plan}
                 </span>
               </span>
@@ -300,16 +302,16 @@ function ChatHeader({ title, model, onModelChange, onSearch, onNewChat, thread, 
         <h2 className='min-w-0 flex-1 break-words text-sm leading-tight font-medium'>{title}</h2>
         {thread?.id === 'middlemarch' && <Tooltip>
           <TooltipTrigger asChild>
-            <Button
-              variant='ghost'
-              size='icon-sm'
+            <Toggle
+              variant='default'
+              size='sm'
               aria-label='Spoiler guard'
-              aria-pressed={guard}
+              pressed={guard}
               className='aria-pressed:bg-ui-accent'
-              onClick={() => setGuard((on) => !on)}
+              onPressedChange={setGuard}
             >
               <RegistryIcon lucide={guard ? 'EyeOff' : 'Eye'} aria-hidden='true' />
-            </Button>
+            </Toggle>
           </TooltipTrigger>
           <TooltipContent side='bottom'>{guard ? 'Hiding chapters you have not read' : 'Showing the whole book'}</TooltipContent>
         </Tooltip>}

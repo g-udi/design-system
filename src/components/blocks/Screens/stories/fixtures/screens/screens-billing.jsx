@@ -1,3 +1,5 @@
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import { TableRoot as Table, TableHeader, TableBodyPrimitive as TableBody, TableRowPrimitive as TableRow, TableHeadPrimitive as TableHead, TableCellPrimitive as TableCell, TableCaption } from '@gaudi/design-system/mdx/Table';
 import { downloadCsv, toCsv } from '@gaudi/design-system/core/DataTable';
 import { StatCard } from '@gaudi/design-system/blocks/StatCard';
@@ -22,16 +24,17 @@ const status = { Paid: 'success-light', Refunded: 'secondary', Failed: 'destruct
 export function Pattern() {
   return (
     <section aria-labelledby='billing-title' className='grid w-full max-w-4xl gap-5'>
-      <header className='flex flex-wrap items-start justify-between gap-4 rounded-xl border p-5'>
+      <CardRoot as='header' variant='outline' padding='none' className='flex flex-wrap items-center justify-between gap-x-6 gap-y-3 p-5 overflow-visible'>
         <div className='grid gap-1'>
           <p className='text-text-muted text-sm'>Current plan</p>
           <h2 id='billing-title' className='flex items-center gap-2 text-xl font-semibold'>
             Team
             <Badge size='sm' variant='primary-light'>Monthly</Badge>
           </h2>
-          <p className='text-text-muted text-sm'>€48 per month · renews November 1, 2026 · Visa ending 4242</p>
+          <p className='text-text-muted text-sm'>€48 per month</p>
         </div>
-      </header>
+        <p className='text-text-muted text-sm'>Renews November 1, 2026 <MetaSeparator /> Visa ending 4242</p>
+      </CardRoot>
       <div className='grid gap-3 sm:grid-cols-3'>
         {usage.map((item) => (
           <StatCard key={item.label} label={item.label} value={item.value} icon={item.icon} tone={item.tone}>

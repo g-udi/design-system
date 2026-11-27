@@ -1,5 +1,6 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useInterval } from '@gaudi/design-system/hooks/state/use-interval';
+import { useState } from 'react';
 import Button from '@gaudi/design-system/core/Button';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { formatDistanceToNow } from 'date-fns';
@@ -18,10 +19,7 @@ const formatIn = (date, timeZone, options) =>
   new Intl.DateTimeFormat('en-US', { timeZone, ...options }).format(date);
 export function Pattern() {
   const [now, setNow] = useState(() => new Date());
-  useEffect(() => {
-    const timer = setInterval(() => setNow(new Date()), 1e3);
-    return () => clearInterval(timer);
-  }, []);
+  useInterval(() => setNow(new Date()), 1000);
   const deployedAt = new Date(now.getTime() - 1e3 * 60 * 120);
   const relative = formatDistanceToNow(deployedAt, { addSuffix: true });
   return (

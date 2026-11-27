@@ -109,8 +109,6 @@
   .ds-part-voice-mercury {
     --ds-voice-energy: 0;
     --ds-voice-turn: 0deg;
-    transform: scale(calc(1 + var(--ds-voice-energy) * 0.05));
-    transition: transform 0.2s ease-out, opacity 0.3s ease, filter 0.3s ease;
   }
 
   .ds-part-voice-mercury-glow {
@@ -126,6 +124,9 @@
   }
 
   .ds-part-voice-mercury-sphere {
+    /* The artwork swells inside its allocated space, even in a constrained sidebar. */
+    transform: scale(calc(0.95 + var(--ds-voice-energy) * 0.05));
+    transition: transform 0.2s ease-out;
     position: absolute;
     inset: 0;
     overflow: hidden;
@@ -214,7 +215,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     .ds-part-voice-orb,
-    .ds-part-voice-mercury,
+    .ds-part-voice-mercury-sphere,
     .ds-part-voice-mercury-glow,
     .ds-part-voice-mercury-layer,
     .ds-part-voice-orb-film {

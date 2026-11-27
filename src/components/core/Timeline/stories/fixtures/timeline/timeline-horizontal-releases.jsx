@@ -12,8 +12,7 @@ import {
   TimelineTitle
 } from '@gaudi/design-system/core/Timeline';
 import { ScrollArea, ScrollBar } from '@gaudi/design-system/core/ScrollArea';
-import { Label } from '@gaudi/design-system/core/Field';
-import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
+import LabeledSwitch from '@gaudi/design-system/core/Switch';
 import { cn } from '@gaudi/design-system/utilities/cn';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 
@@ -38,10 +37,7 @@ export function Pattern() {
   const rail = datesAbove ? 'group-data-[orientation=horizontal]/timeline:top-7' : 'group-data-[orientation=horizontal]/timeline:-top-6';
   return (
     <div className='mx-auto flex w-full max-w-xl flex-col gap-3'>
-      <Label className='gap-2 text-sm font-normal'>
-        <Switch size='sm' checked={datesAbove} onCheckedChange={setDatesAbove} />
-        Dates above the rail
-      </Label>
+      <LabeledSwitch className='gap-2 text-sm font-normal' size='sm' checked={datesAbove} onCheckedChange={setDatesAbove} label="Dates above the rail" />
       <ScrollArea className='w-full' aria-label='Release timeline'>
       <Timeline defaultValue={3} orientation='horizontal' className='pt-3 pb-2'>
         {releases.map((release) => (

@@ -1,4 +1,6 @@
 'use client';
+import EmptyState from '@gaudi/design-system/core/EmptyState';
+import { ScrollArea } from '@gaudi/design-system/core/ScrollArea';
 import { useState } from 'react';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { ChatPromptComposer } from '@gaudi/design-system/chat/ChatInput';
@@ -58,31 +60,34 @@ export function Pattern() {
             </SelectContent>
           </Select>
         </SheetHeader>
-        <div className='grid min-h-0 flex-1 content-start gap-3 overflow-y-auto p-3'>
-          {messages.length ? (
-            messages.map((message, index) => (
-              <ChatMessage key={index} align={message.role === 'user' ? 'end' : 'start'} aria-label={message.role === 'user' ? 'You' : 'Writing assistant'}>
-                <ChatMessageContent>
-                  <ChatBubble align={message.role === 'user' ? 'end' : 'start'} variant={message.role === 'user' ? 'default' : 'muted'}>
-                    <ChatBubbleContent>{message.text}</ChatBubbleContent>
-                  </ChatBubble>
-                </ChatMessageContent>
-              </ChatMessage>
-            ))
-          ) : (
-            <div className='grid gap-3 py-6 text-center'>
-              <RegistryIcon lucide='BotIcon' aria-hidden='true' className='text-text-muted mx-auto size-6' />
-              <p className='text-sm font-medium'>What should we work on?</p>
-              <div className='flex flex-wrap justify-center gap-2'>
-                {suggestions.map((suggestion) => (
-                  <Button key={suggestion} size='xs' variant='outline' className='rounded-full' onClick={() => send(suggestion)}>
-                    {suggestion}
-                  </Button>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
+        <ScrollArea aria-label='Assistant messages' className='min-h-0 min-w-0 flex-1 **:data-[slot=scroll-area-viewport]:[&>div]:block!'>
+          <div className='grid content-start gap-3 p-3'>
+            {messages.length ? (
+              messages.map((message, index) => (
+                <ChatMessage key={index} align={message.role === 'user' ? 'end' : 'start'} aria-label={message.role === 'user' ? 'You' : 'Writing assistant'}>
+                  <ChatMessageContent>
+                    <ChatBubble align={message.role === 'user' ? 'end' : 'start'} variant={message.role === 'user' ? 'default' : 'muted'}>
+                      <ChatBubbleContent>{message.text}</ChatBubbleContent>
+                    </ChatBubble>
+                  </ChatMessageContent>
+                </ChatMessage>
+              ))
+            ) : (
+              <EmptyState
+                compact
+                title='What should we work on?'
+                icon={<RegistryIcon lucide='BotIcon' />}
+                actions={<div className='flex flex-wrap justify-center gap-2'>
+                  {suggestions.map((suggestion) => (
+                    <Button key={suggestion} size='xs' variant='outline' className='rounded-full' onClick={() => send(suggestion)}>
+                      {suggestion}
+                    </Button>
+                  ))}
+                </div>}
+              />
+            )}
+          </div>
+        </ScrollArea>
         <div className='border-t p-3'>
           <ChatPromptComposer value={draft} onValueChange={setDraft} onSubmit={send} labels={{ placeholder: 'Ask about this draft…' }} />
         </div>

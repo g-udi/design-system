@@ -29,10 +29,9 @@ export async function checkColumnControls({ canvasElement }) {
   await waitFor(() => expect(canvas.getByRole('button', { name: 'Status filter', exact: true })).toHaveFocus());
 }
 
-export async function checkLayoutDeletion(canvasElement) {
-  const canvas = within(canvasElement);
-  const page = within(canvasElement.ownerDocument.body);
-  await userEvent.click(canvas.getByRole('button', { name: /^Layouts:/ }));
+export async function checkLayoutDeletion(trigger) {
+  await userEvent.click(trigger);
+  const page = within(await within(trigger.ownerDocument.body).findByRole('dialog', { name: 'Saved layouts' }));
   await userEvent.click(await page.findByRole('button', { name: 'Delete Weekly review' }));
   await waitFor(() => expect(page.queryByRole('button', { name: 'Delete Weekly review' })).not.toBeInTheDocument());
   const remaining = page.getAllByRole('button', { name: /^Delete / });

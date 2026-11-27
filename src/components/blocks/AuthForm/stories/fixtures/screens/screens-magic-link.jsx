@@ -2,7 +2,7 @@
 import { GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
 import { default as AuthForm } from '@gaudi/design-system/blocks/AuthForm';
 import { Screen, ScreenTestimonial } from '@gaudi/design-system/blocks/Screens';
-import { Frame, FramePanel } from '@gaudi/design-system/core/Card';
+import { CardRoot,  Frame, FramePanel } from '@gaudi/design-system/core/Card';
 import { Discord } from '@gaudi/design-system/icons/brands/discord';
 import { Dropbox } from '@gaudi/design-system/icons/brands/dropbox';
 import { Loom } from '@gaudi/design-system/icons/brands/loom';
@@ -35,10 +35,10 @@ export function Pattern() {
             <p className='text-text-muted text-xs font-medium'>Trusted by teams at</p>
             <ul aria-label='Customers' className='grid grid-cols-4 gap-2'>
               {logos.map(([name, Logo]) => (
-                <li key={name} className='bg-surface grid aspect-[3/2] place-items-center rounded-md border'>
+                <CardRoot as='li' variant='outline' padding='none' radius='md' key={name} className='grid aspect-[3/2] place-items-center overflow-visible'>
                   <Logo className='size-6' aria-hidden='true' />
                   <span className='sr-only'>{name}</span>
-                </li>
+                </CardRoot>
               ))}
             </ul>
           </div>

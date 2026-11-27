@@ -30,6 +30,8 @@ const [files, setFiles] = useState([]);
 | `useFileUpload`         | hook                       | Headless state (previews, drag, errors) for custom upload surfaces; same `accept` rules. |
 | `formatBytes`           | function(bytes, decimals)  | Formats a size such as `1.8MB`; FileUpload uses it for each row.                 |
 
+A custom layout can spread the hook’s `dropzoneProps` onto `FileUploadDropzone`. The shared surface marks an active drag and delegates file validation and preview management to the hook. Use `as={Button}` when the surface also opens the chooser, and connect the button to `openFileDialog`.
+
 ## Ownership and verification
 
 The host supplies data, translations, network calls, permissions and persistence. Gaudi owns layout, semantics and local interaction. Examples document working behavior and states, with Storybook interaction/axe checks and a server-rendering contract test alongside the component.

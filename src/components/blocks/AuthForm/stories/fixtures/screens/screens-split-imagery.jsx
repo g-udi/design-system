@@ -1,4 +1,5 @@
 'use client';
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import { GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
 import { useState } from 'react';
 import { default as AuthForm } from '@gaudi/design-system/blocks/AuthForm';
@@ -51,7 +52,7 @@ export function Pattern() {
         header={<span className='flex items-center gap-2 font-semibold'><GaudiBrand className='text-sm' /></span>}
         footer={<><span>© 2026 Gaudi</span><Link href='#privacy' variant='muted'>Privacy</Link></>}
       >
-        <div className='bg-surface rounded-lg border p-6 shadow-xs'>
+        <CardRoot variant='outline' padding='none' radius='lg' className='p-6 shadow-xs overflow-visible'>
           <AuthForm
             key={mode}
             title={mode === 'password' ? 'Sign in to the newsroom' : 'Get a sign-in link'}
@@ -65,7 +66,7 @@ export function Pattern() {
             onSubmit={wait}
             successMessage={mode === 'password' ? 'Signed in. Opening the newsroom…' : 'Check your inbox for the link.'}
           />
-        </div>
+        </CardRoot>
       </Screen>
       </Borealis>
     </div>

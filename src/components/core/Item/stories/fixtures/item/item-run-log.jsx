@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { Separator } from '@gaudi/design-system/core/Separator';
+import { FieldSeparator } from '@gaudi/design-system/core/Field';
 import {
   CardRoot as Card,
   CardContent,
@@ -88,11 +88,7 @@ export function Pattern() {
         <div className='flex flex-col gap-2'>
           {PHASES.map((phase) => (
             <Fragment key={phase.name}>
-              <div className='flex items-center gap-2 text-xs text-text-muted'>
-                <Separator className='min-w-0 flex-1' />
-                <span>{phase.name}</span>
-                <Separator className='min-w-0 flex-1' />
-              </div>
+              <FieldSeparator className='text-xs text-text-muted'>{phase.name}</FieldSeparator>
               {phase.steps.map((step) => (
                 <Item size='xs' key={step.id}>
                   <ItemMedia aria-hidden='true' className='size-4 [&_svg]:size-4'>{step.icon}</ItemMedia>

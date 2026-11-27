@@ -1,4 +1,4 @@
-import { expect, userEvent, within, waitFor } from 'storybook/test';
+import { expect, fireEvent, userEvent, within, waitFor } from 'storybook/test';
 
 /**
  * Galleries of dialog triggers: open each one, check the initial focus when asked,
@@ -179,7 +179,13 @@ export const catalogueInteractions = {
       (char) => char.charCodeAt(0)
     );
     const file = new File([pixels], 'gaudi-preview.png', { type: 'image/png' });
-    await userEvent.upload(input, file);
+    const zone = input.closest('.ds-dropzone');
+    const transfer = new DataTransfer();
+    transfer.items.add(file);
+    await fireEvent(zone, new DragEvent('dragenter', { bubbles: true, cancelable: true, dataTransfer: transfer }));
+    await expect(zone).toHaveAttribute('data-dragging', 'true');
+    await fireEvent(zone, new DragEvent('drop', { bubbles: true, cancelable: true, dataTransfer: transfer }));
+    await expect(zone).not.toHaveAttribute('data-dragging');
     await expect(
       canvas.getByRole('img', { name: 'gaudi-preview.png' })
     ).toBeVisible();

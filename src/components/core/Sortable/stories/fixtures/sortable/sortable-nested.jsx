@@ -1,4 +1,5 @@
 'use client';
+import { Item } from '@gaudi/design-system/core/Item';
 import { useId, useState } from 'react';
 import {
   Sortable,
@@ -106,7 +107,7 @@ export function Pattern() {
                 >
                   {group.values.map((value) => (
                     <SortableItem key={value.id} value={value.id}>
-                      <div className='border-ui-border rounded-md flex items-center gap-2 border p-1.5'>
+                      <Item size='sm' variant='outline' className='gap-2 p-1.5'>
                         <SortableItemHandle aria-label={`Drag ${value.value}`} className='text-ui-muted-foreground hover:text-ui-foreground'>
                           <RegistryIcon
                             lucide='GripVerticalIcon'
@@ -115,7 +116,7 @@ export function Pattern() {
                         </SortableItemHandle>
                         <span className='min-w-0 flex-1 text-sm'>{value.value}</span>
                         <SortableItemPosition aria-label={`Position of ${value.value}`} />
-                      </div>
+                      </Item>
                     </SortableItem>
                   ))}
                 </Sortable>

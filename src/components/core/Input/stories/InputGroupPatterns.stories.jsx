@@ -16,7 +16,7 @@ export const InputGroupAddons = {
     const canvas = within(canvasElement);
     const textarea = canvas.getByRole('textbox', { name: 'Block-end footer' });
     await userEvent.type(textarea, 'Hello');
-    await expect(canvas.getByText('5/140 characters')).toBeVisible();
+    await expect(canvas.getByText('135 characters left')).toBeVisible();
     // A click marks pointer focus: the caret shows without a ring.
     await expect(textarea).toHaveAttribute('data-focus-source', 'pointer');
     await expect(getComputedStyle(textarea.closest('[data-slot="input-group"]')).boxShadow).toBe('none');

@@ -1,4 +1,5 @@
 'use client';
+import { CardHeader, CardTitle, CardDescription, CardFooter, CardRoot } from '@gaudi/design-system/core/Card';
 import { useState } from 'react';
 import { Alert, AlertDescription, AlertTitle } from '@gaudi/design-system/core/Banner';
 import { default as Button } from '@gaudi/design-system/core/Button';
@@ -74,11 +75,11 @@ export function Pattern() {
   ].filter(Boolean);
 
   return (
-    <form noValidate aria-labelledby='auth-policy-title' onSubmit={form.handleSubmit((data) => setSaved(data))} className='mx-auto grid w-full max-w-3xl gap-4 rounded-lg border p-5 sm:p-6'>
-      <div className='grid gap-1'>
-        <h2 id='auth-policy-title' className='text-lg font-semibold'>Sign-in policy</h2>
-        <p className='text-text-muted text-sm'>Applies to every member of Gaudi. Changes take effect on the next sign-in.</p>
-      </div>
+    <CardRoot as='form' variant='outline' radius='lg' padding='none' noValidate aria-labelledby='auth-policy-title' onSubmit={form.handleSubmit((data) => setSaved(data))} className='mx-auto grid w-full max-w-3xl gap-4 p-5 sm:p-6'>
+      <CardHeader className='p-0 grid gap-1'>
+        <CardTitle as='h2' id='auth-policy-title' className='text-lg font-semibold'>Sign-in policy</CardTitle>
+        <CardDescription as='p' className='text-text-muted text-sm'>Applies to every member of Gaudi. Changes take effect on the next sign-in.</CardDescription>
+      </CardHeader>
       {errors.emailEnabled ? (
         <Alert variant='destructive'>
           <RegistryIcon lucide='CircleAlertIcon' aria-hidden='true' />
@@ -223,7 +224,7 @@ export function Pattern() {
           </FieldGroup>
         </TabsContent>
       </Tabs>
-      <div className='flex flex-wrap items-center gap-3 border-t pt-4'>
+      <CardFooter className='p-0 flex flex-wrap items-center gap-3 border-t pt-4'>
         <p className='text-text-muted min-w-0 flex-1 basis-60 text-sm'>
           Members can sign in with {summary.length ? summary.join(', ') : 'no method'}. Locked for {values.lockFor === 'admin' ? 'admin review' : `${values.lockFor} minutes`} after {values.attempts} failed attempts.
         </p>
@@ -231,7 +232,7 @@ export function Pattern() {
           <Button type='button' variant='ghost' tone='neutral' disabled={!dirty} onClick={() => form.reset(saved)}>Discard</Button>
           <Button type='submit' disabled={!dirty}>Save policy</Button>
         </div>
-      </div>
-    </form>
+      </CardFooter>
+    </CardRoot>
   );
 }

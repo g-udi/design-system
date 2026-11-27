@@ -22,6 +22,7 @@ import {
 import { useTable } from '@tanstack/react-table';
 import { cn } from '@gaudi/design-system/utilities/cn';
 import {
+  getAvatarInitials,
   AvatarRoot as Avatar,
   AvatarFallback,
   AvatarGroup,
@@ -44,10 +45,7 @@ function Person({ avatar, name }) {
     <Avatar aria-hidden='true' className='size-4.5 shrink-0'>
       <AvatarImage src={avatar} alt='' />
       <AvatarFallback>
-        {name
-          .split(' ')
-          .map((part) => part[0])
-          .join('')}
+        {getAvatarInitials(name)}
       </AvatarFallback>
     </Avatar>
   );

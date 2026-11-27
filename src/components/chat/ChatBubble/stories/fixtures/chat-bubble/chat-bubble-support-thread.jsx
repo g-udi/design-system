@@ -1,4 +1,5 @@
 'use client';
+import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
 import { useState } from 'react';
 import {
   AvatarRoot as Avatar,
@@ -6,7 +7,6 @@ import {
   AvatarImage
 } from '@gaudi/design-system/core/Avatar';
 import { ChatBubble, ChatBubbleContent, ChatBubbleGroup, ChatBubbleReactions } from '@gaudi/design-system/chat/ChatBubble';
-import { default as Button } from '@gaudi/design-system/core/Button';
 import {
   CardRoot as Card,
   CardContent,
@@ -72,17 +72,17 @@ export function Pattern() {
                     // The row collapses its own padding once it holds a button,
                     // so the single control is the hit area.
                     <ChatBubbleReactions>
-                      <Button
-                        variant='ghost'
-                        size='xs'
+                      <Toggle
+                        variant='default'
+                        size='sm'
                         className='hover:bg-ui-foreground/10 dark:hover:bg-ui-foreground/15 rounded-[inherit]'
-                        aria-pressed={reacted}
+                        pressed={reacted}
                         aria-label={`React with thanks, ${thanks} so far`}
-                        onClick={() => setReacted((value) => !value)}
+                        onPressedChange={setReacted}
                       >
                         <span aria-hidden='true'>🙏</span>
                         <span className='group-aria-pressed/button:text-ui-primary tabular-nums'>{thanks}</span>
-                      </Button>
+                      </Toggle>
                     </ChatBubbleReactions>
                   ) : null}
                 </ChatBubble>

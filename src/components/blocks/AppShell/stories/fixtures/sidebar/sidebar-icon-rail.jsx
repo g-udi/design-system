@@ -1,4 +1,5 @@
 'use client';
+import { ScrollArea } from '@gaudi/design-system/core/ScrollArea';
 import { useState } from 'react';
 import { GaudiLogo, GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
 import {
@@ -225,27 +226,29 @@ export function Pattern() {
               </Button>}
             </header>
 
-            <div className='min-w-0 flex-1 overflow-auto p-4'>
-              <p className='text-ui-muted-foreground max-w-prose text-sm'>
-                {details[page]}
-              </p>
+            <ScrollArea aria-label='Workspace content' className='min-h-0 min-w-0 flex-1 **:data-[slot=scroll-area-viewport]:[&>div]:block!'>
+              <div className='p-4'>
+                <p className='text-ui-muted-foreground max-w-prose text-sm'>
+                  {details[page]}
+                </p>
 
-              {['deployments', 'audit'].includes(page) && <ul aria-label='Deployments' className='mt-3 grid gap-2 text-sm'>{releases.map(release => <li key={release}>{release}</li>)}</ul>}
-              {['overview', 'monitoring', 'analytics', 'deployments'].includes(page) && <dl className='mt-4 flex flex-col gap-3'>
-                {MONITORS.map((monitor) => (
-                  <div
-                    key={monitor.id}
-                    className='flex items-center gap-2 text-sm'
-                  >
-                    <dt className='flex min-w-0 flex-1 items-center gap-2'>
-                      {monitor.icon}
-                      <span className='truncate'>{monitor.label}</span>
-                    </dt>
-                    <dd className='shrink-0 tabular-nums'>{monitor.value}</dd>
-                  </div>
-                ))}
-              </dl>}
-            </div>
+                {['deployments', 'audit'].includes(page) && <ul aria-label='Deployments' className='mt-3 grid gap-2 text-sm'>{releases.map(release => <li key={release}>{release}</li>)}</ul>}
+                {['overview', 'monitoring', 'analytics', 'deployments'].includes(page) && <dl className='mt-4 flex flex-col gap-3'>
+                  {MONITORS.map((monitor) => (
+                    <div
+                      key={monitor.id}
+                      className='flex items-center gap-2 text-sm'
+                    >
+                      <dt className='flex min-w-0 flex-1 items-center gap-2'>
+                        {monitor.icon}
+                        <span className='truncate'>{monitor.label}</span>
+                      </dt>
+                      <dd className='shrink-0 tabular-nums'>{monitor.value}</dd>
+                    </div>
+                  ))}
+                </dl>}
+              </div>
+            </ScrollArea>
           </SidebarInset>
         </SidebarProvider>
       </TooltipProvider>

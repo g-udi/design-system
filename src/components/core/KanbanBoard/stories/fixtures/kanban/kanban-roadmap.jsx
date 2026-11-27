@@ -1,4 +1,7 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
+import { CardRoot as Card } from '@gaudi/design-system/core/Card';
 import { useState } from 'react';
 import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import {
@@ -55,7 +58,7 @@ const INITIAL = {
 
 function FeatureCard({ item, stage, voted, onVote, isOverlay }) {
   const body = (
-    <div className='grid gap-2 rounded-lg border border-border bg-surface p-3 text-sm shadow-xs'>
+    <Card variant='elevated' radius='lg' padding='md' className='grid gap-2 text-sm'>
       <div className='flex items-start gap-2'>
         {isOverlay ? null : (
           <KanbanItemHandle asChild>
@@ -69,31 +72,30 @@ function FeatureCard({ item, stage, voted, onVote, isOverlay }) {
       </div>
       <p className='text-xs text-text-muted'>{item.description}</p>
       <p className='text-xs text-text-muted'>
-        <span className='font-medium text-text'>{item.reach}</span> · {item.reachNote}
+        <span className='font-medium text-text'>{item.reach}</span> <MetaSeparator /> {item.reachNote}
       </p>
       <Progress value={item.progress} aria-label={`${item.title}: ${item.phase}, ${item.progress}%`} className={cn('h-1.5', item.risky ? '*:data-[slot=progress-indicator]:bg-danger' : STAGES[stage].bar)} />
       <div className='flex items-center gap-2 text-xs text-text-muted'>
         <span className={cn(item.risky && 'font-medium text-danger')}>{item.phase}</span>
-        <span className='tabular-nums'>· {item.progress}%</span>
-        <Button
-          variant={voted ? 'secondary' : 'ghost'}
-          size='xs'
+        <span className='tabular-nums'><MetaSeparator /> {item.progress}%</span>
+        <Toggle
+          size='sm'
           className='ms-auto tabular-nums'
-          aria-pressed={voted}
+          pressed={voted}
           aria-label={`Upvote ${item.title}, ${item.votes + (voted ? 1 : 0)} votes`}
-          onClick={() => onVote?.(item.id)}
+          onPressedChange={() => onVote?.(item.id)}
           disabled={isOverlay}
         >
           <RegistryIcon lucide='ThumbsUpIcon' />
           {item.votes + (voted ? 1 : 0)}
-        </Button>
+        </Toggle>
         <span className={cn('inline-flex items-center gap-0.5 font-medium tabular-nums', item.trend >= 0 ? 'text-success' : 'text-danger')}>
           <RegistryIcon lucide={item.trend >= 0 ? 'ArrowUpIcon' : 'ArrowDownIcon'} className='size-3' />
           {Math.abs(item.trend)}
           <span className='sr-only'>{item.trend >= 0 ? 'more' : 'fewer'} votes this week</span>
         </span>
       </div>
-    </div>
+    </Card>
   );
   return (
     <KanbanItem value={item.id} withHandle>

@@ -1,4 +1,5 @@
 'use client';
+import { ScrollArea } from '@gaudi/design-system/core/ScrollArea';
 import { useEffect, useState } from 'react';
 import { hotkeysCoreFeature, syncDataLoaderFeature } from '@headless-tree/core';
 import { useTree } from '@headless-tree/react';
@@ -225,9 +226,9 @@ export function Pattern() {
           <span className='text-text-muted text-xs'>{values.granted.length} of {presets.admin.length} granted</span>
         </div>
         <Input id={form.id('permission-search')} type='search' placeholder='Search permissions' value={query} onChange={(event) => setQuery(event.target.value)} prefix={<RegistryIcon lucide='SearchIcon' aria-hidden='true' />} />
-        <div id={form.id('granted')} className='max-h-72 overflow-y-auto rounded-md border'>
+        <ScrollArea id={form.id('granted')} aria-label='Permission choices' className='min-w-0 rounded-md border [&_[data-slot=scroll-area-viewport]]:max-h-72'>
           <PermissionTree form={form} query={query} />
-        </div>
+        </ScrollArea>
         <FieldError id={form.errorId('granted')}>{form.errors.granted}</FieldError>
       </Field>
       {sensitive.length ? (

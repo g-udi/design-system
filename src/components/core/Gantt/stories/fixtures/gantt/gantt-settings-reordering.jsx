@@ -1,4 +1,5 @@
 'use client';
+import { FieldRoot as Field } from '@gaudi/design-system/core/Field';
 import { useId, useMemo, useRef, useState } from 'react';
 import { Gantt } from '@gaudi/design-system/core/Gantt';
 import {
@@ -216,31 +217,31 @@ function SettingSwitch({ id: name, label, checked, onCheckedChange }) {
   const uniqueId = useId();
   const id = `${uniqueId}-${name}`;
   return (
-    <div className='flex items-center justify-between gap-4 py-1'>
+    <Field orientation='horizontal' className='justify-between gap-4 py-1'>
       <Label htmlFor={id} className='font-normal'>
         {label}
       </Label>
       <Switch id={id} checked={checked} onCheckedChange={onCheckedChange} />
-    </div>
+    </Field>
   );
 }
 function SettingRadio({ id: name, value, label }) {
   const uniqueId = useId();
   const id = `${uniqueId}-${name}`;
   return (
-    <div className='flex items-center gap-2 py-0.5'>
+    <Field orientation='horizontal' className='gap-2 py-0.5'>
       <RadioGroupItem value={value} id={id} />
       <Label htmlFor={id} className='font-normal'>
         {label}
       </Label>
-    </div>
+    </Field>
   );
 }
 function SettingSelect({ id: name, label, value, options, onValueChange }) {
   const uniqueId = useId();
   const id = `${uniqueId}-${name}`;
   return (
-    <div className='flex items-center justify-between gap-4 py-1'>
+    <Field orientation='horizontal' className='justify-between gap-4 py-1'>
       <Label htmlFor={id} className='font-normal'>
         {label}
       </Label>
@@ -260,7 +261,7 @@ function SettingSelect({ id: name, label, value, options, onValueChange }) {
           ))}
         </SelectContent>
       </Select>
-    </div>
+    </Field>
   );
 }
 function SettingsMenu({

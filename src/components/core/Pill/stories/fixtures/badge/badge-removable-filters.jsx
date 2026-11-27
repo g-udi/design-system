@@ -1,8 +1,9 @@
 'use client';
+import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
 import Dialog from '@gaudi/design-system/core/Dialog';
 import { useState } from 'react';
 import { Badge } from '@gaudi/design-system/core/Pill';
-import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
+import { getAvatarInitials, AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 const initial = [
@@ -19,7 +20,7 @@ export function Pattern() {
           {avatar ? (
             <Avatar className='size-3.5'>
               <AvatarImage src={avatar} alt='' />
-              <AvatarFallback>{label.slice(0, 2)}</AvatarFallback>
+              <AvatarFallback>{getAvatarInitials(label)}</AvatarFallback>
             </Avatar>
           ) : null}
           {label}
@@ -52,12 +53,12 @@ export function Pattern() {
           {initial.map((tag) => {
             const active = filters.some((entry) => entry.id === tag.id);
             return (
-              <Button
+              <Toggle
                 key={tag.id}
                 variant='outline'
                 size='sm'
-                aria-pressed={active}
-                onClick={() =>
+                pressed={active}
+                onPressedChange={() =>
                   setFilters((current) =>
                     current.some((entry) => entry.id === tag.id)
                       ? current.filter((entry) => entry.id !== tag.id)
@@ -66,7 +67,7 @@ export function Pattern() {
                 }
               >
                 {tag.label}
-              </Button>
+              </Toggle>
             );
           })}
         </div>

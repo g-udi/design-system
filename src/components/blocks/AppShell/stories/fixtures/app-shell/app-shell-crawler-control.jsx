@@ -1,4 +1,5 @@
 'use client';
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import { GaudiLogo } from '@gaudi/design-system/icons/brands/gaudi';
 import { useId, useMemo, useRef, useState } from 'react';
 import { default as Button } from '@gaudi/design-system/core/Button';
@@ -364,7 +365,7 @@ function CaptureQueue({ matchingRuns, onInspect }) {
     return sort === 'name' ? [...matchingRuns].sort((a, b) => a.name.localeCompare(b.name)) : matchingRuns;
   }, [matchingRuns, sort]);
   return (
-    <div className='flex min-h-0 flex-1 flex-col overflow-hidden rounded-(--ds-radius-card) border border-ui-border bg-surface-muted/60'>
+    <CardRoot variant='outline' padding='none' className='flex min-h-0 flex-1 flex-col gap-0 bg-surface-muted/60'>
       <div className='flex shrink-0 items-center gap-2 px-4 py-2'>
         <h3 className='min-w-0 flex-1 truncate text-sm font-medium'>Capture Queue</h3>
         <Button
@@ -502,7 +503,7 @@ function CaptureQueue({ matchingRuns, onInspect }) {
           {compact ? null : 'Activity'}
         </Button>
       </div>
-    </div>
+    </CardRoot>
   );
 }
 

@@ -1,6 +1,7 @@
 'use client';
-import { useEffect, useState } from 'react';
-import { ProgressRoot as Progress } from '@gaudi/design-system/core/Progress';
+import { useInterval } from '@gaudi/design-system/hooks/state/use-interval';
+import { useState } from 'react';
+import Progress from '@gaudi/design-system/core/Progress';
 export function Pattern() {
   const [downloadProgress, setDownloadProgress] = useState(0);
   const getStatusMessage = (progress) => {
@@ -16,28 +17,17 @@ export function Pattern() {
     if (progress < 100) return 'Finishing the export...';
     return 'Export ready to download.';
   };
-  useEffect(() => {
-    const downloadTimer = setInterval(() => {
-      setDownloadProgress((prev) => {
-        if (prev >= 100) {
-          return 0;
-        }
-        return prev + Math.random() * 3 + 1;
-      });
-    }, 150);
-    return () => {
-      clearInterval(downloadTimer);
-    };
-  }, []);
+  useInterval(() => {
+    setDownloadProgress((prev) => {
+      if (prev >= 100) {
+        return 0;
+      }
+      return prev + Math.random() * 3 + 1;
+    });
+  }, 150);
   return (
     <div className='w-full max-w-xs space-y-2'>
-      <div className='flex items-center justify-between'>
-        <span className='text-sm font-medium'>Workspace Setup</span>
-        <span className='text-ui-muted-foreground text-sm'>
-          {Math.min(Math.round(downloadProgress), 100)}%
-        </span>
-      </div>
-      <Progress value={downloadProgress} />
+      <Progress label='Workspace Setup' value={downloadProgress} valueText={`${Math.min(Math.round(downloadProgress), 100)}%`} />
       <div className='text-ui-muted-foreground text-xs'>
         {getStatusMessage(downloadProgress)}
       </div>

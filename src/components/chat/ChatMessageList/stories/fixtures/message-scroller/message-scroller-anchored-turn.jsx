@@ -1,10 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import {
-  AvatarRoot as Avatar,
-  AvatarFallback,
-  AvatarImage
-} from '@gaudi/design-system/core/Avatar';
+import { Avatar } from '@gaudi/design-system/core/Avatar';
 import { ChatBubble, ChatBubbleContent } from '@gaudi/design-system/chat/ChatBubble';
 import {
   CardRoot as Card,
@@ -135,13 +131,7 @@ export function Pattern() {
                       <ChatMessage align={isUser ? 'end' : 'start'}>
                         <ChatMessageAvatar className='size-8'>
                           {isUser ? (
-                            <Avatar>
-                              <AvatarImage
-                                src={VIEWER_AVATAR}
-                                alt={turn.author}
-                              />
-                              <AvatarFallback>JW</AvatarFallback>
-                            </Avatar>
+                            <Avatar size='sm' surface='tinted' src={VIEWER_AVATAR} name={turn.author} />
                           ) : (
                             <>
                               <RegistryIcon

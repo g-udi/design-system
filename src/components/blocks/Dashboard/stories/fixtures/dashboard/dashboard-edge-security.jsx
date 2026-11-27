@@ -1,4 +1,5 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
 import { useState } from 'react';
 import { DashboardGrid, DashboardPanel, dashboardSpan } from '@gaudi/design-system/blocks/Dashboard';
 import { StatCard } from '@gaudi/design-system/blocks/StatCard';
@@ -7,8 +8,7 @@ import { BarChart } from '@gaudi/design-system/charts/BarChart';
 import { SankeyChart } from '@gaudi/design-system/charts/SankeyChart';
 import { default as Progress } from '@gaudi/design-system/core/Progress';
 import { Badge } from '@gaudi/design-system/core/Pill';
-import { default as Button } from '@gaudi/design-system/core/Button';
-import { ToggleGroupRoot as ToggleGroup, ToggleGroupItem } from '@gaudi/design-system/core/ToggleGroup';
+import { Toggle, ToggleGroupRoot as ToggleGroup, ToggleGroupItem } from '@gaudi/design-system/core/ToggleGroup';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 
 const tiles = [
@@ -53,7 +53,7 @@ export function Pattern() {
     <div className='grid w-full gap-4'>
       <header className='flex flex-wrap items-end justify-between gap-3'>
         <div>
-          <p className='text-text-muted text-xs'>Gaudi · Edge network</p>
+          <p className='text-text-muted text-xs'>Gaudi <MetaSeparator /> Edge network</p>
           <h2 className='text-xl font-semibold'>Security telemetry</h2>
         </div>
         <Badge variant='warning-light'><RegistryIcon lucide='ShieldAlertIcon' aria-hidden='true' />2 active threats</Badge>
@@ -108,9 +108,9 @@ export function Pattern() {
                   <div className='flex items-center gap-2'>
                     <Badge variant={threat.state === 'Blocked' ? 'success-light' : paused[threat.id] ? 'secondary' : 'warning-light'}>{paused[threat.id] ? 'Paused' : threat.state}</Badge>
                     {threat.state !== 'Blocked' ? (
-                      <Button variant='outline' tone='neutral' size='xs' aria-pressed={Boolean(paused[threat.id])} onClick={() => setPaused((current) => ({ ...current, [threat.id]: !current[threat.id] }))}>
+                      <Toggle variant='outline' size='sm' pressed={Boolean(paused[threat.id])} onPressedChange={(pressed) => setPaused((current) => ({ ...current, [threat.id]: pressed }))}>
                         {paused[threat.id] ? 'Resume rule' : 'Pause rule'}
-                      </Button>
+                      </Toggle>
                     ) : null}
                   </div>
                 </div>

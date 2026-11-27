@@ -7,7 +7,7 @@ import {
   CardRoot as Card,
   CardContent
 } from '@gaudi/design-system/core/Card';
-import { Label } from '@gaudi/design-system/core/Field';
+import { FieldRoot as Field, FieldLabelPrimitive as FieldLabel } from '@gaudi/design-system/core/Field';
 import { default as Textarea } from '@gaudi/design-system/core/Textarea';
 
 const feedback = (rating) =>
@@ -34,8 +34,8 @@ export function Pattern() {
             <Rating rating={rating} onRatingChange={setRating} editable showValue />
             <p className='min-h-4 text-xs text-text-muted'>{rating > 0 ? feedback(rating) : 'Choose a score to continue'}</p>
           </div>
-          <div className='grid gap-1.5'>
-            <Label htmlFor={`${toastId}-review-text`}>Your review</Label>
+          <Field>
+            <FieldLabel htmlFor={`${toastId}-review-text`}>Your review</FieldLabel>
             <Textarea
               id={`${toastId}-review-text`}
               value={review}
@@ -43,7 +43,7 @@ export function Pattern() {
               placeholder='What worked, and what could be clearer?'
               rows={3}
             />
-          </div>
+          </Field>
           <Button type='submit' disabled={rating === 0} size='sm' className='w-full'>
             Submit review
           </Button>

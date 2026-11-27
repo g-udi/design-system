@@ -1,3 +1,4 @@
+import { Item } from '@gaudi/design-system/core/Item';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
@@ -24,22 +25,22 @@ export function Pattern() {
           </CollapsibleTrigger>
         </div>
 
-        <div className='bg-surface-muted/30 rounded-lg flex items-center justify-between border px-3 py-2 text-sm'>
+        <Item variant='outline' size='sm' className='bg-surface-muted/30 rounded-lg flex items-center justify-between px-3 py-2 text-sm'>
           <span className='text-text-muted'>Status</span>
           <Badge variant='success-light'>Shipped</Badge>
-        </div>
+        </Item>
 
         <CollapsibleContent className='flex flex-col gap-2'>
-          <div className='rounded-lg border px-3 py-2 text-sm'>
+          <Item variant='outline' size='sm' className='rounded-lg px-3 py-2 text-sm'>
             <p className='font-medium'>Shipping address</p>
             <p className='text-text-muted'>
               100 Market St, San Francisco
             </p>
-          </div>
-          <div className='rounded-lg border px-3 py-2 text-sm'>
+          </Item>
+          <Item variant='outline' size='sm' className='rounded-lg px-3 py-2 text-sm'>
             <p className='font-medium'>Items</p>
             <p className='text-text-muted'>2x Studio Headphones</p>
-          </div>
+          </Item>
         </CollapsibleContent>
       </Collapsible>
     </div>

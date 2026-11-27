@@ -10,8 +10,7 @@ import {
   StepperTitle,
   StepperTrigger
 } from '@gaudi/design-system/core/Stepper';
-import { Label } from '@gaudi/design-system/core/Field';
-import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
+import LabeledSwitch from '@gaudi/design-system/core/Switch';
 import { cn } from '@gaudi/design-system/utilities/cn';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
@@ -25,10 +24,7 @@ export function Pattern() {
   const [titles, setTitles] = useState(false);
   return (
     <div className='mx-auto flex w-full max-w-md flex-col gap-4'>
-      <Label className='gap-2 text-sm font-normal'>
-        <Switch size='sm' checked={titles} onCheckedChange={setTitles} />
-        Titles
-      </Label>
+      <LabeledSwitch className='gap-2 text-sm font-normal' size='sm' checked={titles} onCheckedChange={setTitles} label="Titles" />
       <Stepper value={currentStep} onValueChange={setCurrentStep}>
         <StepperNav className={cn(titles && 'gap-3')}>
           {steps.map((title, index) => (

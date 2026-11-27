@@ -1,4 +1,5 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
 import { lazy, Suspense, useMemo, useState } from 'react';
 import {
   DataGrid,
@@ -34,12 +35,15 @@ import {
 } from '@gaudi/design-system/core/FilterBar';
 import { useTable } from '@tanstack/react-table';
 import {
+  getAvatarInitials,
   AvatarRoot as Avatar,
   AvatarFallback,
   AvatarImage
 } from '@gaudi/design-system/core/Avatar';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import {
+  CardTitle,
+  CardDescription,
   CardRoot as Card,
   CardContent,
   CardHeader
@@ -181,7 +185,7 @@ function Initials({ name }) {
     <Avatar aria-hidden='true' className='size-6 shrink-0'>
       <AvatarImage src={`/avatars/${OWNER_PORTRAITS.get(name)}.svg`} />
       <AvatarFallback>
-        {name.split(' ').map((part) => part[0]).join('')}
+        {getAvatarInitials(name)}
       </AvatarFallback>
     </Avatar>
   );
@@ -426,11 +430,11 @@ export function Pattern() {
       <Card className='w-full gap-0 p-0'>
         <CardHeader className='flex flex-wrap items-center justify-between gap-3 px-4 py-3'>
           <div className='flex min-w-0 flex-col'>
-            <h2 className='text-ui-foreground text-sm font-medium'>Pipeline</h2>
-            <p className='text-ui-muted-foreground text-xs tabular-nums'>
-              {rows.length} deals · {compactMoney.format(pipeline)} open
-              {selected ? ` · ${selected} selected` : ''}
-            </p>
+            <CardTitle as='h2' className='text-ui-foreground text-sm font-medium'>Pipeline</CardTitle>
+            <CardDescription as='p' className='text-ui-muted-foreground text-xs tabular-nums'>
+              {rows.length} deals <MetaSeparator /> {compactMoney.format(pipeline)} open
+              {selected > 0 && <> <MetaSeparator /> {selected} selected</>}
+            </CardDescription>
           </div>
           <div className='flex flex-wrap items-center gap-2'>
             <DataGridColumnPicker

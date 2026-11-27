@@ -47,10 +47,10 @@ The status is named in text, not colour alone.
 
 Curated patterns:
 
-- Agent fleet — registry item `@gaudi/chat-delegation-agent-fleet` (uses `AccordionContent`, `AccordionItem`, `AccordionRoot`, `AccordionTrigger`, `Badge`, `Button`, `ChatAgentMark`, `ChatMessageToolApproval`, `ChatPlan`, `DialogContent`, `DialogDescription`, `DialogFooter`, `DialogHeader`, `DialogRoot`, `DialogTitle`, `ProgressRoot`, `Tree`, `TreeItem`, `TreeItemLabel`)
+- Agent fleet — registry item `@gaudi/chat-delegation-agent-fleet` (uses `AccordionContent`, `AccordionItem`, `AccordionRoot`, `AccordionTrigger`, `Badge`, `Button`, `CardRoot`, `ChatAgentMark`, `ChatMessageToolApproval`, `ChatPlan`, `DialogContent`, `DialogDescription`, `DialogFooter`, `DialogHeader`, `DialogRoot`, `DialogTitle`, `EmptyState`, `MetaSeparator`, `ProgressRoot`, `Tree`, `TreeItem`, `TreeItemLabel`)
 - Handing work to another agent — registry item `@gaudi/chat-delegation-agent-handoff` (uses `Button`, `ChatAgentMark`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageHeader`, `ChatMessageParts`, `RegistryIcon`)
-- Conflict radar — registry item `@gaudi/chat-delegation-conflict-radar` (uses `Badge`, `Button`, `ChatAgentMark`, `DataTable`, `Empty`, `EmptyDescription`, `EmptyHeader`, `EmptyTitle`, `RadioGroup`, `RegistryIcon`, `ToggleGroupItem`, `ToggleGroupRoot`)
-- Agent handoff relay — registry item `@gaudi/chat-delegation-handoff-relay` (uses `Badge`, `Button`, `ChatAgentMark`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `RegistryIcon`)
+- Conflict radar — registry item `@gaudi/chat-delegation-conflict-radar` (uses `Badge`, `Button`, `ChatAgentMark`, `DataTable`, `Empty`, `EmptyDescription`, `EmptyHeader`, `EmptyTitle`, `MetaSeparator`, `RadioGroup`, `RegistryIcon`, `ToggleGroupItem`, `ToggleGroupRoot`)
+- Agent handoff relay — registry item `@gaudi/chat-delegation-handoff-relay` (uses `Badge`, `Button`, `ChatAgentMark`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `MetaSeparator`, `RegistryIcon`)
 
 ## README
 

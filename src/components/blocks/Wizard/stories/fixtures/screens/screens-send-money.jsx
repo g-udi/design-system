@@ -1,4 +1,5 @@
 'use client';
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import { useState } from 'react';
 import { Combobox, ComboboxContent, ComboboxEmpty, ComboboxInput, ComboboxItem, ComboboxList } from '@gaudi/design-system/core/Select';
 import { default as Field, FieldDescription, FieldError, FieldLabel } from '@gaudi/design-system/core/Field';
@@ -36,7 +37,7 @@ export function Pattern() {
   };
   const keys = ['payee', 'amount'];
   return (
-    <div className='w-full max-w-xl rounded-xl border p-5'>
+    <CardRoot variant='outline' padding='none' className='w-full max-w-xl p-5 overflow-visible'>
       <Wizard
         title='Send money'
         description={`From Main account · ${euro(balance)} available`}
@@ -103,12 +104,12 @@ export function Pattern() {
                   </Combobox>
                 </Field>
               </div>
-              <dl className='bg-surface-muted grid gap-1.5 rounded-lg border p-3 text-sm'>
+              <CardRoot as='dl' variant='soft' padding='none' radius='lg' className='grid gap-1.5 p-3 text-sm overflow-visible'>
                 <div className='flex justify-between gap-3'><dt className='text-text-muted'>Rate</dt><dd>1 EUR = {rate} {currency.slice(0, 3)}</dd></div>
                 <div className='flex justify-between gap-3'><dt className='text-text-muted'>Fee</dt><dd>{euro(fee)}</dd></div>
                 <div className='flex justify-between gap-3 font-medium'><dt>Taken from your account</dt><dd aria-live='polite'>{euro(Number(amount) > 0 ? debit : 0)}</dd></div>
                 <div className='flex justify-between gap-3'><dt className='text-text-muted'>Balance after</dt><dd className={debit > balance ? 'text-danger' : undefined}>{euro(balance - (Number(amount) > 0 ? debit : 0))}</dd></div>
-              </dl>
+              </CardRoot>
             </div>
           ) : step === 2 ? (
             <RadioGroup
@@ -140,6 +141,6 @@ export function Pattern() {
           )
         }
       </Wizard>
-    </div>
+    </CardRoot>
   );
 }

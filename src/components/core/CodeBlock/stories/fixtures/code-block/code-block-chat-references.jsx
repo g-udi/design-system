@@ -1,4 +1,5 @@
 'use client';
+import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
 import { useState } from 'react';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import {
@@ -123,20 +124,15 @@ export function Pattern() {
                 {/* Two actions per chip, so two real buttons: the label
        highlights the referenced line in the block above through
        `highlightedLines`, the X removes the reference. */}
-                <Button
-                  variant='ghost'
-                  size='xs'
-                  aria-pressed={highlighted === line}
+                <Toggle
+                  size='sm'
+                  pressed={highlighted === line}
                   aria-label={`Highlight line ${line} in the code`}
-                  onClick={() =>
-                    setHighlighted((current) =>
-                      current === line ? null : line
-                    )
-                  }
+                  onPressedChange={(pressed) => setHighlighted(pressed ? line : null)}
                   className='min-h-[24px] p-0 font-mono hover:bg-transparent'
                 >
                   {FILE}:{line}
-                </Button>
+                </Toggle>
                 <Button
                   variant='ghost'
                   size='icon-xs'

@@ -1,4 +1,5 @@
 'use client';
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import { TableRoot as Table, TableHeader, TableBodyPrimitive as TableBody, TableRowPrimitive as TableRow, TableHeadPrimitive as TableHead, TableCellPrimitive as TableCell, TableCaption } from '@gaudi/design-system/mdx/Table';
 import { useState } from 'react';
 import { CheckboxRoot as Checkbox } from '@gaudi/design-system/core/Checkbox';
@@ -63,7 +64,7 @@ export function Pattern() {
   const [digest, setDigest] = useState(true);
   return (
     <div className='grid w-full max-w-3xl grid-cols-1 gap-4'>
-      <section aria-labelledby='digest-title' className='grid gap-4 rounded-xl border p-3 sm:p-5'>
+      <CardRoot as='section' variant='outline' padding='none' aria-labelledby='digest-title' className='grid gap-4 p-3 sm:p-5 overflow-visible'>
         <h2 id='digest-title' className='text-lg font-semibold'>Daily digest</h2>
         <Row id='digest' label='Send a digest' description='One email with everything you missed.'>
           <Switch id='digest' checked={digest} onCheckedChange={setDigest} />
@@ -82,7 +83,7 @@ export function Pattern() {
             </NativeSelect>
           </div>
         ) : null}
-      </section>
+      </CardRoot>
       <Tabs defaultValue='email' className='grid gap-4 rounded-xl border p-3 sm:p-5'>
         <div className='flex flex-wrap items-center justify-between gap-3'>
           <h2 className='text-lg font-semibold'>Alerts by channel</h2>

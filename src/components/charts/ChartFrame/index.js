@@ -13,6 +13,7 @@ export {
   ChartAnnotations,
   ChartAreaGradient,
   ChartGrid,
+  ChartLegendList,
   ChartReferenceLabel,
   ChartReferenceLine,
   ChartTooltipRows,

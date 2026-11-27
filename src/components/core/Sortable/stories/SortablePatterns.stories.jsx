@@ -65,10 +65,20 @@ export const Persisted = { name: 'Persisted order', ...pattern('persisted', 'Per
   for (const fail of [false, true]) {
     if (fail) await userEvent.click(canvas.getByRole('switch', {name: 'Simulate a failed save'}));
     const before = [...canvasElement.querySelectorAll('[data-slot="sortable-item"]')].map((item) => item.dataset.value);
-    canvas.getAllByRole('button', {name: /^Drag /})[0].focus();
-    await userEvent.keyboard(' {ArrowDown} ');
-    await waitFor(() => expect(body.getByText('Saving order...')).toBeVisible());
-    await expect(canvas.getByRole('switch', {name: 'Simulate a failed save'})).toBeDisabled();
+    const failureSwitch = canvas.getByRole('switch', { name: 'Simulate a failed save' });
+    canvas.getAllByRole('button', { name: /^Drag / })[0].focus();
+    await userEvent.keyboard(' ');
+    await waitFor(() => expect(canvasElement.querySelector('[data-slot="sortable"]')).toHaveAttribute('data-dragging', 'true'));
+    await userEvent.keyboard('{ArrowDown}');
+    await waitFor(() => expect(canvas.getByRole('status')).toHaveTextContent(`droppable area ${before[1]}.`));
+    // Observe the transient saving state as the drop happens, even on a busy browser.
+    await Promise.all([
+      waitFor(() => {
+        expect(body.getByText('Saving order...')).toBeVisible();
+        expect(failureSwitch).toBeDisabled();
+      }),
+      userEvent.keyboard(' ')
+    ]);
     if (fail) {
       await expect(await body.findByText('Could not save the new order. Restored.')).toBeVisible();
       await waitFor(() => expect([...canvasElement.querySelectorAll('[data-slot="sortable-item"]')].map((item) => item.dataset.value)).toEqual(before));

@@ -1,7 +1,9 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import EmptyState from '@gaudi/design-system/core/EmptyState';
 import { IconTile } from '@gaudi/design-system/core/Icon';
 import { useState } from 'react';
-import { AvatarRoot as Avatar, AvatarFallback, AvatarGroup, AvatarImage } from '@gaudi/design-system/core/Avatar';
+import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
 import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import {
   BreadcrumbRoot as Breadcrumb,
@@ -22,13 +24,6 @@ import {
 import { DropdownMenuRoot as DropdownMenu, DropdownMenuContent, DropdownMenuItemPrimitive as DropdownMenuItem, DropdownMenuLabelPrimitive as DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparatorPrimitive as DropdownMenuSeparator, DropdownMenuTrigger } from '@gaudi/design-system/core/DropdownMenu';
 import { default as Kbd } from '@gaudi/design-system/core/Kbd';
 import { ProgressRoot as Progress } from '@gaudi/design-system/core/Progress';
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle
-} from '@gaudi/design-system/core/Sheet';
 import { TooltipRoot as Tooltip, TooltipContent, TooltipTrigger } from '@gaudi/design-system/core/Tooltip';
 import {
   Sidebar,
@@ -49,7 +44,7 @@ import {
   AppShellPanel,
   useAppShellFrame
 } from '@gaudi/design-system/blocks/AppShell';
-import { AppShellNav } from '@gaudi/design-system/blocks/AppShell';
+import { AppShellNav, AppShellNotifications } from '@gaudi/design-system/blocks/AppShell';
 import { Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemTitle } from '@gaudi/design-system/core/Item';
 import Input from '@gaudi/design-system/core/Input';
 import Textarea from '@gaudi/design-system/core/Textarea';
@@ -138,12 +133,12 @@ const initialArticles = [
   }
 ];
 const initialNotifications = [
-  { id: 'comment', photo: 'person-20', title: 'Lina Sato commented on “On slow reading”', body: '“The bit about rereading as revision stayed with me all week.”', time: '2 min ago', unread: true },
-  { id: 'links', icon: 'Unlink', tone: 'text-warning', title: 'Broken links found', tag: 'Live', body: '4 citations in “Letters from a lost press” point to pages that moved.', actions: ['Flag for review', 'Dismiss'], time: '15 min ago', unread: true },
-  { id: 'edit', icon: 'Pencil', tone: 'text-warning', title: 'Suggested edits waiting', body: 'Tomas proposed 12 edits to “Gardens of notes” before it goes live.', actions: ['Approve', 'Review'], time: '1 hour ago', unread: true },
-  { id: 'scheduled', icon: 'CalendarClock', tone: 'text-info', title: 'Newsletter scheduled', body: 'Issue 42 goes out Friday at 7:00 to 1,284 subscribers.', time: '2 hours ago', unread: true },
-  { id: 'editors', icon: 'Users', tone: 'text-success', title: '3 editors joined Reading Room', body: 'Hana, Owen and Clara can now review drafts.', people: ['person-23', 'person-44', 'person-24'], time: '4 hours ago', unread: true },
-  { id: 'milestone', icon: 'BookOpen', tone: 'text-success', title: '10,000 reads this month', body: 'Read-through on essays is up to 68%.', progress: 100, time: '5 hours ago' }
+  { id: 'comment', avatar: portrait('person-20'), title: 'Lina Sato commented on “On slow reading”', body: '“The bit about rereading as revision stayed with me all week.”', time: '2 min ago', unread: true },
+  { id: 'links', icon: 'Unlink', tone: 'warning', title: 'Broken links found', badge: 'Live', body: '4 citations in “Letters from a lost press” point to pages that moved.', actions: [{ label: 'Flag for review', primary: true, done: 'Flagged for review' }, { label: 'Dismiss', done: 'Dismissed' }], time: '15 min ago', unread: true },
+  { id: 'edit', icon: 'Pencil', tone: 'warning', title: 'Suggested edits waiting', body: 'Tomas proposed 12 edits to “Gardens of notes” before it goes live.', actions: [{ label: 'Approve', primary: true, done: 'Edits approved' }, { label: 'Review', done: 'In review' }], time: '1 hour ago', unread: true },
+  { id: 'scheduled', icon: 'CalendarClock', tone: 'info', title: 'Newsletter scheduled', body: 'Issue 42 goes out Friday at 7:00 to 1,284 subscribers.', time: '2 hours ago', unread: true },
+  { id: 'editors', icon: 'Users', tone: 'success', title: '3 editors joined Reading Room', body: 'Hana, Owen and Clara can now review drafts.', people: ['person-23', 'person-44', 'person-24'].map(portrait), time: '4 hours ago', unread: true },
+  { id: 'milestone', icon: 'BookOpen', tone: 'success', title: '10,000 reads this month', body: 'Read-through on essays is up to 68%.', progress: { value: 100, label: 'Monthly reads goal' }, time: '5 hours ago' }
 ];
 
 function RailItem({ section, current, onSelect }) {
@@ -253,84 +248,7 @@ function Switcher({ label, value, options, onChange, hideLabelOnPhone, className
   );
 }
 
-function NotificationsSheet({ open, onOpenChange, items, setItems }) {
-  const frame = useAppShellFrame();
-  const unread = items.filter((item) => item.unread).length;
-  const act = (id, action) => setItems((list) => list.map((item) => (item.id === id ? { ...item, done: action, unread: false } : item)));
-  return (
-    <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent container={frame?.container ?? undefined} side='right' showCloseButton={false} className='w-96 max-w-[90%] gap-0 p-0'>
-        <SheetHeader className='border-ui-border flex-row items-center gap-2 border-b px-4 py-3'>
-          <SheetTitle className='text-sm'>Notifications</SheetTitle>
-          {unread ? <Badge variant='invert' size='sm' className='rounded-full'>{unread}</Badge> : null}
-          <SheetDescription className='sr-only'>Comments, link checks, edits and publishing activity.</SheetDescription>
-          <div className='ms-auto flex gap-0.5'>
-            <Button variant='ghost' size='icon-sm' aria-label='Mark all as read' onClick={() => setItems((list) => list.map((item) => ({ ...item, unread: false })))}>
-              <RegistryIcon lucide='CheckCheck' aria-hidden='true' />
-            </Button>
-            <Button variant='ghost' size='icon-sm' aria-label='Close notifications' onClick={() => onOpenChange(false)}>
-              <RegistryIcon lucide='X' aria-hidden='true' />
-            </Button>
-          </div>
-        </SheetHeader>
-        <ul aria-label='Site notifications' className='min-h-0 flex-1 overflow-y-auto overscroll-contain'>
-          {items.map((item) => (
-            <li key={item.id} className='border-ui-border relative flex gap-3 border-b px-4 py-3 text-sm'>
-              {item.photo ? (
-                <Avatar className='size-7'>
-                  <AvatarImage src={portrait(item.photo)} alt='' />
-                  <AvatarFallback>·</AvatarFallback>
-                </Avatar>
-              ) : (
-                <span aria-hidden='true' className={`grid size-7 shrink-0 place-items-center ${item.tone}`}>
-                  <RegistryIcon lucide={item.icon} className='size-4' />
-                </span>
-              )}
-              <div className='grid min-w-0 flex-1 gap-1.5'>
-                <p className='flex items-start gap-2 pe-3 leading-snug font-medium'>
-                  {item.title}
-                  {item.tag ? <Badge variant='outline' size='sm' className='ms-auto'>{item.tag}</Badge> : null}
-                  {item.unread ? <span className='sr-only'> (unread)</span> : null}
-                </p>
-                <p className='text-text-muted leading-snug'>{item.body}</p>
-                {item.people ? (
-                  <AvatarGroup className='-space-x-1.5'>
-                    {item.people.map((path) => (
-                      <Avatar key={path} className='size-6'>
-                        <AvatarImage src={portrait(path)} alt='' />
-                        <AvatarFallback>·</AvatarFallback>
-                      </Avatar>
-                    ))}
-                  </AvatarGroup>
-                ) : null}
-                {item.progress ? (
-                  <Progress value={item.progress} aria-label='Monthly reads goal' className='bg-ui-muted h-1.5 rounded-full [&>[data-slot=progress-indicator]]:bg-success' />
-                ) : null}
-                {item.actions ? (
-                  item.done ? (
-                    <Badge variant='success-light' className='w-fit'>{item.done}</Badge>
-                  ) : (
-                    <div className='flex gap-1.5'>
-                      <Button
-                        size='xs'
-                        onClick={() => act(item.id, item.actions[0] === 'Approve' ? 'Edits approved' : 'Flagged for review')}
-                      >
-                        {item.actions[0]}
-                      </Button>
-                      <Button size='xs' variant='outline' onClick={() => act(item.id, item.actions[1] === 'Review' ? 'In review' : 'Dismissed')}>{item.actions[1]}</Button>
-                    </div>
-                  )
-                ) : null}
-                <span className='text-text-muted text-xs'>{item.time}</span>
-              </div>
-              {item.unread ? <StatusDot className='bg-ui-foreground absolute top-4 end-4' /> : null}
-            </li>
-          ))}
-        </ul>
-      </SheetContent>
-    </Sheet>
-  );
-}
+
 
 function SearchPalette({ open, onOpenChange, onSelect }) {
   return (
@@ -363,9 +281,7 @@ function PublishingShell() {
   const [publication, setPublication] = useState('Essays');
   const [environment, setEnvironment] = useState('live');
   const [searchOpen, setSearchOpen] = useState(false);
-  const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [articles, setArticles] = useState(initialArticles);
-  const [notices, setNotices] = useState(initialNotifications);
   const [draft, setDraft] = useState(null);
   const editNew = (kind) => {
     setSectionId('content');
@@ -394,6 +310,7 @@ function PublishingShell() {
     (entry) => entry.site === site && (!kind || entry.publication === kind) && (!stage || entry.stage === stage)
   );
   const articlePage = Boolean(kind || stage || ['dashboard', 'all-releases'].includes(page));
+  const [notices, setNotices] = useState(initialNotifications);
   const noticeKinds = {
     'broken-links': ['links'],
     comments: ['comment'],
@@ -516,15 +433,7 @@ function PublishingShell() {
               </TooltipTrigger>
               <TooltipContent side='bottom'>View published articles</TooltipContent>
             </Tooltip>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button variant='ghost' size='icon-sm' aria-label='Notifications' className='relative' onClick={() => setNotificationsOpen(true)}>
-                  <RegistryIcon lucide='Bell' aria-hidden='true' />
-                  {notices.some((item) => item.unread) ? <StatusDot className='bg-ui-foreground absolute top-1 end-1.5' /> : null}
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent side='bottom'>Notifications</TooltipContent>
-            </Tooltip>
+            <AppShellNotifications items={notices} onItemsChange={setNotices} description='Comments, link checks, edits and publishing activity.' />
           </div>
         </AppShellHeader>
         <div className='flex min-h-0 flex-1'>
@@ -540,7 +449,7 @@ function PublishingShell() {
                     : `${pageName} desk`}
                 </h2>
                 <p className='text-sm text-text-muted'>
-                  {sites.find((entry) => entry.id === site).name} ·{' '}
+                  {sites.find((entry) => entry.id === site).name} <MetaSeparator />{' '}
                   {environments.find((entry) => entry.id === environment).label}
                 </p>
               </header>
@@ -578,7 +487,7 @@ function PublishingShell() {
                   ))}
                   {page === 'general' ? <p>Publication: {sites.find((entry) => entry.id === site).name}</p> : null}
                   {!related.length && page !== 'general' ? (
-                    <p className='text-text-muted'>No {pageName.toLowerCase()} records for this site.</p>
+                    <EmptyState compact title={'No ' + pageName.toLowerCase() + ' records for this site.'} />
                   ) : null}
                 </div>
               ) : (
@@ -604,7 +513,7 @@ function PublishingShell() {
                       </ItemActions>
                     </Item>
                   ))}
-                  {!visible.length ? <p className='text-sm text-text-muted'>There are no articles in this view.</p> : null}
+                  {!visible.length ? <EmptyState compact title='There are no articles in this view.' /> : null}
                 </ItemGroup>
               )}
             </section>
@@ -620,7 +529,6 @@ function PublishingShell() {
           setSearchOpen(false);
         }}
       />
-      <NotificationsSheet open={notificationsOpen} onOpenChange={setNotificationsOpen} items={notices} setItems={setNotices} />
     </SidebarProvider>
   );
 }

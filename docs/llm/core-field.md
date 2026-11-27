@@ -74,8 +74,8 @@ Curated patterns:
 - Fieldsets of choices — registry item `@gaudi/field-fieldsets` (uses `CheckboxRoot`, `FieldContent`, `FieldDescriptionPrimitive`, `FieldGroup`, `FieldLabelPrimitive`, `FieldLegend`, `FieldRoot`, `FieldSeparator`, `FieldSet`, `FieldTitle`, `RadioGroupItem`, `RadioGroupRoot`, `SwitchRoot`)
 - Fields that reflow by width — registry item `@gaudi/field-responsive` (uses `Button`, `EmailInput`, `FieldDescriptionPrimitive`, `FieldGroup`, `FieldInput`, `FieldLabelPrimitive`, `FieldRoot`, `FieldSeparator`, `SelectContent`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`)
 - Preferences form that checks itself — registry item `@gaudi/field-settings-validation` (uses `Button`, `CheckboxRoot`, `FieldContent`, `FieldDescriptionPrimitive`, `FieldErrorPrimitive`, `FieldGroup`, `FieldInput`, `FieldLabelPrimitive`, `FieldRoot`, `FieldSeparator`, `FieldTitle`, `Link`, `SwitchRoot`, `Textarea`)
-- Label accessories — registry item `@gaudi/label-accessories` (uses `Badge`, `CheckboxRoot`, `EmailInput`, `FieldDescriptionPrimitive`, `FieldInput`, `FieldRoot`, `Label`, `RegistryIcon`, `StatusDot`, `Textarea`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`)
-- Inline edit — registry item `@gaudi/label-inline-edit` (uses `Button`, `FieldDescriptionPrimitive`, `FieldInput`, `FieldRoot`, `Label`, `RegistryIcon`)
+- Label accessories — registry item `@gaudi/label-accessories` (uses `Badge`, `CharacterCount`, `CheckboxRoot`, `EmailInput`, `FieldDescriptionPrimitive`, `FieldInput`, `FieldRoot`, `Label`, `RegistryIcon`, `StatusDot`, `Textarea`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`)
+- Inline edit — registry item `@gaudi/label-inline-edit` (uses `EditableField`)
 
 ## Related
 

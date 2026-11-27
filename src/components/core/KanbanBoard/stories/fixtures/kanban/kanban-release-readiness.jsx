@@ -1,4 +1,6 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import { CardRoot as Card } from '@gaudi/design-system/core/Card';
 import { useId, useState } from 'react';
 import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import {
@@ -11,7 +13,7 @@ import {
   KanbanItemHandle,
   KanbanOverlay
 } from '@gaudi/design-system/core/KanbanBoard';
-import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
+import { Avatar } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { CheckboxRoot as Checkbox } from '@gaudi/design-system/core/Checkbox';
 import {
@@ -116,7 +118,7 @@ function ChangeCard({ item, onToggle, isOverlay }) {
   const ratio = done / item.checks.length;
   return (
     <KanbanItem value={item.id} withHandle>
-      <div className='grid gap-2 rounded-lg border border-border bg-surface p-3 text-sm shadow-xs'>
+      <Card variant='elevated' radius='lg' padding='md' className='grid gap-2 text-sm'>
         <div className='flex items-center gap-2 text-xs text-text-muted'>
           {isOverlay ? null : (
             <KanbanItemHandle asChild>
@@ -140,10 +142,7 @@ function ChangeCard({ item, onToggle, isOverlay }) {
             <span className='tabular-nums'>{dayLabel(item.day)}, {item.time} UTC</span>
           </span>
           <span className='flex items-center gap-2 text-text'>
-            <Avatar className='size-4'>
-              <AvatarImage src={item.avatar} alt='' />
-              <AvatarFallback>{item.owner.charAt(0)}</AvatarFallback>
-            </Avatar>
+            <Avatar size='2xs' surface='tinted' src={item.avatar} name={item.owner} alt='' />
             {item.owner}
           </span>
         </div>
@@ -151,12 +150,12 @@ function ChangeCard({ item, onToggle, isOverlay }) {
           <div className='flex items-center justify-between text-xs text-text-muted'>
             {isOverlay ? <span>Checklist</span> : <Checklist item={item} onToggle={onToggle} />}
             <span className='tabular-nums'>
-              {done}/{item.checks.length} · {Math.round(ratio * 100)}%
+              {done}/{item.checks.length} <MetaSeparator /> {Math.round(ratio * 100)}%
             </span>
           </div>
           <Progress value={ratio * 100} aria-label={`${item.id} checklist progress`} className={cn('h-1.5', BAR(ratio, item.risk))} />
         </div>
-      </div>
+      </Card>
     </KanbanItem>
   );
 }

@@ -1,4 +1,6 @@
 'use client';
+import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
+import EmptyState from '@gaudi/design-system/core/EmptyState';
 import { useRef, useState } from 'react';
 import { FieldInput } from '@gaudi/design-system/core/Field';
 import { useFileUpload } from '@gaudi/design-system/core/FileUpload';
@@ -110,7 +112,7 @@ export function Pattern() {
       <Row label='Icons and a badge'>
         <ButtonGroup aria-label='Document'>
           <ButtonGroupText><RegistryIcon aria-hidden='true' lucide='FileTextIcon' /><Badge variant='warning-light'>Draft</Badge></ButtonGroupText>
-          <Button variant='outline' aria-pressed={editing} onClick={() => setEditing(!editing)}><RegistryIcon aria-hidden='true' lucide='PencilIcon' />Edit</Button>
+          <Toggle variant='outline' pressed={editing} onPressedChange={setEditing}><RegistryIcon aria-hidden='true' lucide='PencilIcon' />Edit</Toggle>
           <Button variant='outline' size='icon' aria-label='Import file names' onClick={openFileDialog}><RegistryIcon aria-hidden='true' lucide='UploadIcon' /></Button>
         </ButtonGroup>
         <input {...getInputProps({ 'aria-label': 'Choose library files' })} hidden />
@@ -124,7 +126,7 @@ export function Pattern() {
           onValueChange={setCollection}
         />
         <ButtonGroup aria-label='Dashboard actions'>
-          <Button variant='outline' size='sm' aria-pressed={share} onClick={() => setShare(!share)}><RegistryIcon aria-hidden='true' lucide='Share2Icon' />Share</Button>
+          <Toggle variant='outline' size='sm' pressed={share} onPressedChange={setShare}><RegistryIcon aria-hidden='true' lucide='Share2Icon' />Share</Toggle>
           <ButtonGroupSeparator />
           <DropdownMenu>
             <DropdownMenuTrigger asChild><Button variant='outline' size='icon-sm' aria-label='More options'><RegistryIcon aria-hidden='true' lucide='MoreHorizontalIcon' /></Button></DropdownMenuTrigger>
@@ -146,7 +148,7 @@ export function Pattern() {
       <section ref={report} className='rounded-md bg-surface-muted p-3 text-sm text-text' aria-label='Library report' style={{ textAlign: align }}>
         <h3 className='font-medium'>{title}</h3>
         <ul className='list-none p-0'>{visible.map((file, index) => <li key={file.name + index}>{file.name}{showKinds && ' · ' + file.kind}</li>)}</ul>
-        {!visible.length && <p>No files</p>}
+        {!visible.length && <EmptyState compact title='No files' />}
       </section>
       {share && <div className='flex flex-wrap items-center gap-2'><FieldInput aria-label='Library summary' readOnly value={shareText} /><Button size='sm' onClick={() => copy(shareText)}>{isCopied ? 'Copied' : 'Copy summary'}</Button></div>}
     </div>

@@ -1,4 +1,5 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
 import { ChatCitedAnswer } from '@gaudi/design-system/chat/ChatSources';
 import { ChatAgentMark } from '@gaudi/design-system/chat/ChatAgentMark';
 import { ChatMessage, ChatMessageContent, ChatMessageHeader } from '@gaudi/design-system/chat/ChatMessage';
@@ -36,7 +37,7 @@ export function Pattern() {
       <ChatMessage>
         <ChatAgentMark icon='Gaudi' tone='neutral' size='sm' decorative className='mt-0.5' />
         <ChatMessageContent className='min-w-0 flex-1'>
-          <ChatMessageHeader className='px-0'>Gaudi · 3 sources</ChatMessageHeader>
+          <ChatMessageHeader className='px-0'>Gaudi <MetaSeparator /> 3 sources</ChatMessageHeader>
           <ChatCitedAnswer segments={segments} sources={sources} />
         </ChatMessageContent>
       </ChatMessage>

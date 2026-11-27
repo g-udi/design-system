@@ -1,3 +1,4 @@
+import { Badge } from '@gaudi/design-system/core/Pill';
 import {
   AvatarRoot as Avatar,
   AvatarFallback,
@@ -30,16 +31,16 @@ const Faces = () => (
 export function Pattern() {
   return (
     <div className='mx-auto flex w-fit flex-col items-center gap-3'>
-      <div className='flex items-center gap-1.5 rounded-full border border-ui-border p-1 shadow-sm shadow-black/5'>
+      <Badge asChild variant='outline' radius='full' className='h-auto gap-1.5 p-1 font-normal'><div>
         <Faces />
         <p className='me-1.5 text-xs text-text-muted'>
           Trusted by <span className='font-semibold text-text'>100K+</span> users.
         </p>
-      </div>
-      <div className='flex items-center gap-1.5 rounded-full border border-ui-border p-0.5 shadow-sm shadow-black/5'>
+      </div></Badge>
+      <Badge asChild variant='outline' radius='full' className='h-auto gap-1.5 p-0.5 font-normal'><div>
         <Faces />
         <p className='me-1.5 text-xs text-text-muted'>+3</p>
-      </div>
+      </div></Badge>
       <Frame>
         <FramePanel className='flex items-center gap-2 p-2!'>
           <Faces />

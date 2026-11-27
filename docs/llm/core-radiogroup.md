@@ -53,7 +53,7 @@ Curated patterns:
 - Fieldset, descriptions and states — registry item `@gaudi/radio-group-fieldset-states` (uses `FieldContent`, `FieldDescriptionPrimitive`, `FieldErrorPrimitive`, `FieldLabelPrimitive`, `FieldLegend`, `FieldRoot`, `FieldSet`, `RadioGroupItem`, `RadioGroupRoot`)
 - Framed lists — registry item `@gaudi/radio-group-framed-lists` (uses `Frame`, `FrameHeader`, `FramePanel`, `FrameTitle`, `Label`, `RadioGroupItem`, `RadioGroupRoot`, `RegistryIcon`, `Separator`)
 - Label extras and layouts — registry item `@gaudi/radio-group-label-extras` (uses `BadgeRoot`, `FieldLabelPrimitive`, `FieldLegend`, `FieldRoot`, `FieldSet`, `RadioGroupItem`, `RadioGroupRoot`, `RegistryIcon`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`)
-- Row cards — registry item `@gaudi/radio-group-row-cards` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `FieldContent`, `FieldDescriptionPrimitive`, `FieldLabelPrimitive`, `FieldLegend`, `FieldRoot`, `FieldSet`, `FieldTitle`, `RadioGroupItem`, `RadioGroupRoot`)
+- Row cards — registry item `@gaudi/radio-group-row-cards` (uses `Avatar`, `FieldContent`, `FieldDescriptionPrimitive`, `FieldLabelPrimitive`, `FieldLegend`, `FieldRoot`, `FieldSet`, `FieldTitle`, `RadioGroupItem`, `RadioGroupRoot`)
 
 ## README
 

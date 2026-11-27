@@ -1,22 +1,16 @@
 'use client';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { hotkeysCoreFeature, selectionFeature, syncDataLoaderFeature } from '@headless-tree/core';
+import { useTree } from '@headless-tree/react';
+import { Tree, TreeItem, TreeItemLabel } from '@gaudi/design-system/core/Tree';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
+  CardFooter,
   CardRoot as Card,
   CardContent,
   CardHeader
 } from '@gaudi/design-system/core/Card';
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger
-} from '@gaudi/design-system/core/Accordion';
-import {
-  Item,
-  ItemActions,
-  ItemMedia,
-  ItemTitle
-} from '@gaudi/design-system/core/Item';
+import { Collapsible, CollapsibleContent } from '@gaudi/design-system/core/Accordion';
 import {
   Tabs,
   TabsList,
@@ -24,127 +18,40 @@ import {
   TabsContent
 } from '@gaudi/design-system/core/Tabs';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
-const fileTree = [
-  {
-    name: 'components',
-    items: [
-      {
-        name: 'ui',
-        items: [
-          { name: 'button.tsx' },
-          { name: 'card.tsx' },
-          { name: 'dialog.tsx' }
-        ]
-      },
-      { name: 'login-form.tsx' }
-    ]
-  },
-  {
-    name: 'lib',
-    items: [{ name: 'utils.ts' }, { name: 'api.ts' }]
-  },
-  {
-    name: 'hooks',
-    items: [{ name: 'use-debounce.ts' }, { name: 'use-local-storage.ts' }]
-  },
-  { name: 'app.tsx' },
-  { name: 'package.json' }
-];
-function TreeItem({ item, level = 0, selectedId, onSelect, onDelete }) {
-  const isFolder = 'items' in item;
-  const isSelected = selectedId === item.name;
-  if (isFolder) {
-    return (
-      <Collapsible className='group/collapsible'>
-        <CollapsibleTrigger asChild>
-          <Item
-            as='button'
-            type='button'
-            size='xs'
-            className='group/folder-trigger hover:bg-surface-muted data-[state=open]:bg-surface-muted h-8 min-w-0 flex-nowrap rounded-none cursor-pointer py-0.5'
-            style={{ paddingLeft: `${level * 12 + 8}px` }}
-          >
-            <ItemMedia variant='icon'>
-              <RegistryIcon
-                lucide='ChevronRightIcon'
-                aria-hidden='true'
-                className='text-text-muted size-3 transition-transform group-data-[state=open]/folder-trigger:rotate-90'
-              />
-              <RegistryIcon
-                lucide='FolderIcon'
-                aria-hidden='true'
-                className='text-text-muted group-hover/item:text-text size-3.5'
-              />
-            </ItemMedia>
-            <ItemTitle className='min-w-0 truncate text-sm'>{item.name}</ItemTitle>
-          </Item>
-        </CollapsibleTrigger>
-        <CollapsibleContent className='data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down overflow-hidden pt-0.5'>
-          <div className='flex flex-col gap-0.5'>
-            {item.items.map((child) => (
-              <TreeItem
-                key={child.name}
-                item={child}
-                level={level + 1}
-                selectedId={selectedId}
-                onSelect={onSelect}
-                onDelete={onDelete}
-              />
-            ))}
-          </div>
-        </CollapsibleContent>
-      </Collapsible>
-    );
-  }
-  return (
-    <Item
-      size='xs'
-      className='group/item hover:bg-surface-muted data-[active=true]:bg-accent-subtle h-8 min-w-0 flex-nowrap rounded-none py-0.5'
-      data-active={isSelected}
-      style={{ paddingLeft: `${level * 12 + 8}px` }}
-    >
-      <ItemMedia variant='icon' className='ps-5'>
-        <RegistryIcon
-          lucide='FileIcon'
-          aria-hidden='true'
-          className='text-text-muted group-hover/item:text-text group-data-[active=true]/item:text-text size-3.5'
-        />
-      </ItemMedia>
-      <Button
-        variant='ghost'
-        tone='neutral'
-        className='min-h-0 min-w-0 flex-1 justify-start self-stretch rounded-none px-0 py-0 text-sm font-normal hover:bg-transparent'
-        title={item.name}
-        aria-pressed={isSelected}
-        onClick={() => onSelect?.(item.name)}
-      >
-        <span className='truncate'>{item.name}</span>
-      </Button>
-      <ItemActions className='-mr-1 ml-auto shrink-0 gap-0 opacity-0 transition-opacity group-hover/item:opacity-100 group-focus-within/item:opacity-100 group-data-[active=true]/item:opacity-100 pointer-coarse:opacity-100'>
-        <Button asChild aria-label={`Download ${item.name}`} size='icon-xs' variant='ghost'>
-          <a href={`data:text/plain;charset=utf-8,${encodeURIComponent(`// Demo file: ${item.name}\n`)}`} download={item.name}>
-            <RegistryIcon lucide='DownloadIcon' aria-hidden='true' />
-          </a>
-        </Button>
-        <Button aria-label={`Delete ${item.name}`} variant='ghost' size='icon-xs' onClick={() => onDelete(item.name)}>
-          <RegistryIcon lucide='TrashIcon' aria-hidden='true' />
-        </Button>
-      </ItemActions>
-    </Item>
-  );
-}
-function removeFile(items, name) {
-  return items.filter((item) => item.items || item.name !== name).map((item) => (
-    item.items ? { ...item, items: removeFile(item.items, name) } : item
-  ));
-}
+const folders = {
+  root: ['components', 'lib', 'hooks', 'app.tsx', 'package.json'],
+  components: ['ui', 'login-form.tsx'],
+  ui: ['button.tsx', 'card.tsx', 'dialog.tsx'],
+  lib: ['utils.ts', 'api.ts'],
+  hooks: ['use-debounce.ts', 'use-local-storage.ts']
+};
+const activateRow = (_event, tree) => tree.getFocusedItem()?.getElement()?.click();
+const keys = {
+  activateRow: { hotkey: 'Enter', preventDefault: true, handler: activateRow },
+  selectRow: { hotkey: 'Space', preventDefault: true, handler: activateRow }
+};
 export function Pattern() {
   const explorerRef = useRef(null);
-  const [items, setItems] = useState(fileTree);
+  const [removed, setRemoved] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const [removedFile, setRemovedFile] = useState(null);
+  const tree = useTree({
+    rootItemId: 'root',
+    hotkeys: keys,
+    state: { selectedItems: selectedId ? [selectedId] : [] },
+    setSelectedItems: () => {},
+    getItemName: (item) => item.getId(),
+    isItemFolder: (item) => Object.hasOwn(folders, item.getId()),
+    onPrimaryAction: (item) => { if (!item.isFolder()) setSelectedId(item.getId()); },
+    dataLoader: {
+      getItem: (id) => id,
+      getChildren: (id) => (folders[id] || []).filter((name) => !removed.includes(name))
+    },
+    features: [syncDataLoaderFeature, selectionFeature, hotkeysCoreFeature]
+  });
+  useEffect(() => { tree.rebuildTree(); }, [removed, tree]);
   function handleDelete(name) {
-    setItems((previous) => removeFile(previous, name));
+    setRemoved((previous) => [...previous, name]);
     setSelectedId((previous) => previous === name ? null : previous);
     setRemovedFile(name);
     explorerRef.current?.focus();
@@ -165,15 +72,34 @@ export function Pattern() {
           </CardHeader>
           <CardContent className='p-1'>
             <TabsContent value='explorer' className='flex flex-col gap-0.5 p-0'>
-              {items.map((item) => (
-                <TreeItem
-                  key={item.name}
-                  item={item}
-                  selectedId={selectedId}
-                  onSelect={setSelectedId}
-                  onDelete={handleDelete}
-                />
-              ))}
+              <Tree tree={tree} indent={12} aria-label='Project files'>
+                {tree.getItems().map((item) => {
+                  const name = item.getId();
+                  const folder = item.isFolder();
+                  return (
+                    <TreeItem item={item} key={name} asChild>
+                      <div aria-label={name} className='group/file-row min-w-0' onFocus={() => item.setFocused()}>
+                        <TreeItemLabel className='min-h-8 min-w-0 gap-1'>
+                          <RegistryIcon lucide={folder ? 'FolderIcon' : 'FileIcon'} aria-hidden='true' className='size-3.5 text-text-muted' />
+                          <span className='min-w-0 flex-1 truncate text-start'>{name}</span>
+                          {!folder && (
+                            <span className='flex shrink-0 opacity-0 group-hover/file-row:opacity-100 group-focus-within/file-row:opacity-100 group-data-[selected=true]/file-row:opacity-100 pointer-coarse:opacity-100' onClick={(event) => event.stopPropagation()} onKeyDownCapture={(event) => event.stopPropagation()}>
+                              <Button asChild aria-label={`Download ${name}`} size='icon-xs' variant='ghost'>
+                                <a tabIndex={item.isFocused() ? 0 : -1} href={`data:text/plain;charset=utf-8,${encodeURIComponent(`// Demo file: ${name}\n`)}`} download={name}>
+                                  <RegistryIcon lucide='DownloadIcon' aria-hidden='true' />
+                                </a>
+                              </Button>
+                              <Button aria-label={`Delete ${name}`} tabIndex={item.isFocused() ? 0 : -1} variant='ghost' size='icon-xs' onClick={() => handleDelete(name)}>
+                                <RegistryIcon lucide='TrashIcon' aria-hidden='true' />
+                              </Button>
+                            </span>
+                          )}
+                        </TreeItemLabel>
+                      </div>
+                    </TreeItem>
+                  );
+                })}
+              </Tree>
             </TabsContent>
             <TabsContent value='outline' className='p-2'>
               <p className='text-sm text-text-muted'>
@@ -181,16 +107,18 @@ export function Pattern() {
               </p>
             </TabsContent>
           </CardContent>
-          {removedFile && (
-            <div className='flex min-w-0 items-center justify-between gap-2 border-t border-border px-2 py-1 text-xs'>
-              <span role='status' className='min-w-0 truncate'>{removedFile} removed.</span>
-              <Button size='xs' variant='subtle' className='shrink-0' onClick={() => {
-                setItems(fileTree);
-                setRemovedFile(null);
-                explorerRef.current?.focus();
-              }}>Restore files</Button>
-            </div>
-          )}
+          <Collapsible open={Boolean(removedFile)}>
+            <CollapsibleContent asChild>
+              <CardFooter className='flex min-w-0 items-center justify-between gap-2 border-t border-border px-2 py-1 text-xs'>
+                <span role='status' className='min-w-0 truncate'>{removedFile} removed.</span>
+                <Button size='xs' variant='subtle' className='shrink-0' onClick={() => {
+                  setRemoved([]);
+                  setRemovedFile(null);
+                  explorerRef.current?.focus();
+                }}>Restore files</Button>
+              </CardFooter>
+            </CollapsibleContent>
+          </Collapsible>
         </Card>
       </Tabs>
     </div>

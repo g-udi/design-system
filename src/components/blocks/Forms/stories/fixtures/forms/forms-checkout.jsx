@@ -1,4 +1,5 @@
 'use client';
+import { CardTitle, CardRoot } from '@gaudi/design-system/core/Card';
 import { useState } from 'react';
 import { Alert, AlertDescription, AlertTitle } from '@gaudi/design-system/core/Banner';
 import { default as Button } from '@gaudi/design-system/core/Button';
@@ -161,8 +162,8 @@ export function Pattern() {
         </FieldSet>
         <Button type='submit' size='lg' disabled={paid}>Pay {format(subtotal + shipping)}</Button>
       </form>
-      <aside aria-labelledby='order-summary-title' className='bg-surface-muted grid gap-3 rounded-lg border p-4 lg:sticky lg:top-4'>
-        <h3 id='order-summary-title' className='text-sm font-semibold'>Order summary</h3>
+      <CardRoot as='aside' variant='soft' radius='lg' padding='none' aria-labelledby='order-summary-title' className='grid gap-3 p-4 lg:sticky lg:top-4'>
+        <CardTitle as='h3' id='order-summary-title' className='text-sm font-semibold'>Order summary</CardTitle>
         <ul className='grid gap-3'>
           {items.map((item) => (
             <li key={item.name} className='flex justify-between gap-3 text-sm'>
@@ -180,7 +181,7 @@ export function Pattern() {
           <div className='flex justify-between'><dt className='text-text-muted'>Shipping</dt><dd className='tabular-nums'>{format(shipping)}</dd></div>
           <div className='flex justify-between font-semibold'><dt>Total</dt><dd className='tabular-nums'>{format(subtotal + shipping)}</dd></div>
         </dl>
-      </aside>
+      </CardRoot>
     </div>
   );
 }

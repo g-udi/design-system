@@ -112,8 +112,12 @@ export const SteppersPagination = {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
     await userEvent.click(canvas.getByRole('button', { name: 'Increase Volume' }));
-    await userEvent.click(canvas.getByRole('button', { name: '55%' }));
-    await expect(canvas.getByRole('button', { name: 'Muted' })).toBeVisible();
+    await expect(canvas.getByLabelText('Volume', { selector: 'input' })).toHaveValue('55%');
+    const mute = canvas.getByRole('button', { name: 'Mute volume' });
+    await userEvent.click(mute);
+    await expect(mute).toHaveAttribute('aria-pressed', 'true');
+    await userEvent.click(canvas.getByRole('button', { name: 'Zoom in' }));
+    await expect(canvas.getByLabelText('Zoom', { selector: 'input' })).toHaveValue('110%');
     await userEvent.click(canvas.getByRole('button', { name: 'Proposal' }));
     await expect(await body.findByRole('menuitemradio', { name: 'Proposal' })).toBeChecked();
     await userEvent.click(body.getByRole('menuitemradio', { name: 'Closed won' }));

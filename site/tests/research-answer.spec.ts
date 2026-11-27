@@ -82,12 +82,12 @@ test('citations, copy, feedback, streaming and prepared follow-ups work', async 
     ['Prevent recurrence', 'How can we prevent this happening again?'],
     ['Overview', 'Why did checkout latency spike?']
   ]) {
-    const followUp = page.getByRole('button', { name: label, exact: true });
+    const followUp = page.getByRole('radio', { name: label, exact: true });
     await followUp.click();
     await expect(page.getByRole('status').filter({ hasText: 'Answer ready' })).toBeVisible();
     await expect(page.getByRole('heading', { name: heading, exact: true })).toBeVisible();
     await expect(followUp).toBeFocused();
-    await expect(followUp).toHaveAttribute('aria-pressed', 'true');
+    await expect(followUp).toHaveAttribute('aria-checked', 'true');
     await expectContained(page);
   }
 });

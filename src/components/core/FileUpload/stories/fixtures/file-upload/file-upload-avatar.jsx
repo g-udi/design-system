@@ -2,7 +2,7 @@
 import { AvatarRoot, AvatarImage, AvatarFallback } from '@gaudi/design-system/core/Avatar';
 import {
   formatBytes,
-  useFileUpload
+  FileUploadDropzone, useFileUpload
 } from '@gaudi/design-system/core/FileUpload';
 import {
   Alert,
@@ -20,13 +20,10 @@ export function Pattern({
   defaultAvatar
 }) {
   const [
-    { files, isDragging, errors },
+    { files, errors },
     {
       removeFile,
-      handleDragEnter,
-      handleDragLeave,
-      handleDragOver,
-      handleDrop,
+      dropzoneProps,
       openFileDialog,
       getInputProps
     }
@@ -51,20 +48,12 @@ export function Pattern({
       {/* Avatar Preview */}
       <div className='relative'>
         <input {...getInputProps({ 'aria-label': 'Choose avatar image' })} className='sr-only' tabIndex={-1} />
-        <Button
+        <FileUploadDropzone as={Button} {...dropzoneProps}
           variant='ghost'
           size='icon-lg'
           aria-label='Choose avatar image'
           aria-haspopup='dialog'
-          className={cn(
-            'size-24 overflow-hidden rounded-control border p-0',
-            !previewUrl && 'border-dashed',
-            isDragging ? 'border-ui-primary bg-ui-primary/5' : 'border-ui-muted-foreground/25'
-          )}
-          onDragEnter={handleDragEnter}
-          onDragLeave={handleDragLeave}
-          onDragOver={handleDragOver}
-          onDrop={handleDrop}
+          className={cn('size-24 overflow-hidden p-0', previewUrl && 'border-solid')}
           onClick={openFileDialog}
         >
           <AvatarRoot className='size-full rounded-[inherit]'>
@@ -73,7 +62,7 @@ export function Pattern({
               <RegistryIcon lucide='User' className='size-6 text-text-muted' />
             </AvatarFallback>
           </AvatarRoot>
-        </Button>
+        </FileUploadDropzone>
 
         {/* Remove Button - only show when file is uploaded */}
         {currentFile && (

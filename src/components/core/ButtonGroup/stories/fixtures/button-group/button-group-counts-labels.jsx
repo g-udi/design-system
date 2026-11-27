@@ -1,4 +1,5 @@
 'use client';
+import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
 import { useState } from 'react';
 import Dialog from '@gaudi/design-system/core/Dialog';
 import { writeToClipboard } from '@gaudi/design-system/hooks';
@@ -33,18 +34,18 @@ export function Pattern() {
   return (
     <div className='mx-auto flex w-full max-w-lg flex-wrap items-center gap-2'>
       <ButtonGroup aria-label='Like'>
-        <Button variant='outline' aria-pressed={liked} onClick={() => setLiked(!liked)}>
+        <Toggle variant='outline' pressed={liked} onPressedChange={setLiked}>
           <RegistryIcon aria-hidden='true' lucide='HeartIcon' />
           Like
-        </Button>
+        </Toggle>
         <ButtonGroupText className={count}>{liked ? '1,201' : '1,200'}</ButtonGroupText>
       </ButtonGroup>
       <ButtonGroup aria-label='Star'>
-        <Button variant='outline' aria-pressed={starred} onClick={() => setStarred(!starred)}>
+        <Toggle variant='outline' pressed={starred} onPressedChange={setStarred}>
           <RegistryIcon aria-hidden='true' lucide='StarIcon' />
           Star
           <Badge variant='secondary'>{starred ? '2,401' : '2,400'}</Badge>
-        </Button>
+        </Toggle>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant='outline' size='icon' aria-label='Repository actions'>
@@ -67,10 +68,10 @@ export function Pattern() {
         </DropdownMenu>
       </ButtonGroup>
       <ButtonGroup aria-label='Follow'>
-        <Button size='sm' variant='outline' aria-pressed={following} onClick={() => setFollowing(!following)}>
+        <Toggle size='sm' variant='outline' pressed={following} onPressedChange={setFollowing}>
           <RegistryIcon aria-hidden='true' lucide='UserPlusIcon' />
           Follow
-        </Button>
+        </Toggle>
         <ButtonGroupText className={count}>{following ? '2,401' : '2,400'} followers</ButtonGroupText>
       </ButtonGroup>
       <ButtonGroup aria-label='Share'>

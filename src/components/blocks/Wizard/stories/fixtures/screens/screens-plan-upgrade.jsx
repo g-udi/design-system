@@ -1,9 +1,10 @@
 'use client';
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import { useState } from 'react';
 import { default as Field, FieldDescription, FieldError, FieldLabel } from '@gaudi/design-system/core/Field';
 import { default as Input } from '@gaudi/design-system/core/Input';
 import { default as RadioGroup } from '@gaudi/design-system/core/RadioGroup';
-import { Separator } from '@gaudi/design-system/core/Separator';
+import { MetaSeparator, Separator } from '@gaudi/design-system/core/Separator';
 import { ToggleGroupRoot as ToggleGroup, ToggleGroupItem } from '@gaudi/design-system/core/ToggleGroup';
 import { default as Wizard } from '@gaudi/design-system/blocks/Wizard';
 import { EmailInput } from '@gaudi/design-system/core/Input';
@@ -26,7 +27,7 @@ function Invoice({ plan, period, seats }) {
   const tax = (subtotal - credit) * 0.2;
   const due = Math.max(subtotal - credit + tax, 0);
   return (
-    <section aria-label='Invoice preview' className='bg-surface-muted grid gap-3 rounded-lg border p-4 text-sm'>
+    <CardRoot as='section' variant='soft' padding='none' radius='lg' aria-label='Invoice preview' className='grid gap-3 p-4 text-sm overflow-visible'>
       <h3 className='font-medium'>Invoice preview</h3>
       <dl className='grid gap-2'>
         <div className='flex justify-between gap-3'>
@@ -47,7 +48,7 @@ function Invoice({ plan, period, seats }) {
         <span className='font-medium'>Due today</span>
         <span className='text-lg font-semibold' aria-live='polite'>{money(due)}</span>
       </div>
-    </section>
+    </CardRoot>
   );
 }
 
@@ -66,7 +67,7 @@ export function Pattern() {
   };
   const setCardField = (key) => (event) => setCard((current) => ({ ...current, [key]: event.target.value }));
   return (
-    <div className='w-full max-w-4xl rounded-xl border p-5'>
+    <CardRoot variant='outline' padding='none' className='w-full max-w-4xl p-5 overflow-visible'>
       <Wizard
         title='Upgrade your plan'
         description='Changes apply today; we credit what is left of your current plan.'
@@ -92,7 +93,7 @@ export function Pattern() {
                 <span id='period-label' className='text-sm font-medium'>Billing period</span>
                 <ToggleGroup aria-labelledby='period-label' type='single' variant='outline' size='sm' spacing={0} value={period} onValueChange={(next) => setPeriod(next || period)}>
                   <ToggleGroupItem value='monthly'>Monthly</ToggleGroupItem>
-                  <ToggleGroupItem value='yearly'>Yearly · 2 months free</ToggleGroupItem>
+                  <ToggleGroupItem value='yearly'>Yearly <MetaSeparator /> 2 months free</ToggleGroupItem>
                 </ToggleGroup>
               </div>
             </div>
@@ -141,6 +142,6 @@ export function Pattern() {
           )
         }
       </Wizard>
-    </div>
+    </CardRoot>
   );
 }

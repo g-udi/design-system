@@ -15,6 +15,7 @@ import {
 } from '@gaudi/design-system/core/DataTable';
 import { useTable } from '@tanstack/react-table';
 import {
+  getAvatarInitials,
   AvatarRoot as Avatar,
   AvatarFallback,
   AvatarImage
@@ -395,10 +396,7 @@ export function Pattern() {
                   <Avatar className='size-6 shrink-0'>
                     <AvatarImage src={item.avatar} alt={item.name} />
                     <AvatarFallback>
-                      {item.name
-                        .split(' ')
-                        .map((n) => n[0])
-                        .join('')}
+                      {getAvatarInitials(item.name)}
                     </AvatarFallback>
                   </Avatar>
                   <span className='font-medium'>{item.name}</span>

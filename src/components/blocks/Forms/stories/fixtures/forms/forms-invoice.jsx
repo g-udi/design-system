@@ -1,4 +1,5 @@
 'use client';
+import { CardHeader, CardTitle, CardFooter, CardRoot } from '@gaudi/design-system/core/Card';
 import { TableRoot as Table, TableHeader, TableBodyPrimitive as TableBody, TableRowPrimitive as TableRow, TableHeadPrimitive as TableHead, TableCellPrimitive as TableCell, TableCaption } from '@gaudi/design-system/mdx/Table';
 import { useState } from 'react';
 import { addDays, format } from 'date-fns';
@@ -10,7 +11,7 @@ import { FieldRoot as Field, FieldDescriptionPrimitive as FieldDescription, Fiel
 import { default as Input } from '@gaudi/design-system/core/Input';
 import { PopoverPrimitive as Popover, PopoverContentPrimitive as PopoverContent, PopoverTriggerPrimitive as PopoverTrigger } from '@gaudi/design-system/core/Popover';
 import { SelectRoot as Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@gaudi/design-system/core/Select';
-import { Separator } from '@gaudi/design-system/core/Separator';
+import { MetaSeparator, Separator } from '@gaudi/design-system/core/Separator';
 import { default as Textarea } from '@gaudi/design-system/core/Textarea';
 import { FormErrorSummary, useFormValidation, validators } from '@gaudi/design-system/blocks/Forms';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
@@ -100,11 +101,11 @@ export function Pattern() {
   const customer = customers[values.customer];
 
   return (
-    <form noValidate aria-labelledby='invoice-title' onSubmit={form.handleSubmit(() => setStatus('Sent'))} className='mx-auto grid w-full max-w-4xl grid-cols-[minmax(0,1fr)] gap-5 rounded-lg border p-5 sm:p-6'>
-      <div className='flex flex-wrap items-center justify-between gap-3'>
-        <h2 id='invoice-title' className='text-lg font-semibold'>Invoice INV-0042</h2>
+    <CardRoot as='form' variant='outline' radius='lg' padding='none' noValidate aria-labelledby='invoice-title' onSubmit={form.handleSubmit(() => setStatus('Sent'))} className='mx-auto grid w-full max-w-4xl grid-cols-[minmax(0,1fr)] gap-5 p-5 sm:p-6'>
+      <CardHeader className='p-0 flex flex-wrap items-center justify-between gap-3'>
+        <CardTitle as='h2' id='invoice-title' className='text-lg font-semibold'>Invoice INV-0042</CardTitle>
         <Badge variant={status === 'Sent' ? 'success-light' : 'secondary'} aria-live='polite'>{status}</Badge>
-      </div>
+      </CardHeader>
       <FormErrorSummary form={form} labels={{ customer: 'Customer', items: 'Line items', discount: 'Discount', due: 'Due date' }} />
       <div className='grid gap-4 md:grid-cols-2'>
         <Field data-invalid={errors.customer ? true : undefined}>
@@ -116,7 +117,7 @@ export function Pattern() {
               <ComboboxList>{(name) => <ComboboxItem key={name} value={name}>{name}</ComboboxItem>}</ComboboxList>
             </ComboboxContent>
           </Combobox>
-          {customer ? <FieldDescription>{customer.email} · {customer.address}</FieldDescription> : null}
+          {customer ? <FieldDescription>{customer.email} <MetaSeparator /> {customer.address}</FieldDescription> : null}
           <FieldError id={form.errorId('customer')}>{errors.customer}</FieldError>
         </Field>
         <div className='grid grid-cols-2 gap-4'>
@@ -198,7 +199,7 @@ export function Pattern() {
           <FieldLabel htmlFor={form.id('notes')}>Notes for the customer</FieldLabel>
           <Textarea {...form.field('notes')} rows={4} />
         </Field>
-        <div className='bg-surface-muted grid gap-3 rounded-md border p-4'>
+        <CardRoot variant='soft' radius='md' padding='none' className='grid gap-3 p-4'>
           <div className='grid grid-cols-[6rem_minmax(0,1fr)] gap-3'>
             <Field data-invalid={errors.discount ? true : undefined}>
               <FieldLabel htmlFor={form.id('discount')}>Discount</FieldLabel>
@@ -227,15 +228,15 @@ export function Pattern() {
             <div className='flex justify-between'><dt className='text-text-muted'>Tax</dt><dd className='tabular-nums'>{money(tax)}</dd></div>
             <div className='flex justify-between border-t pt-2 text-base font-semibold'><dt>Total due {format(values.due, 'd MMM')}</dt><dd className='tabular-nums'>{money(total)}</dd></div>
           </dl>
-        </div>
+        </CardRoot>
       </div>
-      <div className='flex flex-wrap justify-end gap-2 border-t pt-4'>
+      <CardFooter className='p-0 flex flex-wrap justify-end gap-2 border-t pt-4'>
         <Button type='button' variant='outline' tone='neutral' onClick={() => setStatus('Draft saved')}>Save draft</Button>
         <Button type='submit'>
           <RegistryIcon lucide='SendIcon' aria-hidden='true' />
           Send invoice
         </Button>
-      </div>
-    </form>
+      </CardFooter>
+    </CardRoot>
   );
 }

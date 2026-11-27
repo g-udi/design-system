@@ -2,15 +2,12 @@
 import { useState } from 'react';
 import { useCopyToClipboard } from '@gaudi/design-system/hooks/interaction/use-copy-to-clipboard';
 import { cn } from '@gaudi/design-system/utilities/cn';
-import {
-  AvatarRoot as Avatar,
-  AvatarFallback,
-  AvatarImage
-} from '@gaudi/design-system/core/Avatar';
+import { Avatar } from '@gaudi/design-system/core/Avatar';
 import {
   DropdownMenuRoot as DropdownMenu,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuContent,
-  DropdownMenuItemPrimitive as DropdownMenuItem,
   DropdownMenuTrigger
 } from '@gaudi/design-system/core/DropdownMenu';
 import {
@@ -45,11 +42,9 @@ function Choice({ label, value, options, onChange, align = 'start', className, c
         </InputGroupButton>
       </DropdownMenuTrigger>
       <DropdownMenuContent align={align} className='min-w-28'>
-        {options.map((option) => (
-          <DropdownMenuItem key={option} onSelect={() => onChange(option)}>
-            {option}
-          </DropdownMenuItem>
-        ))}
+        <DropdownMenuRadioGroup value={value} onValueChange={onChange}>
+          {options.map((option) => <DropdownMenuRadioItem key={option} value={option}>{option}</DropdownMenuRadioItem>)}
+        </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   );
@@ -88,10 +83,7 @@ export function Pattern() {
       <Cell id='ig-member' label='Member and role'>
         <InputGroup>
           <InputGroupAddon className='pr-1'>
-            <Avatar className='size-5'>
-              <AvatarImage src='/avatars/person-41.svg' alt='Anouk Varga' />
-              <AvatarFallback>AV</AvatarFallback>
-            </Avatar>
+            <Avatar size='xs' surface='tinted' src='/avatars/person-41.svg' name='Anouk Varga' />
           </InputGroupAddon>
           <InputGroupInput id='ig-member' defaultValue='@alexjohnson' className='pl-1!' />
           <InputGroupAddon align='inline-end'>

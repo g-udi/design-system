@@ -1,12 +1,7 @@
 import { useState } from 'react';
 import Link from '@gaudi/design-system/core/Link';
 import { Badge } from '@gaudi/design-system/core/Pill';
-import {
-  AvatarRoot as Avatar,
-  AvatarBadge,
-  AvatarFallback,
-  AvatarImage
-} from '@gaudi/design-system/core/Avatar';
+import { Avatar } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
   DropdownMenuRoot as DropdownMenu,
@@ -28,14 +23,13 @@ import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 
 // People rows: an avatar with presence, a role badge and a row menu, plus a
 // pending invite whose action is a button instead.
-const presence = { online: ['Online', 'bg-success'], away: ['Away', 'bg-warning'], offline: ['Offline', 'bg-ui-muted-foreground'] };
+const presence = { online: { label: 'Online', tone: 'success' }, away: { label: 'Away', tone: 'warning' }, offline: { label: 'Offline', tone: 'neutral' } };
 const members = [
   { name: 'Sabine Okafor', email: 'sabine@example.com', avatar: '/avatars/person-20.svg', role: 'Admin', roleVariant: 'default', presence: 'online' },
   { name: 'Anouk Varga', email: 'anouk@example.com', avatar: '/avatars/person-41.svg', role: 'Editor', roleVariant: 'info-light', presence: 'away' },
   { name: 'Juno Saarinen', email: 'juno@example.com', avatar: '/avatars/person-24.svg', role: 'Viewer', roleVariant: 'outline', presence: 'offline' },
   { name: 'Ottilie Nakamura', email: 'ottilie@example.com', avatar: '/avatars/person-50.svg', invited: true }
 ];
-const initials = (name) => name.split(' ').map((part) => part[0]).join('');
 
 export function Pattern() {
   const [people, setPeople] = useState(members);
@@ -46,15 +40,7 @@ export function Pattern() {
         {people.map((member) => (
           <Item key={member.email} variant='outline' size='xs'>
             <ItemMedia>
-              <Avatar>
-                <AvatarImage src={member.avatar} alt={member.name} />
-                <AvatarFallback>{initials(member.name)}</AvatarFallback>
-                {member.presence ? (
-                  <AvatarBadge className={presence[member.presence][1]}>
-                    <span className='sr-only'>{presence[member.presence][0]}</span>
-                  </AvatarBadge>
-                ) : null}
-              </Avatar>
+              <Avatar size='sm' surface='tinted' name={member.name} src={member.avatar} indicator={presence[member.presence]} />
             </ItemMedia>
             <ItemContent>
               <ItemTitle>{member.name}</ItemTitle>

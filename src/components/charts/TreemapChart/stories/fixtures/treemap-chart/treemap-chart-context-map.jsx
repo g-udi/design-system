@@ -1,4 +1,6 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import { ChartLegendList } from '@gaudi/design-system/charts/ChartFrame';
 import { useRef, useState } from 'react';
 import { TreemapChart } from '@gaudi/design-system/charts/TreemapChart';
 import Button from '@gaudi/design-system/core/Button';
@@ -82,7 +84,7 @@ export function Pattern() {
         <Select aria-label='Agent' value={agentId} onValueChange={(next) => next && reset(next)} options={agents.map((item) => ({ value: item.id, label: item.name }))} className='w-full max-w-none sm:w-56' />
       </header>
       <div className='flex flex-wrap items-center justify-between gap-3'>
-        <p className='tabular-nums'><bdi dir='ltr'><strong>{number.format(used)}</strong> / <bdi>{number.format(agent.limit)}</bdi> tokens <span className='text-text-muted'>· <bdi>{Math.round(used / agent.limit * 100)}%</bdi> used</span></bdi></p>
+        <p className='tabular-nums'><bdi dir='ltr'><strong>{number.format(used)}</strong> / <bdi>{number.format(agent.limit)}</bdi> tokens <span className='text-text-muted'><MetaSeparator /> <bdi>{Math.round(used / agent.limit * 100)}%</bdi> used</span></bdi></p>
         <ToggleGroupRoot aria-label='Compaction snapshot' type='single' variant='outline' size='sm' spacing={0} value={view} onValueChange={changeView} disabled={!compacted}>
           <ToggleGroupItem value='before'>Before</ToggleGroupItem>
           <ToggleGroupItem value='after'>After</ToggleGroupItem>
@@ -101,13 +103,11 @@ export function Pattern() {
         onActivate={(_, index) => { setSelectedId(parts[index].id); setNotice(`${parts[index].name}: ${tokens(parts[index].value)}.`); }}
         className='my-0 w-full min-w-0'
       />
-      <ul aria-label='Context categories' className='flex flex-wrap gap-x-4 gap-y-2 text-xs text-text-muted'>
-        {[...new Set(parts.map((item) => item.kind))].map((kind) => <li key={kind} className='flex items-center gap-1.5'><span aria-hidden='true' className='h-2 w-2 rounded-xs' style={{ backgroundColor: kinds[kind].color }} />{kinds[kind].label}</li>)}
-      </ul>
+      <ChartLegendList aria-label='Context categories' items={[...new Set(parts.map(item => item.kind))].map(key => ({ key, ...kinds[key] }))} />
       <div className='grid gap-2 border-t pt-4'>
         {selected ? <>
           <div className='flex flex-wrap items-start justify-between gap-2'>
-            <div className='grid min-w-0 gap-1'><h3 className='font-medium wrap-anywhere'>{selected.name}</h3><p className='text-xs text-text-muted'>{kinds[selected.kind].label} · <bdi>{tokens(selected.value)}</bdi></p></div>
+            <div className='grid min-w-0 gap-1'><h3 className='font-medium wrap-anywhere'>{selected.name}</h3><p className='text-xs text-text-muted'>{kinds[selected.kind].label} <MetaSeparator /> <bdi>{tokens(selected.value)}</bdi></p></div>
             <Button size='xs' variant='ghost' onClick={() => { setSelectedId(null); root.current?.querySelector('[data-slot="chart-plot"]')?.focus(); }}>Close details</Button>
           </div>
           <p className='max-w-prose text-text-muted'>{selected.detail}</p>

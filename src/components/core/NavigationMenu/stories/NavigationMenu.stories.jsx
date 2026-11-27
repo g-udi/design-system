@@ -100,7 +100,7 @@ export const Playground = {
     await waitFor(() => expect(categoriesButton).toHaveAttribute('aria-expanded', 'false'));
     await waitFor(() => expect(workButton).toHaveAttribute('aria-expanded', 'true'));
     await waitFor(() => expect(canvas.queryByText(categories[0].label)).toBeNull());
-    await expect(await canvas.findByText(work[0].label)).toBeVisible();
+    await waitFor(() => expect(canvas.getByText(work[0].label)).toBeVisible());
     // Exercise the trigger-to-panel focus handoff in both reading directions.
     await userEvent.tab();
     const firstLink = canvas.getByRole('link', { name: /^Publications/ });
@@ -120,7 +120,7 @@ export const Playground = {
     // Reopen the seeded panel so `align`, `width`, and `columns` stay visible after the test.
     if (args.defaultOpen) {
       await userEvent.click(categoriesButton);
-      await expect(await canvas.findByText(categories[1].label)).toBeVisible();
+      await waitFor(() => expect(canvas.getByText(categories[1].label)).toBeVisible());
     }
   }
 };

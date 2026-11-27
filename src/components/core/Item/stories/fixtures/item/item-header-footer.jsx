@@ -1,10 +1,5 @@
 import { Badge } from '@gaudi/design-system/core/Pill';
-import {
-  AvatarRoot as Avatar,
-  AvatarFallback,
-  AvatarGroup,
-  AvatarImage
-} from '@gaudi/design-system/core/Avatar';
+import { Avatar, AvatarGroup } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
   Item,
@@ -48,27 +43,9 @@ export function Pattern() {
         </ItemActions>
         <ItemFooter>
           <AvatarGroup>
-            <Avatar size='sm'>
-              <AvatarImage
-                src='/avatars/person-20.svg'
-                alt='SC'
-              />
-              <AvatarFallback>SC</AvatarFallback>
-            </Avatar>
-            <Avatar size='sm'>
-              <AvatarImage
-                src='/avatars/person-44.svg'
-                alt='AJ'
-              />
-              <AvatarFallback>AJ</AvatarFallback>
-            </Avatar>
-            <Avatar size='sm'>
-              <AvatarImage
-                src='/avatars/person-07.svg'
-                alt='EP'
-              />
-              <AvatarFallback>EP</AvatarFallback>
-            </Avatar>
+            <Avatar size='xs' surface='tinted' className='size-6' src='/avatars/person-20.svg' name='SC' />
+            <Avatar size='xs' surface='tinted' className='size-6' src='/avatars/person-44.svg' name='AJ' />
+            <Avatar size='xs' surface='tinted' className='size-6' src='/avatars/person-07.svg' name='EP' />
           </AvatarGroup>
           <div className='flex items-center gap-2'>
             <Progress value={65} className='w-20' />

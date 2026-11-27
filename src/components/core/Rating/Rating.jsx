@@ -28,7 +28,7 @@ const starVariants = cva('', {
     size: 'default'
   }
 });
-const valueVariants = cva('text-ui-muted-foreground w-5', {
+const valueVariants = cva('text-ui-muted-foreground shrink-0 tabular-nums', {
   variants: {
     size: {
       sm: 'text-xs',

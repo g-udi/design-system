@@ -1,4 +1,5 @@
-import { useFileUpload } from '@gaudi/design-system/core/FileUpload';
+import { FieldErrorPrimitive as FieldError } from '@gaudi/design-system/core/Field';
+import { FileUploadDropzone, useFileUpload } from '@gaudi/design-system/core/FileUpload';
 import Link from '@gaudi/design-system/core/Link';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
@@ -12,7 +13,7 @@ import {
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 
 export function Pattern() {
-  const [{ files, errors, isDragging }, { handleDragEnter, handleDragLeave, handleDragOver, handleDrop, openFileDialog, getInputProps, clearFiles }] = useFileUpload({ accept: 'image/png,image/jpeg,image/svg+xml', multiple: true, maxSize: 10 * 1024 * 1024 });
+  const [{ files, errors }, { dropzoneProps, openFileDialog, getInputProps, clearFiles }] = useFileUpload({ accept: 'image/png,image/jpeg,image/svg+xml', multiple: true, maxSize: 10 * 1024 * 1024 });
   return (
     <div className='mx-auto grid w-full max-w-3xl gap-3 sm:grid-cols-2'>
       <Empty className='rounded-lg py-6'>
@@ -58,7 +59,7 @@ export function Pattern() {
           </Button>
         </EmptyContent>
       </Empty>
-      <Empty className='rounded-lg border border-dashed py-6 data-[dragging=true]:border-accent' data-dragging={isDragging} onDragEnter={handleDragEnter} onDragLeave={handleDragLeave} onDragOver={handleDragOver} onDrop={handleDrop}>
+      <FileUploadDropzone as={Empty} {...dropzoneProps} className='rounded-lg py-6'>
         <input {...getInputProps()} aria-label='Choose images' className='sr-only' />
         <EmptyHeader>
           <EmptyMedia variant='icon'>
@@ -74,9 +75,9 @@ export function Pattern() {
           </Button>
           <EmptyDescription className='text-xs'>PNG, JPG, SVG up to 10MB. Files remain local in this demo.</EmptyDescription>
           {files.length ? <><p role='status' className='text-xs'>{files.length} image{files.length === 1 ? '' : 's'} selected</p><Button size='sm' variant='ghost' onClick={clearFiles}>Clear files</Button></> : null}
-          {errors.length ? <p role='alert' className='text-xs text-danger'>{errors.join(' ')}</p> : null}
+          {errors.length ? <FieldError>{errors.join(' ')}</FieldError> : null}
         </EmptyContent>
-      </Empty>
+      </FileUploadDropzone>
     </div>
   );
 }

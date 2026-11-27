@@ -40,10 +40,10 @@ Let people skip or come back to optional steps, keep focus on the step heading w
 
 Curated patterns:
 
-- Connect a coding agent — registry item `@gaudi/screens-coding-agent` (uses `Button`, `CheckboxRoot`, `ClaudeAiIcon`, `CodeBlock`, `CursorLight`, `EmailInput`, `Field`, `FieldError`, `FieldLabel`, `Gemini`, `Input`, `Label`, `Openai`, `RadioGroup`, `RegistryIcon`, `SwitchRoot`, `ToggleGroupItem`, `ToggleGroupRoot`, `Wizard`, `cn`)
-- Tour in a dialog — registry item `@gaudi/screens-dialog-tour` (uses `Button`, `DialogContent`, `DialogDescription`, `DialogRoot`, `DialogTitle`, `DialogTrigger`, `EmptyState`, `KbdGroup`, `KbdRoot`, `Label`, `RadioGroup`, `RegistryIcon`, `SwitchRoot`, `Wizard`)
-- Create a publication — registry item `@gaudi/screens-new-publication` (uses `Button`, `CarouselContent`, `CarouselItem`, `CarouselRoot`, `EmptyState`, `Field`, `FieldError`, `FieldLabel`, `Input`, `Label`, `RadioGroup`, `RegistryIcon`, `StatusDot`, `SwitchRoot`, `ToggleGroupItem`, `ToggleGroupRoot`, `Wizard`, `cn`)
-- Workspace setup — registry item `@gaudi/screens-workspace-setup` (uses `AvatarFallback`, `AvatarRoot`, `Badge`, `Discord`, `Dropbox`, `Field`, `FieldDescription`, `FieldError`, `FieldLabel`, `GoogleDrive`, `Input`, `Loom`, `RadioGroup`, `RegistryIcon`, `Slack`, `StatusDot`, `Textarea`, `ToggleGroupItem`, `ToggleGroupRoot`, `Wizard`, `Zoom`)
+- Connect a coding agent — registry item `@gaudi/screens-coding-agent` (uses `Button`, `CardRoot`, `CheckboxRoot`, `ClaudeAiIcon`, `CodeBlock`, `CursorLight`, `EmailInput`, `Field`, `FieldError`, `FieldLabel`, `Gemini`, `Input`, `Label`, `MetaSeparator`, `Openai`, `RadioGroup`, `RegistryIcon`, `SwitchRoot`, `ToggleGroupItem`, `ToggleGroupRoot`, `Wizard`, `cn`)
+- Tour in a dialog — registry item `@gaudi/screens-dialog-tour` (uses `Button`, `DialogContent`, `DialogDescription`, `DialogRoot`, `DialogTitle`, `DialogTrigger`, `EmptyState`, `Item`, `KbdGroup`, `KbdRoot`, `Label`, `RadioGroup`, `RegistryIcon`, `SwitchRoot`, `Wizard`)
+- Create a publication — registry item `@gaudi/screens-new-publication` (uses `Button`, `CardRoot`, `CarouselContent`, `CarouselItem`, `CarouselRoot`, `EmptyState`, `Field`, `FieldError`, `FieldLabel`, `Input`, `Item`, `Label`, `RadioGroup`, `RegistryIcon`, `StatusDot`, `SwitchRoot`, `ToggleGroupItem`, `ToggleGroupRoot`, `Wizard`, `cn`)
+- Workspace setup — registry item `@gaudi/screens-workspace-setup` (uses `AvatarFallback`, `AvatarRoot`, `Badge`, `CardRoot`, `Discord`, `Dropbox`, `Field`, `FieldDescription`, `FieldError`, `FieldLabel`, `GoogleDrive`, `Input`, `Item`, `Loom`, `MetaSeparator`, `RadioGroup`, `RegistryIcon`, `Slack`, `StatusDot`, `Textarea`, `ToggleGroupItem`, `ToggleGroupRoot`, `Wizard`, `Zoom`, `getAvatarInitials`)
 
 ## Related
 

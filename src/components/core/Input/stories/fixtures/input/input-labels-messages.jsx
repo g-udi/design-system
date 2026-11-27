@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { CharacterCount } from '@gaudi/design-system/blocks/Forms';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import {
   FieldRoot as Field,
@@ -44,7 +45,7 @@ export function Pattern() {
         <Field>
           <div className='flex items-center justify-between gap-2'>
             <FieldLabel htmlFor='input-description'>Description</FieldLabel>
-            <span className='text-xs tabular-nums text-text-muted'>{description.length}/{maxLength}</span>
+            <CharacterCount value={description} max={maxLength} />
           </div>
           <Input
             id='input-description'

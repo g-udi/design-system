@@ -1,5 +1,5 @@
 'use client';
-import { Separator } from '@gaudi/design-system/core/Separator';
+import { MetaSeparator, Separator } from '@gaudi/design-system/core/Separator';
 import { GaudiLogo, GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
 import { useState } from 'react';
 import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
@@ -16,7 +16,7 @@ import {
   DropdownMenuTrigger
 } from '@gaudi/design-system/core/DropdownMenu';
 import { InputGroupButton } from '@gaudi/design-system/core/Input';
-import { ToggleGroupRoot as ToggleGroup, ToggleGroupItem } from '@gaudi/design-system/core/ToggleGroup';
+import { Toggle, ToggleGroupRoot as ToggleGroup, ToggleGroupItem } from '@gaudi/design-system/core/ToggleGroup';
 import {
   Sidebar,
   SidebarContent,
@@ -195,7 +195,7 @@ function PinnedThreads({ items, value, onValueChange }) {
                     <span className='truncate font-medium'>{item.label}</span>
                     <span className='text-text-muted flex items-center gap-1.5 text-xs font-normal'>
                       <Badge variant='outline' size='xs' className='font-normal'>{item.model}</Badge>
-                      <span aria-hidden='true'>·</span>
+                      <span aria-hidden='true'><MetaSeparator /></span>
                       {item.count} {item.count === 1 ? 'turn' : 'turns'}
                     </span>
                   </span>
@@ -267,10 +267,10 @@ function ChatHeader({ model, onModelChange, canSave, saved, onSave }) {
         size='sm'
         contentClassName='w-72'
       />
-      <Button variant='ghost' size='sm' className='ms-auto' disabled={!canSave} aria-pressed={saved} onClick={onSave}>
+      <Toggle size='sm' className='ms-auto' disabled={!canSave} pressed={saved} onPressedChange={onSave}>
         <RegistryIcon lucide='Book' aria-hidden='true' />
         {saved ? 'Saved to notebook' : 'Save to notebook'}
-      </Button>
+      </Toggle>
     </AppShellHeader>
   );
 }

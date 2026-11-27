@@ -47,8 +47,10 @@ export const Notifications = {
   name: 'Notifications',
   ...pattern('notifications', 'An inset panel with the unread count on its trigger, Mark all read, and a feed with mentions, a file and an invite to accept or decline.'),
   play: async ({ canvasElement }) => {
-    const sheet = await openSheet(canvasElement, 'Notifications, 3 unread', 'Notifications');
-    await userEvent.click(sheet.getByRole('button', { name: 'Mark all read' }));
+    const sheet = await openSheet(canvasElement, 'Notifications, 3 unread', /Notifications/);
+    await userEvent.click(sheet.getByRole('button', { name: 'Accept' }));
+    await expect(sheet.getByText('Accepted')).toBeVisible();
+    await userEvent.click(sheet.getByRole('button', { name: 'Mark all as read' }));
     await waitFor(() => expect(sheet.getByText('You are all caught up')).toBeVisible());
     await closeSheet(canvasElement);
     await openSheet(canvasElement, /Notifications/, 'Notifications');
@@ -110,7 +112,7 @@ export const RecordDetails = {
     const input = sheet.getByRole('textbox', { name: 'Team' });
     await userEvent.clear(input);
     await userEvent.type(input, 'Audience');
-    await userEvent.click(sheet.getByRole('button', { name: 'Save Team' }));
+    await userEvent.keyboard('{Enter}');
     await waitFor(() => expect(sheet.getByText('Audience')).toBeVisible());
     await closeSheet(canvasElement);
     await openSheet(canvasElement, 'Open metric', 'Weekly new subscribers');

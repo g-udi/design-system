@@ -1,6 +1,7 @@
 'use client';
+import { useTimeout } from '@gaudi/design-system/hooks';
 import { ChatAgentMark } from '@gaudi/design-system/chat/ChatAgentMark';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ChatMessage, ChatMessageAvatar, ChatMessageContent, ChatMessageHeader } from '@gaudi/design-system/chat/ChatMessage';
 import { ChatMessageParts } from '@gaudi/design-system/chat/ChatMessageList';
 
@@ -19,14 +20,11 @@ const initial = {
 export function Pattern() {
   const [status, setStatus] = useState(initial);
   // The analytics call finishes a moment after the turn appears, as it would against a real API.
-  useEffect(() => {
-    const timer = setTimeout(() => setStatus((current) => ({ ...current, analytics: 'done', links: 'done' })), 1200);
-    return () => clearTimeout(timer);
-  }, []);
+  useTimeout(() => setStatus((current) => ({ ...current, analytics: 'done', links: 'done' })), 1200);
+  useTimeout(() => setStatus((current) => ({ ...current, publish: 'done' })), status.publish === 'running' ? 900 : null);
   const retry = (part) => {
     if (part.id !== 'publish') return;
     setStatus((current) => ({ ...current, publish: 'running' }));
-    setTimeout(() => setStatus((current) => ({ ...current, publish: 'done' })), 900);
   };
   const parts = [
     { type: 'text', text: 'Pulling last month’s numbers and checking the draft before it goes out.' },

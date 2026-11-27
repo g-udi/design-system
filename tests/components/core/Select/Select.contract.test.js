@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { createElement } from 'react';
-import { renderComponent } from '../../../support/renderComponent.js';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { loadComponent, renderComponent } from '../../../support/renderComponent.js';
 test('Select preserves numeric zero values and disables its form submission with its trigger', async () => {
   const html = await renderComponent(new URL('../../../../src/components/core/Select/Select.jsx', import.meta.url), {
     'aria-label': 'Priority',
@@ -30,4 +31,17 @@ test('Select preserves native option text as its implicit value', async () => {
   });
   assert.match(html, />Normal<\/span>/);
   assert.match(html, /value="Normal"/);
+});
+
+test('NativeSelect passes its accessible name, invalid state and description to the native control', async () => {
+  const { NativeSelect, NativeSelectOption } = await loadComponent(new URL('../../../../src/components/core/Select/NativeSelect.jsx', import.meta.url));
+  const html = renderToStaticMarkup(createElement(NativeSelect, { id: 'metric', 'aria-label': 'Metric', 'aria-describedby': 'range-hint', invalid: true },
+    createElement(NativeSelectOption, { value: 'traffic' }, 'Traffic')
+  ));
+  const select = html.match(/<select[^>]*>/)?.[0];
+  assert.ok(select);
+  assert.match(select, /id="metric"/);
+  assert.match(select, /aria-label="Metric"/);
+  assert.match(select, /aria-describedby="range-hint"/);
+  assert.match(select, /aria-invalid="true"/);
 });

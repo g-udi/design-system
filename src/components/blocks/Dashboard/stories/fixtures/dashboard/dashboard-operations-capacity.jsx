@@ -1,4 +1,5 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
 import { useMemo, useState } from 'react';
 import { DashboardGrid, DashboardPanel, DashboardToolbar, dashboardSpan } from '@gaudi/design-system/blocks/Dashboard';
 import { StatCard } from '@gaudi/design-system/blocks/StatCard';
@@ -63,7 +64,7 @@ export function Pattern() {
     <div className='grid w-full gap-4'>
       <header className='flex flex-wrap items-end justify-between gap-3'>
         <div>
-          <p className='text-text-muted text-xs'>Gaudi · Operations</p>
+          <p className='text-text-muted text-xs'>Gaudi <MetaSeparator /> Operations</p>
           <h2 className='text-xl font-semibold'>Capacity and exceptions</h2>
         </div>
         <Button

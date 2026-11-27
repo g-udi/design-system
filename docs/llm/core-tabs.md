@@ -58,7 +58,7 @@ Curated patterns:
 
 - Badge counts — registry item `@gaudi/tabs-badge-counts` (uses `Badge`, `CardContent`, `CardRoot`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`)
 - Period switch — registry item `@gaudi/tabs-period-switch` (uses `CardContent`, `CardRoot`, `RegistryIcon`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`)
-- Settings form tabs — registry item `@gaudi/tabs-settings-form` (uses `Button`, `CardContent`, `CardDescription`, `CardFooter`, `CardHeader`, `CardRoot`, `CardTitle`, `EmailInput`, `FieldInput`, `Label`, `RegistryIcon`, `SwitchRoot`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`)
+- Settings form tabs — registry item `@gaudi/tabs-settings-form` (uses `Button`, `CardContent`, `CardDescription`, `CardFooter`, `CardHeader`, `CardRoot`, `CardTitle`, `EmailInput`, `FieldInput`, `Label`, `LabeledSwitch`, `RegistryIcon`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`)
 
 ## Related
 

@@ -2,7 +2,7 @@ import { IconTile } from '@gaudi/design-system/core/Icon';
 import Link from '@gaudi/design-system/core/Link';
 import {
   CardRoot as Card,
-  CardContent
+  CardHeader, CardDescription, CardTitle, CardContent
 } from '@gaudi/design-system/core/Card';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 
@@ -19,30 +19,28 @@ export function Pattern() {
           <Link href='/orders' className='text-sm leading-tight font-medium text-text hover:text-ui-primary'>
             Recent orders overview
           </Link>
-          <p className='text-xs leading-relaxed text-text-muted'>
+          <CardDescription as='p' className='text-xs leading-relaxed'>
             Track recent purchases, updates, and status changes in one place.
-          </p>
+          </CardDescription>
           <Link href='/orders' className={linkClass}>
             View orders
             <RegistryIcon lucide='ChevronRightIcon' aria-hidden='true' className='size-3 shrink-0' />
           </Link>
         </CardContent>
       </Card>
-      <Card className='p-0'>
-        <CardContent className='p-0'>
-          <div className='flex items-center gap-2 border-b px-4 py-3 text-text-muted [&_svg]:size-4'>
+      <Card className='gap-0 p-0'>
+        <CardHeader className='flex items-center gap-2 border-b px-4 py-3 text-text-muted [&_svg]:size-4'>
             <RegistryIcon lucide='BookOpenIcon' aria-hidden='true' />
-            <span className='text-sm font-medium text-text'>Documentation</span>
-          </div>
-          <div className='space-y-3 p-4'>
-            <p className='text-sm leading-relaxed text-text-muted'>
+            <CardTitle className='text-sm font-medium text-text'>Documentation</CardTitle>
+        </CardHeader>
+        <CardContent className='space-y-3 p-4'>
+            <CardDescription as='p' className='text-sm leading-relaxed'>
               Guides, API references, and examples to integrate with the platform.
-            </p>
+            </CardDescription>
             <Link href='/docs' className={linkClass}>
               <RegistryIcon lucide='LinkIcon' aria-hidden='true' className='size-3 shrink-0' />
               View docs
             </Link>
-          </div>
         </CardContent>
       </Card>
     </div>

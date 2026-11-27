@@ -6,7 +6,7 @@ import {
 } from '@gaudi/design-system/core/Field';
 import { ProgressRoot } from '@gaudi/design-system/core/Progress';
 import Input from '@gaudi/design-system/core/Input';
-import Button from '@gaudi/design-system/core/Button';
+import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
 import Link from '@gaudi/design-system/core/Link';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 
@@ -47,14 +47,14 @@ export function Pattern() {
             placeholder='Choose a password'
             type={visible ? 'text' : 'password'}
             suffix={
-              <Button variant='ghost' size='icon-xs'
+              <Toggle size='sm' className='size-6 px-0'
                 aria-controls={id}
                 aria-label={visible ? 'Hide password' : 'Show password'}
-                aria-pressed={visible}
-                onClick={() => setVisible((current) => !current)}
+                pressed={visible}
+                onPressedChange={setVisible}
               >
                 <RegistryIcon lucide={visible ? 'EyeOffIcon' : 'EyeIcon'} aria-hidden='true' className='size-4' />
-              </Button>
+              </Toggle>
             }
           />
       </Field>

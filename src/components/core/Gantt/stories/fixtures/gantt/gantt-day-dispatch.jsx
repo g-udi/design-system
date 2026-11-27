@@ -1,10 +1,12 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import { ScrollArea } from '@gaudi/design-system/core/ScrollArea';
 import { useCallback, useId, useMemo, useRef, useState } from 'react';
 import { addMinutes, format, startOfHour } from 'date-fns';
 import { Gantt } from '@gaudi/design-system/core/Gantt';
 import { GanttNav, GanttToolbar } from '@gaudi/design-system/core/Gantt';
 import { GanttView } from '@gaudi/design-system/core/Gantt';
-import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
+import { Avatar } from '@gaudi/design-system/core/Avatar';
 import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { CardRoot as Card, CardContent } from '@gaudi/design-system/core/Card';
@@ -183,10 +185,7 @@ export function Pattern() {
               if (!tech) return void 0;
               return (
                 <span className='flex min-w-0 items-center gap-2'>
-                  <Avatar className='size-6 shrink-0'>
-                    <AvatarImage src={tech.photo} alt='' />
-                    <AvatarFallback>{tech.name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
-                  </Avatar>
+                  <Avatar size='xs' className='size-6 shrink-0' surface='tinted' src={tech.photo} name={tech.name} alt='' />
                   <span className='truncate'>{tech.name}</span>
                 </span>
               );
@@ -195,7 +194,7 @@ export function Pattern() {
               <span className='flex min-w-0 flex-col leading-tight'>
                 <span className='truncate font-medium'>{occurrence.event.title}</span>
                 <span className='truncate opacity-80'>
-                  {occurrence.event.customer} · {timeWindow(occurrence)}
+                  {occurrence.event.customer} <MetaSeparator /> {timeWindow(occurrence)}
                 </span>
               </span>
             )}
@@ -232,79 +231,81 @@ export function Pattern() {
               <SheetHeader>
                 <SheetTitle>{job.title}</SheetTitle>
                 <SheetDescription>
-                  {job.customer} · {timeWindow(job)}
+                  {job.customer} <MetaSeparator /> {timeWindow(job)}
                 </SheetDescription>
               </SheetHeader>
-              <div className='grid gap-4 overflow-y-auto px-4'>
-                <dl className='grid grid-cols-[auto_1fr] gap-x-3 gap-y-2 text-sm'>
-                  <dt className='text-text-muted flex items-center gap-1.5'>
-                    <RegistryIcon lucide='MapPinIcon' className='size-3.5' aria-hidden='true' /> Address
-                  </dt>
-                  <dd>{job.address}</dd>
-                  <dt className='text-text-muted flex items-center gap-1.5'>
-                    <RegistryIcon lucide='WrenchIcon' className='size-3.5' aria-hidden='true' /> Skill
-                  </dt>
-                  <dd>{job.skill}</dd>
-                  <dt className='text-text-muted flex items-center gap-1.5'>
-                    <RegistryIcon lucide='ClockIcon' className='size-3.5' aria-hidden='true' /> Duration
-                  </dt>
-                  <dd>{minutesOf(job)} min</dd>
-                </dl>
-                <FieldGroup>
-                  <Field data-invalid={busyWith ? true : void 0}>
-                    <FieldLabel htmlFor={`dispatch-technician-${formId}`}>Technician</FieldLabel>
-                    <Select value={draft.resourceId} onValueChange={(resourceId) => setDraft({ ...draft, resourceId })}>
-                      <SelectTrigger id={`dispatch-technician-${formId}`} aria-invalid={!!busyWith} aria-describedby={busyWith ? `dispatch-conflict-${formId}` : undefined} className='w-full'>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value='unassigned'>Unassigned</SelectItem>
-                        {qualified.map(([id, tech]) => (
-                          <SelectItem key={id} value={id}>
-                            {tech.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    {busyWith && (
-                      <FieldError id={`dispatch-conflict-${formId}`}>
-                        {TECHNICIANS[draft.resourceId].name} is on {busyWith.title} from {timeWindow(busyWith)}.
-                      </FieldError>
-                    )}
-                  </Field>
-                  <Field>
-                    <FieldLabel htmlFor={`dispatch-status-${formId}`}>Status</FieldLabel>
-                    <Select value={draft.status} onValueChange={(status) => setDraft({ ...draft, status })} disabled={draft.resourceId === 'unassigned'}>
-                      <SelectTrigger id={`dispatch-status-${formId}`} className='w-full'>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {['Scheduled', 'En route', 'On site', 'Done'].map((status) => (
-                          <SelectItem key={status} value={status}>
-                            {status}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </Field>
-                  <FieldSet className='grid gap-2'>
-                    <FieldLegend className='mb-1 text-sm font-medium'>Close-out checklist</FieldLegend>
-                    {[
-                      ['parts', 'Parts logged'],
-                      ['photos', 'Before and after photos'],
-                      ['signature', 'Customer signature']
-                    ].map(([key, label]) => (
-                      <Label key={key} className='flex items-center gap-2 text-sm'>
-                        <Checkbox
-                          checked={draft.checklist[key]}
-                          onCheckedChange={(checked) => setDraft({ ...draft, checklist: { ...draft.checklist, [key]: checked === true } })}
-                        />
-                        {label}
-                      </Label>
-                    ))}
-                  </FieldSet>
-                </FieldGroup>
-              </div>
+              <ScrollArea aria-label='Job details' className='min-h-0 flex-1'>
+                <div className='grid gap-4 px-4'>
+                  <dl className='grid grid-cols-[auto_1fr] gap-x-3 gap-y-2 text-sm'>
+                    <dt className='text-text-muted flex items-center gap-1.5'>
+                      <RegistryIcon lucide='MapPinIcon' className='size-3.5' aria-hidden='true' /> Address
+                    </dt>
+                    <dd>{job.address}</dd>
+                    <dt className='text-text-muted flex items-center gap-1.5'>
+                      <RegistryIcon lucide='WrenchIcon' className='size-3.5' aria-hidden='true' /> Skill
+                    </dt>
+                    <dd>{job.skill}</dd>
+                    <dt className='text-text-muted flex items-center gap-1.5'>
+                      <RegistryIcon lucide='ClockIcon' className='size-3.5' aria-hidden='true' /> Duration
+                    </dt>
+                    <dd>{minutesOf(job)} min</dd>
+                  </dl>
+                  <FieldGroup>
+                    <Field data-invalid={busyWith ? true : void 0}>
+                      <FieldLabel htmlFor={`dispatch-technician-${formId}`}>Technician</FieldLabel>
+                      <Select value={draft.resourceId} onValueChange={(resourceId) => setDraft({ ...draft, resourceId })}>
+                        <SelectTrigger id={`dispatch-technician-${formId}`} aria-invalid={!!busyWith} aria-describedby={busyWith ? `dispatch-conflict-${formId}` : undefined} className='w-full'>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value='unassigned'>Unassigned</SelectItem>
+                          {qualified.map(([id, tech]) => (
+                            <SelectItem key={id} value={id}>
+                              {tech.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      {busyWith && (
+                        <FieldError id={`dispatch-conflict-${formId}`}>
+                          {TECHNICIANS[draft.resourceId].name} is on {busyWith.title} from {timeWindow(busyWith)}.
+                        </FieldError>
+                      )}
+                    </Field>
+                    <Field>
+                      <FieldLabel htmlFor={`dispatch-status-${formId}`}>Status</FieldLabel>
+                      <Select value={draft.status} onValueChange={(status) => setDraft({ ...draft, status })} disabled={draft.resourceId === 'unassigned'}>
+                        <SelectTrigger id={`dispatch-status-${formId}`} className='w-full'>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {['Scheduled', 'En route', 'On site', 'Done'].map((status) => (
+                            <SelectItem key={status} value={status}>
+                              {status}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </Field>
+                    <FieldSet className='grid gap-2'>
+                      <FieldLegend className='mb-1 text-sm font-medium'>Close-out checklist</FieldLegend>
+                      {[
+                        ['parts', 'Parts logged'],
+                        ['photos', 'Before and after photos'],
+                        ['signature', 'Customer signature']
+                      ].map(([key, label]) => (
+                        <Label key={key} className='flex items-center gap-2 text-sm'>
+                          <Checkbox
+                            checked={draft.checklist[key]}
+                            onCheckedChange={(checked) => setDraft({ ...draft, checklist: { ...draft.checklist, [key]: checked === true } })}
+                          />
+                          {label}
+                        </Label>
+                      ))}
+                    </FieldSet>
+                  </FieldGroup>
+                </div>
+              </ScrollArea>
               <SheetFooter>
                 <Button onClick={save} disabled={!!busyWith}>
                   Save job

@@ -1,4 +1,6 @@
 'use client';
+import { CardRoot } from '@gaudi/design-system/core/Card';
+import { Item } from '@gaudi/design-system/core/Item';
 import { StatusDot } from '@gaudi/design-system/core/Pill';
 import { useEffect, useState } from 'react';
 import { default as Button } from '@gaudi/design-system/core/Button';
@@ -92,7 +94,7 @@ export function Pattern() {
     setRound((value) => value + 1);
   };
   return (
-    <div className='w-full max-w-5xl rounded-xl border p-5'>
+    <CardRoot variant='outline' padding='none' className='w-full max-w-5xl p-5 overflow-visible'>
       <Wizard
         key={round}
         title='Create your publication'
@@ -177,10 +179,10 @@ export function Pattern() {
           ) : step === 4 ? (
             <div className='grid gap-3'>
               {[['onb-newsletter', 'Send new posts by email', newsletter, setNewsletter], ['onb-comments', 'Let readers comment', comments, setComments]].map(([id, label, value, set]) => (
-                <div key={id} className='flex items-center justify-between gap-3 rounded-lg border p-3'>
+                <Item size='sm' variant='outline' key={id} className='justify-between gap-3 p-3'>
                   <Label htmlFor={id} className='font-normal'>{label}</Label>
                   <Switch id={id} checked={value} onCheckedChange={set} />
-                </div>
+                </Item>
               ))}
             </div>
           ) : (
@@ -192,16 +194,16 @@ export function Pattern() {
                 ['Newsletter', newsletter ? 'On' : 'Off'],
                 ['Comments', comments ? 'On' : 'Off']
               ].map(([term, value]) => (
-                <li key={term} className='flex items-center gap-2 border-b pb-2'>
+                <Item as='li' size='sm' key={term} className='gap-2 border-b pb-2'>
                   <RegistryIcon lucide='CheckIcon' className='text-success size-4' />
                   <span className='text-text-muted flex-1'>{term}</span>
                   <span className='font-medium'>{value}</span>
-                </li>
+                </Item>
               ))}
             </ul>
           )
         }
       </Wizard>
-    </div>
+    </CardRoot>
   );
 }

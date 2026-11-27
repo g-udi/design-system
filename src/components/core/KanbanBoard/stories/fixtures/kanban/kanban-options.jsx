@@ -11,11 +11,7 @@ import {
   KanbanItemHandle,
   KanbanOverlay
 } from '@gaudi/design-system/core/KanbanBoard';
-import {
-  AvatarRoot as Avatar,
-  AvatarFallback,
-  AvatarImage
-} from '@gaudi/design-system/core/Avatar';
+import { Avatar } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
   Frame,
@@ -77,10 +73,7 @@ function TaskCard({ task, isOverlay, ...props }) {
         <Progress value={task.progress} className='h-1' aria-label={`${task.title} progress`} />
         <div className='flex items-center justify-between gap-2 text-xs text-ui-muted-foreground'>
           <span className='flex min-w-0 items-center gap-1.5'>
-            <Avatar className='size-5'>
-              <AvatarImage src={task.assigneeAvatar} alt={task.assignee} />
-              <AvatarFallback>{task.assignee.charAt(0)}</AvatarFallback>
-            </Avatar>
+            <Avatar size='xs' surface='tinted' src={task.assigneeAvatar} name={task.assignee} />
             <span className='truncate'>{task.assignee}</span>
           </span>
           <time className='whitespace-nowrap tabular-nums'>{task.dueDate}</time>

@@ -1,4 +1,6 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import { TableRoot as Table, TableHeader, TableBodyPrimitive as TableBody, TableRowPrimitive as TableRow, TableHeadPrimitive as TableHead, TableCellPrimitive as TableCell, TableCaption } from '@gaudi/design-system/mdx/Table';
 import { useState } from 'react';
 import { Badge } from '@gaudi/design-system/core/Pill';
@@ -38,7 +40,7 @@ export function Pattern() {
   const variants = combine(options);
   const valid = [Boolean(details.name.trim() && Number(details.price) > 0), media.length > 0, Object.values(options).some((values) => values.length), true, true];
   return (
-    <div className='w-full max-w-4xl rounded-xl border p-5'>
+    <CardRoot variant='outline' padding='none' className='w-full max-w-4xl p-5 overflow-visible'>
       <Wizard
         title='Add a product'
         steps={steps}
@@ -81,7 +83,7 @@ export function Pattern() {
             </div>
           ) : step === 1 ? (
             <div className='grid gap-3'>
-              <p id='media-label' className='text-sm font-medium'>Pick the product images <span className='text-text-muted font-normal'>· the first is the cover</span></p>
+              <p id='media-label' className='text-sm font-medium'>Pick the product images <span className='text-text-muted font-normal'><MetaSeparator /> the first is the cover</span></p>
               <ToggleGroup aria-labelledby='media-label' type='multiple' variant='outline' spacing={2} value={media} onValueChange={setMedia} className='grid! grid-cols-3 sm:grid-cols-6'>
                 {artwork.map((index) => (
                   <ToggleGroupItem key={index} value={String(index)} aria-label={`Image ${index + 1}`} className='h-auto! p-1 data-[state=on]:ring-2 data-[state=on]:ring-accent'>
@@ -89,7 +91,7 @@ export function Pattern() {
                   </ToggleGroupItem>
                 ))}
               </ToggleGroup>
-              {checked && !media.length ? <p role='alert' className='text-danger text-sm'>Choose at least one image.</p> : null}
+              {checked && !media.length ? <FieldError>Choose at least one image.</FieldError> : null}
             </div>
           ) : step === 2 ? (
             <div className='grid gap-4'>
@@ -102,7 +104,7 @@ export function Pattern() {
                 </div>
               ))}
               <p className='text-text-muted text-sm' aria-live='polite'>{variants.length} variants from {Object.values(options).flat().length} values.</p>
-              {checked && !valid[2] ? <p role='alert' className='text-danger text-sm'>Pick at least one size or colour.</p> : null}
+              {checked && !valid[2] ? <FieldError>Pick at least one size or colour.</FieldError> : null}
             </div>
           ) : step === 3 ? (
             <div className='grid gap-3'>
@@ -147,7 +149,7 @@ export function Pattern() {
             <div className='grid gap-4 text-sm sm:grid-cols-[8rem_minmax(0,1fr)]'>
               <img src={`static/images/art/${media[0]}.svg`} alt='' className='aspect-square w-32 rounded-md border object-cover' />
               <div className='grid content-start gap-2'>
-                <p className='text-base font-semibold'>{details.name} <span className='text-text-muted font-normal'>· €{details.price}</span></p>
+                <p className='text-base font-semibold'>{details.name} <span className='text-text-muted font-normal'><MetaSeparator /> €{details.price}</span></p>
                 <p className='text-text-muted'>{details.description}</p>
                 <div className='flex flex-wrap gap-1.5'>
                   <Badge size='sm' variant='secondary'>{details.category}</Badge>
@@ -160,6 +162,6 @@ export function Pattern() {
           )
         }
       </Wizard>
-    </div>
+    </CardRoot>
   );
 }

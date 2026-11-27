@@ -1,4 +1,5 @@
 'use client';
+import { Item } from '@gaudi/design-system/core/Item';
 import { GaudiLogo, GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
 import { useRef, useState } from 'react';
 import { hotkeysCoreFeature, selectionFeature, syncDataLoaderFeature } from '@headless-tree/core';
@@ -649,11 +650,11 @@ function NavigationBody({ workspace, tab, onTab, sectionFor, onSection, onHome, 
 
 function SyncStatus() {
   return (
-    <div role='status' className='bg-surface-muted/60 flex items-center gap-2 rounded-(--ds-radius-card) border border-ui-border px-3 py-2 text-xs'>
+    <Item variant='outline' size='sm' role='status' className='flex-nowrap gap-2 bg-surface-muted/60 text-xs'>
       <StatusDot className='size-2 bg-success' />
       <span className='min-w-0 flex-1 truncate'>All sources synced</span>
       <span className='text-text-muted shrink-0 tabular-nums'>2 min ago</span>
-    </div>
+    </Item>
   );
 }
 

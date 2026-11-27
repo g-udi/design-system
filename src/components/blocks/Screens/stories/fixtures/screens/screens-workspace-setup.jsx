@@ -1,6 +1,9 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import { CardRoot } from '@gaudi/design-system/core/Card';
+import { Item } from '@gaudi/design-system/core/Item';
 import { useState } from 'react';
-import { AvatarRoot as Avatar, AvatarFallback } from '@gaudi/design-system/core/Avatar';
+import { getAvatarInitials, AvatarRoot as Avatar, AvatarFallback } from '@gaudi/design-system/core/Avatar';
 import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import { default as Field, FieldDescription, FieldError, FieldLabel } from '@gaudi/design-system/core/Field';
 import { default as Input } from '@gaudi/design-system/core/Input';
@@ -44,7 +47,7 @@ const slugify = (value) => value.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-'
 // The preview pane renders what the answers will produce, so every step has a visible payoff.
 function Preview({ name, role, workspace, picked }) {
   return (
-    <section aria-label='Workspace preview' className='bg-surface-muted grid gap-3 rounded-lg border p-3 text-sm'>
+    <CardRoot as='section' variant='soft' padding='none' radius='lg' aria-label='Workspace preview' className='grid gap-3 p-3 text-sm overflow-visible'>
       <div className='flex items-center gap-2'>
         <Avatar aria-hidden='true' shape='square' size='sm' name={workspace || 'Workspace'} label={(workspace || 'W')[0].toUpperCase()} />
         <span className='grid min-w-0'>
@@ -52,23 +55,23 @@ function Preview({ name, role, workspace, picked }) {
           <span className='text-text-muted truncate text-xs'>{slugify(workspace) || 'workspace'}.gaudi.app</span>
         </span>
       </div>
-      <ul className='bg-surface grid divide-y rounded-md border'>
+      <CardRoot as='ul' variant='outline' padding='none' radius='md' className='grid divide-y overflow-visible'>
         {['Welcome to your inbox', 'Draft: Spring issue', 'Review: Field notes'].map((subject, index) => (
-          <li key={subject} className='flex items-center gap-2 px-2.5 py-2'>
+          <Item as='li' size='sm' key={subject} className='gap-2 px-2.5 py-2'>
             <StatusDot className={index ? 'bg-border size-1.5' : 'bg-accent size-1.5'} />
             <span className='min-w-0 flex-1 truncate text-xs'>{subject}</span>
-          </li>
+          </Item>
         ))}
-      </ul>
+      </CardRoot>
       <div className='flex items-center gap-2'>
         <Avatar size='sm'>
-          <AvatarFallback>{(name || 'Y')[0].toUpperCase()}</AvatarFallback>
+          <AvatarFallback>{getAvatarInitials(name || 'You')}</AvatarFallback>
         </Avatar>
         <span className='min-w-0 flex-1 truncate text-xs'>{name || 'You'}</span>
         {role ? <Badge size='sm' variant='info-light'>{roles.find((item) => item.value === role)?.label}</Badge> : null}
       </div>
       {picked.length ? <p className='text-text-muted text-xs'>Importing from {picked.map((id) => services.find((service) => service.id === id).name).join(' and ')}</p> : null}
-    </section>
+    </CardRoot>
   );
 }
 
@@ -88,7 +91,7 @@ export function Pattern() {
         <ToggleGroupItem value='steps'>Steps</ToggleGroupItem>
         <ToggleGroupItem value='progress'>Progress bar</ToggleGroupItem>
       </ToggleGroup>
-      <div className='rounded-xl border p-5'>
+      <CardRoot variant='outline' padding='none' className='p-5 overflow-visible'>
         <Wizard
           title='Set up your workspace'
           description='Six quick questions; you can change every answer later.'
@@ -118,7 +121,7 @@ export function Pattern() {
               </div>
             ) : step === 2 ? (
               <div className='grid gap-2'>
-                <p id='source-label' className='text-sm font-medium'>How did you hear about us? <span className='text-text-muted font-normal'>· optional</span></p>
+                <p id='source-label' className='text-sm font-medium'>How did you hear about us? <span className='text-text-muted font-normal'><MetaSeparator /> optional</span></p>
                 <ToggleGroup aria-labelledby='source-label' type='multiple' variant='outline' size='sm' spacing={2} value={source} onValueChange={setSource} className='flex-wrap'>
                   {sources.map((item) => <ToggleGroupItem key={item} value={item}>{item}</ToggleGroupItem>)}
                 </ToggleGroup>
@@ -157,14 +160,14 @@ export function Pattern() {
               </div>
             ) : (
               <Field>
-                <FieldLabel>Invite teammates <span className='text-text-muted font-normal'>· optional</span></FieldLabel>
+                <FieldLabel>Invite teammates <span className='text-text-muted font-normal'><MetaSeparator /> optional</span></FieldLabel>
                 <Textarea rows={3} placeholder='ana@example.com, li@example.com' value={invites} onChange={(event) => setInvites(event.target.value)} />
                 <FieldDescription>They join as writers. You can skip this and invite people later.</FieldDescription>
               </Field>
             )
           }
         </Wizard>
-      </div>
+      </CardRoot>
     </div>
   );
 }

@@ -75,7 +75,7 @@ NavigationMenu renders a nav landmark, real links, native dropdown buttons, aria
 Curated patterns:
 
 - Blog menu with recent posts — registry item `@gaudi/navigation-menu-blog-recent-posts` (uses `NavigationMenu`, `NavigationMenuAside`, `NavigationMenuDropdown`, `NavigationMenuLink`, `NavigationMenuList`)
-- Site header menu — registry item `@gaudi/navigation-menu-site-header` (uses `Button`, `NavigationMenuContent`, `NavigationMenuItemPrimitive`, `NavigationMenuLinkPrimitive`, `NavigationMenuListPrimitive`, `NavigationMenuRoot`, `NavigationMenuTrigger`, `RegistryIcon`, `navigationMenuTriggerStyle`)
+- Site header menu — registry item `@gaudi/navigation-menu-site-header` (uses `Button`, `Link`, `NavigationMenuContent`, `NavigationMenuItemPrimitive`, `NavigationMenuLinkPrimitive`, `NavigationMenuListPrimitive`, `NavigationMenuRoot`, `NavigationMenuTrigger`, `RegistryIcon`, `navigationMenuTriggerStyle`)
 
 ## README
 

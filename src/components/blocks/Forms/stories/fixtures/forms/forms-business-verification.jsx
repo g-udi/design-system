@@ -1,4 +1,5 @@
 'use client';
+import { CardHeader, CardTitle, CardDescription, CardRoot } from '@gaudi/design-system/core/Card';
 import { useState } from 'react';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
@@ -120,24 +121,24 @@ export function Pattern() {
 
   return (
     <div className='mx-auto grid w-full max-w-3xl gap-4'>
-      <div className='grid gap-3 rounded-lg border p-5'>
-        <div className='flex flex-wrap items-start justify-between gap-3'>
+      <CardRoot variant='outline' radius='lg' padding='none' className='grid gap-3 p-5'>
+        <CardHeader className='p-0 flex flex-wrap items-start justify-between gap-3'>
           <div className='grid gap-1'>
-            <h2 className='text-lg font-semibold'>Verify your business</h2>
-            <p className='text-text-muted text-sm'>Payouts start once every section is complete and reviewed, usually within one working day.</p>
+            <CardTitle as='h2' className='text-lg font-semibold'>Verify your business</CardTitle>
+            <CardDescription as='p' className='text-text-muted text-sm'>Payouts start once every section is complete and reviewed, usually within one working day.</CardDescription>
           </div>
           <Badge variant={submitted ? 'info-light' : ready ? 'success-light' : 'warning-light'} aria-live='polite'>
             {submitted ? 'In review' : `${done.length} of 3 complete`}
           </Badge>
-        </div>
+        </CardHeader>
         <Progress value={(done.length / 3) * 100} aria-label='Verification sections complete' />
-      </div>
+      </CardRoot>
       {Object.entries(sections).map(([key, section]) => {
         const ok = complete(key, data[key]);
         return (
-          <section key={key} aria-labelledby={`verification-${key}`} className='grid gap-3 rounded-lg border p-5'>
-            <div className='flex flex-wrap items-center gap-3'>
-              <h3 id={`verification-${key}`} className='text-sm font-semibold'>{section.title}</h3>
+          <CardRoot as='section' variant='outline' radius='lg' padding='none' key={key} aria-labelledby={`verification-${key}`} className='grid gap-3 p-5'>
+            <CardHeader className='p-0 flex flex-wrap items-center gap-3'>
+              <CardTitle as='h3' id={`verification-${key}`} className='text-sm font-semibold'>{section.title}</CardTitle>
               <Badge size='sm' variant={ok ? 'success-light' : 'attention-light'}>
                 <RegistryIcon lucide={ok ? 'CircleCheckIcon' : 'CircleAlertIcon'} aria-hidden='true' />
                 {ok ? 'Complete' : 'Needs information'}
@@ -145,7 +146,7 @@ export function Pattern() {
               <span className='ms-auto'>
                 {submitted ? null : <EditDialog sectionKey={key} values={data[key]} onSave={(values) => setData((current) => ({ ...current, [key]: values }))} />}
               </span>
-            </div>
+            </CardHeader>
             <dl className='grid gap-x-6 gap-y-2 text-sm sm:grid-cols-[12rem_minmax(0,1fr)]'>
               {section.fields.map((field) => (
                 <div key={field.name} className='contents'>
@@ -156,7 +157,7 @@ export function Pattern() {
                 </div>
               ))}
             </dl>
-          </section>
+          </CardRoot>
         );
       })}
       <div className='flex flex-wrap items-center justify-end gap-3'>

@@ -36,7 +36,7 @@ export const SidebarWorkspaceSwitcher = {
     const body = within(canvasElement.ownerDocument.body);
     navigation.getByRole('button', { name: 'Gaudi Workspace, Pro plan' }).focus();
     await userEvent.keyboard('{Enter}');
-    await userEvent.click(await body.findByRole('menuitem', { name: 'Personal' }));
+    await userEvent.click(await body.findByRole('menuitemradio', { name: 'Personal', checked: false }));
     const switcher = navigation.getByRole('button', { name: 'Personal, Free plan' });
     await waitFor(() => expect(switcher).toHaveFocus());
     await closeMobileNavigation(canvasElement);
@@ -70,7 +70,7 @@ export const SidebarWorkspaceSwitcher = {
     await auditSidebarState(context, 'workspace-picker', async (current) => {
       const trigger = current.getByRole('button', { name: 'Personal, Free plan' });
       if (trigger.getAttribute('aria-expanded') !== 'true') await userEvent.click(trigger);
-      await expect(await body.findByRole('menuitem', { name: 'Personal' })).toBeVisible();
+      await expect(await body.findByRole('menuitemradio', { name: 'Personal', checked: false })).toBeVisible();
     });
   },
 };
@@ -80,11 +80,12 @@ export const SidebarIconRail = {
   play: async ({ canvasElement }) => {
     const nav = await openNavigation(canvasElement);
     await userEvent.click(nav.getByRole('link', { name: 'Monitoring' }));
-    await expect(within(canvasElement).getByRole('heading', { name: 'Monitoring' })).toBeVisible();
+    const body = within(canvasElement.ownerDocument.body);
+    await waitFor(() => expect(body.queryByRole('dialog', { name: 'Sidebar' })).not.toBeInTheDocument());
+    await expect(await within(canvasElement).findByRole('heading', { name: 'Monitoring' })).toBeVisible();
     if (import.meta.env.VITE_GAUDI_AUDIT !== '1') return;
     const { page } = await import('vitest/browser');
     const canvas = within(canvasElement);
-    const body = within(canvasElement.ownerDocument.body);
     const original = { width: window.innerWidth, height: window.innerHeight };
     try {
       await page.viewport(390, original.height);
@@ -133,7 +134,8 @@ export const SidebarDocsSubmenus = {
     const routes = trigger ? within(await body.findByRole('dialog', { name: 'Documentation navigation' })) : await openNavigation(canvasElement);
     await userEvent.type(routes.getByRole('textbox', { name: 'Search the documentation' }), 'virtual');
     await userEvent.click(routes.getByRole('link', { name: 'Virtualisation' }));
-    await expect(canvas.getByRole('heading', { name: 'Virtualisation' })).toBeVisible();
+    await waitFor(() => expect(body.queryByRole('dialog', { name: 'Documentation navigation' })).not.toBeInTheDocument());
+    await expect(await canvas.findByRole('heading', { name: 'Virtualisation' })).toBeVisible();
   }
 };
 export const SidebarInspector = {

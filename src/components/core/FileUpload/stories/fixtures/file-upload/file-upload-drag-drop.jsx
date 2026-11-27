@@ -2,7 +2,7 @@
 import { IconTile } from '@gaudi/design-system/core/Icon';
 import {
   formatBytes,
-  useFileUpload
+  FileUploadDropzone, useFileUpload
 } from '@gaudi/design-system/core/FileUpload';
 import {
   Alert,
@@ -25,10 +25,7 @@ export function Pattern({
     { files, isDragging, errors },
     {
       removeFile,
-      handleDragEnter,
-      handleDragLeave,
-      handleDragOver,
-      handleDrop,
+      dropzoneProps,
       openFileDialog,
       getInputProps
     }
@@ -45,17 +42,8 @@ export function Pattern({
   return (
     <div className={cn('w-full max-w-lg', className)}>
       {/* Compact Upload Area */}
-      <div
-        className={cn(
-          'border-ui-border rounded-lg flex flex-wrap items-center gap-3 border border-dashed p-4 transition-colors',
-          isDragging
-            ? 'border-ui-primary bg-ui-primary/5'
-            : 'border-ui-muted-foreground/25 hover:border-ui-muted-foreground/50'
-        )}
-        onDragEnter={handleDragEnter}
-        onDragLeave={handleDragLeave}
-        onDragOver={handleDragOver}
-        onDrop={handleDrop}
+      <FileUploadDropzone {...dropzoneProps}
+        className='flex flex-wrap items-center gap-3 rounded-lg p-4 text-start'
       >
         <input {...getInputProps()} className='sr-only' />
 
@@ -118,7 +106,7 @@ export function Pattern({
             {files.length}/{maxFiles}
           </div>
         )}
-      </div>
+      </FileUploadDropzone>
 
       {/* Error Messages */}
       {errors.length > 0 && (

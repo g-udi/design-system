@@ -25,7 +25,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger
 } from '@gaudi/design-system/core/DropdownMenu';
-import { Separator } from '@gaudi/design-system/core/Separator';
+import { MetaSeparator, Separator } from '@gaudi/design-system/core/Separator';
 
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 const user = {
@@ -138,7 +138,7 @@ export function Pattern() {
           <DropdownMenuItem variant='destructive' onSelect={() => setSignedIn(false)}><RegistryIcon lucide='LogOutIcon' aria-hidden='true' />Sign out</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      {records.length > 0 && <ul aria-label='Created records' className='w-full text-center text-sm'>{records.map(record => <li key={record.id}>{record.type} · {record.name}</li>)}</ul>}
+      {records.length > 0 && <ul aria-label='Created records' className='w-full text-center text-sm'>{records.map(record => <li key={record.id}>{record.type} <MetaSeparator /> {record.name}</li>)}</ul>}
       {create && <Dialog open onOpenChange={open => { if (!open) setCreate(null); }} title={create} description='Create a record for this workspace.'>
         <form className='grid gap-3' onSubmit={event => { event.preventDefault(); const name = String(new FormData(event.currentTarget).get('name')).trim(); if (!name) return;
           setRecords(list => [...list, { id: crypto.randomUUID(), type: create.slice(4), name }]); setCreate(null); }}>

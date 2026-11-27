@@ -1,4 +1,5 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
 import { IconTile } from '@gaudi/design-system/core/Icon';
 import { useId, useState } from 'react';
 import { Badge } from '@gaudi/design-system/core/Pill';
@@ -81,7 +82,7 @@ export function Pattern() {
                         <Badge variant='primary-light' size='xs' className='ms-1.5 align-middle'>Cover</Badge>
                       )}
                     </p>
-                    <p dir='auto' className='text-xs text-ui-muted-foreground sm:truncate'>{item.description} · {item.size}</p>
+                    <p dir='auto' className='text-xs text-ui-muted-foreground sm:truncate'>{item.description} <MetaSeparator /> {item.size}</p>
                   </div>
                   <Badge variant={types[item.type].variant} size='sm' className='hidden sm:inline-flex'>{item.type}</Badge>
                   <SortableItemPosition aria-label={`Position of ${item.title}`} />

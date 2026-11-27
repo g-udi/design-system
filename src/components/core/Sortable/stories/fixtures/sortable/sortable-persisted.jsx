@@ -1,8 +1,8 @@
 'use client';
+import { Item } from '@gaudi/design-system/core/Item';
 import { useId, useState } from 'react';
 import { useTimeout } from '@gaudi/design-system/hooks/state/use-timeout';
-import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
-import { Label } from '@gaudi/design-system/core/Field';
+import LabeledSwitch from '@gaudi/design-system/core/Switch';
 import {
   Sortable,
   SortableItem,
@@ -41,7 +41,7 @@ export function Pattern() {
     <>
       <ToastProvider id={toastId} />
     <div className='mx-auto grid w-full max-w-xl grid-cols-1 gap-3'>
-      <Label className='gap-2'><Switch checked={simulateFailure} onCheckedChange={setSimulateFailure} disabled={Boolean(pending)} />Simulate a failed save</Label>
+      <LabeledSwitch className='gap-2' checked={simulateFailure} onCheckedChange={setSimulateFailure} disabled={Boolean(pending)} label="Simulate a failed save" />
       <Sortable
         value={items}
         onValueChange={setItems}
@@ -52,7 +52,7 @@ export function Pattern() {
       >
         {items.map((item) => (
           <SortableItem key={item.id} value={item.id} disabled={Boolean(pending)}>
-            <div className='bg-ui-background border-ui-border flex items-center gap-3 rounded-md border px-3 py-2'>
+            <Item size='sm' variant='outline' className='bg-ui-background gap-3 px-3 py-2'>
               <SortableItemHandle aria-label={`Drag ${item.title}`} className='text-ui-muted-foreground hover:text-ui-foreground'>
                 <RegistryIcon lucide='GripVerticalIcon' className='size-4' />
               </SortableItemHandle>
@@ -60,7 +60,7 @@ export function Pattern() {
               <span dir='auto' className='min-w-0 flex-1 text-sm font-medium sm:truncate'>
                 {item.title}
               </span>
-            </div>
+            </Item>
           </SortableItem>
         ))}
       </Sortable>

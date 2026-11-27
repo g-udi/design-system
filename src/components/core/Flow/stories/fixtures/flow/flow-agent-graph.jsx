@@ -1,4 +1,8 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import Timeline from '@gaudi/design-system/core/Timeline';
+import { Alert, AlertAction, AlertDescription } from '@gaudi/design-system/core/Banner';
+import EmptyState from '@gaudi/design-system/core/EmptyState';
 import { useId, useMemo, useRef, useState } from 'react';
 import '@gaudi/design-system/flow.css';
 import { Flow, FlowInspector, FlowStatus } from '@gaudi/design-system/core/Flow';
@@ -109,14 +113,14 @@ export function Pattern() {
   return (
     <section aria-labelledby={titleId} className='ds-touch-controls mx-auto grid w-full min-w-0 max-w-6xl grid-cols-1 gap-4 text-sm'>
       <header className='flex flex-wrap items-start justify-between gap-3'>
-        <div className='grid min-w-0 gap-1'><h2 id={titleId} className='text-lg font-semibold'>Agent network</h2><p className='text-text-muted'>Workspace migration brief · Demo run</p></div>
+        <div className='grid min-w-0 gap-1'><h2 id={titleId} className='text-lg font-semibold'>Agent network</h2><p className='text-text-muted'>Workspace migration brief <MetaSeparator /> Demo run</p></div>
         <div className='flex flex-wrap gap-2'><Toggle size='sm' variant='outline' pressed={animate} onPressedChange={setAnimate} aria-label='Animate calls'>Animate calls</Toggle><Button size='sm' variant='outline' disabled={empty || phase >= 3 && !pending} onClick={advance}>Next update</Button><Button size='sm' variant='ghost' onClick={reset}>Reset</Button></div>
       </header>
       <div className='flex flex-wrap items-center justify-between gap-3 border-y py-3'>
         <p className='text-text-muted flex flex-wrap gap-x-4 gap-y-1 text-xs tabular-nums'><bdi>{empty ? 0 : 3} agents</bdi><bdi>{empty ? 0 : 3} tools</bdi><bdi>{activeCalls.length} calls</bdi><bdi>{price(visibleMembers.reduce((total, member) => total + member.cost, 0))} total</bdi></p>
         <div className='flex flex-wrap gap-2' aria-label='Calls needing attention'>{blocked.map(call => <Button key={call.id} size='sm' variant='outline' onClick={() => setSelectedId(call.to)}>{byId[call.to].name}: {statusLabels[call.status]}</Button>)}</div>
       </div>
-      {empty ? <div className='grid justify-items-start gap-3 py-12'><h3 className='font-medium'>No agents connected</h3><p className='text-text-muted'>Start the demo to explore agents, tools and their calls.</p><Button onClick={reset}>Start demo network</Button></div> : (
+      {empty ? <EmptyState title='No agents connected' titleAs='h3' description='Start the demo to explore agents, tools and their calls.' actions={<Button onClick={reset}>Start demo network</Button>} /> : (
         <div ref={measure} style={{ height: narrow ? 800 : 550 }} className='min-w-0'>
           <Flow label='Agent call network' nodes={nodes} edges={edges} className='h-full! bg-surface!' background='none' controls={false}
             viewport={{ x: 0, y: 0, zoom: 1 }} fitView={false} nodesDraggable={false} nodesConnectable={false} edgesReconnectable={false}
@@ -129,10 +133,19 @@ export function Pattern() {
             >
               {selected && <div className='grid min-w-0 gap-4'>
                 <p className='text-text-muted'>{selected.detail}</p>
-                <p className='text-xs tabular-nums'><bdi>{price(selected.cost)} own cost · {related.length} {related.length === 1 ? 'call' : 'calls'}</bdi></p>
+                <p className='text-xs tabular-nums'><bdi>{price(selected.cost)} own cost <MetaSeparator /> {related.length} {related.length === 1 ? 'call' : 'calls'}</bdi></p>
                 {related.some(call => call.id === 'publish-brief') && <ChatMessageToolApproval state={({ waiting: 'requested', running: 'approved', success: 'executed', skipped: 'denied' })[calls.find(call => call.id === 'publish-brief').status]} name='publish the brief' description='Allow the Writer to publish the prepared brief to the shared workspace?' onApprove={() => resolve('publish-brief', 'running', 'Publishing approved in the demo. Next update completes the call.')} onDeny={() => resolve('publish-brief', 'skipped', 'Publishing denied. The draft is preserved.')} />}
-                {related.some(call => call.id === 'search-docs' && call.status === 'failed') && <div className='grid justify-items-start gap-2'><p role='alert'>Search timed out. The other agents’ work is preserved.</p><Button size='sm' onClick={() => { resolve('search-docs', 'running', 'Search retry queued in the demo. Next update completes the call.'); requestAnimationFrame(() => retryOutcome.current?.focus()); }}>Retry search</Button></div>}
-                <div ref={retryOutcome} tabIndex={-1} className='grid gap-2 outline-none'><h3 className='font-medium'>Recent calls</h3><ol className='grid gap-3'>{related.toReversed().map(call => <li key={call.id} className='grid min-w-0 gap-1 border-b pb-3'><p className='text-text-muted text-xs'><bdi>{byId[call.from].name} → {byId[call.to].name}</bdi></p><p className='[overflow-wrap:anywhere]'>{call.label}</p><div className='flex flex-wrap items-center gap-2'><FlowStatus status={call.status} label={statusLabels[call.status]} /><span className='text-text-muted text-xs'><bdi>{call.time}{call.duration ? ` · ${call.duration}` : ''}</bdi></span></div></li>)}</ol></div>
+                {related.some(call => call.id === 'search-docs' && call.status === 'failed') && <Alert variant='destructive'><AlertDescription>Search timed out. The other agents’ work is preserved.</AlertDescription><AlertAction><Button size='sm' onClick={() => { resolve('search-docs', 'running', 'Search retry queued in the demo. Next update completes the call.'); requestAnimationFrame(() => retryOutcome.current?.focus()); }}>Retry search</Button></AlertAction></Alert>}
+                <div ref={retryOutcome} tabIndex={-1} className='grid gap-2 outline-none'>
+                  <h3 className='font-medium'>Recent calls</h3>
+                  <Timeline label='Recent calls' items={related.toReversed().map((call) => ({
+                    id: call.id,
+                    title: call.label,
+                    time: <bdi>{call.time}{call.duration && <> <MetaSeparator /> {call.duration}</>}</bdi>,
+                    description: <bdi>{byId[call.from].name} → {byId[call.to].name}</bdi>,
+                    children: <FlowStatus status={call.status} label={statusLabels[call.status]} />
+                  }))} />
+                </div>
               </div>}
             </FlowInspector>
           </Flow>

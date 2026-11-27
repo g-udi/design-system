@@ -1,3 +1,4 @@
+import Link from '@gaudi/design-system/core/Link';
 import {
   Frame,
   FramePanel
@@ -51,9 +52,9 @@ export function Pattern() {
             size='sm'
             className='hover:bg-ui-accent focus-visible:ring-ui-ring focus-visible:ring-offset-background transition-colors outline-none focus-visible:ring-2 focus-visible:ring-offset-2'
           >
-            <a href='/reports/quarterly/settings' aria-label='Open settings'>
+            <Link variant='bare' href='/reports/quarterly/settings' aria-label='Open settings'>
               <RegistryIcon lucide='Settings2Icon' aria-hidden='true' />
-            </a>
+            </Link>
           </IconTile>
         </ItemActions>
       </Item>

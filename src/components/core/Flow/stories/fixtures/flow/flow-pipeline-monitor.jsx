@@ -1,4 +1,6 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import { Item } from '@gaudi/design-system/core/Item';
 import { useEffect, useMemo, useState } from 'react';
 import {
   Flow,
@@ -156,7 +158,7 @@ function PipelineRun() {
       <div className='flex flex-wrap items-center gap-2'>
         <div className='min-w-0'>
           <h3 className='text-sm font-medium'>Nightly revenue pipeline</h3>
-          <p className='text-text-muted text-xs'>Run 482 · started 02:00 · {cyclic ? 'cycle found, running in listed order' : 'dependency order'}</p>
+          <p className='text-text-muted text-xs'>Run 482 <MetaSeparator /> started 02:00 <MetaSeparator /> {cyclic ? 'cycle found, running in listed order' : 'dependency order'}</p>
         </div>
         <div className='ms-auto flex flex-wrap gap-2'>
           <Button size='sm' variant='outline' tone='neutral' disabled={!failed.length} onClick={focusFailed}>
@@ -199,11 +201,11 @@ function PipelineRun() {
               const state = run[id];
               if (!node || !state) return null;
               return (
-                <li key={id} className='flex flex-wrap items-center gap-x-3 gap-y-1 px-3 py-2 text-sm'>
+                <Item as='li' size='sm' key={id} className='rounded-none flex flex-wrap items-center gap-x-3 gap-y-1 px-3 py-2 text-sm'>
                   <span className='min-w-0 flex-1 truncate'>{node.data.title}</span>
-                  <span className='text-text-muted tabular-nums text-xs'>{state.status === 'success' && id !== 'gate' ? timing[id]?.[1] : ''}{state.attempt > 1 ? ` · attempt ${state.attempt}` : ''}</span>
+                  <span className='text-text-muted tabular-nums text-xs'>{state.status === 'success' && id !== 'gate' ? timing[id]?.[1] : ''}{state.attempt > 1 && <> <MetaSeparator /> attempt {state.attempt}</>}</span>
                   <FlowStatus status={state.status} label={id === 'gate' && state.status === 'waiting' ? 'Needs approval' : undefined} />
-                </li>
+                </Item>
               );
             })}
           </ol>

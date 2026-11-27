@@ -12,7 +12,7 @@ import {
 } from '@gaudi/design-system/core/Card';
 import { FieldInput as Input } from '@gaudi/design-system/core/Field';
 import { Label } from '@gaudi/design-system/core/Field';
-import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
+import LabeledSwitch from '@gaudi/design-system/core/Switch';
 import {
   Tabs,
   TabsContent,
@@ -61,14 +61,10 @@ export function Pattern() {
     <div className='mx-auto grid w-full max-w-lg gap-3'>
       <div role='group' aria-label='Tab options' className='flex flex-wrap gap-x-4 gap-y-2'>
         {options.map((option) => (
-          <Label key={option.key} className='gap-2 text-sm font-normal'>
-            <Switch
+          <LabeledSwitch key={option.key} className='gap-2 text-sm font-normal'
               size='sm'
               checked={layout[option.key]}
-              onCheckedChange={(checked) => setLayout((current) => ({ ...current, [option.key]: checked }))}
-            />
-            {option.label}
-          </Label>
+              onCheckedChange={(checked) => setLayout((current) => ({ ...current, [option.key]: checked }))} label={option.label} />
         ))}
       </div>
       <Tabs key={vertical ? 'vertical' : 'horizontal'} defaultValue='account' orientation={vertical ? 'vertical' : 'horizontal'} className='gap-3'>

@@ -1,4 +1,7 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
+import EmptyState from '@gaudi/design-system/core/EmptyState';
 import { IconTile } from '@gaudi/design-system/core/Icon';
 import { useState } from 'react';
 import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
@@ -366,17 +369,17 @@ function Workspace({ view, onView, notebook, page, bucket, creating, onCreated }
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
-          <Button
+          <Toggle
             variant='outline'
             size='sm'
             aria-label='Only notes to review'
-            aria-pressed={pendingOnly}
-            onClick={() => setPendingOnly(!pendingOnly)}
+            pressed={pendingOnly}
+            onPressedChange={setPendingOnly}
             className='hidden @lg:inline-flex'
           >
             <RegistryIcon lucide='Filter' aria-hidden='true' />
             <span className='hidden @xl:inline'>Filter</span>
-          </Button>
+          </Toggle>
           <Button
             variant='soft'
             size='icon-sm'
@@ -398,7 +401,7 @@ function Workspace({ view, onView, notebook, page, bucket, creating, onCreated }
             <header className='grid gap-1'>
               <h2 className='text-lg font-semibold'>{notebook.name}</h2>
               <p className='text-sm text-text-muted'>
-                {page} · {visible.length} {visible.length === 1 ? 'entry' : 'entries'}
+                {page} <MetaSeparator /> {visible.length} {visible.length === 1 ? 'entry' : 'entries'}
               </p>
             </header>
             {creating ? (
@@ -417,7 +420,7 @@ function Workspace({ view, onView, notebook, page, bucket, creating, onCreated }
                 </div>
               </form>
             ) : null}
-            {!visible.length ? <p className='text-sm text-text-muted'>No notes match these filters.</p> : null}
+            {!visible.length ? <EmptyState compact title='No notes match these filters.' /> : null}
             {visible.length > 0 && view === 'list' ? (
               <Accordion
                 key={notebook.id}

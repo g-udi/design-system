@@ -1,14 +1,17 @@
 'use client';
+import EmptyState from '@gaudi/design-system/core/EmptyState';
+import { ScrollArea } from '@gaudi/design-system/core/ScrollArea';
+import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
 import { useId, useRef, useState } from 'react';
 import {
+  getAvatarInitials,
   AvatarRoot as Avatar,
   AvatarFallback,
   AvatarImage
 } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
-import { Label } from '@gaudi/design-system/core/Field';
 import { Badge } from '@gaudi/design-system/core/Pill';
-import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
+import LabeledSwitch from '@gaudi/design-system/core/Switch';
 import { default as Textarea } from '@gaudi/design-system/core/Textarea';
 import {
   Sheet,
@@ -53,52 +56,53 @@ export function Pattern() {
           <SheetTitle>Comments</SheetTitle>
           <SheetDescription>{open} open on “Small tools, long lifetimes”</SheetDescription>
           <div className='mt-2 flex items-center gap-2'>
-            <Switch ref={filterRef} id={`${id}-comments-open-only`} size='sm' checked={openOnly} onCheckedChange={setOpenOnly} />
-            <Label htmlFor={`${id}-comments-open-only`} className='text-sm font-normal'>Open only</Label>
+            <LabeledSwitch className='text-sm font-normal' ref={filterRef} id={`${id}-comments-open-only`} size='sm' checked={openOnly} onCheckedChange={setOpenOnly} label="Open only" />
           </div>
         </SheetHeader>
-        <ul className='min-h-0 flex-1 divide-y overflow-y-auto'>
-          {visible.map((comment) => (
-            <li key={comment.id} className='grid gap-2 p-3'>
-              <div className='flex items-center gap-2 text-sm'>
-                <Avatar className='size-6'>
-                  <AvatarImage src={`/avatars/${comment.portrait}.svg`} alt={comment.name} />
-                  <AvatarFallback>{comment.name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
-                </Avatar>
-                <span className='font-medium'>{comment.name}</span>
-                <span className='text-text-muted text-xs'>{comment.when}</span>
-                {comment.resolved ? <Badge size='sm' variant='success-light' className='ms-auto'>Resolved</Badge> : null}
-              </div>
-              <p className='text-sm'>{comment.text}</p>
-              <div className='flex flex-wrap items-center gap-1'>
-                <Button size='xs' variant='ghost' aria-pressed={comment.liked} onClick={() => update(comment.id, (c) => ({ liked: !c.liked, likes: c.likes + (c.liked ? -1 : 1) }))}>
-                  <RegistryIcon lucide='ThumbsUpIcon' aria-hidden='true' className={comment.liked ? 'text-accent' : undefined} />
-                  <span className='tabular-nums'>{comment.likes}</span>
-                  <span className='sr-only'>likes</span>
-                </Button>
-                <Button size='xs' variant='ghost' onClick={(event) => { replyTrigger.current = event.currentTarget; setDraft(''); setReplying(replying === comment.id ? null : comment.id); }}>
-                  <RegistryIcon lucide='ReplyIcon' aria-hidden='true' />
-                  Reply
-                </Button>
-                <Button size='xs' variant='ghost' onClick={() => { update(comment.id, (c) => ({ resolved: !c.resolved })); if (openOnly && !comment.resolved) filterRef.current?.focus(); }}>
-                  <RegistryIcon lucide={comment.resolved ? 'UndoIcon' : 'CircleCheckIcon'} aria-hidden='true' />
-                  {comment.resolved ? 'Reopen' : 'Resolve'}
-                </Button>
-              </div>
-              {comment.replies?.length ? <ul className='grid gap-2 border-s ps-3 text-sm' aria-label={`Replies to ${comment.name}`}>{comment.replies.map((text, index) => <li key={index}><span className='font-medium'>You: </span>{text}</li>)}</ul> : null}
-              {replying === comment.id ? (
-                <div className='grid gap-2'>
-                  <Textarea aria-label={`Reply to ${comment.name}`} rows={2} value={draft} onChange={(event) => setDraft(event.target.value)} placeholder='Write a reply…' />
-                  <div className='flex justify-end gap-2'>
-                    <Button size='xs' variant='outline' onClick={closeReply}>Cancel</Button>
-                    <Button size='xs' disabled={!draft.trim()} onClick={() => { update(comment.id, (c) => ({ replies: [...(c.replies ?? []), draft.trim()] })); closeReply(); }}>Reply</Button>
-                  </div>
+        <ScrollArea aria-label='Comments list' className='min-h-0 min-w-0 flex-1 **:data-[slot=scroll-area-viewport]:[&>div]:block!'>
+          <ul className='divide-y'>
+            {visible.map((comment) => (
+              <li key={comment.id} className='grid gap-2 p-3'>
+                <div className='flex items-center gap-2 text-sm'>
+                  <Avatar className='size-6'>
+                    <AvatarImage src={`/avatars/${comment.portrait}.svg`} alt={comment.name} />
+                    <AvatarFallback>{getAvatarInitials(comment.name)}</AvatarFallback>
+                  </Avatar>
+                  <span className='font-medium'>{comment.name}</span>
+                  <span className='text-text-muted text-xs'>{comment.when}</span>
+                  {comment.resolved ? <Badge size='sm' variant='success-light' className='ms-auto'>Resolved</Badge> : null}
                 </div>
-              ) : null}
-            </li>
-          ))}
-          {!visible.length ? <li className='text-text-muted p-6 text-center text-sm'>No open comments.</li> : null}
-        </ul>
+                <p className='text-sm'>{comment.text}</p>
+                <div className='flex flex-wrap items-center gap-1'>
+                  <Toggle size='sm' pressed={comment.liked} onPressedChange={(liked) => update(comment.id, (c) => ({ liked, likes: c.likes + (liked ? 1 : -1) }))}>
+                    <RegistryIcon lucide='ThumbsUpIcon' aria-hidden='true' className={comment.liked ? 'text-accent' : undefined} />
+                    <span className='tabular-nums'>{comment.likes}</span>
+                    <span className='sr-only'>likes</span>
+                  </Toggle>
+                  <Button size='xs' variant='ghost' onClick={(event) => { replyTrigger.current = event.currentTarget; setDraft(''); setReplying(replying === comment.id ? null : comment.id); }}>
+                    <RegistryIcon lucide='ReplyIcon' aria-hidden='true' />
+                    Reply
+                  </Button>
+                  <Button size='xs' variant='ghost' onClick={() => { update(comment.id, (c) => ({ resolved: !c.resolved })); if (openOnly && !comment.resolved) filterRef.current?.focus(); }}>
+                    <RegistryIcon lucide={comment.resolved ? 'UndoIcon' : 'CircleCheckIcon'} aria-hidden='true' />
+                    {comment.resolved ? 'Reopen' : 'Resolve'}
+                  </Button>
+                </div>
+                {comment.replies?.length ? <ul className='grid gap-2 border-s ps-3 text-sm' aria-label={`Replies to ${comment.name}`}>{comment.replies.map((text, index) => <li key={index}><span className='font-medium'>You: </span>{text}</li>)}</ul> : null}
+                {replying === comment.id ? (
+                  <div className='grid gap-2'>
+                    <Textarea aria-label={`Reply to ${comment.name}`} rows={2} value={draft} onChange={(event) => setDraft(event.target.value)} placeholder='Write a reply…' />
+                    <div className='flex justify-end gap-2'>
+                      <Button size='xs' variant='outline' onClick={closeReply}>Cancel</Button>
+                      <Button size='xs' disabled={!draft.trim()} onClick={() => { update(comment.id, (c) => ({ replies: [...(c.replies ?? []), draft.trim()] })); closeReply(); }}>Reply</Button>
+                    </div>
+                  </div>
+                ) : null}
+              </li>
+            ))}
+            {!visible.length ? <li><EmptyState compact title='No open comments.' /></li> : null}
+          </ul>
+        </ScrollArea>
       </SheetContent>
     </Sheet>
   );

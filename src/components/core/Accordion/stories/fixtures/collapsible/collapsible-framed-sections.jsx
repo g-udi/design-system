@@ -1,4 +1,6 @@
 'use client';
+import { FieldErrorPrimitive as FieldError } from '@gaudi/design-system/core/Field';
+import EmptyState from '@gaudi/design-system/core/EmptyState';
 import { useRef, useState } from 'react';
 import { useCopyToClipboard } from '@gaudi/design-system/hooks/interaction/use-copy-to-clipboard';
 import {
@@ -60,30 +62,38 @@ function Section({ title, defaultOpen, children }) {
   );
 }
 function ApiKeyItem({ item, onDelete }) {
-  const { isCopied, copyToClipboard } = useCopyToClipboard();
+  const [copyFailed, setCopyFailed] = useState(false);
+  const { isCopied, copyToClipboard } = useCopyToClipboard({
+    onCopy: () => setCopyFailed(false),
+    onError: () => setCopyFailed(true)
+  });
   return (
-    <div className='flex items-center gap-2'>
-      <RegistryIcon lucide='LockIcon' aria-hidden='true' className='size-3.5 shrink-0 text-success' />
-      <span className='w-20 shrink-0 truncate text-xs'>{item.name}</span>
-      <code className='min-w-0 flex-1 truncate rounded-md bg-surface-muted px-2 py-1 text-xs'>{item.key}</code>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button aria-label={`${item.name} key actions`} variant='ghost' size='icon-xs'>
-            <RegistryIcon lucide='MoreHorizontalIcon' aria-hidden='true' />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align='end' className='min-w-32'>
-          <DropdownMenuItem onClick={() => copyToClipboard(item.key)}>
-            <RegistryIcon lucide={isCopied ? 'CheckIcon' : 'CopyIcon'} aria-hidden='true' />
-            <span>{isCopied ? 'Copied' : 'Copy key'}</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem variant='destructive' onClick={() => onDelete(item.id)}>
-            <RegistryIcon lucide='TrashIcon' aria-hidden='true' />
-            <span>Delete</span>
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </div>
+    <>
+      <div className='flex items-center gap-2'>
+        <RegistryIcon lucide='LockIcon' aria-hidden='true' className='size-3.5 shrink-0 text-success' />
+        <span className='w-20 shrink-0 truncate text-xs'>{item.name}</span>
+        <code className='min-w-0 flex-1 truncate rounded-md bg-surface-muted px-2 py-1 text-xs'>{item.key}</code>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button aria-label={`${item.name} key actions`} variant='ghost' size='icon-xs'>
+              <RegistryIcon lucide='MoreHorizontalIcon' aria-hidden='true' />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align='end' className='min-w-32'>
+            <DropdownMenuItem onClick={() => copyToClipboard(item.key)}>
+              <RegistryIcon lucide={isCopied ? 'CheckIcon' : 'CopyIcon'} aria-hidden='true' />
+              <span>{isCopied ? 'Copied' : 'Copy key'}</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem variant='destructive' onClick={() => onDelete(item.id)}>
+              <RegistryIcon lucide='TrashIcon' aria-hidden='true' />
+              <span>Delete</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+      {isCopied && <span className='sr-only' role='status'>{item.name} key copied.</span>}
+      {copyFailed && <FieldError>Could not copy the {item.name} key. Try again or copy the displayed key manually.</FieldError>}
+    </>
   );
 }
 export function Pattern() {
@@ -118,7 +128,7 @@ export function Pattern() {
                 {keys.map((item) => (
                   <ApiKeyItem key={item.id} item={item} onDelete={(id) => setKeys((current) => current.filter((key) => key.id !== id))} />
                 ))}
-                {keys.length ? null : <p className='text-xs text-text-muted'>No keys left.</p>}
+                {keys.length ? null : <EmptyState compact title='No keys left.' />}
               </div>
             </FramePanel>
           </CollapsibleContent>

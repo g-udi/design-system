@@ -1,4 +1,5 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
 import { useState } from 'react';
 import {
   Cascader,
@@ -298,7 +299,7 @@ function ZoneValue() {
     <span className='flex min-w-0 flex-1 items-center gap-1.5 text-start'>
       <span className='min-w-0 truncate'>{covering.join(', ')}</span>
       <span className='text-ui-muted-foreground shrink-0'>
-        · {countries} {countries === 1 ? 'country' : 'countries'}
+        <MetaSeparator /> {countries} {countries === 1 ? 'country' : 'countries'}
       </span>
     </span>
   );

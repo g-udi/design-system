@@ -1,6 +1,7 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
+  getAvatarInitials,
   AvatarRoot as Avatar,
   AvatarFallback,
   AvatarImage
@@ -14,11 +15,14 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
+  CommandShortcut,
   CommandSeparator
 } from '@gaudi/design-system/core/Commander';
-import { KbdRoot as Kbd } from '@gaudi/design-system/core/Kbd';
+import { useHotkey } from '@gaudi/design-system/hooks/interaction/use-hotkey';
+import Kbd from '@gaudi/design-system/core/Kbd';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
+const searchKeys = ['mod+k', 'ctrl+k', 'meta+k'];
 const favorites = ['Design System', 'API Documentation'];
 const recent = [
   ['Dashboard Analytics', '2m ago'],
@@ -47,30 +51,15 @@ const people = [
   ['Ottilie Nakamura', 'ottilie@example.com', 'person-45', 'Viewer'],
   ['Ilse Valtonen', 'ilse@example.com', 'person-24', 'Editor']
 ];
-// Trailing metadata uses the shortcut slot so it aligns right and dims like a shortcut.
-const Meta = ({ children }) => (
-  <span className='ml-auto truncate' data-slot='command-shortcut'>
-    {children}
-  </span>
-);
 export function Pattern() {
   const [open, setOpen] = useState(false);
-  useEffect(() => {
-    const onKeyDown = (event) => {
-      if (event.key === 'k' && (event.metaKey || event.ctrlKey)) {
-        event.preventDefault();
-        setOpen((current) => !current);
-      }
-    };
-    document.addEventListener('keydown', onKeyDown);
-    return () => document.removeEventListener('keydown', onKeyDown);
-  }, []);
+  const shortcut = useHotkey(searchKeys, () => setOpen((current) => !current), { preventDefault: true });
   return (
     <>
-      <Button onClick={() => setOpen(true)} variant='outline' tone='neutral' className='w-56'>
+      <Button aria-keyshortcuts={shortcut.ariaKeyShortcuts} onClick={() => setOpen(true)} variant='outline' tone='neutral' className='w-56'>
         <RegistryIcon lucide='SearchIcon' className='size-4' />
         Search...
-        <Kbd className='ml-auto'>⌘K</Kbd>
+        <Kbd keys={shortcut.kbdKeys} size='xs' className='ml-auto' />
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <Command>
@@ -90,7 +79,7 @@ export function Pattern() {
                 <CommandItem key={label}>
                   <RegistryIcon lucide='ClockIcon' className='text-text-muted' />
                   <span>{label}</span>
-                  <Meta>{time}</Meta>
+                  <CommandShortcut className='min-w-0 truncate'>{time}</CommandShortcut>
                 </CommandItem>
               ))}
             </CommandGroup>
@@ -103,7 +92,7 @@ export function Pattern() {
                   <CommandItem key={path} value={path}>
                     <RegistryIcon lucide={icon} className={`shrink-0 ${tone}`} />
                     <span className='truncate font-medium'>{name}</span>
-                    <Meta>{path.split('/').slice(0, -1).join('/') || 'root'}</Meta>
+                    <CommandShortcut className='min-w-0 truncate'>{path.split('/').slice(0, -1).join('/') || 'root'}</CommandShortcut>
                   </CommandItem>
                 );
               })}
@@ -115,7 +104,7 @@ export function Pattern() {
                   <Avatar className='size-6 shrink-0'>
                     <AvatarImage src={`/avatars/${portrait}.svg`} alt={name} />
                     <AvatarFallback>
-                      {name.split(' ').map((part) => part[0]).join('')}
+                      {getAvatarInitials(name)}
                     </AvatarFallback>
                   </Avatar>
                   <div className='flex min-w-0 flex-1 flex-col'>

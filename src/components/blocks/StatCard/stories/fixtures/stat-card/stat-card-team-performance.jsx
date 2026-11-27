@@ -1,5 +1,7 @@
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import { StatCard, StatDelta } from '@gaudi/design-system/blocks/StatCard';
 import {
+  getAvatarInitials,
   AvatarRoot as Avatar,
   AvatarFallback,
   AvatarImage
@@ -23,7 +25,7 @@ export function Pattern() {
   return (
     <StatCard className='w-full max-w-md' label='Sales team · Q3' value='$148,900' delta='14%' deltaDirection='up' deltaTone='success' description='closed of a $180,000 target'>
       <Progress value={83} aria-label='Quarter target' className='h-2' />
-      <dl className='mt-2 grid grid-cols-2 gap-px overflow-hidden rounded-md border bg-border'>
+      <CardRoot as='dl' variant='outline' padding='none' radius='md' className='mt-2 grid grid-cols-2 gap-px overflow-hidden bg-border'>
         {kpis.map(([label, value, delta, direction, tone]) => (
           <div key={label} className='bg-surface grid gap-0.5 p-3'>
             <dt className='text-text-muted text-xs'>{label}</dt>
@@ -33,13 +35,13 @@ export function Pattern() {
             </dd>
           </div>
         ))}
-      </dl>
+      </CardRoot>
       <ul className='mt-2 grid grid-cols-1 gap-2.5'>
         {activity.map(([name, portrait, action, when]) => (
           <li key={name} className='flex items-center gap-2.5 text-sm'>
             <Avatar className='size-6'>
               <AvatarImage src={`/avatars/${portrait}.svg`} alt={name} />
-              <AvatarFallback>{name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
+              <AvatarFallback>{getAvatarInitials(name)}</AvatarFallback>
             </Avatar>
             <p className='min-w-0 flex-1 truncate'>
               <span className='font-medium'>{name}</span> <span className='text-text-muted'>{action}</span>

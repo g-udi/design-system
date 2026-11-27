@@ -1,9 +1,6 @@
+import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
 import { useState } from 'react';
-import {
-  AvatarRoot as Avatar,
-  AvatarFallback,
-  AvatarImage
-} from '@gaudi/design-system/core/Avatar';
+import { Avatar } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@gaudi/design-system/core/Accordion';
 import { Badge } from '@gaudi/design-system/core/Pill';
@@ -21,23 +18,17 @@ function ProfilePopover() {
     <Popover>
       <PopoverTrigger asChild>
         <Button variant='outline' className='h-auto justify-start py-1'>
-          <Avatar className='size-6' aria-hidden='true'>
-            <AvatarImage src={portrait} alt='' />
-            <AvatarFallback>DC</AvatarFallback>
-          </Avatar>
+          <Avatar size='xs' surface='tinted' className='size-6' src={portrait} name='Dorian Chua' alt='' />
           Dorian Chua
         </Button>
       </PopoverTrigger>
       <PopoverContent className='w-64' align='start'>
         <div className='flex flex-col gap-2'>
           <div className='flex items-start justify-between'>
-            <Avatar className='size-10'>
-              <AvatarImage src={portrait} alt='Dorian Chua' />
-              <AvatarFallback>DC</AvatarFallback>
-            </Avatar>
-            <Button size='sm' variant='outline' aria-pressed={following} onClick={() => setFollowing(!following)}>
+            <Avatar size='md' surface='tinted' src={portrait} name='Dorian Chua' />
+            <Toggle size='sm' variant='outline' pressed={following} onPressedChange={setFollowing}>
               {following ? 'Following' : 'Follow'}
-            </Button>
+            </Toggle>
           </div>
           <div>
             <PopoverTitle>Dorian Chua</PopoverTitle>

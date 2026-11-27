@@ -1,4 +1,5 @@
 'use client';
+import { CardHeader, CardTitle, CardDescription, CardRoot } from '@gaudi/design-system/core/Card';
 import { IconTile } from '@gaudi/design-system/core/Icon';
 import { useState } from 'react';
 import { default as Button } from '@gaudi/design-system/core/Button';
@@ -35,16 +36,16 @@ export function Pattern() {
 
   return (
     <div className='mx-auto grid w-full max-w-xl gap-4'>
-      <section aria-labelledby='newsletter-title' className='bg-surface-muted grid gap-4 rounded-lg border p-5 sm:p-6'>
-        <div className='flex items-start gap-3'>
+      <CardRoot as='section' variant='soft' radius='lg' padding='none' aria-labelledby='newsletter-title' className='grid gap-4 p-5 sm:p-6'>
+        <CardHeader className='p-0 flex items-start gap-3'>
           <IconTile aria-hidden='true' size='sm' variant='muted' className='bg-accent-subtle text-accent'>
             <RegistryIcon lucide='MailIcon' aria-hidden='true' />
           </IconTile>
           <div className='grid gap-1'>
-            <h2 id='newsletter-title' className='text-lg font-semibold'>The weekly letter</h2>
-            <p className='text-text-muted text-sm'>New essays and the best links I read, every Sunday. 4,200 readers, no tracking, one-click unsubscribe.</p>
+            <CardTitle as='h2' id='newsletter-title' className='text-lg font-semibold'>The weekly letter</CardTitle>
+            <CardDescription as='p' className='text-text-muted text-sm'>New essays and the best links I read, every Sunday. 4,200 readers, no tracking, one-click unsubscribe.</CardDescription>
           </div>
-        </div>
+        </CardHeader>
         {step === 'done' ? (
           <p role='status' className='text-sm'>
             <strong>Check your inbox.</strong> A confirmation link is on its way to {values.email}: {values.topics.length}{' '}
@@ -86,7 +87,7 @@ export function Pattern() {
             ) : null}
           </form>
         )}
-      </section>
+      </CardRoot>
       <form aria-label='Subscribe below a post' onSubmit={(event) => event.preventDefault()} className='flex flex-col items-stretch gap-2 border-t pt-4 sm:flex-row sm:items-center'>
         <p className='text-sm font-medium sm:flex-1'>Enjoyed this post? Get the next one by email.</p>
         <Label htmlFor='newsletter-inline-email' className='sr-only'>Email address</Label>

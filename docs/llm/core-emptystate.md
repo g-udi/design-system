@@ -53,7 +53,7 @@ Curated patterns:
 - Illustrated empty states — registry item `@gaudi/empty-illustrated` (uses `Button`, `Empty`, `EmptyContent`, `EmptyDescription`, `EmptyHeader`, `EmptyMedia`, `EmptyTitle`, `ToggleGroupItem`, `ToggleGroupRoot`)
 - Inside a card — registry item `@gaudi/empty-in-card` (uses `Button`, `CardContent`, `CardDescription`, `CardHeader`, `CardRoot`, `CardTitle`, `Empty`, `EmptyContent`, `EmptyDescription`, `EmptyHeader`, `EmptyMedia`, `EmptyTitle`, `RegistryIcon`)
 - Not found with search — registry item `@gaudi/empty-not-found` (uses `Button`, `Empty`, `EmptyContent`, `EmptyDescription`, `EmptyHeader`, `EmptyTitle`, `InputGroup`, `InputGroupAddon`, `InputGroupInput`, `KbdRoot`, `Link`, `RegistryIcon`, `useHotkey`)
-- Surfaces and actions — registry item `@gaudi/empty-surfaces-actions` (uses `Button`, `Empty`, `EmptyContent`, `EmptyDescription`, `EmptyHeader`, `EmptyMedia`, `EmptyTitle`, `Link`, `RegistryIcon`, `useFileUpload`)
+- Surfaces and actions — registry item `@gaudi/empty-surfaces-actions` (uses `Button`, `Empty`, `EmptyContent`, `EmptyDescription`, `EmptyHeader`, `EmptyMedia`, `EmptyTitle`, `FieldErrorPrimitive`, `FileUploadDropzone`, `Link`, `RegistryIcon`, `useFileUpload`)
 
 ## README
 

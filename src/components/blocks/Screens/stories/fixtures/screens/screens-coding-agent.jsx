@@ -1,4 +1,6 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import { useState } from 'react';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { CheckboxRoot as Checkbox } from '@gaudi/design-system/core/Checkbox';
@@ -63,7 +65,7 @@ export function Pattern() {
         <Label htmlFor='dev-dark' className='font-normal'>Dark card</Label>
         <Switch id='dev-dark' checked={dark} onCheckedChange={setDark} />
       </div>
-      <div className={cn('bg-surface text-text rounded-xl border p-5', dark && 'dark')}>
+      <CardRoot variant='outline' padding='none' className={cn('bg-surface text-text rounded-xl border p-5', dark && 'dark')}>
         <Wizard
           title='Connect your coding agent'
           description='Eight steps from a new account to an agent that can read your project.'
@@ -146,13 +148,13 @@ export function Pattern() {
               </div>
             ) : (
               <Field>
-                <FieldLabel>Invite a teammate <span className='text-text-muted font-normal'>· optional</span></FieldLabel>
+                <FieldLabel>Invite a teammate <span className='text-text-muted font-normal'><MetaSeparator /> optional</span></FieldLabel>
                 <EmailInput  placeholder='dev@example.com' />
               </Field>
             )
           }
         </Wizard>
-      </div>
+      </CardRoot>
     </div>
   );
 }

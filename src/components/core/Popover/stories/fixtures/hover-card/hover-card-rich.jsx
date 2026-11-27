@@ -1,8 +1,4 @@
-import {
-  AvatarRoot as Avatar,
-  AvatarFallback,
-  AvatarImage
-} from '@gaudi/design-system/core/Avatar';
+import { Avatar } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
   HoverCard,
@@ -15,23 +11,17 @@ function ProfileCard() {
   return (
     <HoverCard openDelay={100} closeDelay={100}>
       <HoverCardTrigger asChild>
-        <a href='#elena' className='flex items-center gap-2 no-underline'>
-          <Avatar className='size-8'>
-            <AvatarImage src={portrait} alt='' />
-            <AvatarFallback>ES</AvatarFallback>
-          </Avatar>
+        <Button variant='ghost' size='sm' className='h-auto items-center gap-2'>
+          <Avatar size='sm' surface='tinted' src={portrait} name='Elena Soroka' alt='' />
           <span className='grid text-left'>
             <span className='font-medium text-text hover:underline'>Elena Soroka</span>
             <span className='text-xs text-text-muted'>@e.soroka</span>
           </span>
-        </a>
+        </Button>
       </HoverCardTrigger>
       <HoverCardContent className='w-64'>
         <div className='flex gap-2'>
-          <Avatar className='size-10 shrink-0'>
-            <AvatarImage src={portrait} alt='Elena Soroka' />
-            <AvatarFallback>ES</AvatarFallback>
-          </Avatar>
+          <Avatar size='md' surface='tinted' className='shrink-0' src={portrait} name='Elena Soroka' />
           <div className='grid gap-1'>
             <div>
               <p className='font-medium'>Elena Soroka</p>

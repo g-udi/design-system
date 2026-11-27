@@ -1,8 +1,11 @@
 'use client';
+import { CardRoot } from '@gaudi/design-system/core/Card';
+import { Item } from '@gaudi/design-system/core/Item';
 import { EmailInput } from '@gaudi/design-system/core/Input';
 import { useState } from 'react';
 import { useFileUpload } from '@gaudi/design-system/core/FileUpload';
 import {
+  getAvatarInitials,
   AvatarRoot as Avatar,
   AvatarFallback,
   AvatarImage
@@ -27,7 +30,7 @@ import {
   NativeSelect,
   NativeSelectOption
 } from '@gaudi/design-system/core/Select';
-import { Separator } from '@gaudi/design-system/core/Separator';
+import { MetaSeparator, Separator } from '@gaudi/design-system/core/Separator';
 import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 import { cn } from '@gaudi/design-system/utilities/cn';
@@ -144,11 +147,11 @@ const panels = {
         <Separator />
         <ul className='grid gap-2 text-sm'>
           {[['MacBook Pro · Berlin', 'This device'], ['iPhone 15 · Berlin', '2 hours ago']].map(([device, seen]) => (
-            <li key={device} className='flex items-center gap-3'>
+            <Item as='li' size='sm' key={device} className='gap-3'>
               <RegistryIcon lucide={device.startsWith('iPhone') ? 'SmartphoneIcon' : 'MonitorIcon'} aria-hidden='true' className='text-text-muted size-4' />
               <span className='flex-1'>{device}</span>
               <span className='text-text-muted text-xs'>{seen}</span>
-            </li>
+            </Item>
           ))}
         </ul>
       </FieldGroup>
@@ -191,17 +194,17 @@ const panels = {
     body: (
       <ul className='grid gap-3'>
         {members.map(([name, portrait, email, role]) => (
-          <li key={name} className='flex items-center gap-3'>
+          <Item as='li' size='sm' key={name} className='gap-3'>
             <Avatar className='size-8'>
               <AvatarImage src={`/avatars/${portrait}.svg`} alt={name} />
-              <AvatarFallback>{name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
+              <AvatarFallback>{getAvatarInitials(name)}</AvatarFallback>
             </Avatar>
             <span className='grid min-w-0 flex-1 text-sm'>
               <span className='font-medium'>{name}</span>
               <span className='text-text-muted truncate text-xs'>{email}</span>
             </span>
             <Badge variant={role === 'Owner' ? 'primary-light' : 'outline'} size='sm'>{role}</Badge>
-          </li>
+          </Item>
         ))}
       </ul>
     )
@@ -210,12 +213,12 @@ const panels = {
     title: 'Billing',
     description: 'Team plan · €48 per month, renews 14 November.',
     body: (
-      <div className='flex flex-wrap items-center justify-between gap-3 rounded-lg border p-4'>
+      <Item size='sm' variant='outline' className='justify-between gap-3 p-4'>
         <span className='grid text-sm'>
-          <span className='font-medium'>Team · monthly</span>
+          <span className='font-medium'>Team <MetaSeparator /> monthly</span>
           <span className='text-text-muted text-xs'>Visa ending 4242</span>
         </span>
-      </div>
+      </Item>
     )
   }
 };
@@ -225,7 +228,7 @@ export function Pattern() {
   const [profile, setProfile] = useState(initialProfile);
   const panel = panels[active];
   return (
-    <div className='bg-surface grid w-full max-w-4xl overflow-hidden rounded-xl border md:grid-cols-[13rem_minmax(0,1fr)]'>
+    <CardRoot variant='outline' padding='none' className='grid w-full max-w-4xl overflow-hidden md:grid-cols-[13rem_minmax(0,1fr)]'>
       <nav aria-label='Settings' className='bg-surface-muted grid content-start gap-3 border-b p-3 md:border-e md:border-b-0'>
         {groups.map((group) => (
           <Collapsible key={group.label} defaultOpen>
@@ -258,6 +261,6 @@ export function Pattern() {
         </header>
         {active === 'profile' ? <ProfilePanel saved={profile} onSave={setProfile} /> : panel.body}
       </section>
-    </div>
+    </CardRoot>
   );
 }

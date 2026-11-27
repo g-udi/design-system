@@ -17,7 +17,7 @@ import {
   CascaderNav,
   CascaderValue
 } from '@gaudi/design-system/core/Cascader';
-import {
+import { getAvatarInitials,
   AvatarRoot as Avatar,
   AvatarFallback,
   AvatarImage
@@ -39,18 +39,12 @@ function RoleBadge({ role }) {
     </Badge>
   );
 }
-function initials(name) {
-  return name
-    .split(' ')
-    .map((part) => part[0])
-    .join('');
-}
 function MemberAvatar({ member, className, fallbackClassName }) {
   return (
     <Avatar className={className}>
       <AvatarImage src={member.data?.avatar} alt={member.label} />
       <AvatarFallback className={fallbackClassName}>
-        {initials(member.label)}
+        {getAvatarInitials(member.label)}
       </AvatarFallback>
     </Avatar>
   );

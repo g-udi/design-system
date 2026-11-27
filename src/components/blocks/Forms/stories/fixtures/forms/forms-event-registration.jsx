@@ -1,4 +1,6 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import { CardTitle, CardDescription, CardHeader, CardFooter, CardRoot } from '@gaudi/design-system/core/Card';
 import { useState } from 'react';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
@@ -21,9 +23,9 @@ import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 import { EmailInput } from '@gaudi/design-system/core/Input';
 
 const tickets = [
-  { value: 'early', label: 'Early bird', description: '£45 · 4 left', price: 45, left: 4 },
-  { value: 'standard', label: 'Standard', description: '£75 · 38 left', price: 75, left: 38 },
-  { value: 'supporter', label: 'Supporter', description: '£120 · includes the printed book', price: 120, left: 12 }
+  { value: 'early', label: 'Early bird', description: <>£45 <MetaSeparator /> 4 left</>, price: 45, left: 4 },
+  { value: 'standard', label: 'Standard', description: <>£75 <MetaSeparator /> 38 left</>, price: 75, left: 38 },
+  { value: 'supporter', label: 'Supporter', description: <>£120 <MetaSeparator /> includes the printed book</>, price: 120, left: 12 }
 ];
 const workshops = [
   { id: 'graphs', label: 'Knowledge graphs in practice', time: '10:00', seats: 6 },
@@ -63,21 +65,21 @@ export function Pattern() {
 
   if (booked) {
     return (
-      <div role='status' className='mx-auto grid w-full max-w-xl gap-2 rounded-lg border p-6'>
-        <p className='text-lg font-semibold'>You’re registered</p>
-        <p className='text-text-muted text-sm'>
+      <CardRoot variant='outline' radius='lg' padding='none' role='status' className='mx-auto grid w-full max-w-xl gap-2 p-6'>
+        <CardTitle as='p' className='text-lg font-semibold'>You’re registered</CardTitle>
+        <CardDescription as='p' className='text-text-muted text-sm'>
           {values.quantity} × {ticket.label} for Saturday 14 November. Tickets and a calendar invite are on their way to {values.email}.
-        </p>
-      </div>
+        </CardDescription>
+      </CardRoot>
     );
   }
 
   return (
-    <form noValidate aria-labelledby='event-form-title' onSubmit={form.handleSubmit(() => setBooked(true))} className='mx-auto grid w-full max-w-xl gap-5 rounded-lg border p-5 sm:p-6'>
-      <div className='grid gap-1'>
-        <Badge variant='info-light' size='sm' className='justify-self-start'>Saturday 14 November · London</Badge>
-        <h2 id='event-form-title' className='text-lg font-semibold'>Register for Small Tools Day</h2>
-      </div>
+    <CardRoot as='form' variant='outline' radius='lg' padding='none' noValidate aria-labelledby='event-form-title' onSubmit={form.handleSubmit(() => setBooked(true))} className='mx-auto grid w-full max-w-xl gap-5 p-5 sm:p-6'>
+      <CardHeader className='p-0 grid gap-1'>
+        <Badge variant='info-light' size='sm' className='justify-self-start'>Saturday 14 November <MetaSeparator /> London</Badge>
+        <CardTitle as='h2' id='event-form-title' className='text-lg font-semibold'>Register for Small Tools Day</CardTitle>
+      </CardHeader>
       <FormErrorSummary form={form} labels={labels} />
       <RadioGroup
         label='Ticket'
@@ -191,12 +193,12 @@ export function Pattern() {
           </SelectContent>
         </Select>
       </Field>
-      <div className='flex flex-wrap items-center justify-between gap-3 border-t pt-4'>
+      <CardFooter className='p-0 flex flex-wrap items-center justify-between gap-3 border-t pt-4'>
         <p className='text-sm'>
           Total <strong className='tabular-nums'>£{(ticket.price * values.quantity).toFixed(2)}</strong>
         </p>
         <Button type='submit'>Register</Button>
-      </div>
-    </form>
+      </CardFooter>
+    </CardRoot>
   );
 }

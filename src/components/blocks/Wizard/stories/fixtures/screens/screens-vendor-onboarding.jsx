@@ -1,4 +1,5 @@
 'use client';
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import { useState } from 'react';
 import { CheckboxRoot as Checkbox } from '@gaudi/design-system/core/Checkbox';
 import { default as Field, FieldDescription, FieldError, FieldLabel } from '@gaudi/design-system/core/Field';
@@ -28,7 +29,7 @@ export function Pattern() {
   const fieldsByStep = [['name', 'vat'], ['iban'], ['attest']];
   const show = (key) => checked[key] && errors[key];
   return (
-    <div className='w-full max-w-3xl rounded-xl border p-5'>
+    <CardRoot variant='outline' padding='none' className='w-full max-w-3xl p-5 overflow-visible'>
       <Wizard
         title='Become a supplier'
         description='Procurement reviews new vendors within two working days.'
@@ -110,6 +111,6 @@ export function Pattern() {
           )
         }
       </Wizard>
-    </div>
+    </CardRoot>
   );
 }

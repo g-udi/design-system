@@ -1462,6 +1462,7 @@
       "AppShellFrame",
       "AppShellHeader",
       "AppShellNav",
+      "AppShellNotificationItem",
       "AppShellNotifications",
       "AppShellPanel",
       "Sidebar",
@@ -1564,6 +1565,7 @@
       "ChartGrid",
       "ChartLegend",
       "ChartLegendContent",
+      "ChartLegendList",
       "ChartReferenceLabel",
       "ChartReferenceLine",
       "ChartStatePanel",
@@ -1640,6 +1642,7 @@
       "ChartGrid",
       "ChartLegend",
       "ChartLegendContent",
+      "ChartLegendList",
       "ChartReferenceLabel",
       "ChartReferenceLine",
       "ChartStatePanel",
@@ -3700,6 +3703,7 @@
       "default"
     ],
     "@gaudi/design-system/core/FileUpload": [
+      "FileUploadDropzone",
       "default",
       "formatBytes",
       "useFileUpload"

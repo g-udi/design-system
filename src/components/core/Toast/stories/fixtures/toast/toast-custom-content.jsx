@@ -2,16 +2,16 @@
 import { StatusDot } from '@gaudi/design-system/core/Pill';
 import { useId, useState } from 'react';
 import {
+  getAvatarInitials,
   AvatarRoot as Avatar,
   AvatarFallback,
   AvatarGroup,
   AvatarImage
 } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
-import { Label } from '@gaudi/design-system/core/Field';
 import { IconTile } from '@gaudi/design-system/core/Icon';
 import { Separator } from '@gaudi/design-system/core/Separator';
-import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
+import LabeledSwitch from '@gaudi/design-system/core/Switch';
 import { default as ToastProvider, toast } from '@gaudi/design-system/core/Toast';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 const portrait = (path) => `/avatars/${path}.svg`;
@@ -20,7 +20,6 @@ const reviewers = [
   ['Sabine Okafor', 'person-20'],
   ['Ottilie Nakamura', 'person-45']
 ];
-const initials = (name) => name.split(' ').map((part) => part[0]).join('');
 // Custom toasts render inside the toast surface, so they only lay out their content.
 function Actions({ toastId, secondary, primary, onPrimary, onSecondary, tone = 'accent' }) {
   return (
@@ -149,7 +148,7 @@ const templates = [
             {reviewers.map(([name, path]) => (
               <Avatar key={name} className='size-6 ring-2 ring-current/10'>
                 <AvatarImage src={portrait(path)} alt={name} />
-                <AvatarFallback>{initials(name)}</AvatarFallback>
+                <AvatarFallback>{getAvatarInitials(name)}</AvatarFallback>
               </Avatar>
             ))}
           </AvatarGroup>
@@ -184,10 +183,7 @@ export function Pattern() {
           </Button>
         ))}
       </div>
-      <Label className='justify-center gap-2 text-sm font-normal'>
-        <Switch size='sm' checked={inverted} onCheckedChange={setInverted} />
-        Inverted surface
-      </Label>
+      <LabeledSwitch className='justify-center gap-2 text-sm font-normal' size='sm' checked={inverted} onCheckedChange={setInverted} label="Inverted surface" />
       <ToastProvider id={toasterId} />
     </div>
   );

@@ -8,8 +8,7 @@ import { hotkeysCoreFeature, syncDataLoaderFeature } from '@headless-tree/core';
 import { useTree } from '@headless-tree/react';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 import { useState } from 'react';
-import { Label } from '@gaudi/design-system/core/Field';
-import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
+import LabeledSwitch from '@gaudi/design-system/core/Switch';
 const items = {
   crm: {
     name: 'CRM',
@@ -101,14 +100,10 @@ export function Pattern() {
     <div className='mx-auto grid w-full max-w-sm gap-3'>
       <div className='flex flex-wrap gap-x-3 gap-y-2'>
         {Object.entries(optionLabels).map(([key, label]) => (
-          <Label key={key} className='flex items-center gap-2 text-xs font-normal'>
-            <Switch
+          <LabeledSwitch key={key} className='flex items-center gap-2 text-xs font-normal'
               size='sm'
               checked={options[key]}
-              onCheckedChange={(checked) => setOptions((current) => ({ ...current, [key]: checked }))}
-            />
-            {label}
-          </Label>
+              onCheckedChange={(checked) => setOptions((current) => ({ ...current, [key]: checked }))} label={label} />
         ))}
       </div>
       <Tree

@@ -1,4 +1,5 @@
 'use client';
+import { Item } from '@gaudi/design-system/core/Item';
 import { useState } from 'react';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { DialogContent, DialogDescription, DialogRoot, DialogTitle, DialogTrigger } from '@gaudi/design-system/core/Dialog';
@@ -67,22 +68,22 @@ export function Pattern() {
             ) : step === 1 ? (
               <ul className='grid gap-2 text-sm'>
                 {shortcuts.map(([keys, label]) => (
-                  <li key={label} className='flex items-center justify-between gap-3 rounded-md border px-3 py-2'>
+                  <Item as='li' size='sm' variant='outline' key={label} className='justify-between gap-3 px-3 py-2'>
                     <span>{label}</span>
                     <KbdGroup>
                       {keys.map((key) => <Kbd key={key}>{key}</Kbd>)}
                     </KbdGroup>
-                  </li>
+                  </Item>
                 ))}
               </ul>
             ) : step === 2 ? (
-              <div className='flex items-center justify-between gap-3 rounded-lg border p-3'>
+              <Item size='sm' variant='outline' className='justify-between gap-3 p-3'>
                 <Label htmlFor='tour-alerts' className='grid gap-0.5 font-normal'>
                   <span className='font-medium'>Desktop alerts</span>
                   <span className='text-text-muted text-xs'>Mentions and review requests only.</span>
                 </Label>
                 <Switch id='tour-alerts' checked={alerts} onCheckedChange={setAlerts} />
-              </div>
+              </Item>
             ) : (
               <p className='text-sm'>
                 You start in <span className='font-medium'>{focuses.find((item) => item.value === focus).label.toLowerCase()}</span> with desktop alerts{' '}

@@ -1,4 +1,5 @@
 'use client';
+import { CardRoot as Card } from '@gaudi/design-system/core/Card';
 import { useState } from 'react';
 import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import {
@@ -12,7 +13,7 @@ import {
   KanbanItemHandle,
   KanbanOverlay
 } from '@gaudi/design-system/core/KanbanBoard';
-import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
+import { Avatar } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { Rating } from '@gaudi/design-system/core/Rating';
 import {
@@ -111,7 +112,7 @@ const URGENT = new Set(['Overdue', 'Today']);
 function PipelineCard({ item, board, isOverlay }) {
   const [primaryIcon, stepIcon] = board.lines;
   const body = (
-    <div className='grid gap-2 rounded-lg border border-border bg-surface p-3 text-sm shadow-xs'>
+    <Card variant='elevated' radius='lg' padding='md' className='grid gap-2 text-sm'>
       <div className='flex items-center gap-2'>
         {item.mark}
         <span className='min-w-0 flex-1 truncate font-medium text-text'>{item.name}</span>
@@ -128,10 +129,7 @@ function PipelineCard({ item, board, isOverlay }) {
         <span className='ms-auto shrink-0'>{item.when}</span>
       </p>
       <div className='flex items-center gap-2 text-xs text-text-muted'>
-        <Avatar className='size-5'>
-          <AvatarImage src={item.avatar} alt='' />
-          <AvatarFallback>{item.person.charAt(0)}</AvatarFallback>
-        </Avatar>
+        <Avatar size='xs' surface='tinted' src={item.avatar} name={item.person} alt='' />
         <span className='truncate'>{item.person}</span>
         <Rating rating={item.score} size='sm' className='ms-auto gap-0.5' starClassName='size-3.5' aria-label={`${board.score}: ${item.score} of 5`} />
       </div>
@@ -144,7 +142,7 @@ function PipelineCard({ item, board, isOverlay }) {
           {item.due}
         </span>
       </div>
-    </div>
+    </Card>
   );
   return <KanbanItem value={item.id}>{isOverlay ? body : <KanbanItemHandle>{body}</KanbanItemHandle>}</KanbanItem>;
 }

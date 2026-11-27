@@ -1,4 +1,5 @@
 'use client';
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import { useId, useState } from 'react';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { Label } from '@gaudi/design-system/core/Field';
@@ -6,7 +7,7 @@ import {
   NativeSelect,
   NativeSelectOption
 } from '@gaudi/design-system/core/Select';
-import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
+import LabeledSwitch from '@gaudi/design-system/core/Switch';
 import {
   ToggleGroupRoot as ToggleGroup,
   ToggleGroupItem
@@ -60,7 +61,7 @@ export function Pattern() {
           </Button>
         ))}
       </div>
-      <div role='group' aria-label='Toast options' className='border-border grid gap-2 rounded-lg border p-3'>
+      <CardRoot variant='outline' padding='none' radius='lg' role='group' aria-label='Toast options' className='grid gap-2 p-3 overflow-visible'>
         <div className='flex flex-wrap items-center justify-between gap-2'>
           <Label htmlFor={`${toasterId}-position`} className='text-sm font-normal'>Position</Label>
           <NativeSelect id={`${toasterId}-position`} size='sm' value={position} onChange={(event) => setPosition(event.target.value)}>
@@ -91,17 +92,13 @@ export function Pattern() {
         </div>
         <div className='flex flex-wrap gap-x-4 gap-y-2 pt-1'>
           {switches.map((item) => (
-            <Label key={item.key} className='gap-2 text-sm font-normal'>
-              <Switch
+            <LabeledSwitch key={item.key} className='gap-2 text-sm font-normal'
                 size='sm'
                 checked={options[item.key]}
-                onCheckedChange={(checked) => setOptions((current) => ({ ...current, [item.key]: checked }))}
-              />
-              {item.label}
-            </Label>
+                onCheckedChange={(checked) => setOptions((current) => ({ ...current, [item.key]: checked }))} label={item.label} />
           ))}
         </div>
-      </div>
+      </CardRoot>
       <ToastProvider id={toasterId} />
     </div>
   );

@@ -1,4 +1,5 @@
 'use client';
+import { CodeBlock } from '@gaudi/design-system/core/CodeBlock';
 import { useState } from 'react';
 import { Filters } from '@gaudi/design-system/core/FilterBar';
 import {
@@ -325,7 +326,7 @@ function StackedPeople({ options }) {
   const overflow = options.length - 3;
   return (
     <span className='flex items-center gap-1.5'>
-      <AvatarGroup className='-space-x-1 *:data-[slot=avatar]:size-4'>
+      <AvatarGroup as='span' className='-space-x-1 *:data-[slot=avatar]:size-4'>
         {options.slice(0, 3).map((option) => (
           <Face key={String(option.value)} option={option} />
         ))}
@@ -556,14 +557,7 @@ export function Pattern() {
       </div>
 
 
-      <pre
-        tabIndex={0}
-        role='region'
-        aria-label='Filter query'
-        className='bg-ui-muted dark:bg-ui-muted/60 max-h-80 w-full overflow-auto rounded-md border p-3 text-xs'
-      >
-        {JSON.stringify(query, null, 2)}
-      </pre>
+      <CodeBlock label='Filter query' code={JSON.stringify(query, null, 2)} language='json' highlight={false} maxLines={12} />
     </div>
   );
 }

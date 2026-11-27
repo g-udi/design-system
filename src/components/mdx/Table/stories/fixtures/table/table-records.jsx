@@ -1,9 +1,10 @@
 'use client';
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import { useState } from 'react';
 import Dialog from '@gaudi/design-system/core/Dialog';
 import { IconTile } from '@gaudi/design-system/core/Icon';
 import { Badge } from '@gaudi/design-system/core/Pill';
-import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
+import { getAvatarInitials, AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
   DropdownMenuRoot as DropdownMenu,
@@ -83,11 +84,6 @@ const orders = [
     date: 'Jan 18, 2025'
   }
 ];
-const initials = (name) =>
-  name
-    .split(' ')
-    .map((part) => part[0])
-    .join('');
 function RowActions({ order, onView, onDuplicate, onRefund }) {
   return (
     <DropdownMenu>
@@ -111,7 +107,7 @@ export function Pattern() {
   const [records, setRecords] = useState(orders);
   const [detail, setDetail] = useState(null);
   return (
-    <div className='mx-auto w-full max-w-3xl overflow-hidden rounded-lg border border-border'>
+    <CardRoot variant='outline' padding='none' radius='lg' className='mx-auto w-full max-w-3xl overflow-hidden'>
       <Table>
         <TableHeader>
           <TableRow>
@@ -133,7 +129,7 @@ export function Pattern() {
                 <div className='flex items-center gap-2'>
                   <Avatar size='sm'>
                     <AvatarImage src={`/avatars/${order.photo}.svg`} alt='' />
-                    <AvatarFallback>{initials(order.customer)}</AvatarFallback>
+                    <AvatarFallback>{getAvatarInitials(order.customer)}</AvatarFallback>
                   </Avatar>
                   <div className='flex min-w-0 flex-col'>
                     <span className='truncate text-sm font-medium'>{order.customer}</span>
@@ -213,6 +209,6 @@ export function Pattern() {
           </p>
         </Dialog>
       )}
-    </div>
+    </CardRoot>
   );
 }

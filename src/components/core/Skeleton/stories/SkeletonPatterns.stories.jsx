@@ -33,5 +33,12 @@ export const Morph = {
     await waitFor(() => expect(canvas.queryByText('€860.00')).not.toBeInTheDocument());
     await waitFor(() => expect(canvas.getByText('€860.00')).toBeVisible(), { timeout: 4000 });
     await expect(within(payouts()).getByRole('status')).toHaveTextContent('');
+    // Settle every staggered fade before the contrast audit samples the loaded text.
+    await waitFor(() => {
+      expect(canvasElement.querySelector('[data-slot="skeleton"]')).not.toBeInTheDocument();
+      for (const block of canvasElement.querySelectorAll('[data-slot="skeleton-morph-block"] > *')) {
+        expect(getComputedStyle(block).opacity).toBe('1');
+      }
+    });
   }
 };

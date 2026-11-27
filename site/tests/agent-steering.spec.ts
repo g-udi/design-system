@@ -18,9 +18,9 @@ for(const mode of ['light','dark'] as const) test(`steering responsive in ${mode
   await page.getByRole('button',{name:'Queue for next step',exact:true}).click();
   await page.getByRole('button',{name:'Next step',exact:true}).click();
   for(const width of widths) {await page.setViewportSize({width,height:1100});await contained(page);}
-  await page.getByRole('button',{name:'Pause run',exact:true}).click();
+  await page.getByRole('button',{name:'Pause run',pressed:false,exact:true}).click();
   for(const width of [320,390,768,1280]) {await page.setViewportSize({width,height:1100});await contained(page);}
-  await page.getByRole('button',{name:'Resume run',exact:true}).click();await page.getByRole('button',{name:'Next step',exact:true}).click();await page.getByRole('button',{name:'Finish run',exact:true}).click();
+  await page.getByRole('button',{name:'Pause run',pressed:true,exact:true}).click();await page.getByRole('button',{name:'Next step',exact:true}).click();await page.getByRole('button',{name:'Finish run',exact:true}).click();
   for(const width of [320,390,768,1280]) {await page.setViewportSize({width,height:1100});await contained(page);}
   expect(errors).toEqual([]);
 });
@@ -44,10 +44,10 @@ test('shortcuts, IME, paused behavior and final-step drafts',async({page})=>{
   await input.press('Escape');await expect(input).toHaveValue('');
   await input.fill('First line');await input.press('Shift+Enter');await input.pressSequentially('Second line');await input.press('Control+Enter');
   await expect(page.getByRole('list',{name:'Step notes'}).getByText('First line\nSecond line',{exact:true})).toBeVisible();
-  await page.getByRole('button',{name:'Pause run',exact:true}).click();await input.fill('Wait for the next step.');await expect(page.locator('[data-slot="timeline-item"][aria-current="step"]')).toContainText('Outline the rewrite');
+  await page.getByRole('button',{name:'Pause run',pressed:false,exact:true}).click();await input.fill('Wait for the next step.');await expect(page.locator('[data-slot="timeline-item"][aria-current="step"]')).toContainText('Outline the rewrite');
   await expect(page.getByRole('button',{name:'Apply now',exact:true})).toBeDisabled();await input.press('Meta+Enter');await expect(input).toHaveValue('Wait for the next step.');
   await input.press('Enter');await expect(page.locator('[data-slot="prompt-queue"]').getByText('Wait for the next step.',{exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'Next step',exact:true})).toBeDisabled();
-  await page.getByRole('button',{name:'Resume run',exact:true}).click();await page.getByRole('button',{name:'Next step',exact:true}).click();await page.getByRole('button',{name:'Next step',exact:true}).click();
+  await page.getByRole('button',{name:'Pause run',pressed:true,exact:true}).click();await page.getByRole('button',{name:'Next step',exact:true}).click();await page.getByRole('button',{name:'Next step',exact:true}).click();
   await input.fill('Do not remove the citations.');await expect(page.getByRole('button',{name:'Queue for next step',exact:true})).toBeDisabled();await expect(page.getByRole('button',{name:'Finish run',exact:true})).toBeDisabled();
   await input.press('Meta+Enter');await page.getByRole('button',{name:'Finish run',exact:true}).click();await expect(page.getByRole('textbox')).toBeDisabled();await expect(page.getByRole('list',{name:'Step notes'}).getByText('Do not remove the citations.',{exact:true})).toBeVisible();
   await page.getByRole('button',{name:'Reset demo'}).click();await expect(page.getByText('1 of 4 done',{exact:true})).toBeVisible();

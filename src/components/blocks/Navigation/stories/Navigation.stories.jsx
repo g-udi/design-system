@@ -445,8 +445,10 @@ export const MergingHeader = {
     await expect(settings.getBoundingClientRect().right).toBeLessThanOrEqual(tabs.getBoundingClientRect().right + 1);
     await expectFocus(canvasElement, settings);
     await userEvent.click(canvas.getByRole('button', { name: 'Back to workspace top' }));
-    await waitFor(() => expect(viewport.scrollTop).toBe(0));
-    await expect(header).toHaveAttribute('data-merged', String(reduced));
+    await waitFor(() => {
+      expect(viewport.scrollTop).toBe(0);
+      expect(header).toHaveAttribute('data-merged', String(reduced));
+    });
     settings.focus();
     await userEvent.keyboard('{Home}');
     await waitFor(() => expect(overview).toHaveAttribute('aria-selected', 'true'));

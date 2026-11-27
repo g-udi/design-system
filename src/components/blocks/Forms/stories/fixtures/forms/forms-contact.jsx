@@ -1,4 +1,5 @@
 'use client';
+import { CardHeader, CardTitle, CardDescription, CardFooter, CardRoot } from '@gaudi/design-system/core/Card';
 import { useState } from 'react';
 import { Alert, AlertDescription, AlertTitle } from '@gaudi/design-system/core/Banner';
 import { default as Button } from '@gaudi/design-system/core/Button';
@@ -56,11 +57,11 @@ export function Pattern() {
   }
 
   return (
-    <form noValidate onSubmit={form.handleSubmit((data) => setSent(data))} aria-labelledby='contact-form-title' className='mx-auto grid w-full max-w-lg gap-5 rounded-lg border p-5 sm:p-6'>
-      <div className='grid gap-1'>
-        <h2 id='contact-form-title' className='text-lg font-semibold'>Get in touch</h2>
-        <p className='text-text-muted text-sm'>Questions about a post, talks or work. Every field is required.</p>
-      </div>
+    <CardRoot as='form' variant='outline' radius='lg' padding='none' noValidate onSubmit={form.handleSubmit((data) => setSent(data))} aria-labelledby='contact-form-title' className='mx-auto grid w-full max-w-lg gap-5 p-5 sm:p-6'>
+      <CardHeader className='p-0 grid gap-1'>
+        <CardTitle as='h2' id='contact-form-title' className='text-lg font-semibold'>Get in touch</CardTitle>
+        <CardDescription as='p' className='text-text-muted text-sm'>Questions about a post, talks or work. Every field is required.</CardDescription>
+      </CardHeader>
       <FormErrorSummary form={form} labels={labels} />
       <FieldGroup className='gap-4'>
         <div className='grid gap-4 sm:grid-cols-2'>
@@ -117,13 +118,13 @@ export function Pattern() {
           </FieldContent>
         </Field>
       </FieldGroup>
-      <div className='flex flex-wrap items-center justify-end gap-2'>
+      <CardFooter className='p-0 flex flex-wrap items-center justify-end gap-2'>
         <Button type='button' variant='ghost' tone='neutral' onClick={() => form.reset()}>Clear</Button>
         <Button type='submit' disabled={form.submitting}>
           <RegistryIcon lucide='SendIcon' aria-hidden='true' />
           {form.submitting ? 'Sending…' : 'Send message'}
         </Button>
-      </div>
-    </form>
+      </CardFooter>
+    </CardRoot>
   );
 }

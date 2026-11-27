@@ -14,7 +14,7 @@ import {
   TimelineTitle
 } from '@gaudi/design-system/core/Timeline';
 import { cn } from '@gaudi/design-system/utilities/cn';
-import {
+import { getAvatarInitials,
   AvatarRoot as Avatar,
   AvatarFallback,
   AvatarImage
@@ -130,7 +130,7 @@ export function Pattern() {
                             alt={step.user.name}
                           />
                           <AvatarFallback>
-                            {step.user.name.charAt(0)}
+                            {getAvatarInitials(step.user.name)}
                           </AvatarFallback>
                         </Avatar>
                         <span className='text-ui-muted-foreground text-xs font-medium'>

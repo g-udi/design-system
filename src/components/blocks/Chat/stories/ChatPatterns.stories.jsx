@@ -25,7 +25,7 @@ export const PullRequestReview = {
       if (!trigger) return canvas;
       await userEvent.click(trigger);
       const dialog = await body.findByRole('dialog', { name: 'Chats and files' });
-      await expect(dialog).toBeVisible();
+      await waitFor(() => expect(dialog).toBeVisible());
       return within(dialog);
     };
     const selectSession = async (name) => {

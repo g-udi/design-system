@@ -20,7 +20,7 @@ import { useTable } from '@tanstack/react-table';
 import { format } from 'date-fns';
 import ToastProvider, { toast } from '@gaudi/design-system/core/Toast';
 import { Badge } from '@gaudi/design-system/core/Pill';
-import {
+import { getAvatarInitials,
   AvatarRoot as Avatar,
   AvatarFallback,
   AvatarImage
@@ -286,7 +286,7 @@ function TeamCell({ team, onChange }) {
                     <Avatar className='size-4'>
                       <AvatarImage src={member.avatar} alt={member.name} />
                       <AvatarFallback>
-                        {member.initials.charAt(0)}
+                        {getAvatarInitials(member.name)}
                       </AvatarFallback>
                     </Avatar>
                     {member.name.split(' ')[0]}

@@ -59,16 +59,16 @@ Use asChild with a link when the whole row navigates and keep independent action
 
 Curated patterns:
 
-- Activity feed — registry item `@gaudi/item-activity-feed` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Item`, `ItemActions`, `ItemContent`, `ItemDescription`, `ItemGroup`, `ItemMedia`, `ItemTitle`)
+- Activity feed — registry item `@gaudi/item-activity-feed` (uses `Avatar`, `Badge`, `Item`, `ItemActions`, `ItemContent`, `ItemDescription`, `ItemGroup`, `ItemMedia`, `ItemTitle`)
 - Changed files summary — registry item `@gaudi/item-changed-files` (uses `Badge`, `Item`, `ItemContent`, `ItemMedia`, `RegistryIcon`)
-- Header and footer — registry item `@gaudi/item-header-footer` (uses `AvatarFallback`, `AvatarGroup`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `Item`, `ItemActions`, `ItemContent`, `ItemDescription`, `ItemFooter`, `ItemHeader`, `ItemTitle`, `ProgressRoot`, `RegistryIcon`)
+- Header and footer — registry item `@gaudi/item-header-footer` (uses `Avatar`, `AvatarGroup`, `Badge`, `Button`, `Item`, `ItemActions`, `ItemContent`, `ItemDescription`, `ItemFooter`, `ItemHeader`, `ItemTitle`, `ProgressRoot`, `RegistryIcon`)
 - Log links and a reversible action — registry item `@gaudi/item-links-action` (uses `Button`, `Item`, `ItemContent`, `ItemMedia`, `Link`, `RegistryIcon`)
 - Run status with a live step — registry item `@gaudi/item-live-run` (uses `Badge`, `CardContent`, `CardDescription`, `CardHeader`, `CardRoot`, `CardTitle`, `Item`, `ItemContent`, `ItemMedia`, `LoaderRoot`, `RegistryIcon`)
 - Menu with counts and shortcuts — registry item `@gaudi/item-menu-counts` (uses `Badge`, `Item`, `ItemActions`, `ItemContent`, `ItemGroup`, `ItemMedia`, `ItemSeparator`, `ItemTitle`, `KbdRoot`, `Link`, `RegistryIcon`)
 - Navigation rows — registry item `@gaudi/item-navigation` (uses `Item`, `ItemActions`, `ItemContent`, `ItemDescription`, `ItemGroup`, `ItemMedia`, `ItemSeparator`, `ItemTitle`, `Link`, `RegistryIcon`)
-- Run log grouped by phase — registry item `@gaudi/item-run-log` (uses `CardContent`, `CardDescription`, `CardHeader`, `CardRoot`, `CardTitle`, `Item`, `ItemContent`, `ItemMedia`, `RegistryIcon`, `Separator`)
+- Run log grouped by phase — registry item `@gaudi/item-run-log` (uses `CardContent`, `CardDescription`, `CardHeader`, `CardRoot`, `CardTitle`, `FieldSeparator`, `Item`, `ItemContent`, `ItemMedia`, `RegistryIcon`)
 - Settings and integrations — registry item `@gaudi/item-settings-integrations` (uses `Badge`, `Button`, `Item`, `ItemActions`, `ItemContent`, `ItemDescription`, `ItemGroup`, `ItemMedia`, `ItemTitle`, `RegistryIcon`)
-- Team members and roles — registry item `@gaudi/item-team-roles` (uses `AvatarBadge`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuTrigger`, `Item`, `ItemActions`, `ItemContent`, `ItemDescription`, `ItemGroup`, `ItemMedia`, `ItemTitle`, `Link`, `RegistryIcon`)
+- Team members and roles — registry item `@gaudi/item-team-roles` (uses `Avatar`, `Badge`, `Button`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuTrigger`, `Item`, `ItemActions`, `ItemContent`, `ItemDescription`, `ItemGroup`, `ItemMedia`, `ItemTitle`, `Link`, `RegistryIcon`)
 - Variants and sizes — registry item `@gaudi/item-variants` (uses `Item`, `ItemContent`, `ItemDescription`, `ItemMedia`, `ItemTitle`, `RegistryIcon`)
 
 ## README

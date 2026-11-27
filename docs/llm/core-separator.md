@@ -44,7 +44,7 @@ Set decorative={false} only when the separator conveys meaningful structure. Use
 Curated patterns:
 
 - Horizontal rules — registry item `@gaudi/separator-horizontal` (uses `Separator`)
-- Text label — registry item `@gaudi/separator-text-label` (uses `Separator`)
+- Text label — registry item `@gaudi/separator-text-label` (uses `FieldSeparator`)
 - Vertical rules — registry item `@gaudi/separator-vertical` (uses `Link`, `Separator`)
 
 ## Related

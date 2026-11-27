@@ -27,13 +27,13 @@ export function Pattern() {
             </CardAction>
           </CardHeader>
           <CardContent className='space-y-4'>
-            <div className='bg-surface-muted/60 border-border rounded-lg space-y-2 border p-3'>
+            <Card variant='soft' radius='lg' padding='none' className='bg-surface-muted/60 space-y-2 p-3'>
               <div className='flex justify-between text-sm font-medium'>
                 <span>$18.08 / $20</span>
                 <span>$200</span>
               </div>
               <Progress value={90} className='bg-accent/20 h-1.5' />
-            </div>
+            </Card>
 
             <CollapsibleContent className='data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down'>
               <div className='flex flex-col gap-2.5 pt-2'>

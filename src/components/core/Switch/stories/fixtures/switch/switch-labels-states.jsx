@@ -1,7 +1,5 @@
-import { useId } from 'react';
 import { BadgeRoot as Badge } from '@gaudi/design-system/core/Pill';
-import { Label } from '@gaudi/design-system/core/Field';
-import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
+import Switch from '@gaudi/design-system/core/Switch';
 import {
   TooltipRoot as Tooltip,
   TooltipContent,
@@ -11,11 +9,9 @@ import {
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 
 function Row({ label, children, ...props }) {
-  const id = useId();
   return (
     <div className='flex items-center gap-2'>
-      <Switch id={id} {...props} />
-      <Label htmlFor={id}>{label}</Label>
+      <Switch label={label} {...props} />
       {children}
     </div>
   );

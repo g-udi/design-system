@@ -1,4 +1,6 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import { IconTile } from '@gaudi/design-system/core/Icon';
 import { GaudiLogo, GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
 import { useState } from 'react';
 import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
@@ -52,8 +54,7 @@ import {
 } from '@gaudi/design-system/blocks/AppShell';
 import { AppShellNav } from '@gaudi/design-system/blocks/AppShell';
 import EmptyState from '@gaudi/design-system/core/EmptyState';
-import { Field, FieldLabel } from '@gaudi/design-system/core/Field';
-import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
+import Switch from '@gaudi/design-system/core/Switch';
 import Accordion from '@gaudi/design-system/core/Accordion';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 import { useHotkey } from '@gaudi/design-system/hooks/interaction/use-hotkey';
@@ -121,9 +122,9 @@ const raised =
 
 function ShelfTile({ shelf, className = 'size-5' }) {
   return (
-    <span aria-hidden='true' className={`grid shrink-0 place-items-center rounded-(--ds-radius-control) text-[0.625rem] font-semibold ${shelf.tone} ${className}`}>
+    <IconTile variant='solid' aria-hidden='true' className={`text-[0.625rem] font-semibold ${shelf.tone} ${className}`}>
       {shelf.initial}
-    </span>
+    </IconTile>
   );
 }
 
@@ -240,8 +241,8 @@ function ShelfPage({ shelf, page, spacious, setSpacious }) {
   const headings = { today: 'Reading notes', articles: 'Article queue', papers: 'Research papers', 'long-reads': 'Long-form reading', 'by-book': 'Highlights by book', 'by-topic': 'Reading themes', flashcards: 'Revision prompts', summaries: 'Shelf summaries', digest: 'Shelf digest' };
   if (page === 'archive') return <EmptyState compact title='Nothing archived' description='This shelf has no archived readings.' />;
   if (page === 'guide') return <section className='mx-auto grid max-w-xl gap-3 p-4'><h2 className='text-lg font-semibold'>Using a reading shelf</h2><p>Open a title to revisit its reading prompt. The queue groups papers, articles and longer works.</p></section>;
-  if (page === 'profile') return <section className='grid gap-2 p-4'><h2 className='text-lg font-semibold'>Reader profile</h2><p>{user.handle} · Member of {shelf.name}</p></section>;
-  if (page === 'settings') return <section className='grid max-w-sm gap-3 p-4'><h2 className='text-lg font-semibold'>Reading preferences</h2><Field><FieldLabel htmlFor='roomy-reading'>Roomier reading notes</FieldLabel><Switch id='roomy-reading' checked={spacious} onCheckedChange={setSpacious} /></Field></section>;
+  if (page === 'profile') return <section className='grid gap-2 p-4'><h2 className='text-lg font-semibold'>Reader profile</h2><p>{user.handle} <MetaSeparator /> Member of {shelf.name}</p></section>;
+  if (page === 'settings') return <section className='grid max-w-sm gap-3 p-4'><h2 className='text-lg font-semibold'>Reading preferences</h2><Switch id='roomy-reading' label='Roomier reading notes' checked={spacious} onCheckedChange={setSpacious} /></section>;
   if (page === 'share') return <section className='grid max-w-sm gap-3 p-4'><h2 className='text-lg font-semibold'>Export this shelf</h2><p className='text-sm'>Share the titles and notes from {shelf.name}.</p><Button asChild className='w-fit'><a download={shelf.id + '-reading.txt'} href={'data:text/plain;charset=utf-8,' + encodeURIComponent(notes.map(item => [item.title, item.description, item.content].join('\n')).join('\n\n'))}>Download reading list</a></Button></section>;
   let items = notes;
   if (['articles', 'papers', 'long-reads'].includes(page)) items = notes.filter(item => types[item.value] === page);

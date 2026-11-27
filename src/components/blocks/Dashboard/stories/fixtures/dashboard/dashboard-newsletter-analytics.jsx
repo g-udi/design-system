@@ -1,4 +1,5 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
 import { useState } from 'react';
 import { DashboardGrid, DashboardPanel, DashboardToolbar, dashboardSpan } from '@gaudi/design-system/blocks/Dashboard';
 import { StatCard } from '@gaudi/design-system/blocks/StatCard';
@@ -39,7 +40,7 @@ export function Pattern() {
   return (
     <div className='grid w-full gap-4'>
       <header>
-        <p className='text-text-muted text-xs'>Gaudi · Newsletter</p>
+        <p className='text-text-muted text-xs'>Gaudi <MetaSeparator /> Newsletter</p>
         <h2 className='text-xl font-semibold'>Newsletter analytics</h2>
       </header>
       <DashboardToolbar today={today} defaultPeriod='30d' onChange={setSummary} />

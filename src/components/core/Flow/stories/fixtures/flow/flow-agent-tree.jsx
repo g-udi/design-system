@@ -1,5 +1,7 @@
 'use client';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import { CardRoot } from '@gaudi/design-system/core/Card';
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { useCopyToClipboard } from '@gaudi/design-system/hooks/interaction/use-copy-to-clipboard';
 import {
   Flow,
@@ -153,7 +155,7 @@ function AgentEditor() {
       timers.current.push(setTimeout(() => updateData(id, { status: 'running' }), index * 450));
       timers.current.push(setTimeout(() => {
         const metrics = runMetrics[id] ?? ['0 tokens', '$0.000', '15 ms'];
-        updateData(id, { status: 'success', footer: metrics && <span className='text-text-muted tabular-nums'>{metrics.join(' · ')}</span> });
+        updateData(id, { status: 'success', footer: metrics && <span className='text-text-muted tabular-nums'>{metrics.map((metric, index) => <Fragment key={metric}>{index > 0 && <> <MetaSeparator /> </>}{metric}</Fragment>)}</span> });
         if (index === path.length - 1) {
           setRunning(false);
           toast.success('Test run passed', { toasterId, description: `${path.length} steps ran for a $${testInvoice.amount} invoice.` });
@@ -222,7 +224,7 @@ function AgentEditor() {
           </div>
         </FlowPanel>
       </Flow>
-      <aside aria-label='Step inspector' className='bg-surface grid content-start gap-3 rounded-lg border p-3'>
+      <CardRoot as='aside' variant='outline' radius='lg' padding='none' aria-label='Step inspector' className='grid content-start gap-3 p-3'>
         {!selected ? (
           <>
             <h3 className='text-sm font-medium'>Inspector</h3>
@@ -261,7 +263,7 @@ function AgentEditor() {
             )}
           </>
         )}
-      </aside>
+      </CardRoot>
       <ToastProvider id={toasterId} />
     </div>
   );

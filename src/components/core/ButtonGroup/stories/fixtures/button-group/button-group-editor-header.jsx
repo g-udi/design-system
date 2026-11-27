@@ -1,4 +1,6 @@
 'use client';
+import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
+import EmptyState from '@gaudi/design-system/core/EmptyState';
 import { useState } from 'react';
 import Input from '@gaudi/design-system/core/Input';
 import { Label } from '@gaudi/design-system/core/Field';
@@ -143,15 +145,15 @@ export function Pattern() {
         </ButtonGroup>
 
         <div className='flex flex-wrap items-center gap-2'>
-          <Button
+          <Toggle
             variant='outline'
             disabled={removed}
-            aria-pressed={panel === 'preview'}
-            onClick={() => setPanel(panel === 'preview' ? '' : 'preview')}
+            pressed={panel === 'preview'}
+            onPressedChange={() => setPanel(panel === 'preview' ? '' : 'preview')}
           >
             <RegistryIcon aria-hidden='true' lucide='EyeIcon' />
             Preview
-          </Button>
+          </Toggle>
           <ButtonGroup aria-label='Publish' className='**:data-[slot=button]:border-x-0'>
             <Button disabled={removed || doc.status === 'Published'} onClick={() => changeStatus('Published')}>
               <RegistryIcon aria-hidden='true' lucide='SendIcon' />
@@ -238,7 +240,7 @@ export function Pattern() {
                 ))}
               </ul>
             ) : (
-              <p className='text-sm'>No edits yet in this session.</p>
+              <EmptyState compact title='No edits yet in this session.' />
             )}
           </section>
         ) : null}

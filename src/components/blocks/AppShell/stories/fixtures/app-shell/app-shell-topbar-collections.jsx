@@ -1,5 +1,5 @@
 'use client';
-import { Separator } from '@gaudi/design-system/core/Separator';
+import { MetaSeparator, Separator } from '@gaudi/design-system/core/Separator';
 import { GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
 import { useState } from 'react';
 import { default as Button } from '@gaudi/design-system/core/Button';
@@ -234,7 +234,7 @@ function LibraryPage({ page, project, team, entries, active, onActive, onCreate,
   return (
     <section className='mx-auto grid w-full max-w-3xl content-start gap-5'>
       <header className='grid gap-1'>
-        <p className='text-xs font-medium text-text-muted'>{team} · {project}</p>
+        <p className='text-xs font-medium text-text-muted'>{team} <MetaSeparator /> {project}</p>
         <h1 className='text-2xl font-semibold tracking-tight'>{heading}</h1>
         <p className='text-sm text-text-muted'>{descriptions[page]}</p>
       </header>

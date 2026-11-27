@@ -1,4 +1,8 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import { IconTile } from '@gaudi/design-system/core/Icon';
+import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
+import EmptyState from '@gaudi/design-system/core/EmptyState';
 import { useState } from 'react';
 import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
 import {
@@ -134,12 +138,12 @@ const labelOf = (id, sources) => {
 
 function WorkspaceTile({ workspace }) {
   return (
-    <span
+    <IconTile variant='solid'
       aria-hidden='true'
-      className={`grid size-6 shrink-0 place-items-center rounded-(--ds-radius-control) text-xs font-semibold ${workspace.tone}`}
+      className={`size-6 text-xs font-semibold ${workspace.tone}`}
     >
       {workspace.initial}
-    </span>
+    </IconTile>
   );
 }
 
@@ -349,7 +353,7 @@ export function Pattern() {
                   {page === 'home' ? 'Reading shelf' : `${labelOf(page, sources)} entries`}
                 </h2>
                 <p className='text-text-muted text-sm'>
-                  {workspace.name} · {visible.length} {visible.length === 1 ? 'entry' : 'entries'}
+                  {workspace.name} <MetaSeparator /> {visible.length} {visible.length === 1 ? 'entry' : 'entries'}
                 </p>
               </header>
               {page === 'inbox' ? (
@@ -377,28 +381,24 @@ export function Pattern() {
                     content: (
                       <div className='grid justify-items-start gap-3'>
                         <p>{entry.detail}</p>
-                        <Button
+                        <Toggle
                           size='sm'
                           variant='outline'
-                          aria-pressed={saved.includes(entry.id)}
-                          onClick={() =>
+                          pressed={saved.includes(entry.id)}
+                          onPressedChange={() =>
                             setSaved((items) =>
                               items.includes(entry.id) ? items.filter((id) => id !== entry.id) : [...items, entry.id]
                             )
                           }
                         >
                           {saved.includes(entry.id) ? 'Remove from saved' : 'Save for later'}
-                        </Button>
+                        </Toggle>
                       </div>
                     )
                   }))}
                 />
               ) : (
-                <p className='text-text-muted text-sm'>
-                  {page === 'saved-for-later'
-                    ? 'Save an entry from your reading shelf to find it here.'
-                    : 'No entries in this collection yet.'}
-                </p>
+                <EmptyState compact title={page === 'saved-for-later' ? 'No saved entries yet.' : 'No entries in this collection yet.'} description={page === 'saved-for-later' ? 'Save an entry from your reading shelf to find it here.' : undefined} />
               )}
             </section>
             )}

@@ -1,4 +1,5 @@
 'use client';
+import { ScrollArea } from '@gaudi/design-system/core/ScrollArea';
 import { useState } from 'react';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
@@ -48,64 +49,66 @@ export function Pattern() {
           <SheetTitle>Help</SheetTitle>
           <SheetDescription>Guides and keyboard shortcuts.</SheetDescription>
         </SheetHeader>
-        <div className='grid min-h-0 flex-1 content-start gap-3 overflow-y-auto px-3 pb-3'>
-          <InputGroup>
-            <InputGroupAddon>
-              <RegistryIcon lucide='SearchIcon' aria-hidden='true' />
-            </InputGroupAddon>
-            <InputGroupInput aria-label='Search help' placeholder='Search guides and shortcuts' value={query} onChange={(event) => setQuery(event.target.value)} />
-          </InputGroup>
-          <Tabs defaultValue='guides'>
-            <TabsList className='w-full'>
-              <TabsTrigger value='guides'>Guides</TabsTrigger>
-              <TabsTrigger value='shortcuts'>
-                <RegistryIcon lucide='KeyboardIcon' aria-hidden='true' />
-                Shortcuts
-              </TabsTrigger>
-            </TabsList>
-            <TabsContent value='guides' className='grid gap-4 pt-2'>
-              {guideGroups.length
-                ? guideGroups.map(([group, items]) => (
-                    <section key={group} className='grid gap-1'>
-                      <h3 className='text-text-muted text-xs font-medium'>{group}</h3>
-                      {items.map(([title, hint, icon]) => (
-                        <Item key={title} asChild size='sm' className='-mx-2'>
-                          <a href={`#${title}`}>
-                            <ItemMedia variant='icon' className='text-text-muted'>
-                              <RegistryIcon lucide={icon} aria-hidden='true' />
-                            </ItemMedia>
-                            <ItemContent>
-                              <ItemTitle>{title}</ItemTitle>
-                              <ItemDescription>{hint}</ItemDescription>
-                            </ItemContent>
-                          </a>
-                        </Item>
-                      ))}
-                    </section>
-                  ))
-                : empty}
-            </TabsContent>
-            <TabsContent value='shortcuts' className='grid gap-4 pt-2'>
-              {shortcutGroups.length
-                ? shortcutGroups.map(([group, items]) => (
-                    <section key={group} className='grid gap-1.5'>
-                      <h3 className='text-text-muted text-xs font-medium'>{group}</h3>
-                      {items.map(([label, keys]) => (
-                        <div key={label} className='flex items-center justify-between text-sm'>
-                          {label}
-                          <KbdGroup>
-                            {keys.map((key) => (
-                              <Kbd key={key}>{key}</Kbd>
-                            ))}
-                          </KbdGroup>
-                        </div>
-                      ))}
-                    </section>
-                  ))
-                : empty}
-            </TabsContent>
-          </Tabs>
-        </div>
+        <ScrollArea aria-label='Help topics' className='min-h-0 min-w-0 flex-1 **:data-[slot=scroll-area-viewport]:[&>div]:block!'>
+          <div className='grid content-start gap-3 px-3 pb-3'>
+            <InputGroup>
+              <InputGroupAddon>
+                <RegistryIcon lucide='SearchIcon' aria-hidden='true' />
+              </InputGroupAddon>
+              <InputGroupInput aria-label='Search help' placeholder='Search guides and shortcuts' value={query} onChange={(event) => setQuery(event.target.value)} />
+            </InputGroup>
+            <Tabs defaultValue='guides'>
+              <TabsList className='w-full'>
+                <TabsTrigger value='guides'>Guides</TabsTrigger>
+                <TabsTrigger value='shortcuts'>
+                  <RegistryIcon lucide='KeyboardIcon' aria-hidden='true' />
+                  Shortcuts
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent value='guides' className='grid gap-4 pt-2'>
+                {guideGroups.length
+                  ? guideGroups.map(([group, items]) => (
+                      <section key={group} className='grid gap-1'>
+                        <h3 className='text-text-muted text-xs font-medium'>{group}</h3>
+                        {items.map(([title, hint, icon]) => (
+                          <Item key={title} asChild size='sm' className='-mx-2'>
+                            <a href={`#${title}`}>
+                              <ItemMedia variant='icon' className='text-text-muted'>
+                                <RegistryIcon lucide={icon} aria-hidden='true' />
+                              </ItemMedia>
+                              <ItemContent>
+                                <ItemTitle>{title}</ItemTitle>
+                                <ItemDescription>{hint}</ItemDescription>
+                              </ItemContent>
+                            </a>
+                          </Item>
+                        ))}
+                      </section>
+                    ))
+                  : empty}
+              </TabsContent>
+              <TabsContent value='shortcuts' className='grid gap-4 pt-2'>
+                {shortcutGroups.length
+                  ? shortcutGroups.map(([group, items]) => (
+                      <section key={group} className='grid gap-1.5'>
+                        <h3 className='text-text-muted text-xs font-medium'>{group}</h3>
+                        {items.map(([label, keys]) => (
+                          <div key={label} className='flex items-center justify-between text-sm'>
+                            {label}
+                            <KbdGroup>
+                              {keys.map((key) => (
+                                <Kbd key={key}>{key}</Kbd>
+                              ))}
+                            </KbdGroup>
+                          </div>
+                        ))}
+                      </section>
+                    ))
+                  : empty}
+              </TabsContent>
+            </Tabs>
+          </div>
+        </ScrollArea>
       </SheetContent>
     </Sheet>
   );

@@ -1,4 +1,5 @@
 'use client';
+import { Item } from '@gaudi/design-system/core/Item';
 import {
   AvatarRoot as Avatar,
   AvatarFallback,
@@ -95,7 +96,7 @@ export function Pattern() {
           </CollapsibleContent>
         </Collapsible>
       ))}
-      <div className='flex flex-wrap items-center gap-3 rounded-xl border p-4'>
+      <Item size='sm' variant='outline' className='gap-3 p-4'>
         <span className='grid min-w-48 flex-1 gap-0.5'>
           <span className='font-medium'>Workspace admins</span>
           <span className='text-text-muted text-sm'>Admins can change every setting on this page.</span>
@@ -109,7 +110,7 @@ export function Pattern() {
           ))}
           <AvatarGroupCount>+2</AvatarGroupCount>
         </AvatarGroup>
-      </div>
+      </Item>
     </div>
   );
 }

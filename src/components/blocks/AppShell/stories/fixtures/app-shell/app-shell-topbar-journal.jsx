@@ -1,5 +1,6 @@
 'use client';
-import { Separator } from '@gaudi/design-system/core/Separator';
+import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
+import { MetaSeparator, Separator } from '@gaudi/design-system/core/Separator';
 import { GaudiLogo } from '@gaudi/design-system/icons/brands/gaudi';
 import { useMemo, useState } from 'react';
 import { default as Button } from '@gaudi/design-system/core/Button';
@@ -205,7 +206,7 @@ function JournalPane({ page, entries, draft, setDraft, onWrite, onSave, onArchiv
   return (
     <section className='mx-auto grid w-full max-w-2xl content-start gap-5'>
       <header className='grid gap-1'>
-        <p className='text-xs text-text-muted'>{account.name} · Personal journal</p>
+        <p className='text-xs text-text-muted'>{account.name} <MetaSeparator /> Personal journal</p>
         <h1 className='text-2xl font-semibold tracking-tight'>{title}</h1>
       </header>
       {writing ? <form className='grid gap-3' onSubmit={event => { event.preventDefault(); if (draft.title.trim() && draft.body.trim()) onSave(); }}>
@@ -218,7 +219,7 @@ function JournalPane({ page, entries, draft, setDraft, onWrite, onSave, onArchiv
       </form> : null}
       {['all-entries','archive'].includes(page) ? (list.length ? <ItemGroup aria-label={title}>{list.map(entry => (
         <Item key={entry.id} size='sm' className='px-0'>
-          <ItemContent className='min-w-0'><ItemTitle>{entry.title}</ItemTitle><ItemDescription>{entry.body}</ItemDescription><p className='text-xs text-text-muted'>{entry.date} · {entry.theme}</p></ItemContent>
+          <ItemContent className='min-w-0'><ItemTitle>{entry.title}</ItemTitle><ItemDescription>{entry.body}</ItemDescription><p className='text-xs text-text-muted'>{entry.date} <MetaSeparator /> {entry.theme}</p></ItemContent>
           <ItemActions><Button size='xs' variant='outline' onClick={() => onWrite(entry)}>Edit</Button><Button size='xs' variant='ghost' onClick={() => onArchive(entry.id)}>{entry.archived ? 'Restore' : 'Archive'}</Button></ItemActions>
         </Item>))}</ItemGroup> : <EmptyState compact title='No archived entries' description='Archive a saved entry to find it here.' />) : null}
       {page === 'drafts' ? <Item size='sm' variant='outline'><ItemContent><ItemTitle>{draft.title || 'Untitled entry'}</ItemTitle><ItemDescription>{draft.body || 'Your next draft is ready to write.'}</ItemDescription></ItemContent><Button size='sm' variant='outline' onClick={() => onWrite(draft)}>Continue writing</Button></Item> : null}
@@ -232,7 +233,7 @@ function JournalPane({ page, entries, draft, setDraft, onWrite, onSave, onArchiv
       {page === 'sync-backup' ? <Button asChild size='sm' variant='outline' className='justify-self-start'><a href={`data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify(entries, null, 2))}`} download='journal-entries.json'>Export entries</a></Button> : null}
       {page === 'reminders' || page === 'writing-preferences' ? <Item size='sm' variant='outline'>
         <ItemContent><ItemTitle>{page === 'reminders' ? 'Evening reminder' : 'Editor word count'}</ItemTitle><ItemDescription>{page === 'reminders' ? 'Keep an evening writing reminder in this journal.' : 'Show a word count below your draft.'}</ItemDescription></ItemContent>
-        <Button size='sm' variant='outline' aria-pressed={page === 'reminders' ? options.reminder : options.wordCount} onClick={() => { const key = page === 'reminders' ? 'reminder' : 'wordCount'; setOptions({ ...options, [key]: !options[key] }); }}>{(page === 'reminders' ? options.reminder : options.wordCount) ? 'On' : 'Off'}</Button>
+        <Toggle size='sm' variant='outline' pressed={page === 'reminders' ? options.reminder : options.wordCount} onPressedChange={() => { const key = page === 'reminders' ? 'reminder' : 'wordCount'; setOptions({ ...options, [key]: !options[key] }); }}>{(page === 'reminders' ? options.reminder : options.wordCount) ? 'On' : 'Off'}</Toggle>
       </Item> : null}
     </section>
   );

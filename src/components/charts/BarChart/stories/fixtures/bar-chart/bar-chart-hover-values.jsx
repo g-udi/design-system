@@ -144,24 +144,6 @@ export function Pattern() {
                       </div>
                     );
                   }}
-                  formatter={(value, name) => (
-                    <div className='flex w-full items-center justify-between gap-2'>
-                      <div className='flex items-center gap-1.5'>
-                        <div
-                          className='size-2.5 shrink-0 rounded-xs bg-(--color-bg)'
-                          style={{
-                            '--color-bg': `var(--color-${name})`
-                          }}
-                        />
-                        <span className='text-text-muted'>
-                          {chartConfig[name]?.label || name}
-                        </span>
-                      </div>
-                      <span className='text-text font-semibold'>
-                        {Number(value).toLocaleString()}
-                      </span>
-                    </div>
-                  )}
                 />
               }
             />

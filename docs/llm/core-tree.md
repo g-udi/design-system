@@ -52,8 +52,8 @@ Headless Tree supplies hierarchical keyboard navigation. Keep node names stable 
 
 Curated patterns:
 
-- Display options — registry item `@gaudi/tree-display-options` (uses `Label`, `RegistryIcon`, `SwitchRoot`, `Tree`, `TreeItem`, `TreeItemLabel`)
-- Organization chart — registry item `@gaudi/tree-org-chart` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Tree`, `TreeItem`, `TreeItemLabel`)
+- Display options — registry item `@gaudi/tree-display-options` (uses `LabeledSwitch`, `RegistryIcon`, `Tree`, `TreeItem`, `TreeItemLabel`)
+- Organization chart — registry item `@gaudi/tree-org-chart` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Tree`, `TreeItem`, `TreeItemLabel`, `getAvatarInitials`)
 - Permission checkboxes — registry item `@gaudi/tree-permissions` (uses `CheckboxRoot`, `Tree`, `TreeItem`, `TreeItemLabel`)
 
 ## README

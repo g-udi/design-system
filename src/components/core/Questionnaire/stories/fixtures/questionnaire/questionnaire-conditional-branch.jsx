@@ -1,11 +1,7 @@
 'use client';
 import { useId, useMemo, useState } from 'react';
 import { cn } from '@gaudi/design-system/utilities/cn';
-import {
-  AvatarRoot as Avatar,
-  AvatarFallback,
-  AvatarImage
-} from '@gaudi/design-system/core/Avatar';
+import { Avatar } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
   CardRoot as Card,
@@ -42,7 +38,6 @@ const OWNERS = [
     value: 'amara',
     name: 'Yewande Achterberg',
     role: 'Operations lead',
-    initials: 'YA',
     photo:
       '/avatars/person-23.svg'
   },
@@ -50,7 +45,6 @@ const OWNERS = [
     value: 'ines',
     name: 'Paz Oyelaran',
     role: 'Delivery manager',
-    initials: 'PO',
     photo:
       '/avatars/person-20.svg'
   },
@@ -58,7 +52,6 @@ const OWNERS = [
     value: 'theo',
     name: 'Teodora Lindqvist-Ruiz',
     role: 'Engineering manager',
-    initials: 'TL',
     photo:
       '/avatars/person-44.svg'
   },
@@ -66,7 +59,6 @@ const OWNERS = [
     value: 'daniel',
     name: 'Ansel Mwangi',
     role: 'Finance partner',
-    initials: 'AM',
     photo:
       '/avatars/person-46.svg'
   }
@@ -235,10 +227,7 @@ export function Pattern() {
               {OWNERS.map((person) => (
                 <QuestionnaireChoice key={person.value} value={person.value}>
                   <span className='flex min-w-0 items-center gap-2.5'>
-                    <Avatar size='sm'>
-                      <AvatarImage src={person.photo} alt='' />
-                      <AvatarFallback>{person.initials}</AvatarFallback>
-                    </Avatar>
+                    <Avatar size='xs' surface='tinted' className='size-6' src={person.photo} name={person.name} alt='' />
                     <span className='truncate'>{person.name}</span>
                   </span>
                   <QuestionnaireChoiceDescription>

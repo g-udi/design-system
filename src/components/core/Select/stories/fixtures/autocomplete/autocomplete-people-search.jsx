@@ -12,7 +12,7 @@ import {
   AutocompleteList
 } from '@gaudi/design-system/core/Select';
 import { Autocomplete as AutocompletePrimitive } from '@base-ui/react/autocomplete';
-import {
+import { getAvatarInitials,
   AvatarRoot as Avatar,
   AvatarFallback,
   AvatarImage
@@ -75,10 +75,7 @@ export function Pattern() {
                               alt={item.name || 'User'}
                             />
                             <AvatarFallback>
-                              {(item.name || 'U')
-                                .split(' ')
-                                .map((n) => n[0])
-                                .join('')}
+                              {getAvatarInitials(item.name || 'U')}
                             </AvatarFallback>
                           </Avatar>
                           <div className='min-w-0 flex-1'>

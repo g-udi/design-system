@@ -59,8 +59,8 @@ Curated patterns:
 
 - Autoplay — registry item `@gaudi/carousel-autoplay` (uses `Button`, `CardRoot`, `CarouselContent`, `CarouselItem`, `CarouselNext`, `CarouselPrevious`, `CarouselRoot`, `usePrefersReducedMotion`)
 - Content overlays with dots — registry item `@gaudi/carousel-content-overlays` (uses `CardRoot`, `CarouselContent`, `CarouselIndicator`, `CarouselItem`, `CarouselNext`, `CarouselPrevious`, `CarouselRoot`)
-- Layout options — registry item `@gaudi/carousel-layouts` (uses `CardRoot`, `CarouselContent`, `CarouselItem`, `CarouselNext`, `CarouselPrevious`, `CarouselRoot`, `Label`, `SwitchRoot`, `cn`)
-- Thumbnail navigation — registry item `@gaudi/carousel-thumbnails` (uses `Button`, `CarouselContent`, `CarouselItem`, `CarouselRoot`, `Label`, `SwitchRoot`, `cn`)
+- Layout options — registry item `@gaudi/carousel-layouts` (uses `CardRoot`, `CarouselContent`, `CarouselItem`, `CarouselNext`, `CarouselPrevious`, `CarouselRoot`, `Switch`, `cn`)
+- Thumbnail navigation — registry item `@gaudi/carousel-thumbnails` (uses `Button`, `CarouselContent`, `CarouselItem`, `CarouselRoot`, `Switch`, `cn`)
 
 ## README
 

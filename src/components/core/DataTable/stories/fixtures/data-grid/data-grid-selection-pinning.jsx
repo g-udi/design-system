@@ -20,6 +20,7 @@ import {
 import { useTable } from '@tanstack/react-table';
 import ToastProvider, { toast } from '@gaudi/design-system/core/Toast';
 import {
+  getAvatarInitials,
   AvatarRoot as Avatar,
   AvatarFallback,
   AvatarImage
@@ -282,10 +283,7 @@ export function Pattern() {
             <Avatar className='size-8'>
               <AvatarImage src={row.original.avatar} alt={row.original.name} />
               <AvatarFallback>
-                {row.original.name
-                  .split(' ')
-                  .map((n) => n[0])
-                  .join('')}
+                {getAvatarInitials(row.original.name)}
               </AvatarFallback>
             </Avatar>
             <div className='text-ui-foreground min-w-0 truncate font-medium'>

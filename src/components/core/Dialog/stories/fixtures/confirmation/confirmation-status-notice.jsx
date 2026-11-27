@@ -1,5 +1,6 @@
 import { Badge } from '@gaudi/design-system/core/Pill';
 import {
+  DialogConfirmationHeader,
   DialogConfirmationRoot as DialogConfirmation,
   DialogConfirmationAction,
   DialogConfirmationCancel,
@@ -44,13 +45,13 @@ export function Pattern() {
             <Button size='sm' variant='outline'>{notice.trigger}</Button>
           </DialogConfirmationTrigger>
           <DialogConfirmationContent className='gap-0 overflow-hidden p-0 sm:max-w-sm'>
-            <div className='flex flex-col items-center gap-2 p-6 text-center'>
+            <DialogConfirmationHeader className='flex flex-col items-center gap-2 p-6 text-center'>
               <DialogConfirmationMedia className={`size-10 rounded-full ${notice.media}`}>
                 <RegistryIcon lucide={notice.icon} className='size-5' />
               </DialogConfirmationMedia>
               <DialogConfirmationTitle>{notice.title}</DialogConfirmationTitle>
               <Badge variant={notice.badge.variant}>{notice.badge.label}</Badge>
-            </div>
+            </DialogConfirmationHeader>
             <div className='grid gap-3 border-t border-border bg-surface-muted p-4'>
               <DialogConfirmationDescription className='text-center'>
                 {notice.description}

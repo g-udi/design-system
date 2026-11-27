@@ -1,8 +1,7 @@
 'use client';
 import { useId, useState } from 'react';
 import { StackedBarList } from '@gaudi/design-system/charts/StackedBarList';
-import { Label } from '@gaudi/design-system/core/Field';
-import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
+import LabeledSwitch from '@gaudi/design-system/core/Switch';
 
 // Readers per post this month, split by where they came from.
 const posts = [
@@ -29,8 +28,7 @@ export function Pattern() {
       description={mix ? 'Each post as 100%, to compare where its readers came from.' : 'Readers per post, split by source.'}
       toolbar={
         <div className='flex items-center gap-2'>
-          <Switch id={id} checked={mix} onCheckedChange={setMix} />
-          <Label htmlFor={id}>Compare mix</Label>
+          <LabeledSwitch id={id} checked={mix} onCheckedChange={setMix} label="Compare mix" />
         </div>
       }
       data={posts}

@@ -12,7 +12,7 @@ import {
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
   CardRoot as Card,
-  CardContent
+  CardHeader, CardFooter, CardTitle, CardDescription, CardContent
 } from '@gaudi/design-system/core/Card';
 import {
   DropdownMenuRoot as DropdownMenu,
@@ -26,9 +26,8 @@ export function Pattern() {
   const [notice, setNotice] = useState('');
   const { copy } = useCopyToClipboard({ onCopy: () => setNotice('Integration link copied.'), onError: () => setNotice('Copy failed. Try again.') });
   return (
-    <Card className='w-full max-w-sm p-0'>
-      <CardContent className='p-0'>
-        <div className='flex items-center justify-between border-b px-3 py-2'>
+    <Card className='w-full max-w-sm gap-0 p-0'>
+      <CardHeader className='flex items-center justify-between border-b px-3 py-2'>
           <Badge variant='secondary'>
             <RegistryIcon lucide='CheckIcon' aria-hidden='true' />
             Live
@@ -51,19 +50,19 @@ export function Pattern() {
               </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
-        </div>
-        <div className='space-y-3 p-4'>
+      </CardHeader>
+      <CardContent className='space-y-3 p-4'>
           <div className='flex items-start justify-between gap-2'>
-            <h3 className='text-sm leading-tight font-medium'>
+            <CardTitle as='h3' className='text-sm leading-tight font-medium'>
               Integration name
-            </h3>
+            </CardTitle>
             <Badge variant='success-light' size='sm'>
               Installed
             </Badge>
           </div>
-          <p className='text-ui-muted-foreground text-sm'>
+          <CardDescription as='p'>
             Short description of the integration and what it does in one line.
-          </p>
+          </CardDescription>
           <AvatarGroup>
             <Avatar className='size-6'>
               <AvatarImage
@@ -90,14 +89,13 @@ export function Pattern() {
               +3
             </AvatarGroupCount>
           </AvatarGroup>
-        </div>
-        <div className='border-t p-3'>
+      </CardContent>
+      <CardFooter className='flex-col items-stretch border-t p-3'>
           <Button href='/integrations/github' variant='outline' className='w-full'>
             Open
           </Button>
           <p role='status' className='text-xs text-text-muted'>{notice}</p>
-        </div>
-      </CardContent>
+      </CardFooter>
     </Card>
   );
 }

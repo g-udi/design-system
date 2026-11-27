@@ -1,4 +1,5 @@
 'use client';
+import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
 import { useState } from 'react';
 import { cn } from '@gaudi/design-system/utilities/cn';
 import { default as Button } from '@gaudi/design-system/core/Button';
@@ -21,9 +22,9 @@ export function Pattern() {
       <Button size='icon' variant='outline' aria-label={menu ? 'Close menu' : 'Open menu'} aria-expanded={menu} onClick={() => setMenu((v) => !v)}>
         <Swap on={menu} from='MenuIcon' to='XIcon' />
       </Button>
-      <Button size='icon' variant='outline' aria-label={`Switch to ${dark ? 'light' : 'dark'} mode`} aria-pressed={dark} onClick={() => setDark((v) => !v)}>
+      <Toggle size='sm' variant='outline' aria-label={`Switch to ${dark ? 'light' : 'dark'} mode`} pressed={dark} onPressedChange={setDark}>
         <Swap on={dark} from='SunIcon' to='MoonIcon' />
-      </Button>
+      </Toggle>
       <Button variant='ghost' aria-expanded={expanded} onClick={() => setExpanded((v) => !v)}>
         {expanded ? 'Show less' : 'Show more'}
         <RegistryIcon lucide='ChevronDownIcon' aria-hidden='true' className={cn('transition-transform duration-200', expanded && 'rotate-180')} />

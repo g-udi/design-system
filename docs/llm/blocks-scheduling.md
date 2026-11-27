@@ -59,13 +59,13 @@ Marked days add their marker label to the day button name; time slots are a radi
 
 Curated patterns:
 
-- Book a meeting — registry item `@gaudi/scheduling-book-meeting` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`, `RegistryIcon`, `ScheduleCalendar`, `ScrollArea`, `TimeSlots`, `ToggleGroupItem`, `ToggleGroupRoot`, `addMinutes`, `dayKey`, `timeSlots`)
+- Book a meeting — registry item `@gaudi/scheduling-book-meeting` (uses `Avatar`, `Button`, `CardRoot`, `RegistryIcon`, `ScheduleCalendar`, `ScrollArea`, `TimeSlots`, `ToggleGroupItem`, `ToggleGroupRoot`, `addMinutes`, `dayKey`, `timeSlots`)
 - Create a schedule — registry item `@gaudi/scheduling-create-schedule` (uses `Attachment`, `AttachmentAction`, `AttachmentActions`, `AttachmentContent`, `AttachmentDescription`, `AttachmentMedia`, `AttachmentTitle`, `AttachmentTrigger`, `Button`, `Calendar`, `Combobox`, `ComboboxChip`, `ComboboxChips`, `ComboboxChipsInput`, `ComboboxContent`, `ComboboxEmpty`, `ComboboxItem`, `ComboboxList`, `ComboboxValue`, `Input`, `Label`, `PopoverContentPrimitive`, `PopoverPrimitive`, `PopoverTriggerPrimitive`, `RegistryIcon`, `formatBytes`, `useComboboxAnchor`, `useFileUpload`)
 - Date and time popover — registry item `@gaudi/scheduling-date-time-popover` (uses `Button`, `Calendar`, `PopoverContentPrimitive`, `PopoverPrimitive`, `PopoverTriggerPrimitive`, `RegistryIcon`, `TimeSlots`, `timeSlots`)
-- Day agenda — registry item `@gaudi/scheduling-day-agenda` (uses `AvatarFallback`, `AvatarGroup`, `AvatarImage`, `AvatarRoot`, `Badge`, `RegistryIcon`, `ScheduleCalendar`, `ToggleGroupItem`, `ToggleGroupRoot`, `dayKey`)
-- Month at a glance — registry item `@gaudi/scheduling-month-overview` (uses `AvatarFallback`, `AvatarGroup`, `AvatarImage`, `AvatarRoot`, `ProgressRoot`, `ScheduleCalendar`, `StatusDot`, `ToggleGroupItem`, `ToggleGroupRoot`, `cn`, `dayKey`)
-- Plan a meeting — registry item `@gaudi/scheduling-plan-meeting` (uses `Button`, `Label`, `ScheduleCalendar`, `SelectContent`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `SwitchRoot`, `ToggleGroupItem`, `ToggleGroupRoot`, `addMinutes`, `formatDuration`, `minutesBetween`, `timeSlots`)
-- Webinar details and RSVP — registry item `@gaudi/scheduling-webinar-rsvp` (uses `AvatarFallback`, `AvatarGroup`, `AvatarGroupCount`, `AvatarImage`, `AvatarRoot`, `Badge`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `RegistryIcon`, `ToggleGroupItem`, `ToggleGroupRoot`)
+- Day agenda — registry item `@gaudi/scheduling-day-agenda` (uses `Avatar`, `AvatarGroup`, `Badge`, `CardRoot`, `EmptyState`, `Item`, `RegistryIcon`, `ScheduleCalendar`, `ToggleGroupItem`, `ToggleGroupRoot`, `dayKey`)
+- Month at a glance — registry item `@gaudi/scheduling-month-overview` (uses `Avatar`, `AvatarGroup`, `CardRoot`, `EmptyState`, `Item`, `ItemContent`, `ItemDescription`, `ItemTitle`, `MetaSeparator`, `ProgressRoot`, `ScheduleCalendar`, `StatusDot`, `ToggleGroupItem`, `ToggleGroupRoot`, `cn`, `dayKey`)
+- Plan a meeting — registry item `@gaudi/scheduling-plan-meeting` (uses `Button`, `CardRoot`, `Label`, `ScheduleCalendar`, `SelectContent`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `SwitchRoot`, `ToggleGroupItem`, `ToggleGroupRoot`, `addMinutes`, `formatDuration`, `minutesBetween`, `timeSlots`)
+- Webinar details and RSVP — registry item `@gaudi/scheduling-webinar-rsvp` (uses `Avatar`, `AvatarFallback`, `AvatarGroup`, `AvatarGroupCount`, `AvatarImage`, `AvatarRoot`, `Badge`, `CardRoot`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `MetaSeparator`, `RegistryIcon`, `ToggleGroupItem`, `ToggleGroupRoot`, `getAvatarInitials`)
 
 ## Related
 

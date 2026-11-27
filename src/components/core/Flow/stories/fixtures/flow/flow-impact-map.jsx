@@ -1,4 +1,7 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import { NativeSelect, NativeSelectOption } from '@gaudi/design-system/core/Select';
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import { useState } from 'react';
 import {
   Flow,
@@ -11,7 +14,7 @@ import {
   useFlowHistory
 } from '@gaudi/design-system/core/Flow';
 import { default as Button } from '@gaudi/design-system/core/Button';
-import { default as Field, FieldDescription, FieldError, FieldInput, FieldLabel } from '@gaudi/design-system/core/Field';
+import { default as Field, FieldDescription, FieldError, FieldLabel } from '@gaudi/design-system/core/Field';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { default as ToastProvider, toast } from '@gaudi/design-system/core/Toast';
 import { ToggleGroupRoot as ToggleGroup, ToggleGroupItem } from '@gaudi/design-system/core/ToggleGroup';
@@ -64,7 +67,7 @@ function MetricValue({ metric, period }) {
           {change}
         </Badge>
       </div>
-      <span className='text-text-muted text-xs'>{periods[period]} · goal {metric.goal}</span>
+      <span className='text-text-muted text-xs'>{periods[period]} <MetaSeparator /> goal {metric.goal}</span>
     </div>
   );
 }
@@ -83,15 +86,15 @@ function RelinkForm({ edge, nodes, edges, onSave, onRemove }) {
     <form className='grid gap-3' onSubmit={(event) => { event.preventDefault(); if (!error && !rError) onSave({ ...draft, r }); }}>
       <Field>
         <FieldLabel>Driver</FieldLabel>
-        <FieldInput as='select' value={draft.source} onChange={(event) => setDraft({ ...draft, source: event.target.value })}>
-          {nodes.map((node) => <option key={node.id} value={node.id}>{node.data.title}</option>)}
-        </FieldInput>
+        <NativeSelect className='w-full' value={draft.source} onChange={(event) => setDraft({ ...draft, source: event.target.value })}>
+          {nodes.map((node) => <NativeSelectOption key={node.id} value={node.id}>{node.data.title}</NativeSelectOption>)}
+        </NativeSelect>
       </Field>
       <Field>
         <FieldLabel>Moves</FieldLabel>
-        <FieldInput as='select' value={draft.target} onChange={(event) => setDraft({ ...draft, target: event.target.value })}>
-          {nodes.filter((node) => node.data.kind === 'metric').map((node) => <option key={node.id} value={node.id}>{node.data.title}</option>)}
-        </FieldInput>
+        <NativeSelect className='w-full' value={draft.target} onChange={(event) => setDraft({ ...draft, target: event.target.value })}>
+          {nodes.filter((node) => node.data.kind === 'metric').map((node) => <NativeSelectOption key={node.id} value={node.id}>{node.data.title}</NativeSelectOption>)}
+        </NativeSelect>
         <FieldError>{error}</FieldError>
       </Field>
       <Field>
@@ -178,7 +181,7 @@ function ImpactMap() {
           </ToggleGroup>
         </FlowPanel>
       </Flow>
-      <aside aria-label='Map inspector' className='bg-surface grid content-start gap-3 rounded-lg border p-3'>
+      <CardRoot as='aside' variant='outline' radius='lg' padding='none' aria-label='Map inspector' className='grid content-start gap-3 p-3'>
         {selectedEdge ? (
           <>
             <h3 className='text-sm font-medium'>Edit link</h3>
@@ -224,7 +227,7 @@ function ImpactMap() {
               </>
             ) : (
               <p className='text-text-muted text-sm'>
-                {selectedNode.data.progress}% done · {selectedNode.data.owner.name} · moves {edges.filter((edge) => edge.source === selectedNode.id).map((edge) => nodes.find((node) => node.id === edge.target)?.data.title).join(', ') || 'nothing yet'}
+                {selectedNode.data.progress}% done <MetaSeparator /> {selectedNode.data.owner.name} <MetaSeparator /> moves {edges.filter((edge) => edge.source === selectedNode.id).map((edge) => nodes.find((node) => node.id === edge.target)?.data.title).join(', ') || 'nothing yet'}
               </p>
             )}
           </>
@@ -239,7 +242,7 @@ function ImpactMap() {
             </ul>
           </>
         )}
-      </aside>
+      </CardRoot>
       <ToastProvider id={toasterId} />
     </div>
   );

@@ -49,7 +49,7 @@ Label every thumb and provide a readable value. Use range examples when the two 
 Curated patterns:
 
 - Paired with a number field — registry item `@gaudi/slider-number-sync` (uses `Label`, `NumberField`, `NumberFieldGroup`, `NumberFieldInput`, `Slider`)
-- Custom readouts — registry item `@gaudi/slider-readouts` (uses `Label`, `Slider`)
+- Custom readouts — registry item `@gaudi/slider-readouts` (uses `Label`, `MetaSeparator`, `Slider`)
 - Scale labels and ticks — registry item `@gaudi/slider-scale-ticks` (uses `Label`, `Slider`, `cn`)
 - Thumbs and states — registry item `@gaudi/slider-thumbs-states` (uses `Slider`)
 

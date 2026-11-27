@@ -1,10 +1,11 @@
 'use client';
+import { CardRoot as Card } from '@gaudi/design-system/core/Card';
 import { Label } from '@gaudi/design-system/core/Field';
 import { useState } from 'react';
-import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
+import { Avatar } from '@gaudi/design-system/core/Avatar';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
-import { DropdownMenuRoot as DropdownMenu, DropdownMenuContent, DropdownMenuItemPrimitive as DropdownMenuItem, DropdownMenuTrigger } from '@gaudi/design-system/core/DropdownMenu';
+import { DropdownMenuRoot as DropdownMenu, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuContent, DropdownMenuItemPrimitive as DropdownMenuItem, DropdownMenuTrigger } from '@gaudi/design-system/core/DropdownMenu';
 import { default as Input } from '@gaudi/design-system/core/Input';
 import { SelectRoot as Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@gaudi/design-system/core/Select';
 import { default as Textarea } from '@gaudi/design-system/core/Textarea';
@@ -56,7 +57,7 @@ export function Pattern() {
   const breached = ticket.priority === 'urgent';
 
   return (
-    <article aria-labelledby='ticket-title' className='mx-auto grid w-full max-w-3xl gap-4 rounded-lg border p-5 sm:p-6'>
+    <Card as='article' variant='outline' radius='lg' padding='lg' aria-labelledby='ticket-title' className='mx-auto grid w-full max-w-3xl gap-4 p-5 sm:p-6'>
       <header className='grid gap-2'>
         <div className='flex flex-wrap items-center gap-2'>
           <span className='text-text-muted font-mono text-xs'>#4821</span>
@@ -73,17 +74,14 @@ export function Pattern() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align='end'>
-              {Object.entries(statuses).map(([value, [label]]) => (
-                <DropdownMenuItem
-                  key={value}
-                  onSelect={() => {
-                    setTicket((current) => ({ ...current, status: value }));
-                    setLog(`Status set to ${label.toLowerCase()}.`);
-                  }}
-                >
-                  {label}
-                </DropdownMenuItem>
-              ))}
+              <DropdownMenuRadioGroup value={ticket.status} onValueChange={(value) => {
+                setTicket((current) => ({ ...current, status: value }));
+                setLog(`Status set to ${statuses[value][0].toLowerCase()}.`);
+              }}>
+                {Object.entries(statuses).map(([value, [label]]) => (
+                  <DropdownMenuRadioItem key={value} value={value}>{label}</DropdownMenuRadioItem>
+                ))}
+              </DropdownMenuRadioGroup>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
@@ -135,15 +133,14 @@ export function Pattern() {
           <div className='flex flex-wrap items-center gap-1.5'>
             <ul aria-labelledby='ticket-owners-label' className='contents'>
               {ticket.owners.map((id) => (
-                <li key={id} className='bg-surface-muted flex items-center gap-1.5 rounded-md border py-0.5 ps-0.5 pe-1 text-xs'>
-                  <Avatar className='size-5'>
-                    <AvatarImage src={people[id].photo} alt='' />
-                    <AvatarFallback>{people[id].name[0]}</AvatarFallback>
-                  </Avatar>
-                  {people[id].name}
-                  <Button size='icon-xs' variant='ghost' aria-label={`Remove ${people[id].name}`} onClick={() => setTicket((current) => ({ ...current, owners: current.owners.filter((other) => other !== id) }))} className='size-4'>
-                    <RegistryIcon lucide='XIcon' aria-hidden='true' className='size-3' />
-                  </Button>
+                <li key={id}>
+                  <Badge variant='secondary' className='gap-1.5 ps-0.5 pe-1'>
+                    <Avatar size='xs' surface='tinted' src={people[id].photo} name={people[id].name} alt='' />
+                    {people[id].name}
+                    <Button size='icon-xs' variant='ghost' aria-label={`Remove ${people[id].name}`} onClick={() => setTicket((current) => ({ ...current, owners: current.owners.filter((other) => other !== id) }))} className='size-4'>
+                      <RegistryIcon lucide='XIcon' aria-hidden='true' className='size-3' />
+                    </Button>
+                  </Badge>
                 </li>
               ))}
             </ul>
@@ -168,6 +165,6 @@ export function Pattern() {
         </div>
       </div>
       <p role='status' className='text-text-muted min-h-5 text-sm'>{log}</p>
-    </article>
+    </Card>
   );
 }

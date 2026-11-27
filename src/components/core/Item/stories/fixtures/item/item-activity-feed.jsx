@@ -1,9 +1,5 @@
 import { Badge } from '@gaudi/design-system/core/Pill';
-import {
-  AvatarRoot as Avatar,
-  AvatarFallback,
-  AvatarImage
-} from '@gaudi/design-system/core/Avatar';
+import { Avatar } from '@gaudi/design-system/core/Avatar';
 import {
   Item,
   ItemActions,
@@ -47,15 +43,7 @@ export function Pattern() {
           <div key={index}>
             <Item variant='outline' size='xs'>
               <ItemMedia>
-                <Avatar size='sm'>
-                  <AvatarImage src={activity.avatar} alt={activity.name} />
-                  <AvatarFallback>
-                    {activity.name
-                      .split(' ')
-                      .map((n) => n[0])
-                      .join('')}
-                  </AvatarFallback>
-                </Avatar>
+                <Avatar size='xs' surface='tinted' className='size-6' src={activity.avatar} name={activity.name} />
               </ItemMedia>
               <ItemContent>
                 <ItemTitle>{activity.name}</ItemTitle>

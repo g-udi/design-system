@@ -1,10 +1,11 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import { ToggleGroupRoot as ToggleGroup, ToggleGroupItem } from '@gaudi/design-system/core/ToggleGroup';
 import { useEffect, useState } from 'react';
 import { ChatAgentMark } from '@gaudi/design-system/chat/ChatAgentMark';
 import { ChatMessageFeedback } from '@gaudi/design-system/chat/ChatFeedback';
 import { ChatMessage, ChatMessageContent } from '@gaudi/design-system/chat/ChatMessage';
 import { ChatMessageMarkdown } from '@gaudi/design-system/chat/ChatMessageList';
-import Button from '@gaudi/design-system/core/Button';
 import { Item, ItemContent, ItemDescription, ItemTitle } from '@gaudi/design-system/core/Item';
 import { LoaderRoot as Loader } from '@gaudi/design-system/core/Loader';
 import { Popover, PopoverContent, PopoverTrigger } from '@gaudi/design-system/core/Popover';
@@ -123,7 +124,7 @@ export function Pattern() {
     <section aria-label='Research answer' className='ds-touch-controls mx-auto flex w-full max-w-2xl flex-col gap-6'>
       <header className='space-y-3'>
         <h2 className='text-xl leading-snug font-semibold sm:text-2xl'>{answer.question}</h2>
-        <p className='text-text-muted text-xs'>Sample incident · eu-west · 3 source records</p>
+        <p className='text-text-muted text-xs'>Sample incident <MetaSeparator /> eu-west <MetaSeparator /> 3 source records</p>
       </header>
 
       <div role='group' aria-label='Source records' className='flex flex-wrap gap-2'>
@@ -154,14 +155,14 @@ export function Pattern() {
 
       <div className='border-ui-border flex flex-col gap-3 border-t pt-4'>
         <h3 className='text-sm font-medium'>Explore this incident</h3>
-        <div role='group' aria-label='Follow-up questions' className='flex flex-wrap gap-2'>
+        <ToggleGroup type='single' value={String(active)} onValueChange={(value) => { if (value) showAnswer(Number(value)); }} aria-label='Follow-up questions' variant='outline' size='sm' className='max-w-full flex-wrap'>
           {ANSWERS.map((item, index) => (
-            <Button key={item.label} variant={active === index ? 'secondary' : 'outline'} size='sm' aria-pressed={active === index} onClick={() => showAnswer(index)} className='h-auto min-h-9 max-w-full whitespace-normal text-start'>
+            <ToggleGroupItem key={item.label} value={String(index)} className='h-auto min-h-9 max-w-full whitespace-normal text-start'>
               {item.label}
               {index > 0 ? <RegistryIcon lucide='ArrowUpRight' className='size-3.5' /> : null}
-            </Button>
+            </ToggleGroupItem>
           ))}
-        </div>
+        </ToggleGroup>
       </div>
     </section>
   );

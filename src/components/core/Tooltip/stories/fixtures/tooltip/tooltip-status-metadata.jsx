@@ -1,3 +1,4 @@
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
 import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
@@ -34,7 +35,7 @@ export function Pattern() {
                 <RegistryIcon lucide='FileTextIcon' className='size-4 shrink-0' aria-hidden='true' />
                 <div className='flex flex-col'>
                   <span className='font-medium'>report-q4.pdf</span>
-                  <span className='opacity-80'>2.4 MB · Uploaded 3 days ago</span>
+                  <span className='opacity-80'>2.4 MB <MetaSeparator /> Uploaded 3 days ago</span>
                 </div>
               </div>
               <div className='flex items-center gap-1'>

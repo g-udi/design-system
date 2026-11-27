@@ -8949,7 +8949,8 @@
       "name": "Counts, badges and shortcuts",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Button/stories/ButtonPatterns.stories.jsx"
     },

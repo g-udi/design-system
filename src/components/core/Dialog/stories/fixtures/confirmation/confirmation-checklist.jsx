@@ -1,6 +1,8 @@
+import { Item } from '@gaudi/design-system/core/Item';
 import { IconTile } from '@gaudi/design-system/core/Icon';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import {
+  DialogConfirmationHeader,
   DialogConfirmationRoot as DialogConfirmation,
   DialogConfirmationAction,
   DialogConfirmationCancel,
@@ -56,7 +58,7 @@ export function Pattern() {
       </DialogConfirmationTrigger>
       <DialogConfirmationContent className='gap-0 overflow-hidden p-0 sm:max-w-sm'>
         {/* Header */}
-        <div className='flex flex-col items-center justify-center gap-1.5 px-4 pt-6 pb-5 text-center'>
+        <DialogConfirmationHeader className='flex flex-col items-center justify-center gap-1.5 px-4 pt-6 pb-5 text-center'>
           <DialogConfirmationMedia className='size-12 rounded-full bg-success-muted text-success'>
             <RegistryIcon lucide='ShieldAlertIcon' className='size-6' />
           </DialogConfirmationMedia>
@@ -66,14 +68,14 @@ export function Pattern() {
           <DialogConfirmationDescription className='p-0 text-sm'>
             Summary of your account status and security settings.
           </DialogConfirmationDescription>
-        </div>
+        </DialogConfirmationHeader>
 
         {/* Content */}
         <div className='grid gap-2 px-4'>
           {SECURITY_ITEMS.map((item) => (
-            <div
+            <Item variant='outline' size='sm'
               key={item.title}
-              className='border-border flex items-center justify-between rounded-md border border-dashed px-3 py-2'
+              className='flex items-center justify-between rounded-md border-dashed px-3 py-2'
             >
               <div className='flex items-center gap-2.5'>
                 <IconTile aria-hidden='true' size='xs'>
@@ -93,7 +95,7 @@ export function Pattern() {
               >
                 {item.status}
               </Badge>
-            </div>
+            </Item>
           ))}
         </div>
 

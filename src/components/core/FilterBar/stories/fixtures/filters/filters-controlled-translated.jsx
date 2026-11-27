@@ -291,7 +291,7 @@ function StackedPeople({ options, empty }) {
   const overflow = options.length - 3;
   return (
     <span className='flex items-center gap-1.5'>
-      <AvatarGroup className='-space-x-1 *:data-[slot=avatar]:size-4'>
+      <AvatarGroup as='span' className='-space-x-1 *:data-[slot=avatar]:size-4'>
         {options.slice(0, 3).map((option) => (
           <Face key={option.value} option={option} />
         ))}

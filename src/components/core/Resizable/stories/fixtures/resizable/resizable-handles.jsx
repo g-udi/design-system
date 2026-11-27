@@ -1,4 +1,5 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
 import {
   ResizableHandle,
   ResizablePanel,
@@ -39,7 +40,7 @@ function Sample({ style }) {
       </ResizablePanelGroup>
       <figcaption className='text-xs'>
         <span className='font-medium'>{style.name}</span>
-        <span className='text-ui-muted-foreground'> · {style.note}</span>
+        <span className='text-ui-muted-foreground'> <MetaSeparator /> {style.note}</span>
       </figcaption>
     </figure>
   );

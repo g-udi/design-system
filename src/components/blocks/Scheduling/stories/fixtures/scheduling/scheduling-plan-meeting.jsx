@@ -1,4 +1,5 @@
 'use client';
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import { useState } from 'react';
 import {
   ScheduleCalendar,
@@ -64,7 +65,7 @@ export function Pattern() {
     setStart(next);
   };
   return (
-    <div className='bg-surface grid w-full max-w-3xl overflow-hidden rounded-lg border md:grid-cols-[auto_1fr]'>
+    <CardRoot variant='outline' padding='none' radius='lg' className='grid w-full max-w-3xl overflow-hidden md:grid-cols-[auto_1fr]'>
       <ScheduleCalendar mode='single' required selected={date} onSelect={setDate} defaultMonth={new Date(2026, 9, 1)} className='border-b p-3 md:border-e md:border-b-0' />
       <div className='grid content-start gap-4 p-4'>
         <div className='grid grid-cols-2 gap-3'>
@@ -113,6 +114,6 @@ export function Pattern() {
         </Button>
         {confirmation && <p role='status' className='text-text-muted text-sm'>{confirmation}</p>}
       </div>
-    </div>
+    </CardRoot>
   );
 }

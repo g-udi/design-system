@@ -1,4 +1,7 @@
 'use client';
+import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
+import { Command, CommandDialog, CommandEmpty, CommandInput, CommandItem, CommandList } from '@gaudi/design-system/core/Commander';
+import EmptyState from '@gaudi/design-system/core/EmptyState';
 import { useRef, useState } from 'react';
 import Dialog from '@gaudi/design-system/core/Dialog';
 import Input from '@gaudi/design-system/core/Input';
@@ -41,29 +44,26 @@ export function Pattern() {
   };
   const search = useHotkey('mod+k', () => open('Search'), { target: root });
   const palette = useHotkey('mod+p', () => open('Command palette'), { target: root });
-  const entries =
-    panel === 'Command palette'
-      ? Object.keys(activity)
-      : activity[panel] || [...new Set(Object.values(activity).flat())];
+  const entries = activity[panel] || [...new Set(Object.values(activity).flat())];
   const visible = entries.filter((entry) => entry.toLowerCase().includes(query.trim().toLowerCase()));
   return (
     <TooltipProvider>
       <div ref={root} className='mx-auto flex w-full max-w-2xl flex-col gap-3'>
         <div className='flex flex-wrap items-center gap-2'>
-          <Button aria-pressed={liked} onClick={() => setLiked(!liked)}>
+          <Toggle pressed={liked} onPressedChange={setLiked}>
             <RegistryIcon lucide='ThumbsUpIcon' aria-hidden='true' />
             Like
             <Badge size='xs' variant='secondary'>
               {liked ? 457 : 456}
             </Badge>
-          </Button>
-          <Button variant='outline' aria-pressed={starred} onClick={() => setStarred(!starred)}>
+          </Toggle>
+          <Toggle variant='outline' pressed={starred} onPressedChange={setStarred}>
             <RegistryIcon lucide='StarIcon' aria-hidden='true' />
             Star
             <Badge size='xs' variant='secondary'>
               {starred ? 590 : 589}
             </Badge>
-          </Button>
+          </Toggle>
           <Button variant='outline' aria-label={`Messages (${messages.length})`} onClick={() => open('Messages')}>
             Messages
             <Badge variant='destructive-outline' size='sm' aria-hidden='true'>
@@ -134,33 +134,32 @@ export function Pattern() {
             </TooltipContent>
           </Tooltip>
         </div>
+        <CommandDialog open={panel === 'Command palette'} title='Command palette' onOpenChange={(show) => { if (!show) setPanel(''); }}>
+          <Command>
+            <CommandInput aria-label='Filter commands' placeholder='Filter commands' />
+            <CommandList>
+              <CommandEmpty>No matching results.</CommandEmpty>
+              {Object.keys(activity).map(entry => <CommandItem key={entry} value={entry} onSelect={() => open(entry)}>{entry}</CommandItem>)}
+            </CommandList>
+          </Command>
+        </CommandDialog>
         <Dialog
-          open={Boolean(panel)}
+          open={Boolean(panel) && panel !== 'Command palette'}
           onOpenChange={(show) => {
             if (!show) setPanel('');
           }}
           title={panel || 'Activity'}
         >
-          {panel === 'Search' || panel === 'Command palette' ? (
+          {panel === 'Search' ? (
             <Label className='grid gap-2'>
               Filter results
               <Input type='search' value={query} onChange={(event) => setQuery(event.target.value)} />
             </Label>
           ) : null}
           <ul className='mt-3 grid gap-2 text-sm'>
-            {visible.map((entry) => (
-              <li key={entry}>
-                {panel === 'Command palette' ? (
-                  <Button size='sm' variant='ghost' onClick={() => open(entry)}>
-                    {entry}
-                  </Button>
-                ) : (
-                  entry
-                )}
-              </li>
-            ))}
+            {visible.map(entry => <li key={entry}>{entry}</li>)}
           </ul>
-          {!visible.length && <p role='status'>No matching results.</p>}
+          {!visible.length && <EmptyState compact role='status' title='No matching results.' />}
         </Dialog>
       </div>
     </TooltipProvider>

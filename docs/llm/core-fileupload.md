@@ -11,7 +11,7 @@ import FileUpload from '@gaudi/design-system/core/FileUpload';
 // also: import { … } from '@gaudi/design-system/core';
 ```
 
-Exports: `default`, `formatBytes`, `useFileUpload`
+Exports: `FileUploadDropzone`, `default`, `formatBytes`, `useFileUpload`
 
 ## Props
 
@@ -44,6 +44,7 @@ The native file input remains keyboard accessible. Announce rejection reasons an
 
 ## Notes
 
+- Compose FileUploadDropzone with the dropzoneProps returned by useFileUpload for an image tile, file gallery or custom layout.
 - Selecting files does not upload them. The application owns storage, network requests and cancellation.
 
 ## Examples
@@ -54,11 +55,11 @@ The native file input remains keyboard accessible. Announce rejection reasons an
 
 Curated patterns:
 
-- Profile photo picker — registry item `@gaudi/file-upload-avatar` (uses `Alert`, `AlertDescription`, `AlertTitle`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`, `RegistryIcon`, `cn`, `formatBytes`, `useFileUpload`)
-- Banner image for a page — registry item `@gaudi/file-upload-cover-image` (uses `Alert`, `AlertDescription`, `AlertTitle`, `Button`, `Empty`, `EmptyContent`, `EmptyDescription`, `EmptyHeader`, `EmptyTitle`, `IconTile`, `Loader`, `ProgressRing`, `RegistryIcon`, `cn`, `formatBytes`, `useFileUpload`)
-- Drag and drop — registry item `@gaudi/file-upload-drag-drop` (uses `Alert`, `AlertDescription`, `AlertTitle`, `Button`, `IconTile`, `RegistryIcon`, `cn`, `formatBytes`, `useFileUpload`)
-- Upload table with progress — registry item `@gaudi/file-upload-progress-table` (uses `Alert`, `AlertDescription`, `AlertTitle`, `AttachmentMedia`, `Badge`, `Button`, `IconTile`, `ProgressRing`, `RegistryIcon`, `TableBodyPrimitive`, `TableCellPrimitive`, `TableHeadPrimitive`, `TableHeader`, `TableRoot`, `TableRowPrimitive`, `cn`, `formatBytes`, `useFileUpload`)
-- Image gallery with sorting — registry item `@gaudi/file-upload-sortable-gallery` (uses `Alert`, `AlertDescription`, `AlertTitle`, `Button`, `CardContent`, `CardRoot`, `DialogContent`, `DialogHeader`, `DialogRoot`, `DialogTitle`, `IconTile`, `ProgressRoot`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `cn`, `formatBytes`, `toast`, `useFileUpload`)
+- Profile photo picker — registry item `@gaudi/file-upload-avatar` (uses `Alert`, `AlertDescription`, `AlertTitle`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`, `FileUploadDropzone`, `RegistryIcon`, `cn`, `formatBytes`, `useFileUpload`)
+- Banner image for a page — registry item `@gaudi/file-upload-cover-image` (uses `Alert`, `AlertDescription`, `AlertTitle`, `Button`, `CardRoot`, `CardTitle`, `Empty`, `EmptyContent`, `EmptyDescription`, `EmptyHeader`, `EmptyTitle`, `FileUploadDropzone`, `IconTile`, `Loader`, `MetaSeparator`, `ProgressRing`, `RegistryIcon`, `cn`, `formatBytes`, `useFileUpload`)
+- Drag and drop — registry item `@gaudi/file-upload-drag-drop` (uses `Alert`, `AlertDescription`, `AlertTitle`, `Button`, `FileUploadDropzone`, `IconTile`, `RegistryIcon`, `cn`, `formatBytes`, `useFileUpload`)
+- Upload table with progress — registry item `@gaudi/file-upload-progress-table` (uses `Alert`, `AlertDescription`, `AlertTitle`, `AttachmentMedia`, `Badge`, `Button`, `FileUploadDropzone`, `IconTile`, `ProgressRing`, `RegistryIcon`, `TableBodyPrimitive`, `TableCellPrimitive`, `TableHeadPrimitive`, `TableHeader`, `TableRoot`, `TableRowPrimitive`, `cn`, `formatBytes`, `useFileUpload`)
+- Image gallery with sorting — registry item `@gaudi/file-upload-sortable-gallery` (uses `Alert`, `AlertDescription`, `AlertTitle`, `Button`, `CardContent`, `CardRoot`, `DialogContent`, `DialogHeader`, `DialogRoot`, `DialogTitle`, `FileUploadDropzone`, `IconTile`, `ProgressRoot`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `cn`, `formatBytes`, `toast`, `useFileUpload`)
 
 ## README
 
@@ -91,6 +92,8 @@ const [files, setFiles] = useState([]);
 | `labels`                | object                     | Overrides chooser, rejection, progress, success and action copy.                 |
 | `useFileUpload`         | hook                       | Headless state (previews, drag, errors) for custom upload surfaces; same `accept` rules. |
 | `formatBytes`           | function(bytes, decimals)  | Formats a size such as `1.8MB`; FileUpload uses it for each row.                 |
+
+A custom layout can spread the hook’s `dropzoneProps` onto `FileUploadDropzone`. The shared surface marks an active drag and delegates file validation and preview management to the hook. Use `as={Button}` when the surface also opens the chooser, and connect the button to `openFileDialog`.
 
 ### Ownership and verification
 

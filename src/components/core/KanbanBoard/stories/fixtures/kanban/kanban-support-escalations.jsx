@@ -1,5 +1,7 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useInterval } from '@gaudi/design-system/hooks/state/use-interval';
+import { CardRoot as Card } from '@gaudi/design-system/core/Card';
+import { useState } from 'react';
 import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import {
   Kanban,
@@ -12,7 +14,7 @@ import {
   KanbanItemHandle,
   KanbanOverlay
 } from '@gaudi/design-system/core/KanbanBoard';
-import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
+import { Avatar } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 import { cn } from '@gaudi/design-system/utilities/cn';
@@ -77,7 +79,7 @@ function SlaChip({ minutes, paused }) {
 function TicketCard({ item, paused, isOverlay }) {
   const [badge, dot] = PRIORITY[item.priority];
   const body = (
-    <div className={cn('grid gap-2 rounded-lg border bg-surface p-3 text-sm shadow-xs', !paused && item.minutes < 60 ? 'border-danger-border' : 'border-border')}>
+    <Card variant='elevated' radius='lg' padding='md' className={cn('grid gap-2 text-sm', !paused && item.minutes < 60 && 'border-danger-border')}>
       <div className='flex items-center gap-2 text-xs text-text-muted'>
         <span className='tabular-nums'>{item.id}</span>
         <Badge variant={badge} size='sm' className='ms-auto gap-1'>
@@ -90,14 +92,11 @@ function TicketCard({ item, paused, isOverlay }) {
         {item.requester} at {item.company}
       </p>
       <div className='flex items-center gap-2 text-xs'>
-        <Avatar className='size-5'>
-          <AvatarImage src={item.avatar} alt='' />
-          <AvatarFallback>{item.owner.charAt(0)}</AvatarFallback>
-        </Avatar>
+        <Avatar size='xs' surface='tinted' src={item.avatar} name={item.owner} alt='' />
         <span className='min-w-0 flex-1 truncate text-text'>{item.owner}</span>
         <SlaChip minutes={item.minutes} paused={paused} />
       </div>
-    </div>
+    </Card>
   );
   return <KanbanItem value={item.id}>{isOverlay ? body : <KanbanItemHandle>{body}</KanbanItemHandle>}</KanbanItem>;
 }
@@ -134,16 +133,13 @@ function StageColumn({ value, items, onAdd, isOverlay }) {
 export function Pattern() {
   const [columns, setColumns] = useState(INITIAL);
   // One tick a minute; tickets waiting on the customer keep their remaining time.
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setColumns((current) =>
-        Object.fromEntries(
-          Object.entries(current).map(([key, items]) => [key, STAGES[key].paused ? items : items.map((item) => ({ ...item, minutes: item.minutes - 1 }))])
-        )
-      );
-    }, 60000);
-    return () => clearInterval(timer);
-  }, []);
+  useInterval(() => {
+    setColumns((current) =>
+      Object.fromEntries(
+        Object.entries(current).map(([key, items]) => [key, STAGES[key].paused ? items : items.map((item) => ({ ...item, minutes: item.minutes - 1 }))])
+      )
+    );
+  }, 60000);
   const add = (value) =>
     setColumns({ ...columns, [value]: [...columns[value], ticket(`SUP-${10500 + Object.values(columns).flat().length}`, 'Normal', 'New ticket', 'Unassigned requester', 'New account', 'Maya Ito', 'person-24', 480)] });
   const atRisk = Object.entries(columns).flatMap(([key, items]) => (STAGES[key].paused ? [] : items)).filter((item) => item.minutes < 60).length;

@@ -16,7 +16,7 @@ export const LabelsMessages = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.type(canvas.getByRole('textbox', { name: 'Description' }), 'Docs');
-    await expect(canvas.getByText('4/50')).toBeVisible();
+    await expect(canvas.getByText('46 characters left')).toBeVisible();
     await expect(canvas.getByRole('textbox', { name: 'Security code' })).toHaveAttribute('aria-invalid', 'true');
   }
 };
@@ -33,7 +33,7 @@ export const PasswordStrength = {
     await expect(canvas.getByText('Strong security')).toBeVisible();
     await userEvent.click(canvas.getByRole('button', { name: 'Show password' }));
     await expect(input).toHaveAttribute('type', 'text');
-    await expect(canvas.getByRole('button', { name: 'Hide password' })).toHaveAttribute('data-slot', 'button');
+    await expect(canvas.getByRole('button', { name: 'Hide password' })).toHaveAttribute('data-slot', 'toggle');
     await expect(canvas.getByRole('link', { name: 'Forgot password?' })).toHaveAttribute('href', '/forgot-password');
   }
 };

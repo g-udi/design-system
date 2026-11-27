@@ -1,5 +1,5 @@
 'use client';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import Link from '@gaudi/design-system/core/Link';
 import {
   DataGrid,
@@ -10,11 +10,12 @@ import { DataGridPagination } from '@gaudi/design-system/core/DataTable';
 import { DataGridScrollArea } from '@gaudi/design-system/core/DataTable';
 import {
   DataGridTableDndRowHandle,
-  DataGridTableDndRows
+  DataGridTableDndRows,
+  useDataGridRowOrder
 } from '@gaudi/design-system/core/DataTable';
-import { arrayMove } from '@dnd-kit/sortable';
 import { useTable } from '@tanstack/react-table';
 import {
+  getAvatarInitials,
   AvatarRoot as Avatar,
   AvatarFallback,
   AvatarImage
@@ -133,10 +134,7 @@ export function Pattern() {
                   alt={row.original.name}
                 />
                 <AvatarFallback>
-                  {row.original.name
-                    .split(' ')
-                    .map((n) => n[0])
-                    .join('')}
+                  {getAvatarInitials(row.original.name)}
                 </AvatarFallback>
               </Avatar>
               <span className='font-medium'>{row.original.name}</span>
@@ -194,18 +192,7 @@ export function Pattern() {
     ],
     []
   );
-  const [data, setData] = useState(demoData);
-  const dataIds = useMemo(() => data?.map(({ id }) => id), [data]);
-  const handleDragEnd = (event) => {
-    const { active, over } = event;
-    if (active && over && active.id !== over.id) {
-      setData((data2) => {
-        const oldIndex = dataIds.indexOf(active.id);
-        const newIndex = dataIds.indexOf(over.id);
-        return arrayMove(data2, oldIndex, newIndex);
-      });
-    }
-  };
+  const { rows: data, dataIds, handleDragEnd } = useDataGridRowOrder(demoData);
   const table = useTable({
     features: dataGridFeatures,
     // No pagination row model on v8, so every row rendered. The shared

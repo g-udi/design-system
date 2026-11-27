@@ -1,8 +1,4 @@
-import {
-  AvatarRoot as Avatar,
-  AvatarFallback,
-  AvatarImage
-} from '@gaudi/design-system/core/Avatar';
+import { Avatar } from '@gaudi/design-system/core/Avatar';
 import {
   FieldRoot as Field,
   FieldContent,
@@ -23,8 +19,8 @@ const plans = [
   { value: 'enterprise', title: 'Enterprise', price: '$49', description: 'For newsrooms with several desks and review steps.' }
 ];
 const reviewers = [
-  { value: 'emma', name: 'Ilse Valtonen', handle: '@emmawilson', avatar: '/avatars/person-20.svg', initials: 'IV' },
-  { value: 'john', name: 'John Doe', handle: '@johndoe', avatar: '/avatars/person-41.svg', initials: 'JD' }
+  { value: 'emma', name: 'Ilse Valtonen', handle: '@emmawilson', avatar: '/avatars/person-20.svg' },
+  { value: 'john', name: 'John Doe', handle: '@johndoe', avatar: '/avatars/person-41.svg' }
 ];
 
 export function Pattern() {
@@ -56,10 +52,7 @@ export function Pattern() {
             <FieldLabel key={person.value} htmlFor={`reviewer-${person.value}`}>
               <Field orientation='horizontal'>
                 <FieldTitle className='flex flex-1 items-center gap-2'>
-                  <Avatar size='sm'>
-                    <AvatarImage src={person.avatar} alt={person.name} />
-                    <AvatarFallback>{person.initials}</AvatarFallback>
-                  </Avatar>
+                  <Avatar size='xs' surface='tinted' className='size-6' src={person.avatar} name={person.name} />
                   <span className='flex flex-col items-start'>
                     <span className='text-sm font-semibold'>{person.name}</span>
                     <span className='text-xs font-normal text-text-muted'>{person.handle}</span>

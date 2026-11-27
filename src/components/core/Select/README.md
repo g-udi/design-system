@@ -26,3 +26,5 @@ import { Select } from '@gaudi/design-system';
 ## Accessibility
 
 The trigger is a button with `aria-haspopup='listbox'`. Arrow keys, Home and End highlight options; disabled options remain discoverable but cannot be selected. Enter selects an enabled option, and Escape closes and returns focus to the trigger. Give every select a visible label or `aria-label`.
+
+A `NativeSelect` inside a convenience `Field` inherits its label ID and mounted error and description references. Explicit control IDs and external descriptions remain supported.

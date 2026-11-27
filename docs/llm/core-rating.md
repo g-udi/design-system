@@ -50,7 +50,7 @@ Curated patterns:
 
 - Display options — registry item `@gaudi/rating-display-options` (uses `Rating`)
 - Emoji reactions — registry item `@gaudi/rating-emoji-reactions` (uses `ToggleGroupItem`, `ToggleGroupRoot`)
-- Review form — registry item `@gaudi/rating-review-form` (uses `Button`, `CardContent`, `CardRoot`, `Label`, `Rating`, `Textarea`, `ToastProvider`, `toast`)
+- Review form — registry item `@gaudi/rating-review-form` (uses `Button`, `CardContent`, `CardRoot`, `FieldLabelPrimitive`, `FieldRoot`, `Rating`, `Textarea`, `ToastProvider`, `toast`)
 - Review summary — registry item `@gaudi/rating-review-summary` (uses `ProgressRoot`, `Rating`, `Separator`)
 
 ## README

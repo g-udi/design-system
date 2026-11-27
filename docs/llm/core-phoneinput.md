@@ -47,7 +47,7 @@ Associate a visible label with the input and name the country selector. The appl
 
 Curated patterns:
 
-- Field states — registry item `@gaudi/phone-input-field-states` (uses `Label`, `PhoneInput`)
+- Field states — registry item `@gaudi/phone-input-field-states` (uses `FieldDescriptionPrimitive`, `FieldErrorPrimitive`, `FieldLabelPrimitive`, `FieldRoot`, `PhoneInput`)
 
 ## Related
 

@@ -60,13 +60,13 @@ Button renders native buttons for actions and links for navigation. Disabled lin
 
 Curated patterns:
 
-- Async loading and success — registry item `@gaudi/button-async-success` (uses `Button`, `LoaderRoot`, `RegistryIcon`)
+- Async loading and success — registry item `@gaudi/button-async-success` (uses `Button`, `LoaderRoot`, `RegistryIcon`, `useTimeout`)
 - Avatar and two-line content — registry item `@gaudi/button-avatar-two-line` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`, `IconTile`, `RegistryIcon`)
 - Copy with feedback — registry item `@gaudi/button-copy-feedback` (uses `Button`, `RegistryIcon`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`, `useCopyToClipboard`)
-- Counts, badges and shortcuts — registry item `@gaudi/button-counts-shortcuts` (uses `Badge`, `Button`, `Dialog`, `Input`, `Kbd`, `Label`, `RegistryIcon`, `StatusDot`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`, `useHotkey`)
-- Icons, loading and links — registry item `@gaudi/button-icons-loading` (uses `Button`, `Dialog`, `FieldLabel`, `LoaderRoot`, `RegistryIcon`, `SwitchRoot`)
+- Counts, badges and shortcuts — registry item `@gaudi/button-counts-shortcuts` (uses `Badge`, `Button`, `Command`, `CommandDialog`, `CommandEmpty`, `CommandInput`, `CommandItem`, `CommandList`, `Dialog`, `EmptyState`, `Input`, `Kbd`, `Label`, `RegistryIcon`, `StatusDot`, `Toggle`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`, `useHotkey`)
+- Icons, loading and links — registry item `@gaudi/button-icons-loading` (uses `Button`, `Dialog`, `LoaderRoot`, `RegistryIcon`, `Switch`, `Toggle`)
 - Social sign-in — registry item `@gaudi/button-social-sign-in` (uses `Button`, `RegistryIcon`)
-- Toggling icon and label — registry item `@gaudi/button-toggling-label` (uses `Button`, `RegistryIcon`, `cn`)
+- Toggling icon and label — registry item `@gaudi/button-toggling-label` (uses `Button`, `RegistryIcon`, `Toggle`, `cn`)
 
 ## Related
 

@@ -65,7 +65,7 @@ The plot is one tab stop named by ariaLabel. The arrow keys walk the points, Hom
 Curated patterns:
 
 - Annotated traffic with keyboard reading — registry item `@gaudi/area-chart-annotated-traffic` (uses `AreaChart`)
-- Fills, curves and stacking — registry item `@gaudi/area-chart-fills-stacking` (uses `CardContent`, `CardDescription`, `CardHeader`, `CardRoot`, `CardTitle`, `ChartContainer`, `ChartLegend`, `ChartLegendContent`, `ChartTooltip`, `ChartTooltipContent`, `Label`, `SwitchRoot`, `ToggleGroupItem`, `ToggleGroupRoot`)
+- Fills, curves and stacking — registry item `@gaudi/area-chart-fills-stacking` (uses `CardContent`, `CardDescription`, `CardHeader`, `CardRoot`, `CardTitle`, `ChartContainer`, `ChartLegend`, `ChartLegendContent`, `ChartTooltip`, `ChartTooltipContent`, `Switch`, `ToggleGroupItem`, `ToggleGroupRoot`)
 
 ## README
 

@@ -10,8 +10,7 @@ import {
   TimelineSeparator,
   TimelineTitle
 } from '@gaudi/design-system/core/Timeline';
-import { Label } from '@gaudi/design-system/core/Field';
-import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
+import LabeledSwitch from '@gaudi/design-system/core/Switch';
 import {
   ToggleGroupRoot as ToggleGroup,
   ToggleGroupItem
@@ -64,14 +63,8 @@ export function Pattern() {
             </ToggleGroupItem>
           ))}
         </ToggleGroup>
-        <Label className='gap-2 text-sm font-normal'>
-          <Switch size='sm' checked={leadingDates} onCheckedChange={setLeadingDates} />
-          Leading dates
-        </Label>
-        <Label className='gap-2 text-sm font-normal'>
-          <Switch size='sm' checked={compact} onCheckedChange={setCompact} />
-          Compact
-        </Label>
+        <LabeledSwitch className='gap-2 text-sm font-normal' size='sm' checked={leadingDates} onCheckedChange={setLeadingDates} label="Leading dates" />
+        <LabeledSwitch className='gap-2 text-sm font-normal' size='sm' checked={compact} onCheckedChange={setCompact} label="Compact" />
       </div>
       <Timeline defaultValue={3}>
         {steps.map((step) => (

@@ -113,7 +113,8 @@ export const FileSearch = {
     await userEvent.clear(search);
     await userEvent.type(search, 'createInvite');
     await expect(canvas.getByText('1 match')).toBeVisible();
-    await waitFor(() => expect(canvasElement.querySelector('[data-word]')).toHaveTextContent('createInvite'));
+    // Syntax highlighting loads the language grammar on its first use.
+    await waitFor(() => expect(canvasElement.querySelector('[data-word]')).toHaveTextContent('createInvite'), { timeout: 6000 });
     await userEvent.click(canvas.getByRole('button', { name: 'Clear search' }));
     await expect(search).toHaveValue('');
     await expect(canvas.getByRole('button', { name: 'Clear search' })).toBeDisabled();

@@ -1,4 +1,5 @@
 'use client';
+import { CardHeader, CardTitle, CardDescription, CardRoot } from '@gaudi/design-system/core/Card';
 import { Fragment, useState } from 'react';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
@@ -16,7 +17,7 @@ import {
   useComboboxAnchor
 } from '@gaudi/design-system/core/Select';
 import { FieldRoot as Field, FieldContent, FieldDescriptionPrimitive as FieldDescription, FieldErrorPrimitive as FieldError, FieldGroup, FieldLabelPrimitive as FieldLabel } from '@gaudi/design-system/core/Field';
-import { formatBytes, useFileUpload } from '@gaudi/design-system/core/FileUpload';
+import { formatBytes, FileUploadDropzone, useFileUpload } from '@gaudi/design-system/core/FileUpload';
 import { default as Input } from '@gaudi/design-system/core/Input';
 import {
   NumberField,
@@ -46,18 +47,18 @@ const labels = { title: 'Title', price: 'Price', compare: 'Compare-at price', sk
 
 function Section({ title, description, children }) {
   return (
-    <section className='grid gap-4 rounded-lg border p-5'>
-      <div className='grid gap-0.5'>
-        <h3 className='text-sm font-semibold'>{title}</h3>
-        {description ? <p className='text-text-muted text-sm'>{description}</p> : null}
-      </div>
+    <CardRoot as='section' variant='outline' radius='lg' padding='none' className='grid gap-4 p-5'>
+      <CardHeader className='p-0 grid gap-0.5'>
+        <CardTitle as='h3' className='text-sm font-semibold'>{title}</CardTitle>
+        {description ? <CardDescription as='p' className='text-text-muted text-sm'>{description}</CardDescription> : null}
+      </CardHeader>
       {children}
-    </section>
+    </CardRoot>
   );
 }
 
 function Media() {
-  const [{ files, errors, isDragging }, { removeFile, openFileDialog, getInputProps, handleDragEnter, handleDragLeave, handleDragOver, handleDrop }] = useFileUpload({
+  const [{ files, errors }, { removeFile, openFileDialog, getInputProps, dropzoneProps }] = useFileUpload({
     multiple: true,
     maxFiles: 6,
     maxSize: 5 * 1024 * 1024,
@@ -80,25 +81,20 @@ function Media() {
           </figure>
         ))}
         {files.length < 6 ? (
-          <Button
+          <FileUploadDropzone as={Button} {...dropzoneProps}
             type='button'
             variant='outline'
             onClick={openFileDialog}
-            onDragEnter={handleDragEnter}
-            onDragLeave={handleDragLeave}
-            onDragOver={handleDragOver}
-            onDrop={handleDrop}
-            data-dragging={isDragging || undefined}
-            className='text-text-muted data-[dragging]:border-accent data-[dragging]:bg-accent-subtle grid h-auto aspect-square place-items-center content-center gap-1 border-dashed text-xs'
+            className='aspect-square h-auto w-full flex-col gap-1 whitespace-normal text-center'
           >
             <RegistryIcon lucide='ImageIcon' aria-hidden='true' className='size-5' />
             Add images
-          </Button>
+          </FileUploadDropzone>
         ) : null}
       </div>
       <input {...getInputProps()} aria-label='Add product images' className='sr-only' />
       <p className='text-text-muted text-xs'>Up to 6 images, 5 MB each. The first is the cover; drop files on the tile to add more.</p>
-      {errors.length ? <p role='alert' className='text-danger text-xs'>{errors[0]}</p> : null}
+      {errors.length ? <FieldError>{errors[0]}</FieldError> : null}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { Badge } from '@gaudi/design-system/core/Pill';
-import {
+import { getAvatarInitials,
   AvatarRoot as Avatar,
   AvatarFallback,
   AvatarImage
@@ -12,7 +12,7 @@ import {
   TableHeader,
   TableRowPrimitive as TableRow
 } from '@gaudi/design-system/mdx/Table';
-import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
+import { StatDelta } from '@gaudi/design-system/blocks/StatCard';
 const leaders = [
   {
     rank: 1,
@@ -99,10 +99,7 @@ export function Pattern() {
                   <Avatar size='sm'>
                     <AvatarImage src={leader.avatar} alt={leader.name} />
                     <AvatarFallback>
-                      {leader.name
-                        .split(' ')
-                        .map((n) => n[0])
-                        .join('')}
+                      {getAvatarInitials(leader.name)}
                     </AvatarFallback>
                   </Avatar>
                   <div className='flex flex-col'>
@@ -122,28 +119,7 @@ export function Pattern() {
                 {leader.score.toLocaleString()}
               </TableCell>
               <TableCell className='text-right'>
-                <span className='inline-flex items-center gap-0.5 text-sm'>
-                  {leader.changeUp ? (
-                    <RegistryIcon
-                      lucide='TrendingUpIcon'
-                      aria-hidden='true'
-                      className='text-success size-3.5'
-                    />
-                  ) : (
-                    <RegistryIcon
-                      lucide='TrendingDownIcon'
-                      aria-hidden='true'
-                      className='text-danger size-3.5'
-                    />
-                  )}
-                  <span
-                    className={
-                      leader.changeUp ? 'text-success' : 'text-danger'
-                    }
-                  >
-                    {leader.change}
-                  </span>
-                </span>
+                <StatDelta value={leader.change} direction={leader.changeUp ? 'up' : 'down'} tone={leader.changeUp ? 'success' : 'danger'} />
               </TableCell>
             </TableRow>
           ))}

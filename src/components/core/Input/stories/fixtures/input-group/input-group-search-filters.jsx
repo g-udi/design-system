@@ -1,4 +1,5 @@
 'use client';
+import Link from '@gaudi/design-system/core/Link';
 import { useRef, useState } from 'react';
 import { CheckboxRoot as Checkbox } from '@gaudi/design-system/core/Checkbox';
 import {
@@ -125,7 +126,7 @@ export function Pattern() {
               <DropdownMenuGroup>
                 <DropdownMenuItem onSelect={() => setFeedback('Bulk email prepared in this demo. No email was sent.')}>Bulk email</DropdownMenuItem>
                 <DropdownMenuItem asChild><a href={`data:text/csv;charset=utf-8,${encodeURIComponent('status,count\n' + (selectedStatuses.length ? selectedStatuses : statuses).map((status) => `${status},${statusCounts[status]}`).join('\n'))}`} download='contact-summary.csv'>Export CSV</a></DropdownMenuItem>
-                <DropdownMenuItem asChild><a href='/contacts/new'>Add contact</a></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link variant='bare' href='/contacts/new'>Add contact</Link></DropdownMenuItem>
               </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>

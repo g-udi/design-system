@@ -35,6 +35,7 @@ import {
 } from '@gaudi/design-system/core/Dialog';
 import ToastProvider, { toast } from '@gaudi/design-system/core/Toast';
 import {
+  getAvatarInitials,
   AvatarRoot as Avatar,
   AvatarFallback,
   AvatarImage
@@ -269,7 +270,6 @@ const demoData = [
 const STATUSES = ['Active', 'Pending', 'Inactive', 'Blocked'];
 const LOCATIONS = [...new Map(demoData.map((member) => [member.location, member.flag]))].map(([location, flag]) => ({ location, flag }));
 const EMPTY_MEMBER = { name: '', email: '', company: '', role: '', location: 'United States', status: 'Pending' };
-const initials = (name) => name.split(' ').filter(Boolean).map((part) => part[0]).join('').slice(0, 2).toUpperCase();
 function validateMember(values) {
   const errors = {};
   if (!values.name.trim()) errors.name = 'Enter a name.';
@@ -533,7 +533,7 @@ export function Pattern() {
                     alt={row.original.name}
                   />
                 )}
-                <AvatarFallback>{initials(row.original.name)}</AvatarFallback>
+                <AvatarFallback>{getAvatarInitials(row.original.name)}</AvatarFallback>
               </Avatar>
               <div className='space-y-px'>
                 <div className='text-ui-foreground font-medium'>

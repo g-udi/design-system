@@ -1,8 +1,10 @@
 'use client';
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import { StatusDot } from '@gaudi/design-system/core/Pill';
 import { useId, useState } from 'react';
 import { cn } from '@gaudi/design-system/utilities/cn';
 import {
+  getAvatarInitials,
   AvatarRoot as Avatar,
   AvatarFallback,
   AvatarGroup,
@@ -83,7 +85,6 @@ const labels = [
 ];
 
 const sameId = (item, value) => item.id === value.id;
-const initials = (name) => name.split(' ').map((part) => part[0]).join('');
 
 function Row({ children, className }) {
   return <span className={cn('flex min-w-0 items-center gap-2', className)}>{children}</span>;
@@ -124,7 +125,7 @@ function PersonAvatar({ person, className = 'size-5' }) {
   return (
     <Avatar className={className}>
       {person.avatar ? <AvatarImage src={person.avatar} alt={person.label} /> : null}
-      <AvatarFallback>{initials(person.label)}</AvatarFallback>
+      <AvatarFallback>{getAvatarInitials(person.label)}</AvatarFallback>
     </Avatar>
   );
 }
@@ -160,7 +161,7 @@ function MembersSummary({ members }) {
   return (
     <Row>
       <span className='sr-only'>Selected members: {members.map((m) => m.label).join(', ')}</span>
-      <AvatarGroup className='-space-x-1'>
+      <AvatarGroup as='span' className='-space-x-1'>
         {visible.map((member) => (
           <PersonAvatar key={member.id} person={member} />
         ))}
@@ -246,7 +247,7 @@ export function Pattern() {
   const [selectedLabels, setSelectedLabels] = useState(labels.slice(0, 2));
 
   return (
-    <div className='border-border bg-surface mx-auto grid w-full max-w-sm grid-cols-[5.5rem_minmax(0,1fr)] items-center gap-x-3 gap-y-2 rounded-lg border p-3'>
+    <CardRoot variant='outline' radius='lg' padding='none' className='mx-auto grid w-full max-w-sm grid-cols-[5.5rem_minmax(0,1fr)] items-center gap-x-3 gap-y-2 p-3'>
       <Picker
         label='Status'
         items={statuses}
@@ -418,6 +419,6 @@ export function Pattern() {
           </form>
         </DialogContent>
       </Dialog>
-    </div>
+    </CardRoot>
   );
 }

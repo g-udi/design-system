@@ -1,8 +1,9 @@
 'use client';
-import { Attachment, AttachmentMedia, AttachmentTitle, AttachmentDescription, AttachmentAction } from '@gaudi/design-system/core/Attachment';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import { Frame, FramePanel } from '@gaudi/design-system/core/Card';
+import { IconTile } from '@gaudi/design-system/core/Icon';
 import { GaudiLogo, GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
 import { useState } from 'react';
-import { AvatarRoot as Avatar, AvatarFallback, AvatarGroup, AvatarGroupCount, AvatarImage } from '@gaudi/design-system/core/Avatar';
 import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import {
   BreadcrumbRoot as Breadcrumb,
@@ -42,6 +43,7 @@ import {
   useSidebar
 } from '@gaudi/design-system/blocks/AppShell';
 import {
+  AppShellNotificationItem,
   AppShellBody,
   AppShellFrame,
   AppShellHeader,
@@ -156,124 +158,22 @@ const bibliography =
   '@misc{cognition-notes,\n  title = {Memory and Sleep: Pilot Study Notes},\n  author = {Cognition Lab},\n  year = {2026},\n  note = {Illustrative research notebook}\n}\n';
 
 const initialNotifications = [
-  { id: 'mention', kind: 'mention', unread: true, photo: portrait('person-23'), title: '@nadia mentioned you in Memory & Sleep notes', body: '“Can you check this citation?”', time: '2m ago' },
-  { id: 'approval', kind: 'approval', unread: true, icon: 'CircleCheck', tone: 'text-warning', title: 'Sign-off requested', body: 'The Literature Review draft needs your sign-off before it is shared with the lab.', time: '5m ago', meta: ['Priority', 'High'] },
-  { id: 'file', kind: 'file', unread: true, photo: portrait('person-41'), title: '@omar shared Interview transcripts', file: 'interviews-batch-3.txt', text: transcript, time: '15m ago' },
-  { id: 'task', kind: 'task', unread: true, icon: 'Bookmark', tone: 'text-info', title: 'Reading assigned to you', body: 'Annotate chapter 4 of the sleep-spindles review.', time: '30m ago', meta: ['Due', 'Tomorrow'] },
-  { id: 'joined', kind: 'joined', unread: true, icon: 'Users', tone: 'text-success', title: '4 people joined Cognition Lab', body: 'Nadia, Theo, Ines and Yusuf just joined the lab workspace.', time: '45m ago', people: ['person-20', 'person-44', 'person-07'] },
-  { id: 'event', kind: 'event', icon: 'Calendar', tone: 'text-discovery', title: 'Reading group reminder', body: 'Discussion of this week’s paper with the lab.', time: '3h ago', when: ['Mar 3, 2026', '10:00 to 11:00 AM'] },
-  { id: 'milestone', kind: 'milestone', icon: 'Award', tone: 'text-success', title: 'Weekly reading goal reached', body: '12 of 12 papers read this week.', time: '4h ago', meta: ['Goal', '12 papers'] },
-  { id: 'export', kind: 'plain', icon: 'Download', tone: 'text-text-muted', title: 'Bibliography export ready', body: 'One sample reference is ready to download.', file: 'cognition-notes.bib', text: bibliography, time: 'Yesterday' },
-  { id: 'sign-in', kind: 'plain', icon: 'ShieldAlert', tone: 'text-attention', title: 'New sign-in detected', body: 'We noticed a new login from macOS, Chrome.', time: 'Yesterday' }
+  { id: 'mention', unread: true, avatar: portrait('person-23'), title: '@nadia mentioned you in Memory & Sleep notes', body: '“Can you check this citation?”', time: '2m ago' },
+  { id: 'approval', unread: true, icon: 'CircleCheck', tone: 'warning', title: 'Sign-off requested', body: 'The Literature Review draft needs your sign-off before it is shared with the lab.', time: '5m ago', meta: { label: 'Priority', value: 'High' }, actions: [{ label: 'Approve', primary: true, done: 'Approved' }, { label: 'Review', done: 'In review' }] },
+  { id: 'file', unread: true, avatar: portrait('person-41'), title: '@omar shared Interview transcripts', attachment: { name: 'interviews-batch-3.txt', text: transcript, size: new Blob([transcript]).size + ' B' }, time: '15m ago' },
+  { id: 'task', unread: true, icon: 'Bookmark', tone: 'info', title: 'Reading assigned to you', body: 'Annotate chapter 4 of the sleep-spindles review.', time: '30m ago', meta: { label: 'Due', value: 'Tomorrow' } },
+  { id: 'joined', unread: true, icon: 'Users', tone: 'success', title: '4 people joined Cognition Lab', body: 'Nadia, Theo, Ines and Yusuf just joined the lab workspace.', time: '45m ago', people: ['person-20', 'person-44', 'person-07'].map(portrait), peopleExtra: 1 },
+  { id: 'event', icon: 'Calendar', tone: 'discovery', title: 'Reading group reminder', body: 'Discussion of this week’s paper with the lab.', time: '3h ago', schedule: { date: 'Mar 3, 2026', time: '10:00 to 11:00 AM' }, actions: [{ label: 'Bookmark event', done: 'Bookmarked' }] },
+  { id: 'milestone', icon: 'Award', tone: 'success', title: 'Weekly reading goal reached', body: '12 of 12 papers read this week.', time: '4h ago', meta: { label: 'Goal', value: '12 papers' }, progress: { value: 100, label: 'Weekly reading goal' } },
+  { id: 'export', icon: 'Download', tone: 'neutral', title: 'Bibliography export ready', body: 'One sample reference is ready to download.', attachment: { name: 'cognition-notes.bib', text: bibliography, size: new Blob([bibliography]).size + ' B' }, time: 'Yesterday' },
+  { id: 'sign-in', icon: 'ShieldAlert', tone: 'attention', title: 'New sign-in detected', body: 'We noticed a new login from macOS, Chrome.', time: 'Yesterday' }
 ];
-
-function Meta({ items }) {
-  if (!items) return null;
-  return (
-    <Badge variant='outline' className='gap-1.5 font-normal'>
-      <span className='text-text-muted'>{items[0]}</span>
-      <span className='font-medium'>{items[1]}</span>
-    </Badge>
-  );
-}
-
-function NotificationItem({ item, onResolve }) {
-  return (
-    <li className='border-ui-border relative flex gap-3 border-b px-4 py-3 last:border-b-0'>
-      {item.photo ? (
-        <Avatar className='size-7'>
-          <AvatarImage src={item.photo} alt='' />
-          <AvatarFallback>{item.title.slice(1, 3)}</AvatarFallback>
-        </Avatar>
-      ) : (
-        <span aria-hidden='true' className={`grid size-7 shrink-0 place-items-center ${item.tone}`}>
-          <RegistryIcon lucide={item.icon} className='size-4' />
-        </span>
-      )}
-      <div className='grid min-w-0 flex-1 gap-1.5 text-sm'>
-        <p className='pe-4 font-medium leading-snug'>
-          {item.title}
-          {item.unread ? <span className='sr-only'> (unread)</span> : null}
-        </p>
-        {item.body ? <p className='text-text-muted leading-snug'>{item.body}</p> : null}
-        {item.kind === 'approval' ? (
-          item.resolved ? (
-            <Badge variant='success-light' className='w-fit'>
-              <RegistryIcon lucide='Check' aria-hidden='true' />
-              {item.resolved}
-            </Badge>
-          ) : (
-            <div className='flex gap-1.5'>
-              <Button size='xs' onClick={() => onResolve(item.id, 'Approved')}>Approve</Button>
-              <Button size='xs' variant='outline' onClick={() => onResolve(item.id, 'In review')}>Review</Button>
-            </div>
-          )
-        ) : null}
-        {item.file ? (
-          <Attachment size='xs' className='w-fit'>
-            <AttachmentMedia file={{name: item.file}} />
-            <AttachmentTitle>{item.file}</AttachmentTitle>
-            <AttachmentDescription>{new Blob([item.text]).size} B</AttachmentDescription>
-            <AttachmentAction asChild>
-              <a
-                href={`data:text/plain;charset=utf-8,${encodeURIComponent(item.text)}`}
-                download={item.file}
-                aria-label={`Download ${item.file}`}
-              >
-                <RegistryIcon lucide='Download' aria-hidden='true' />
-              </a>
-            </AttachmentAction>
-          </Attachment>
-        ) : null}
-        {item.people ? (
-          <AvatarGroup>
-            {item.people.map((path) => (
-              <Avatar key={path} className='size-6'>
-                <AvatarImage src={portrait(path)} alt='' />
-                <AvatarFallback>·</AvatarFallback>
-              </Avatar>
-            ))}
-            <AvatarGroupCount className='bg-ui-muted size-6 rounded-full text-xs' aria-label='1 more'>+1</AvatarGroupCount>
-          </AvatarGroup>
-        ) : null}
-        {item.when ? (
-          <div className='flex flex-wrap items-center gap-1.5'>
-            <Badge variant='outline' size='lg' className='gap-1.5 px-2 font-normal'>
-              <RegistryIcon lucide='Calendar' aria-hidden='true' className='size-3.5' />
-              <span className='font-medium'>{item.when[0]}</span>
-              <span className='text-text-muted'>{item.when[1]}</span>
-            </Badge>
-            {item.resolved ? (
-              <Badge variant='outline'>{item.resolved}</Badge>
-            ) : (
-              <Button size='xs' variant='outline' onClick={() => onResolve(item.id, 'Bookmarked')}>
-                Bookmark event
-              </Button>
-            )}
-          </div>
-        ) : null}
-        {item.kind === 'milestone' ? (
-          <ProgressRoot
-            value={100}
-            aria-label='Weekly reading goal'
-            className='bg-ui-muted h-1.5 rounded-full [&>[data-slot=progress-indicator]]:bg-success'
-          />
-        ) : null}
-        <div className='text-text-muted flex flex-wrap items-center gap-2 text-xs'>
-          <span>{item.time}</span>
-          <Meta items={item.meta} />
-        </div>
-      </div>
-      {item.unread ? <StatusDot className='bg-ui-foreground absolute top-4 end-4' /> : null}
-    </li>
-  );
-}
 
 function NotificationsPopover() {
   const [items, setItems] = useState(initialNotifications);
   const unread = items.filter((item) => item.unread).length;
-  const resolve = (id, label) =>
-    setItems((list) => list.map((item) => (item.id === id ? { ...item, resolved: label, unread: false } : item)));
+  const resolve = (notification, action) =>
+    setItems((list) => list.map((item) => (item.id === notification.id ? { ...item, resolved: action.done || action.label, unread: false } : item)));
   return (
     <Popover>
       <Tooltip>
@@ -318,7 +218,7 @@ function NotificationsPopover() {
         </div>
         <ul aria-label='Recent notifications' className='max-h-[min(24rem,60vh)] overflow-y-auto overscroll-contain'>
           {items.map((item) => (
-            <NotificationItem key={item.id} item={item} onResolve={resolve} />
+            <AppShellNotificationItem key={item.id} item={item} onAction={resolve} />
           ))}
         </ul>
       </PopoverContent>
@@ -369,11 +269,11 @@ function SearchButton({ onOpen, shortcut }) {
 function ReadingGoal() {
   return (
     <SidebarGroup className='group-data-[collapsible=icon]:hidden'>
-      <section aria-labelledby='app-shell-research-goal' className='bg-ui-muted border-ui-border rounded-(--ds-radius-card) border'>
+      <Frame role='region' aria-labelledby='app-shell-research-goal' spacing='sm'>
         <h2 id='app-shell-research-goal' className='text-ui-warning-ink px-2.5 py-1.5 text-xs font-semibold'>
           Weekly Reading Goal
         </h2>
-        <div className='bg-ui-background border-ui-border -m-px grid gap-2 rounded-(--ds-radius-card) border p-2.5'>
+        <FramePanel className='grid gap-2 p-2.5'>
           <p className='text-text-muted text-xs leading-snug'>9 of 11 papers read; the goal resets on Monday.</p>
           <ProgressRoot
             value={82}
@@ -384,17 +284,17 @@ function ReadingGoal() {
             <span><b className='font-semibold'>82%</b> <span className='text-text-muted'>Read</span></span>
             <span><b className='font-semibold'>18%</b> <span className='text-text-muted'>Left</span></span>
           </div>
-        </div>
-      </section>
+        </FramePanel>
+      </Frame>
     </SidebarGroup>
   );
 }
 
 function LabTile({ lab, className = 'size-6' }) {
   return (
-    <span aria-hidden='true' className={`grid shrink-0 place-items-center rounded-(--ds-radius-control) text-xs font-semibold ${lab.tone} ${className}`}>
+    <IconTile variant='solid' aria-hidden='true' className={`text-xs font-semibold ${lab.tone} ${className}`}>
       {lab.initial}
-    </span>
+    </IconTile>
   );
 }
 
@@ -608,7 +508,7 @@ export function Pattern() {
                           : 'Active studies')}
                 </h2>
                 <p className='text-sm text-text-muted'>
-                  {lab.name} · {currentProject ? currentProject.lead : `${visibleProjects.length} studies`}
+                  {lab.name} <MetaSeparator /> {currentProject ? currentProject.lead : `${visibleProjects.length} studies`}
                 </p>
               </header>
               {currentProject ? (

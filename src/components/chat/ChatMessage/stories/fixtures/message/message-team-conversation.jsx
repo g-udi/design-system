@@ -8,12 +8,7 @@ import {
   AttachmentMedia,
   AttachmentTitle
 } from '@gaudi/design-system/core/Attachment';
-import {
-  AvatarRoot as Avatar,
-  AvatarBadge,
-  AvatarFallback,
-  AvatarImage
-} from '@gaudi/design-system/core/Avatar';
+import { Avatar } from '@gaudi/design-system/core/Avatar';
 import { ChatBubble, ChatBubbleContent } from '@gaudi/design-system/chat/ChatBubble';
 import { ChatMessage, ChatMessageAvatar, ChatMessageContent, ChatMessageFooter, ChatMessageGroup, ChatMessageHeader } from '@gaudi/design-system/chat/ChatMessage';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
@@ -21,23 +16,14 @@ import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 // An incident thread between two people: align picks the side, avatars flip
 // with the row, a run of messages shares one avatar in a ChatMessageGroup, headers
 // carry identity, footers carry status, and files stack with the bubble.
-const MICHAEL = { name: 'Rafe Okonkwo', initials: 'RO', src: '/avatars/person-31.svg' };
-const SARAH = { name: 'Sabine Okafor', initials: 'SO', src: '/avatars/person-20.svg' };
+const MICHAEL = { name: 'Rafe Okonkwo', src: '/avatars/person-31.svg' };
+const SARAH = { name: 'Sabine Okafor', src: '/avatars/person-20.svg' };
 
 function Portrait({ person, online }) {
   return (
     // ChatMessageAvatar clips to a circle, so a row with a presence badge opts out of the clip.
     <ChatMessageAvatar className={online ? 'overflow-visible' : undefined}>
-      <Avatar>
-        <AvatarImage src={person.src} alt={person.name} />
-        <AvatarFallback>{person.initials}</AvatarFallback>
-        {online ? (
-          // Presence would be colour-only without the label.
-          <AvatarBadge className='bg-success'>
-            <span className='sr-only'>Online</span>
-          </AvatarBadge>
-        ) : null}
-      </Avatar>
+      <Avatar size='sm' surface='tinted' src={person.src} name={person.name} indicator={online ? { label: 'Online', tone: 'success' } : undefined} />
     </ChatMessageAvatar>
   );
 }

@@ -1,4 +1,6 @@
 'use client';
+import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
+import { CardRoot as Card } from '@gaudi/design-system/core/Card';
 import { useState } from 'react';
 import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import {
@@ -11,7 +13,7 @@ import {
   KanbanItemHandle,
   KanbanOverlay
 } from '@gaudi/design-system/core/KanbanBoard';
-import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
+import { Avatar } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { ProgressRoot as Progress } from '@gaudi/design-system/core/Progress';
 import { Discord } from '@gaudi/design-system/icons/brands/discord';
@@ -68,20 +70,20 @@ const money = (thousands) => (thousands >= 1000 ? `$${(thousands / 1000).toFixed
 
 function Tile({ icon, label, value }) {
   return (
-    <div className='flex items-center gap-2 rounded-md border border-border bg-surface-muted px-2 py-1.5'>
+    <Card variant='soft' radius='md' padding='sm' className='flex items-center gap-2 py-1.5'>
       <RegistryIcon lucide={icon} className='size-3.5 shrink-0 text-text-muted' />
       <span className='grid leading-tight'>
         <span className='text-xs text-text-muted'>{label}</span>
         <span className='text-sm font-medium text-text tabular-nums'>{value}</span>
       </span>
-    </div>
+    </Card>
   );
 }
 
 function AccountCard({ item, isOverlay }) {
   const risk = RISK[item.risk];
   const body = (
-    <div className='grid gap-2.5 rounded-lg border border-border bg-surface p-3 text-sm shadow-xs'>
+    <Card variant='elevated' radius='lg' padding='md' className='grid gap-2.5 text-sm'>
       <div className='flex items-center gap-2'>
         {item.logo}
         <span className='min-w-0 flex-1 truncate font-medium text-text'>{item.name}</span>
@@ -102,17 +104,14 @@ function AccountCard({ item, isOverlay }) {
         <Progress value={item.health} aria-label={`${item.name} health`} className={cn('h-1.5', HEALTH_BAR(item.health))} />
       </div>
       <div className='flex items-center gap-2 text-xs'>
-        <Avatar className='size-6'>
-          <AvatarImage src={item.avatar} alt='' />
-          <AvatarFallback>{item.owner.charAt(0)}</AvatarFallback>
-        </Avatar>
+        <Avatar size='xs' surface='tinted' className='size-6' src={item.avatar} name={item.owner} alt='' />
         <span className='grid min-w-0 flex-1 leading-tight'>
           <span className='truncate font-medium text-text'>{item.owner}</span>
           <span className='truncate text-text-muted'>{item.role}</span>
         </span>
         <span className={cn('tabular-nums', item.days <= 10 ? 'font-medium text-danger' : 'text-text-muted')}>{item.days}d left</span>
       </div>
-    </div>
+    </Card>
   );
   return <KanbanItem value={item.id}>{isOverlay ? body : <KanbanItemHandle>{body}</KanbanItemHandle>}</KanbanItem>;
 }
@@ -162,10 +161,10 @@ export function Pattern() {
           </p>
         </div>
         <div className='flex flex-wrap gap-2'>
-          <Button variant='outline' size='sm' onClick={sortByWindow} aria-pressed={byWindow}>
+          <Toggle size='sm' variant='outline' pressed={byWindow} onPressedChange={sortByWindow}>
             <RegistryIcon lucide='CalendarIcon' />
             Soonest first
-          </Button>
+          </Toggle>
           <Button
             variant='outline'
             size='sm'

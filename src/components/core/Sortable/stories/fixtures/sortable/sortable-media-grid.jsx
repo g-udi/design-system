@@ -1,7 +1,9 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
 import { useState } from 'react';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import {
+  CardRoot,
   Frame,
   FrameDescription,
   FrameHeader,
@@ -47,7 +49,7 @@ export function Pattern() {
           >
             {images.map((image) => (
               <SortableItem key={image.id} value={image.id} className={cn(image.featured && 'col-span-2 row-span-2')}>
-                <figure className='relative grid h-full content-start gap-1.5 rounded-lg border border-ui-border bg-ui-background p-1.5'>
+                <CardRoot as='figure' variant='outline' padding='none' radius='lg' className='relative grid h-full content-start gap-1.5 p-1.5 overflow-visible'>
                   <img
                     src={image.src}
                     alt={image.name}
@@ -61,10 +63,10 @@ export function Pattern() {
                       <span className='truncate'>{image.name}</span>
                       {image.featured && <Badge variant='warning-light' size='xs'>Featured</Badge>}
                     </p>
-                    <p dir='ltr' className='truncate text-xs text-ui-muted-foreground'>{image.dimensions} · {image.size}</p>
+                    <p dir='ltr' className='truncate text-xs text-ui-muted-foreground'>{image.dimensions} <MetaSeparator /> {image.size}</p>
                   </figcaption>
                   <SortableItemPosition aria-label={`Position of ${image.name}`} />
-                </figure>
+                </CardRoot>
               </SortableItem>
             ))}
           </Sortable>

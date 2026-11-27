@@ -1,4 +1,5 @@
 'use client';
+import { ScrollArea } from '@gaudi/design-system/core/ScrollArea';
 import { useEffect, useRef, useState } from 'react';
 import EmptyState from '@gaudi/design-system/core/EmptyState';
 import { LoaderRoot } from '@gaudi/design-system/core/Loader';
@@ -231,22 +232,24 @@ function ProjectOverview({ project }) {
         </span>
       </header>
 
-      <div className='min-w-0 flex-1 overflow-auto p-4'>
-        <Card size='sm'>
-          <CardHeader>
-            <CardTitle>Recent runs</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className='flex flex-col gap-2.5'>
-              {project.id === 'checkout' ? RUNS.map((run) => (
-                <RunRow key={run.id} run={run} />
-              )) : (
-                <EmptyState compact title={`No recent runs for ${project.name}.`} description={`${project.open ?? 0} open issues.`} />
-              )}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      <ScrollArea aria-label='Project overview' className='min-h-0 min-w-0 flex-1 **:data-[slot=scroll-area-viewport]:[&>div]:block!'>
+        <div className='p-4'>
+          <Card size='sm'>
+            <CardHeader>
+              <CardTitle>Recent runs</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className='flex flex-col gap-2.5'>
+                {project.id === 'checkout' ? RUNS.map((run) => (
+                  <RunRow key={run.id} run={run} />
+                )) : (
+                  <EmptyState compact title={`No recent runs for ${project.name}.`} description={`${project.open ?? 0} open issues.`} />
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </ScrollArea>
     </SidebarInset>
   );
 }

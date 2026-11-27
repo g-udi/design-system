@@ -1,4 +1,5 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
 import { useMemo, useState } from 'react';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import {
@@ -14,7 +15,7 @@ import {
   DataGridTableFootRowCell
 } from '@gaudi/design-system/core/DataTable';
 import { constructAggregationFn, useTable } from '@tanstack/react-table';
-import {
+import { getAvatarInitials,
   AvatarRoot as Avatar,
   AvatarFallback,
   AvatarImage
@@ -126,7 +127,7 @@ export function Pattern() {
           <span className='flex items-center gap-2'>
             <Avatar className='size-6'>
               <AvatarImage src={row.original.avatar} alt='' />
-              <AvatarFallback>{row.original.author[0]}</AvatarFallback>
+              <AvatarFallback>{getAvatarInitials(row.original.author)}</AvatarFallback>
             </Avatar>
             {row.original.author}
           </span>
@@ -206,7 +207,7 @@ export function Pattern() {
     <DataGridTableFootRow>
       <DataGridTableFootRowCell colSpan={4}>
         <span className='font-medium'>All articles</span>{' '}
-        <span className='text-ui-muted-foreground'>· {articles.length}</span>
+        <span className='text-ui-muted-foreground'><MetaSeparator /> {articles.length}</span>
       </DataGridTableFootRowCell>
       <DataGridTableFootRowCell className='text-end tabular-nums'>{number.format(total('words'))}</DataGridTableFootRowCell>
       <DataGridTableFootRowCell className='text-end tabular-nums'>{number.format(total('reads'))}</DataGridTableFootRowCell>

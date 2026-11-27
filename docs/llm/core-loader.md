@@ -56,7 +56,7 @@ Each loader exposes role="status" and a readable label. Motion is decorative to 
 Curated patterns:
 
 - In buttons, badges and inputs — registry item `@gaudi/loader-inline-controls` (uses `Badge`, `Button`, `InputGroup`, `InputGroupAddon`, `InputGroupInput`, `LoaderRoot`)
-- Inline status — registry item `@gaudi/loader-inline-status` (uses `ChatActivityIndicator`, `LoaderRoot`)
+- Inline status — registry item `@gaudi/loader-inline-status` (uses `ChatActivityIndicator`, `LoaderRoot`, `MetaSeparator`)
 - Overlays and empty states — registry item `@gaudi/loader-overlays` (uses `Button`, `CardContent`, `CardDescription`, `CardHeader`, `CardRoot`, `CardTitle`, `Empty`, `EmptyContent`, `EmptyDescription`, `EmptyHeader`, `EmptyMedia`, `EmptyTitle`, `Label`, `LoaderRoot`, `SwitchRoot`)
 
 ## Related

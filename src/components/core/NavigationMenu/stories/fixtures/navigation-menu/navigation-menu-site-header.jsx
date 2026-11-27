@@ -1,3 +1,4 @@
+import Link from '@gaudi/design-system/core/Link';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
   NavigationMenuRoot as NavigationMenu,
@@ -59,7 +60,7 @@ function Item({ title, description, icon, path, className }) {
   return (
     <li>
       <NavigationMenuLink asChild className={className}>
-        <a href={docs + path}>
+        <Link variant='bare' href={docs + path}>
           {icon ? <RegistryIcon lucide={icon} aria-hidden='true' /> : null}
           {description ? (
             <span className='flex flex-col gap-1'>
@@ -69,7 +70,7 @@ function Item({ title, description, icon, path, className }) {
           ) : (
             title
           )}
-        </a>
+        </Link>
       </NavigationMenuLink>
     </li>
   );
@@ -119,14 +120,14 @@ export function Pattern() {
                   ))}
                 </ul>
                 <Button className='w-full' size='sm' asChild>
-                  <a href={`${docs}/blocks`}>Browse all blocks</a>
+                  <Link variant='bare' href={`${docs}/blocks`}>Browse all blocks</Link>
                 </Button>
               </div>
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-              <a href={docs}>Documentation</a>
+              <Link variant='bare' href={docs}>Documentation</Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>

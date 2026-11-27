@@ -67,7 +67,7 @@ The plot is one tab stop named by ariaLabel. The arrow keys walk the points, Hom
 
 Curated patterns:
 
-- Fills, comparison and layout — registry item `@gaudi/bar-chart-fills-layout` (uses `CardContent`, `CardDescription`, `CardHeader`, `CardRoot`, `CardTitle`, `ChartContainer`, `ChartLegend`, `ChartLegendContent`, `ChartTooltip`, `ChartTooltipContent`, `Label`, `SwitchRoot`, `ToggleGroupItem`, `ToggleGroupRoot`)
+- Fills, comparison and layout — registry item `@gaudi/bar-chart-fills-layout` (uses `CardContent`, `CardDescription`, `CardHeader`, `CardRoot`, `CardTitle`, `ChartContainer`, `ChartLegend`, `ChartLegendContent`, `ChartTooltip`, `ChartTooltipContent`, `Switch`, `ToggleGroupItem`, `ToggleGroupRoot`)
 - Hover to reveal values — registry item `@gaudi/bar-chart-hover-values` (uses `Badge`, `CardContent`, `CardDescription`, `CardHeader`, `CardRoot`, `CardTitle`, `ChartContainer`, `ChartTooltip`, `ChartTooltipContent`, `RegistryIcon`, `cn`)
 
 ## README

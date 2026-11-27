@@ -4088,7 +4088,9 @@
       "title": "Collapsible: Tree view with file actions",
       "description": "Collapsible: Tree view with file actions. Core/Layout & Containers/Accordion pattern composed from @gaudi/design-system/core/Accordion and other public Gaudi components; the components stay package imports.",
       "dependencies": [
-        "@gaudi/design-system"
+        "@gaudi/design-system",
+        "@headless-tree/core@1.6.3",
+        "@headless-tree/react@1.6.3"
       ],
       "categories": [
         "collapsible",
@@ -5069,7 +5071,6 @@
       "description": "Draggable rows and columns. Core/Data Display/DataTable pattern composed from @gaudi/design-system/core/DataTable and other public Gaudi components; the components stay package imports.",
       "dependencies": [
         "@gaudi/design-system",
-        "@dnd-kit/sortable@10.0.0",
         "@tanstack/react-table@9.2.4"
       ],
       "categories": [
@@ -11898,12 +11899,18 @@
         "sheet",
         "core"
       ],
-      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.",
+      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-20.svg, /avatars/person-23.svg, /avatars/person-41.svg, /avatars/person-50.svg.",
       "meta": {
         "owner": "core/Sheet",
         "import": "@gaudi/design-system/core/Sheet",
         "storyId": "core-sheet--notifications",
-        "source": "src/components/core/Sheet/stories/fixtures/sheet/sheet-notifications.jsx"
+        "source": "src/components/core/Sheet/stories/fixtures/sheet/sheet-notifications.jsx",
+        "assets": [
+          "/avatars/person-20.svg",
+          "/avatars/person-23.svg",
+          "/avatars/person-41.svg",
+          "/avatars/person-50.svg"
+        ]
       },
       "files": [
         {

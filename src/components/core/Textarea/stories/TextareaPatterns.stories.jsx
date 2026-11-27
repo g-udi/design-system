@@ -32,13 +32,13 @@ export const AutoResize = {
     const input = canvas.getByRole('textbox', { name: 'Bio' });
     const initialHeight = input.getBoundingClientRect().height;
     await userEvent.type(input, 'A line\n'.repeat(20));
-    await expect(canvas.getByText('140/280')).toBeVisible();
+    await expect(canvas.getByText('140 characters left')).toBeVisible();
     await waitFor(() => expect(input.getBoundingClientRect().height).toBeGreaterThan(initialHeight));
     await userEvent.type(input, 'a'.repeat(160));
     await expect(input.value).toHaveLength(280);
-    await expect(canvas.getByText('280/280')).toBeVisible();
+    await expect(canvas.getByText('0 characters left')).toBeVisible();
     await userEvent.clear(input);
-    await expect(canvas.getByText('0/280')).toBeVisible();
+    await expect(canvas.getByText('280 characters left')).toBeVisible();
     await waitFor(() => expect(input.getBoundingClientRect().height).toBe(initialHeight));
   }
 };

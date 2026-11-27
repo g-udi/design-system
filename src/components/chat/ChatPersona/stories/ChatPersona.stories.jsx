@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { playgroundSource } from '../../../../docs/components/previewSource';
-import { default as Button } from '../../../core/Button/index.js';
-import ToggleGroup from '../../../core/ToggleGroup/index.js';
+import { CardRoot } from '../../../core/Card/index.js';
+import ToggleGroup, { Toggle } from '../../../core/ToggleGroup/index.js';
 import { chatMeta } from '../../stories/story-helpers.jsx';
 import { ChatPersona, personaStates, personaVariants } from '../index.js';
 import { checkPersonaScopedTheme } from '../../../../../tests/components/chat/checkCompositionReuse.jsx';
@@ -52,19 +52,19 @@ function OrbGallery() {
   return (
     <div className='grid w-full gap-6'>
       <div className='flex flex-wrap items-center gap-1.5'>
-        <Button size='xs' variant='outline' aria-pressed={constrained} onClick={() => setConstrained((value) => !value)}>Constrain orbs</Button>
+        <Toggle size='sm' variant='outline' pressed={constrained} onPressedChange={setConstrained}>Constrain orbs</Toggle>
         {/* One state is always selected, so an empty value from re-clicking the active item is ignored. */}
         <ToggleGroup label='Persona state' size='sm' value={state} onValueChange={(value) => value && setState(value)} options={personaStates.map((item) => ({ value: item, label: item }))} />
       </div>
       <ul className='grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 lg:grid-cols-4'>
         {personaVariants.map((variant) => (
-          <li key={variant} className='border-border flex flex-col items-center gap-2 rounded-(--ds-radius-card) border p-4 text-center'>
+          <CardRoot as='li' key={variant} variant='outline' padding='none' className='flex flex-col items-center gap-2 p-4 text-center'>
             <div data-testid='orb-container' style={{ width: constrained ? 64 : 96, maxWidth: '100%' }}>
               <ChatPersona name={`Gaudi (${variant})`} variant={variant} state={state} size='md' showLabel announce={false} />
             </div>
             <span className='text-sm font-medium capitalize'>{variant}</span>
             <span className='text-text-subtle text-xs'>{variantNotes[variant]}</span>
-          </li>
+          </CardRoot>
         ))}
       </ul>
       <div className='flex flex-wrap items-end gap-4'>

@@ -30,7 +30,7 @@ export const FieldStates = {
     await expect(readOnly).toHaveValue(saved);
     await expect(canvas.getByRole('textbox', { name: 'Fax' })).toBeDisabled();
     const invalid = canvas.getByRole('textbox', { name: 'Emergency contact' });
-    const trigger = invalid.closest('.grid').querySelector('[data-slot="combobox-trigger"]');
+    const trigger = invalid.closest('.PhoneInput').querySelector('[data-slot="combobox-trigger"]');
     await expect(invalid).toHaveAttribute('aria-invalid', 'true');
     await expect(invalid).toHaveAccessibleDescription('Enter a valid phone number.');
     // Both halves share the destructive border.

@@ -15,8 +15,7 @@ import {
   ChartTooltip,
   ChartTooltipContent
 } from '@gaudi/design-system/charts/ChartFrame';
-import { Label } from '@gaudi/design-system/core/Field';
-import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
+import Switch from '@gaudi/design-system/core/Switch';
 import {
   ToggleGroupRoot as ToggleGroup,
   ToggleGroupItem
@@ -89,14 +88,8 @@ export function Pattern() {
               <ToggleGroupItem key={option} value={option}>{option}</ToggleGroupItem>
             ))}
           </ToggleGroup>
-          <Label className='gap-2 text-sm font-normal'>
-            <Switch size='sm' checked={stacked} onCheckedChange={setStacked} />
-            Stacked
-          </Label>
-          <Label className='gap-2 text-sm font-normal'>
-            <Switch size='sm' checked={markers} onCheckedChange={setMarkers} />
-            Markers
-          </Label>
+          <Switch label='Stacked' size='sm' checked={stacked} onCheckedChange={setStacked} />
+          <Switch label='Markers' size='sm' checked={markers} onCheckedChange={setMarkers} />
         </div>
         <ChartContainer config={chartConfig}>
           <AreaChart accessibilityLayer data={chartData} margin={{ top: 12, right: 8, bottom: 0, left: 8 }}>

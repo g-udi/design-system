@@ -70,7 +70,7 @@ The plot is one tab stop named by ariaLabel. The arrow keys walk the points, Hom
 Curated patterns:
 
 - Patterned slices — registry item `@gaudi/donut-chart-patterned-slices` (uses `CardContent`, `CardDescription`, `CardHeader`, `CardRoot`, `CardTitle`, `ChartContainer`, `ChartLegend`, `ChartLegendContent`, `ChartTooltip`, `ChartTooltipContent`, `Label`, `SwitchRoot`, `ToggleGroupItem`, `ToggleGroupRoot`)
-- Select a topic, small slices as Other — registry item `@gaudi/donut-chart-topic-select` (uses `DonutChart`)
+- Select a topic, small slices as Other — registry item `@gaudi/donut-chart-topic-select` (uses `CardRoot`, `CardTitle`, `DonutChart`)
 
 ## README
 

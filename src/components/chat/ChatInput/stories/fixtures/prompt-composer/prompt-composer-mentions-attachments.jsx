@@ -1,4 +1,5 @@
 'use client';
+import { CardRoot as Card } from '@gaudi/design-system/core/Card';
 import { useState } from 'react';
 import { ChatPromptComposer } from '@gaudi/design-system/chat/ChatInput';
 import { Badge } from '@gaudi/design-system/core/Pill';
@@ -37,7 +38,7 @@ export function Pattern() {
         footer='Enter sends · Shift+Enter adds a line · @ mentions people, agents and folders · / runs a command'
       />
       {sent ? (
-        <div role='status' className='bg-surface-muted grid gap-2 rounded-(--ds-radius-card) border p-3 text-sm'>
+        <Card role='status' variant='soft' padding='md' className='grid gap-2 text-sm'>
           <p className='font-medium'>Sent</p>
           <p className='break-words'>{sent.text || 'No text'}</p>
           <div className='flex flex-wrap gap-1.5'>
@@ -45,7 +46,7 @@ export function Pattern() {
             {sent.details.mentions.map((item) => <Badge key={item.id} variant='info-light'>@{item.name}</Badge>)}
             {sent.details.attachments.map((file) => <Badge key={file.id} variant='outline'>{file.name}</Badge>)}
           </div>
-        </div>
+        </Card>
       ) : null}
     </div>
   );

@@ -1,14 +1,16 @@
 'use client';
-import { Separator } from '@gaudi/design-system/core/Separator';
+import { AppShellNotificationItem } from '@gaudi/design-system/blocks/AppShell';
+import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
+import { MetaSeparator, Separator } from '@gaudi/design-system/core/Separator';
 import { IconTile } from '@gaudi/design-system/core/Icon';
 import { Field, FieldInput, FieldLabel, Label } from '@gaudi/design-system/core/Field';
 import { createContext, useContext, useState } from 'react';
 import { DialogRoot as Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@gaudi/design-system/core/Dialog';
-import { Empty, EmptyHeader, EmptyTitle, EmptyDescription } from '@gaudi/design-system/core/EmptyState';
+import EmptyState, { Empty, EmptyHeader, EmptyTitle, EmptyDescription } from '@gaudi/design-system/core/EmptyState';
 import { NativeSelect, NativeSelectOption } from '@gaudi/design-system/core/Select';
 import Textarea from '@gaudi/design-system/core/Textarea';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@gaudi/design-system/core/Accordion';
-import { AvatarRoot as Avatar, AvatarFallback, AvatarGroup, AvatarImage } from '@gaudi/design-system/core/Avatar';
+import { getAvatarInitials, Avatar as PortraitAvatar, AvatarRoot as Avatar, AvatarFallback, AvatarGroup, AvatarImage } from '@gaudi/design-system/core/Avatar';
 import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { Item } from '@gaudi/design-system/core/Item';
@@ -113,10 +115,10 @@ const contacts = [
   ] }
 ];
 const initialInvites = [
-  { id: 'seminar', from: 'Lina Sato', photo: 'person-20', title: 'Lina Sato invited you to a close reading of Invisible Cities', when: 'Fri, Jun 12 · 6:00 to 7:00 PM', time: '5 min ago', unread: true },
-  { id: 'session', from: 'Reminder', title: 'Paper hour starts in 15 minutes', when: 'Today · 12:30 to 1:30 PM', time: '15 min ago', unread: true, reminder: true },
-  { id: 'highlight', from: 'Tomas Reyes', photo: 'person-41', title: 'Tomas Reyes replied to your highlight in “Replication, one decade on”', time: '1 hour ago', unread: true, info: true },
-  { id: 'shared', from: 'Clara Vos', photo: 'person-24', title: 'Clara Vos added 3 sources to the Press Letters collection', time: '2 hours ago', info: true }
+  { id: 'seminar', from: 'Lina Sato', avatar: portrait('person-20'), title: 'Lina Sato invited you to a close reading of Invisible Cities', schedule: { date: 'Fri, Jun 12', time: '6:00 to 7:00 PM' }, actions: [{ label: 'Join', primary: true, done: 'Going' }, { label: 'Not this time', done: 'Declined' }], time: '5 min ago', unread: true },
+  { id: 'session', from: 'Reminder', title: 'Paper hour starts in 15 minutes', schedule: { date: 'Today', time: '12:30 to 1:30 PM' }, tone: 'warning', time: '15 min ago', unread: true },
+  { id: 'highlight', from: 'Tomas Reyes', avatar: portrait('person-41'), title: 'Tomas Reyes replied to your highlight in “Replication, one decade on”', time: '1 hour ago', unread: true },
+  { id: 'shared', from: 'Clara Vos', avatar: portrait('person-24'), title: 'Clara Vos added 3 sources to the Press Letters collection', time: '2 hours ago' }
 ];
 
 function Portraits({ people, size = 'size-5' }) {
@@ -124,10 +126,7 @@ function Portraits({ people, size = 'size-5' }) {
   return (
     <AvatarGroup className='-space-x-1.5'>
       {people.map((path) => (
-        <Avatar key={path} className={size}>
-          <AvatarImage src={portrait(path)} alt='' />
-          <AvatarFallback>·</AvatarFallback>
-        </Avatar>
+        <PortraitAvatar key={path} src={portrait(path)} className={size} decorative fallback />
       ))}
     </AvatarGroup>
   );
@@ -144,12 +143,16 @@ function PanelHeading({ title, count, children }) {
 }
 
 function IconAction({ label, icon, onClick, pressed, disabled, className }) {
+  const Control = pressed === undefined ? Button : Toggle;
+  const controlProps = pressed === undefined
+    ? { variant: 'ghost', size: 'icon-sm', onClick }
+    : { size: 'sm', pressed, onPressedChange: onClick };
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button variant='ghost' size='icon-sm' aria-label={label} aria-pressed={pressed} disabled={disabled} onClick={onClick} className={className}>
+        <Control {...controlProps} aria-label={label} disabled={disabled} className={className}>
           <RegistryIcon lucide={icon} aria-hidden='true' />
-        </Button>
+        </Control>
       </TooltipTrigger>
       <TooltipContent>{label}</TooltipContent>
     </Tooltip>
@@ -231,7 +234,7 @@ function CalendarContext({ idPrefix, cellSize }) {
                   <span aria-hidden='true' className={`w-1 shrink-0 rounded-full ${event.tone}`} />
                   <span className='grid min-w-0 flex-1'>
                     <span className='truncate text-sm font-medium'>{event.title}</span>
-                    <span className='text-text-muted text-xs'>{event.day} · {event.time}</span>
+                    <span className='text-text-muted text-xs'>{event.day} <MetaSeparator /> {event.time}</span>
                   </span>
                   <Portraits people={event.people} />
                 </button>
@@ -254,7 +257,7 @@ function CalendarContext({ idPrefix, cellSize }) {
         <RegistryIcon lucide='Globe' aria-hidden='true' className='size-4' />
         <span className='grid leading-tight'>
           <span className='text-[11px]'>Your timezone</span>
-          GMT+1 · Europe/Paris
+          GMT+1 <MetaSeparator /> Europe/Paris
         </span>
       </div>
     </div>
@@ -391,7 +394,7 @@ function ContactsPanel() {
                     <span className='relative shrink-0'>
                       <Avatar className='size-8'>
                         <AvatarImage src={portrait(person.photo)} alt='' />
-                        <AvatarFallback>{person.name[0]}</AvatarFallback>
+                        <AvatarFallback>{getAvatarInitials(person.name)}</AvatarFallback>
                       </Avatar>
                       <StatusDot
                         label={person.online ? 'published today' : 'no new issue'}
@@ -424,7 +427,7 @@ function ContactsPanel() {
 function NotificationsPanel() {
   const { items, setItems } = useContext(DigestContext);
   const unread = items.filter((item) => item.unread).length;
-  const respond = (id, answer) => setItems((list) => list.map((item) => (item.id === id ? { ...item, answer, unread: false } : item)));
+  const respond = (notification, action) => setItems((list) => list.map((item) => (item.id === notification.id ? { ...item, resolved: action.done, unread: false } : item)));
   return (
     <>
       <PanelHeading title='Activity' count={unread || null}>
@@ -432,42 +435,7 @@ function NotificationsPanel() {
       </PanelHeading>
       <ul aria-label='Reading activity' className='flex-1 overflow-y-auto overscroll-contain'>
         {items.map((item) => (
-          <li key={item.id} className='border-ui-sidebar-border relative flex gap-2.5 border-b px-3 py-3 text-sm'>
-            {item.photo ? (
-              <Avatar className='size-7'>
-                <AvatarImage src={portrait(item.photo)} alt='' />
-                <AvatarFallback>{item.from[0]}</AvatarFallback>
-              </Avatar>
-            ) : (
-              <span aria-hidden='true' className='text-warning grid size-7 shrink-0 place-items-center'>
-                <RegistryIcon lucide='Bell' className='size-4' />
-              </span>
-            )}
-            <div className='grid min-w-0 flex-1 gap-1.5'>
-              <p className='pe-3 leading-snug font-medium'>
-                {item.title}
-                {item.unread ? <span className='sr-only'> (unread)</span> : null}
-              </p>
-              {item.when ? (
-                <Badge variant='outline' size='lg' className='text-text-muted gap-1.5 font-normal'>
-                  <RegistryIcon lucide='Calendar' aria-hidden='true' className='size-3.5' />
-                  {item.when}
-                </Badge>
-              ) : null}
-              {!item.info && !item.reminder ? (
-                item.answer ? (
-                  <Badge variant={item.answer === 'Going' ? 'success-light' : 'secondary'} className='w-fit'>{item.answer}</Badge>
-                ) : (
-                  <div className='flex gap-1.5'>
-                    <Button size='xs' onClick={() => respond(item.id, 'Going')}>Join</Button>
-                    <Button size='xs' variant='outline' onClick={() => respond(item.id, 'Declined')}>Not this time</Button>
-                  </div>
-                )
-              ) : null}
-              <span className='text-text-muted text-xs'>{item.time}</span>
-            </div>
-            {item.unread ? <StatusDot className='bg-ui-foreground absolute top-4 end-3' /> : null}
-          </li>
+          <AppShellNotificationItem key={item.id} item={item} onAction={respond} />
         ))}
       </ul>
     </>
@@ -510,7 +478,7 @@ function MessageRow({ message, selected, onSelect, onSave, onPlan }) {
         ) : (
           <Avatar className='size-8'>
             <AvatarImage src={message.photo} alt='' />
-            <AvatarFallback>{message.from[0]}</AvatarFallback>
+            <AvatarFallback>{getAvatarInitials(message.from)}</AvatarFallback>
           </Avatar>
         )}
         <div aria-hidden='true' className='grid min-w-0 flex-1 gap-0.5'>
@@ -540,7 +508,7 @@ function MessageRow({ message, selected, onSelect, onSave, onPlan }) {
       </div>
       {message.actions ? (
         <div className='relative flex gap-1.5 ps-17 pe-3 pb-3'>
-          <Button size='xs' aria-pressed={Boolean(message.starred)} onClick={onSave}>{message.starred ? 'Saved to library' : message.actions[0]}</Button>
+          <Toggle size='sm' pressed={Boolean(message.starred)} onPressedChange={onSave}>{message.starred ? 'Saved to library' : message.actions[0]}</Toggle>
           <Button size='xs' variant='outline' onClick={onPlan}>{message.actions[1]}</Button>
         </div>
       ) : null}
@@ -637,7 +605,7 @@ function MailView({ messages, setMessages, folder, contextOpen, onContext }) {
                 ))}
               </ul>
             ) : (
-              <p className='text-text-muted p-6 text-center text-sm'>Nothing to read here.</p>
+              <EmptyState compact title='Nothing to read here.' />
             )}
           </TabsContent>
         </Tabs>
@@ -699,7 +667,7 @@ function MailView({ messages, setMessages, folder, contextOpen, onContext }) {
         <AppShellBody className='@container min-h-0 flex-1 overflow-y-auto pt-4'>
           {selected ? (
             <article className='mx-auto grid w-full max-w-2xl gap-4 px-4 pb-6 @md:px-8'>
-              <p className='text-text-muted text-sm'>{selected.from} · {selected.time}</p>
+              <p className='text-text-muted text-sm'>{selected.from} <MetaSeparator /> {selected.time}</p>
               <h3 className='font-display text-2xl font-semibold text-balance'>{selected.subject}</h3>
               <p className='text-base leading-relaxed'>{selected.preview.replace(/…$/, '.')}</p>
               {selected.label && <Badge className='w-fit' variant={LABEL_TONES[selected.label]}>{selected.label}</Badge>}
@@ -736,7 +704,7 @@ function CalendarView({ section }) {
         <div className='flex flex-wrap items-center justify-between gap-2'><h3 className='text-xl font-semibold'>Scheduled reading</h3><Button size='sm' onClick={() => openDialog('session')}>Plan a session</Button></div>
         {inMonth.length ? <ul className='grid gap-2'>{inMonth.map(event => <li key={event.id}>
           <Item asChild variant='outline'><button type='button' className='w-full text-start' onClick={() => openDialog('sessionDetail', event)}>
-            <span className='grid gap-1'><span className='text-text-muted text-xs'>{event.day} · {event.time}</span><span className='text-sm font-medium'>{event.title}</span></span>
+            <span className='grid gap-1'><span className='text-text-muted text-xs'>{event.day} <MetaSeparator /> {event.time}</span><span className='text-sm font-medium'>{event.title}</span></span>
           </button></Item>
         </li>)}</ul> : <Empty><EmptyHeader><EmptyTitle>No sessions this month</EmptyTitle><EmptyDescription>Choose a date to plan your next read.</EmptyDescription></EmptyHeader></Empty>}
       </section>
@@ -759,7 +727,7 @@ function DigestDialog({ dialog, close, save, selected, plans }) {
   return <Dialog open onOpenChange={open => { if (!open) close(); }}>
     <DialogContent className='sm:max-w-md'>
       <DialogHeader><DialogTitle>{title}</DialogTitle><DialogDescription>{description}</DialogDescription></DialogHeader>
-      {type === 'sessionDetail' ? <div className='grid gap-2'><strong>{entry.title}</strong><p>{entry.day} · {entry.time}</p></div> :
+      {type === 'sessionDetail' ? <div className='grid gap-2'><strong>{entry.title}</strong><p>{entry.day} <MetaSeparator /> {entry.time}</p></div> :
         <form className='grid gap-3' onSubmit={event => { event.preventDefault(); save(new FormData(event.currentTarget)); }}>
           <Field><FieldLabel htmlFor='digest-title'>{type === 'highlight' ? 'Passage' : 'Title'}</FieldLabel>
             {type === 'highlight' ? <Textarea id='digest-title' name='title' required defaultValue={entry?.highlight || ''} /> :

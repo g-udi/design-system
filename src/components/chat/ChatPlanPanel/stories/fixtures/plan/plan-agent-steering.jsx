@@ -1,9 +1,12 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import { CharacterCount } from '@gaudi/design-system/blocks/Forms';
 import { Label } from '@gaudi/design-system/core/Field';
 import { useId, useRef, useState } from 'react';
 import { ChatPlan } from '@gaudi/design-system/chat/ChatPlanPanel';
 import { ChatPromptQueue } from '@gaudi/design-system/chat/ChatInput';
 import { ChatAgentMark } from '@gaudi/design-system/chat/ChatAgentMark';
+import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
 import Button from '@gaudi/design-system/core/Button';
 import Textarea from '@gaudi/design-system/core/Textarea';
 import { Badge } from '@gaudi/design-system/core/Pill';
@@ -67,8 +70,8 @@ export function Pattern() {
 
   return <section aria-labelledby={titleId} className='ds-touch-controls mx-auto grid w-full min-w-0 max-w-2xl grid-cols-1 gap-4'>
     <header className='flex flex-wrap items-center justify-between gap-3'>
-      <div className='flex min-w-0 items-center gap-2'><ChatAgentMark name='Writing agent' icon='Pencil' tone='neutral' size='sm' decorative /><div className='grid min-w-0 gap-1'><h2 id={titleId} className='text-lg font-semibold'>Steer the rewrite</h2><p className='text-xs text-text-muted'>Writing agent · a revision in progress</p></div></div>
-      <div className='flex flex-wrap items-center gap-2'><Badge variant={done ? 'success-light' : run.paused ? 'warning-light' : 'secondary'}>{done ? 'Complete' : run.paused ? 'Paused' : 'Running'}</Badge><Button size='sm' variant='outline' disabled={done} aria-pressed={run.paused} onClick={() => setRun(current => ({ ...current, paused: !current.paused, notice: current.paused ? 'Run resumed. Queued notes will be picked up at the next step.' : 'Run paused. You can still queue, edit or remove notes.' }))}><RegistryIcon lucide={run.paused ? 'Play' : 'Pause'} className='size-3.5' />{run.paused ? 'Resume run' : 'Pause run'}</Button></div>
+      <div className='flex min-w-0 items-center gap-2'><ChatAgentMark name='Writing agent' icon='Pencil' tone='neutral' size='sm' decorative /><div className='grid min-w-0 gap-1'><h2 id={titleId} className='text-lg font-semibold'>Steer the rewrite</h2><p className='text-xs text-text-muted'>Writing agent <MetaSeparator /> a revision in progress</p></div></div>
+      <div className='flex flex-wrap items-center gap-2'><Badge variant={done ? 'success-light' : run.paused ? 'warning-light' : 'secondary'}>{done ? 'Complete' : run.paused ? 'Paused' : 'Running'}</Badge><Toggle size='sm' variant='outline' disabled={done} pressed={run.paused} onPressedChange={paused => setRun(current => ({ ...current, paused, notice: !paused ? 'Run resumed. Queued notes will be picked up at the next step.' : 'Run paused. You can still queue, edit or remove notes.' }))}><RegistryIcon lucide='Pause' className='size-3.5' />Pause run</Toggle></div>
     </header>
     <ChatPlan title='Revision plan' steps={steps} />
     <ChatPromptQueue items={run.queue} labels={{ title: 'Next-step notes', hint: run.paused ? 'Waiting until the run resumes.' : 'Picked up when the next step starts.', sendNow: 'Apply now' }} onEdit={(id, text) => setRun(current => ({ ...current, queue: current.queue.map(note => note.id === id ? { ...note, text } : note), notice: 'Queued note updated.' }))} onRemove={id => { setRun(current => ({ ...current, queue: current.queue.filter(note => note.id !== id), notice: 'Note removed from the queue.' })); focusInput(); }} onSendNow={run.paused || done ? undefined : applyQueued} />
@@ -81,7 +84,7 @@ export function Pattern() {
       }} />
       <div className='flex flex-wrap items-center justify-between gap-2'>
         <p id={hintId} className='min-w-0 flex-1 basis-64 text-xs leading-relaxed text-text-muted'>{done ? 'The plan retains every applied instruction.' : finalStep ? 'Final step: apply notes now. Clear or apply your draft before finishing.' : 'Enter queues · Ctrl/Cmd+Enter applies now · Shift+Enter adds a line · Escape clears.'}{run.paused && !done ? ' Resume to apply a note immediately.' : ''}</p>
-        <span className='text-xs tabular-nums text-text-muted'><bdi>{draft.length}/1000</bdi></span>
+        <CharacterCount value={draft} max={1000} />
       </div>
       <div className='flex flex-wrap gap-2'><Button type='submit' size='sm' disabled={!canQueue}>Queue for next step</Button><Button type='button' size='sm' variant='outline' disabled={!canApply} onClick={() => submit(true)}>Apply now</Button></div>
     </form>

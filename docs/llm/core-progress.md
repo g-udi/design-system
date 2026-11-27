@@ -48,9 +48,9 @@ Provide a task label and meaningful value text. Avoid announcing every small pro
 
 Curated patterns:
 
-- Multi-step — registry item `@gaudi/progress-multi-step` (uses `ProgressRoot`, `RegistryIcon`)
+- Multi-step — registry item `@gaudi/progress-multi-step` (uses `Progress`, `Stepper`)
 - Sizes and colors — registry item `@gaudi/progress-sizes-colors` (uses `ProgressRoot`, `Slider`)
-- Status messages — registry item `@gaudi/progress-status-messages` (uses `ProgressRoot`)
+- Status messages — registry item `@gaudi/progress-status-messages` (uses `Progress`, `useInterval`)
 - File upload list — registry item `@gaudi/progress-upload-list` (uses `Item`, `ItemContent`, `ItemGroup`, `ItemMedia`, `ItemTitle`, `ProgressRoot`, `RegistryIcon`)
 
 ## README

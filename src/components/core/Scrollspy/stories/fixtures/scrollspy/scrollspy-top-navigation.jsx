@@ -36,7 +36,6 @@ export function Pattern() {
             <section key={id} id={id} className='grid min-h-40 content-start gap-2 p-4 text-sm'>
               <h3 className='text-base font-semibold'>{label}</h3>
               <p className='text-ui-muted-foreground'>{body}</p>
-              <div className='h-16 rounded-xl bg-ui-muted' />
             </section>
           ))}
         </ScrollArea>

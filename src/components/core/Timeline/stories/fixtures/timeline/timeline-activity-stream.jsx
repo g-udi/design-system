@@ -21,6 +21,7 @@ import {
   AttachmentTitle
 } from '@gaudi/design-system/core/Attachment';
 import {
+  getAvatarInitials,
   AvatarRoot as Avatar,
   AvatarFallback,
   AvatarGroup,
@@ -41,7 +42,6 @@ import { Rating } from '@gaudi/design-system/core/Rating';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 
 const portrait = (path) => `/avatars/${path}.svg`;
-const initials = (name) => name.split(' ').map((part) => part[0]).join('');
 const people = {
   sarah: { name: 'Sabine Okafor', avatar: portrait('person-20') },
   david: { name: 'Ottilie Nakamura', avatar: portrait('person-45') },
@@ -81,7 +81,7 @@ function Person({ person, className }) {
   return (
     <Avatar className={className}>
       <AvatarImage src={person.avatar} alt={person.name} />
-      <AvatarFallback>{initials(person.name)}</AvatarFallback>
+      <AvatarFallback>{getAvatarInitials(person.name)}</AvatarFallback>
     </Avatar>
   );
 }

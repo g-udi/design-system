@@ -1,4 +1,5 @@
 'use client';
+import { CodeBlock } from '@gaudi/design-system/core/CodeBlock';
 import { StatusDot } from '@gaudi/design-system/core/Pill';
 import { useMemo, useState } from 'react';
 import { Filters } from '@gaudi/design-system/core/FilterBar';
@@ -423,9 +424,7 @@ export function Pattern() {
       it was debugger output, not a demonstration: it restated the same tree
       in a shape nobody reads, and it halved the width the readable half had.
     */}
-        <code className='bg-ui-muted dark:bg-ui-muted/60 block w-full overflow-x-auto rounded-md border p-3 text-xs'>
-          {expression}
-        </code>
+        <CodeBlock label='Filter expression' code={expression} highlight={false} defaultWrap />
       </div>
     </div>
   );

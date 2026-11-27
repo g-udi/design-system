@@ -1,6 +1,6 @@
 'use client';
 import { useId } from 'react';
-import { Area, CartesianGrid, ComposedChart, Line, XAxis } from 'recharts';
+import { Area, ComposedChart, Line } from 'recharts';
 import {
   CardRoot as Card,
   CardContent,
@@ -13,7 +13,9 @@ import {
   ChartLegend,
   ChartLegendContent,
   ChartTooltip,
-  ChartTooltipContent
+  ChartGrid,
+  ChartXAxis,
+  createRowsTooltip
 } from '@gaudi/design-system/charts/ChartFrame';
 const chartData = [
   { month: 'January', forecast: 2600, forecastArea: 2600 },
@@ -30,6 +32,15 @@ const chartConfig = {
   forecast: { label: 'Forecast', color: 'var(--chart-4)' },
   forecastArea: { label: 'Forecast', color: 'var(--chart-4)' }
 };
+const ForecastTooltip = createRowsTooltip(
+  ({ payload }) => payload.filter((item) => item.dataKey === 'forecast').map(({ dataKey, value }) => ({
+    label: chartConfig[dataKey].label,
+    value: value == null ? '—' : `$${Number(value).toLocaleString()}`,
+    color: `var(--color-${dataKey})`
+  })),
+  { title: (month) => `${month} 2024` }
+);
+
 export function Pattern() {
   const uid = useId().replace(/:/g, '');
   return (
@@ -68,47 +79,9 @@ export function Pattern() {
                 />
               </pattern>
             </defs>
-            <CartesianGrid vertical={false} strokeDasharray='3 3' />
-            <XAxis
-              dataKey='month'
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <ChartTooltip
-              content={
-                <ChartTooltipContent
-                  indicator='dot'
-                  className='min-w-40 gap-2.5'
-                  labelFormatter={(value) => (
-                    <div className='border-border/50 mb-0.5 border-b pb-2'>
-                      <span className='text-xs font-medium'>{value} 2024</span>
-                    </div>
-                  )}
-                  formatter={(value, name) => (
-                    <div className='flex w-full items-center justify-between gap-2'>
-                      <div className='flex items-center gap-1.5'>
-                        <div
-                          className='rounded-xs size-2.5 shrink-0 bg-(--color-bg)'
-                          style={{
-                            '--color-bg': `var(--color-${name})`
-                          }}
-                        />
-                        <span className='text-text-muted'>
-                          {chartConfig[name]?.label || name}
-                        </span>
-                      </div>
-                      <span className='text-text font-semibold tabular-nums'>
-                        {value != null
-                          ? `$${Number(value).toLocaleString()}`
-                          : '\u2014'}
-                      </span>
-                    </div>
-                  )}
-                />
-              }
-            />
+            <ChartGrid />
+            <ChartXAxis dataKey='month' tickMargin={8} tickFormatter={(value) => value.slice(0, 3)} />
+            <ChartTooltip content={<ForecastTooltip />} />
             <ChartLegend content={<ChartLegendContent />} />
             <Area
               dataKey='forecastArea'

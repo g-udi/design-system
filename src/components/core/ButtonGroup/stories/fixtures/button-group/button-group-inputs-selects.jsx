@@ -1,4 +1,5 @@
 'use client';
+import EmptyState from '@gaudi/design-system/core/EmptyState';
 import { StatusDot } from '@gaudi/design-system/core/Pill';
 import { useEffect, useRef, useState } from 'react';
 import {
@@ -143,7 +144,7 @@ export function Pattern() {
           </DropdownMenu>
         </ButtonGroup>
         <ul className='w-full list-none p-0 text-sm' aria-label='Matching records'>{visible.map((entry, index) => <li key={entry.name + index}>{entry.name}</li>)}</ul>
-        {!visible.length && <p className='text-xs text-text-muted'>No matching records</p>}
+        {!visible.length && <EmptyState compact title='No matching records' />}
       </Row>
       <Row label='Nested groups'>
         <form onSubmit={send} className='w-full'>

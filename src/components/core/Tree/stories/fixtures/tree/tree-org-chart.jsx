@@ -6,7 +6,7 @@ import {
 } from '@gaudi/design-system/core/Tree';
 import { hotkeysCoreFeature, syncDataLoaderFeature } from '@headless-tree/core';
 import { useTree } from '@headless-tree/react';
-import {
+import { getAvatarInitials,
   AvatarRoot as Avatar,
   AvatarFallback,
   AvatarImage
@@ -95,17 +95,13 @@ export function Pattern() {
       <Tree indent={indent} tree={tree}>
         {tree.getItems().map((item) => {
           const data = item.getItemData();
-          const initials = data.name
-            .split(' ')
-            .map((n) => n[0])
-            .join('');
           return (
             <TreeItem key={item.getId()} item={item}>
               <TreeItemLabel className='gap-2 py-1'>
                 <Avatar className='size-6 shrink-0'>
                   <AvatarImage src={data.avatar} alt={data.name} />
                   <AvatarFallback>
-                    {initials}
+                    {getAvatarInitials(data.name)}
                   </AvatarFallback>
                 </Avatar>
                 <span className='flex flex-col items-start'>

@@ -47,7 +47,7 @@ Native buttons, semantic headings and Gaudi disclosures preserve keyboard and fo
 
 Curated patterns:
 
-- Agent queue — registry item `@gaudi/chat-delegation-agent-queue` (uses `AreaChart`, `Badge`, `Button`, `ChatAgentQueue`, `RegistryIcon`)
+- Agent queue — registry item `@gaudi/chat-delegation-agent-queue` (uses `AreaChart`, `Badge`, `Button`, `ChatAgentQueue`, `RegistryIcon`, `Toggle`, `useInterval`)
 
 ## README
 

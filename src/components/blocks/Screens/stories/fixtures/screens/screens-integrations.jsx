@@ -1,4 +1,6 @@
 'use client';
+import { CardRoot } from '@gaudi/design-system/core/Card';
+import { Item } from '@gaudi/design-system/core/Item';
 import { IconTile } from '@gaudi/design-system/core/Icon';
 import { useState } from 'react';
 import { Badge } from '@gaudi/design-system/core/Pill';
@@ -53,7 +55,7 @@ export function Pattern() {
       {view === 'gallery' ? (
         <ul className='grid gap-3 sm:grid-cols-2 lg:grid-cols-4'>
           {apps.map(({ id, name, description, Logo, status }) => (
-            <li key={id} className='grid content-between gap-4 rounded-xl border p-4'>
+            <CardRoot as='li' variant='outline' padding='none' key={id} className='grid content-between gap-4 p-4 overflow-visible'>
               <div className='grid gap-3'>
                 <div className='flex items-center justify-between'>
                   <IconTile aria-hidden='true' size='sm'><Logo className='size-5' aria-hidden='true' /></IconTile>
@@ -65,19 +67,19 @@ export function Pattern() {
                 </span>
               </div>
               {status === 'error' ? <Badge size='sm' variant='warning-light' className='justify-self-start'>Reconnect required</Badge> : null}
-            </li>
+            </CardRoot>
           ))}
         </ul>
       ) : (
         <div className='grid gap-4'>
           {groups.map((group) => (
-            <section key={group} aria-label={group} className='overflow-hidden rounded-xl border'>
+            <CardRoot as='section' variant='outline' padding='none' key={group} aria-label={group} className='overflow-hidden'>
               <h3 className='bg-surface-muted text-text-muted px-4 py-2 text-xs font-medium'>{group}</h3>
               <ul>
                 {apps.filter((app) => app.group === group).map(({ id, name, description, Logo, status }) => {
                   const badge = enabled[id] ? statusBadge[status === 'available' ? 'connected' : status] : null;
                   return (
-                    <li key={id} className='flex items-center gap-3 border-t px-4 py-3 first:border-t-0'>
+                    <Item as='li' size='sm' key={id} className='gap-3 border-t px-4 py-3 first:border-t-0'>
                       <Logo className='size-5 shrink-0' aria-hidden='true' />
                       <span className='grid min-w-0 flex-1 text-sm'>
                         <span className='font-medium'>{name}</span>
@@ -87,11 +89,11 @@ export function Pattern() {
                       <Button size='sm' variant={enabled[id] ? 'outline' : 'default'} onClick={() => set(id, !enabled[id])}>
                         {enabled[id] ? 'Disconnect' : 'Connect'}
                       </Button>
-                    </li>
+                    </Item>
                   );
                 })}
               </ul>
-            </section>
+            </CardRoot>
           ))}
         </div>
       )}

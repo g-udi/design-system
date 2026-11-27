@@ -5,7 +5,7 @@ import { Gantt } from '@gaudi/design-system/core/Gantt';
 import { GanttNav, GanttToolbar } from '@gaudi/design-system/core/Gantt';
 import { GanttView } from '@gaudi/design-system/core/Gantt';
 import { checkDependencies } from '@gaudi/design-system/core/Gantt';
-import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
+import { Avatar } from '@gaudi/design-system/core/Avatar';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { CardRoot as Card, CardContent } from '@gaudi/design-system/core/Card';
@@ -70,7 +70,6 @@ function buildTasks() {
   ];
 }
 
-const initials = (name) => name.split(' ').map((part) => part[0]).join('');
 
 /** Owns the status line so drag feedback never re-renders the chart. */
 function useStatusLine() {
@@ -131,10 +130,7 @@ export function Pattern() {
           if (!owner) return null;
           return (
             <span className='flex min-w-0 items-center gap-2'>
-              <Avatar className='size-5 shrink-0'>
-                <AvatarImage src={PEOPLE[owner]} alt='' />
-                <AvatarFallback>{initials(owner)}</AvatarFallback>
-              </Avatar>
+              <Avatar size='xs' className='size-5 shrink-0' surface='tinted' src={PEOPLE[owner]} name={owner} alt='' />
               <span className='truncate'>{owner}</span>
             </span>
           );

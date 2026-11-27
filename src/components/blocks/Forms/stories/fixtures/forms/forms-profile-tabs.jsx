@@ -1,6 +1,8 @@
 'use client';
+import { Item } from '@gaudi/design-system/core/Item';
+import { CardTitle, CardRoot } from '@gaudi/design-system/core/Card';
 import { useState } from 'react';
-import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
+import Avatar from '@gaudi/design-system/core/Avatar';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { Label, FieldRoot as Field, FieldDescriptionPrimitive as FieldDescription, FieldErrorPrimitive as FieldError, FieldGroup, FieldLabelPrimitive as FieldLabel } from '@gaudi/design-system/core/Field';
@@ -9,8 +11,8 @@ import { SelectRoot as Select, SelectContent, SelectItem, SelectTrigger, SelectV
 import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@gaudi/design-system/core/Tabs';
 import { useFormValidation, validators } from '@gaudi/design-system/blocks/Forms';
-import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
-import { cn } from '@gaudi/design-system/utilities/cn';
+import { HeatmapChart } from '@gaudi/design-system/charts/HeatmapChart';
+import Timeline from '@gaudi/design-system/core/Timeline';
 import { EmailInput } from '@gaudi/design-system/core/Input';
 
 const organisations = [
@@ -24,36 +26,16 @@ const audit = [
 ];
 // 12 weeks of daily activity, oldest first; values are edits per day.
 const activity = Array.from({ length: 84 }, (_, day) => [0, 1, 3, 0, 5, 2, 8, 0, 1, 4, 6, 0, 2, 9][(day * 7 + (day % 5)) % 14]);
-const level = (count) => (count === 0 ? 'bg-surface-muted' : count < 3 ? 'bg-accent/25' : count < 6 ? 'bg-accent/55' : 'bg-accent');
+const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const activityCells = activity.map((value, day) => ({ x: String(Math.floor(day / 7) + 1), y: weekdays[day % 7], value }));
+const totalEdits = activity.reduce((sum, value) => sum + value, 0);
+const activeDays = activity.filter(Boolean).length;
 
 const passwordRules = {
   current: validators.required('Enter your current password.'),
   next: [validators.required('Enter a new password.'), validators.minLength(12, 'Use at least 12 characters.')],
   confirm: [validators.required('Repeat the new password.'), (value, values) => (value && value !== values.next ? 'The passwords do not match.' : '')]
 };
-
-function Heatmap() {
-  const total = activity.reduce((sum, count) => sum + count, 0);
-  const active = activity.filter(Boolean).length;
-  return (
-    <figure className='grid gap-2'>
-      <figcaption className='flex justify-between text-xs'>
-        <span className='font-medium'>Activity</span>
-        <span className='text-text-muted'>{total} edits in 12 weeks</span>
-      </figcaption>
-      <div role='img' aria-label={`${total} edits over the last 12 weeks, active on ${active} of 84 days`} className='grid grid-flow-col grid-rows-7 gap-0.5'>
-        {activity.map((count, day) => (
-          <span key={day} className={cn('aspect-square rounded-xs', level(count))} />
-        ))}
-      </div>
-      <div aria-hidden='true' className='text-text-muted flex items-center justify-end gap-1 text-xs'>
-        Less
-        {[0, 2, 4, 8].map((count) => <span key={count} className={cn('size-2.5 rounded-xs', level(count))} />)}
-        More
-      </div>
-    </figure>
-  );
-}
 
 export function Pattern() {
   const profile = useFormValidation({ initialValues: { name: 'Mei Castellanos', email: 'mei@gaudi.dev', language: 'en-GB' }, rules: { name: validators.required('Enter your name.'), email: [validators.required('Enter your email.'), validators.email()] } });
@@ -71,7 +53,7 @@ export function Pattern() {
           <TabsTrigger value='security'>Security</TabsTrigger>
         </TabsList>
         <TabsContent value='profile'>
-          <form noValidate aria-label='Profile' onSubmit={profile.handleSubmit(() => setNotice('Profile saved.'))} className='grid gap-4 rounded-lg border p-5'>
+          <CardRoot as='form' variant='outline' radius='lg' padding='none' noValidate aria-label='Profile' onSubmit={profile.handleSubmit(() => setNotice('Profile saved.'))} className='grid gap-4 p-5'>
             <FieldGroup className='gap-4'>
               <Field data-invalid={profile.errors.name ? true : undefined}>
                 <FieldLabel htmlFor={profile.id('name')}>Full name</FieldLabel>
@@ -98,12 +80,12 @@ export function Pattern() {
               </Field>
             </FieldGroup>
             <Button type='submit' className='justify-self-end'>Save profile</Button>
-          </form>
+          </CardRoot>
         </TabsContent>
         <TabsContent value='organisations'>
           <ul aria-label='Organisations' className='divide-y rounded-lg border'>
             {organisations.map((org) => (
-              <li key={org.id} className='flex flex-wrap items-center gap-3 p-4'>
+              <Item as='li' size='sm' key={org.id} className='rounded-none flex flex-wrap items-center gap-3 p-4'>
                 <Avatar aria-hidden='true' shape='square' size='sm' name={org.name} label={org.name[0]} surface='tinted' />
                 <span className='grid min-w-0 flex-1 basis-40'>
                   <span className='truncate text-sm font-medium'>{org.name}</span>
@@ -118,28 +100,28 @@ export function Pattern() {
                   </SelectContent>
                 </Select>
                 <Button size='sm' variant='ghost' tone='danger' onClick={() => setNotice(`You left ${org.name}.`)}>Leave</Button>
-              </li>
+              </Item>
             ))}
           </ul>
         </TabsContent>
         <TabsContent value='security' className='grid gap-4'>
-          <div className='flex items-start justify-between gap-4 rounded-lg border p-4'>
+          <CardRoot variant='outline' radius='lg' padding='none' className='flex items-start justify-between gap-4 p-4'>
             <div className='grid gap-0.5'>
               <Label htmlFor='profile-two-factor' className='text-sm font-medium'>Two-step verification</Label>
               <p className='text-text-muted text-sm'>Ask for a code from your authenticator app when signing in.</p>
             </div>
             <Switch id='profile-two-factor' checked={twoFactor} onCheckedChange={setTwoFactor} />
-          </div>
-          <form
+          </CardRoot>
+          <CardRoot as='form' variant='outline' radius='lg' padding='none'
             noValidate
             aria-labelledby='profile-password-title'
             onSubmit={password.handleSubmit(() => {
               setNotice('Password changed. Other sessions were signed out.');
               password.reset();
             })}
-            className='grid gap-4 rounded-lg border p-5'
+            className='grid gap-4 p-5'
           >
-            <h3 id='profile-password-title' className='text-sm font-semibold'>Change password</h3>
+            <CardTitle as='h3' id='profile-password-title' className='text-sm font-semibold'>Change password</CardTitle>
             {[
               ['current', 'Current password', 'current-password'],
               ['next', 'New password', 'new-password'],
@@ -152,16 +134,13 @@ export function Pattern() {
               </Field>
             ))}
             <Button type='submit' className='justify-self-end'>Update password</Button>
-          </form>
+          </CardRoot>
         </TabsContent>
         <p role='status' className='text-text-muted min-h-5 text-sm'>{notice}</p>
       </Tabs>
-      <aside aria-label='Account summary' className='grid gap-4 rounded-lg border p-4 lg:sticky lg:top-4'>
+      <CardRoot as='aside' variant='outline' radius='lg' padding='none' aria-label='Account summary' className='grid gap-4 p-4 lg:sticky lg:top-4'>
         <div className='flex items-center gap-3'>
-          <Avatar className='size-10'>
-            <AvatarImage src='/avatars/person-20.svg' alt='' />
-            <AvatarFallback>MC</AvatarFallback>
-          </Avatar>
+          <Avatar name={profile.values.name} src='/avatars/person-20.svg' alt='' size='lg' />
           <div className='grid min-w-0'>
             <span className='truncate text-sm font-medium'>{profile.values.name}</span>
             <span className='text-text-muted truncate text-xs'>{profile.values.email}</span>
@@ -175,22 +154,18 @@ export function Pattern() {
           <dt className='text-text-muted'>Sessions</dt>
           <dd className='text-end'>3 active</dd>
         </dl>
-        <Heatmap />
+        <HeatmapChart
+          title='Activity'
+          description={`${totalEdits} edits in 12 weeks`}
+          ariaLabel={`${totalEdits} edits over the last 12 weeks, active on ${activeDays} of 84 days`}
+          data={activityCells} yLabels={weekdays} valueLabel='Edits'
+          framed={false} showValues={false}
+        />
         <div className='grid gap-2'>
           <h3 className='text-xs font-medium'>Recent activity</h3>
-          <ol className='grid gap-2'>
-            {audit.map((entry) => (
-              <li key={entry.id} className='flex gap-2 text-xs'>
-                <RegistryIcon lucide='HistoryIcon' aria-hidden='true' className='text-text-muted mt-0.5 size-3.5 shrink-0' />
-                <span className='grid'>
-                  {entry.text}
-                  <span className='text-text-muted'>{entry.when}</span>
-                </span>
-              </li>
-            ))}
-          </ol>
+          <Timeline label='Recent activity' items={audit.map((entry) => ({ id: entry.id, title: entry.text, time: entry.when }))} />
         </div>
-      </aside>
+      </CardRoot>
     </div>
   );
 }

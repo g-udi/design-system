@@ -1,4 +1,5 @@
 'use client';
+import { CardTitle, CardDescription, CardHeader, CardFooter, CardRoot } from '@gaudi/design-system/core/Card';
 import { useState } from 'react';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { FieldRoot as Field, FieldDescriptionPrimitive as FieldDescription, FieldErrorPrimitive as FieldError, FieldLabelPrimitive as FieldLabel, FieldLegend, FieldSet } from '@gaudi/design-system/core/Field';
@@ -25,22 +26,22 @@ export function Pattern() {
 
   if (done) {
     return (
-      <div role='status' className='mx-auto grid w-full max-w-lg gap-2 rounded-lg border p-6 text-center'>
-        <p className='text-lg font-semibold'>Thank you for the feedback</p>
-        <p className='text-text-muted text-sm'>You rated this article {values.rating} out of 5. It helps decide what to write next.</p>
-      </div>
+      <CardRoot variant='outline' radius='lg' padding='none' role='status' className='mx-auto grid w-full max-w-lg gap-2 p-6 text-center'>
+        <CardTitle as='p' className='text-lg font-semibold'>Thank you for the feedback</CardTitle>
+        <CardDescription as='p' className='text-text-muted text-sm'>You rated this article {values.rating} out of 5. It helps decide what to write next.</CardDescription>
+      </CardRoot>
     );
   }
 
   return (
-    <form noValidate onSubmit={form.handleSubmit(() => setDone(true))} aria-labelledby='survey-title' className='mx-auto grid w-full max-w-lg gap-5 rounded-lg border p-5 sm:p-6'>
-      <div className='grid gap-2'>
+    <CardRoot as='form' variant='outline' radius='lg' padding='none' noValidate onSubmit={form.handleSubmit(() => setDone(true))} aria-labelledby='survey-title' className='mx-auto grid w-full max-w-lg gap-5 p-5 sm:p-6'>
+      <CardHeader className='p-0 grid gap-2'>
         <div className='flex items-baseline justify-between gap-3'>
-          <h2 id='survey-title' className='text-lg font-semibold'>How was this article?</h2>
+          <CardTitle as='h2' id='survey-title' className='text-lg font-semibold'>How was this article?</CardTitle>
           <span className='text-text-muted text-xs tabular-nums'>{answered} of 4 answered</span>
         </div>
         <Progress value={(answered / 4) * 100} aria-label='Questions answered' />
-      </div>
+      </CardHeader>
       <FormErrorSummary form={form} labels={{ rating: 'Overall', score: 'Recommend' }} />
       <Field data-invalid={errors.rating ? true : undefined}>
         <FieldLabel id={form.id('rating-label')}>Overall</FieldLabel>
@@ -95,9 +96,9 @@ export function Pattern() {
         </FieldLabel>
         <Textarea {...form.field('comment')} rows={3} placeholder='What would make it more useful?' />
       </Field>
-      <div className='flex justify-end'>
+      <CardFooter className='p-0 flex justify-end'>
         <Button type='submit'>Send feedback</Button>
-      </div>
-    </form>
+      </CardFooter>
+    </CardRoot>
   );
 }

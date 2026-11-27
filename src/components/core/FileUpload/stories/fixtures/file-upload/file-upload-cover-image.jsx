@@ -1,7 +1,9 @@
 'use client';
+import { CardTitle, CardRoot } from '@gaudi/design-system/core/Card';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
 import Loader from '@gaudi/design-system/core/Loader';
 import { useEffect, useState } from 'react';
-import { formatBytes, useFileUpload } from '@gaudi/design-system/core/FileUpload';
+import { formatBytes, FileUploadDropzone, useFileUpload } from '@gaudi/design-system/core/FileUpload';
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyTitle } from '@gaudi/design-system/core/EmptyState';
 import { IconTile } from '@gaudi/design-system/core/Icon';
 import { ProgressRing } from '@gaudi/design-system/core/Progress';
@@ -30,8 +32,8 @@ export function Pattern({
   const [imageLoading, setImageLoading] = useState(true);
   const [request, setRequest] = useState(null);
   const [upload, setUpload] = useState({ progress: 0, status: 'idle' });
-  const [{ files, isDragging, errors }, {
-    clearFiles, handleDragEnter, handleDragLeave, handleDragOver, handleDrop,
+  const [{ files, errors }, {
+    clearFiles, dropzoneProps,
     openFileDialog, getInputProps
   }] = useFileUpload({
     maxFiles: 1, maxSize, accept, multiple: false, initialFiles: [defaultCoverImage],
@@ -71,19 +73,8 @@ export function Pattern({
   return (
     <div className={cn('flex w-full flex-col gap-4', className)}>
       {/* Cover Upload Area */}
-      <div
-        className={cn(
-          'group border-ui-border rounded-xl relative overflow-hidden border transition-all duration-200',
-          isDragging
-            ? 'border-ui-primary bg-ui-primary/5 border-dashed'
-            : hasImage
-              ? 'border-ui-border bg-ui-background hover:border-ui-primary/50'
-              : 'border-ui-muted-foreground/25 bg-ui-muted/30 hover:border-ui-primary hover:bg-ui-primary/5 border-dashed'
-        )}
-        onDragEnter={handleDragEnter}
-        onDragLeave={handleDragLeave}
-        onDragOver={handleDragOver}
-        onDrop={handleDrop}
+      <FileUploadDropzone {...dropzoneProps}
+        className={cn('group relative block overflow-hidden rounded-xl p-0', hasImage && 'border-solid')}
       >
         {/* Hidden file input */}
         <input {...getInputProps({ 'aria-label': 'Choose cover image' })} className='sr-only' />
@@ -132,9 +123,9 @@ export function Pattern({
               {/* Upload progress */}
               {isUploading && (
                 <div className='pointer-events-none absolute inset-0 flex items-center justify-center bg-black/40'>
-                  <div className='rounded-lg bg-surface p-3'>
+                  <CardRoot variant='outline' radius='lg' padding='md'>
                     <ProgressRing value={upload.progress} size='lg' label={`Uploading ${coverImage.file.name}`} showValue />
-                  </div>
+                  </CardRoot>
                 </div>
               )}
             </div>
@@ -150,7 +141,7 @@ export function Pattern({
                 Drag and drop an image here, or click to browse
               </EmptyDescription>
               <p className='text-ui-muted-foreground text-xs'>
-                Recommended size: 1200x514px • Max size: {formatBytes(maxSize)}
+                Recommended size: 1200x514px <MetaSeparator /> Max size: {formatBytes(maxSize)}
               </p>
             </EmptyHeader>
             <EmptyContent>
@@ -161,7 +152,7 @@ export function Pattern({
             </EmptyContent>
           </Empty>
         )}
-      </div>
+      </FileUploadDropzone>
 
       {/* Error Messages */}
       {errors.length > 0 && (
@@ -195,16 +186,16 @@ export function Pattern({
       {upload.status === 'success' && <p role='status'>Cover image ready locally.</p>}
 
       {/* Upload Tips */}
-      <div className='bg-ui-muted/50 rounded-lg p-4'>
-        <h4 className='mb-2 text-sm font-medium'>Cover image tips</h4>
-        <ul className='text-ui-muted-foreground space-y-1 text-xs'>
-          <li>• Pick an image that still reads when cropped to a thumbnail</li>
-          <li>• Wide images (about 21:9) fill the article header best</li>
-          <li>• Keep faces and text away from the edges</li>
-          <li>• Accepted file types: {accept}</li>
-          <li>• Progress is simulated; the first attempt fails so you can try recovery.</li>
+      <CardRoot as='section' variant='soft' radius='lg' padding='none' className='p-4'>
+        <CardTitle as='h4' className='mb-2 text-sm font-medium'>Cover image tips</CardTitle>
+        <ul className='text-ui-muted-foreground list-disc space-y-1 ps-4 text-xs'>
+          <li>Pick an image that still reads when cropped to a thumbnail</li>
+          <li>Wide images (about 21:9) fill the article header best</li>
+          <li>Keep faces and text away from the edges</li>
+          <li>Accepted file types: {accept}</li>
+          <li>Progress is simulated; the first attempt fails so you can try recovery.</li>
         </ul>
-      </div>
+      </CardRoot>
     </div>
   );
 }

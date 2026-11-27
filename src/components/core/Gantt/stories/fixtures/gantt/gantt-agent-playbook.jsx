@@ -1,4 +1,5 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
 import { useCallback, useId, useMemo, useRef, useState } from 'react';
 import { addMinutes, startOfHour } from 'date-fns';
 import { Gantt } from '@gaudi/design-system/core/Gantt';
@@ -184,7 +185,7 @@ export function Pattern() {
           </Gantt>
           <div className='grid gap-1 border-t px-3 py-2 text-xs'>
             <p className='flex flex-wrap items-center gap-x-1.5 gap-y-1'>
-              <span className='font-medium'>Critical path · {duration(route.minutes)}:</span>
+              <span className='font-medium'>Critical path <MetaSeparator /> {duration(route.minutes)}:</span>
               {route.ids.map((id, index) => (
                 <span key={id} className='flex items-center gap-1.5'>
                   {index > 0 && <RegistryIcon lucide='ChevronRightIcon' className='text-text-muted size-3' aria-hidden='true' />}

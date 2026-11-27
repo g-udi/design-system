@@ -49,7 +49,7 @@ Separators support keyboard resizing. Keep minimum sizes large enough for panel 
 Curated patterns:
 
 - Editor workspace — registry item `@gaudi/resizable-editor-workspace` (uses `ResizableHandle`, `ResizablePanel`, `ResizablePanelGroup`)
-- Handle styles — registry item `@gaudi/resizable-handles` (uses `ResizableHandle`, `ResizablePanel`, `ResizablePanelGroup`)
+- Handle styles — registry item `@gaudi/resizable-handles` (uses `MetaSeparator`, `ResizableHandle`, `ResizablePanel`, `ResizablePanelGroup`)
 
 ## Related
 

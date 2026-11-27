@@ -62,7 +62,7 @@ Citations are buttons named “Source n: title”. The card opens on hover witho
 
 Curated patterns:
 
-- Answer linked to evidence — registry item `@gaudi/chat-sources-linked-answer` (uses `ChatAgentMark`, `ChatCitedAnswer`, `ChatMessage`, `ChatMessageContent`, `ChatMessageHeader`)
+- Answer linked to evidence — registry item `@gaudi/chat-sources-linked-answer` (uses `ChatAgentMark`, `ChatCitedAnswer`, `ChatMessage`, `ChatMessageContent`, `ChatMessageHeader`, `MetaSeparator`)
 - Research with citations — registry item `@gaudi/chat-sources-research-citations` (uses `Avatar`, `ChatAgentMark`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageFeedback`, `ChatMessageHeader`, `ChatMessageParts`)
 
 ## Related

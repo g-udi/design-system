@@ -1,4 +1,5 @@
 'use client';
+import { Pagination, PaginationContent, PaginationItem, PaginationPrevious, PaginationNext } from '@gaudi/design-system/core/Pagination';
 import { useState } from 'react';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
@@ -69,28 +70,12 @@ export function Pattern() {
             <span className='text-text-muted tabular-nums' aria-live='polite'>
               {current + 1} of {releases.length}
             </span>
-            <div className='flex gap-0.5'>
-              <Button
-                aria-label='Previous release'
-                className='size-6'
-                disabled={current === 0}
-                onClick={() => setCurrent(current - 1)}
-                size='icon'
-                variant='ghost'
-              >
-                <RegistryIcon lucide='ArrowLeftIcon' className='size-3.5' aria-hidden='true' />
-              </Button>
-              <Button
-                aria-label='Next release'
-                className='size-6'
-                disabled={current === releases.length - 1}
-                onClick={() => setCurrent(current + 1)}
-                size='icon'
-                variant='ghost'
-              >
-                <RegistryIcon lucide='ArrowRightIcon' className='size-3.5' aria-hidden='true' />
-              </Button>
-            </div>
+            <Pagination aria-label='Release pages' className='mx-0 w-auto'>
+              <PaginationContent>
+                <PaginationItem><PaginationPrevious iconOnly aria-label='Previous release' disabled={current === 0} onClick={() => setCurrent(current - 1)} /></PaginationItem>
+                <PaginationItem><PaginationNext iconOnly aria-label='Next release' disabled={current === releases.length - 1} onClick={() => setCurrent(current + 1)} /></PaginationItem>
+              </PaginationContent>
+            </Pagination>
           </div>
         </PopoverContent>
       </Popover>

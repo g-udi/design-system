@@ -11,7 +11,8 @@ import { addDays, startOfDay, startOfWeek } from 'date-fns';
 import {
   AvatarRoot as Avatar,
   AvatarFallback,
-  AvatarImage
+  AvatarImage,
+  getAvatarInitials
 } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
@@ -27,12 +28,6 @@ const OWNER_AVATARS = {
   'Hortense Abiola': '/avatars/person-25.svg',
   'Elspeth Varley': '/avatars/person-07.svg'
 };
-function ownerInitials(name) {
-  const parts = name.trim().split(/\s+/).filter(Boolean);
-  if (parts.length === 0) return '?';
-  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
-  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
-}
 const STATUS_VARIANT = {
   Done: 'success-light',
   'In progress': 'warning-light',
@@ -116,7 +111,7 @@ export function Pattern() {
               <Avatar className='size-5 shrink-0'>
                 <AvatarImage src={OWNER_AVATARS[owner]} alt={owner} />
                 <AvatarFallback>
-                  {ownerInitials(owner)}
+                  {getAvatarInitials(owner)}
                 </AvatarFallback>
               </Avatar>
               <span className='truncate'>{owner}</span>

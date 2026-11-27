@@ -1,4 +1,6 @@
 'use client';
+import { ScrollArea } from '@gaudi/design-system/core/ScrollArea';
+import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
 import { useState } from 'react';
 import { Field, FieldLabel } from '@gaudi/design-system/core/Field';
 import Textarea from '@gaudi/design-system/core/Textarea';
@@ -233,35 +235,37 @@ function IssueView() {
         <SidebarTrigger />
       </header>
 
-      <div className='min-w-0 flex-1 overflow-auto px-4 py-4'>
-        <h1 className='text-base font-medium'>
-          Retry failed webhook deliveries
-        </h1>
-        <p className='text-ui-muted-foreground mt-2 max-w-prose text-sm'>
-          Deliveries that fail on a 5xx are dropped after the first attempt, so
-          a customer whose endpoint restarts during a deploy never sees the
-          event again.
-        </p>
-        <p className='text-ui-muted-foreground mt-2 max-w-prose text-sm'>
-          Queue the failures and retry them with a backoff, then surface the
-          attempt count on the delivery record.
-        </p>
+      <ScrollArea aria-label='Issue content' className='min-h-0 min-w-0 flex-1 **:data-[slot=scroll-area-viewport]:[&>div]:block!'>
+        <div className='px-4 py-4'>
+          <h1 className='text-base font-medium'>
+            Retry failed webhook deliveries
+          </h1>
+          <p className='text-ui-muted-foreground mt-2 max-w-prose text-sm'>
+            Deliveries that fail on a 5xx are dropped after the first attempt, so
+            a customer whose endpoint restarts during a deploy never sees the
+            event again.
+          </p>
+          <p className='text-ui-muted-foreground mt-2 max-w-prose text-sm'>
+            Queue the failures and retry them with a backoff, then surface the
+            attempt count on the delivery record.
+          </p>
 
-        <div className='mt-4 flex flex-wrap gap-2'>
-          <Button variant='ghost' size='sm' aria-expanded={writing} onClick={() => setWriting(value => !value)}>
-            <RegistryIcon lucide='MessageSquareIcon' aria-hidden='true' />
-            Comment
-          </Button>
-          <Button variant='ghost' size='sm' aria-pressed={watching} onClick={() => setWatching(value => !value)}>
-            <RegistryIcon lucide='EyeIcon' aria-hidden='true' />
-            {watching ? 'Watching' : 'Watch'}
-          </Button>
+          <div className='mt-4 flex flex-wrap gap-2'>
+            <Button variant='ghost' size='sm' aria-expanded={writing} onClick={() => setWriting(value => !value)}>
+              <RegistryIcon lucide='MessageSquareIcon' aria-hidden='true' />
+              Comment
+            </Button>
+            <Toggle size='sm' pressed={watching} onPressedChange={setWatching}>
+              <RegistryIcon lucide='EyeIcon' aria-hidden='true' />
+              {watching ? 'Watching' : 'Watch'}
+            </Toggle>
+          </div>
+          {writing && <form className='mt-3 grid max-w-lg gap-2' onSubmit={event => { event.preventDefault(); const text = String(new FormData(event.currentTarget).get('comment')).trim(); if (text) { setComments(list => [...list, text]); setWriting(false); } }}>
+            <Field><FieldLabel htmlFor='inspector-comment'>Comment</FieldLabel><Textarea name='comment' id='inspector-comment' required /></Field><Button className='w-fit' size='sm' type='submit'>Post comment</Button>
+          </form>}
+          {comments.length > 0 && <ul aria-label='Comments' className='mt-4 grid gap-2 text-sm'>{comments.map((comment, i) => <li key={i}>{comment}</li>)}</ul>}
         </div>
-        {writing && <form className='mt-3 grid max-w-lg gap-2' onSubmit={event => { event.preventDefault(); const text = String(new FormData(event.currentTarget).get('comment')).trim(); if (text) { setComments(list => [...list, text]); setWriting(false); } }}>
-          <Field><FieldLabel htmlFor='inspector-comment'>Comment</FieldLabel><Textarea name='comment' id='inspector-comment' required /></Field><Button className='w-fit' size='sm' type='submit'>Post comment</Button>
-        </form>}
-        {comments.length > 0 && <ul aria-label='Comments' className='mt-4 grid gap-2 text-sm'>{comments.map((comment, i) => <li key={i}>{comment}</li>)}</ul>}
-      </div>
+      </ScrollArea>
     </SidebarInset>
   );
 }

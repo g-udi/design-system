@@ -52,11 +52,11 @@ The active item exposes aria-current="step" and completed items have readable st
 Curated patterns:
 
 - Simple linear steps — registry item `@gaudi/stepper-basic` (uses `StepperContent`, `StepperIndicator`, `StepperItem`, `StepperNav`, `StepperPanel`, `StepperRoot`, `StepperSeparator`, `StepperTrigger`)
-- Titles and descriptions — registry item `@gaudi/stepper-descriptions` (uses `Label`, `Loader`, `RegistryIcon`, `StepperContent`, `StepperDescription`, `StepperIndicator`, `StepperItem`, `StepperNav`, `StepperPanel`, `StepperRoot`, `StepperSeparator`, `StepperTitle`, `StepperTrigger`, `SwitchRoot`, `ToggleGroupItem`, `ToggleGroupRoot`, `cn`)
+- Titles and descriptions — registry item `@gaudi/stepper-descriptions` (uses `LabeledSwitch`, `Loader`, `RegistryIcon`, `StepperContent`, `StepperDescription`, `StepperIndicator`, `StepperItem`, `StepperNav`, `StepperPanel`, `StepperRoot`, `StepperSeparator`, `StepperTitle`, `StepperTrigger`, `ToggleGroupItem`, `ToggleGroupRoot`, `cn`)
 - Controlled with icons and badges — registry item `@gaudi/stepper-icons-badges` (uses `Badge`, `Button`, `Loader`, `RegistryIcon`, `StepperContent`, `StepperIndicator`, `StepperItem`, `StepperNav`, `StepperPanel`, `StepperRoot`, `StepperSeparator`, `StepperTitle`, `StepperTrigger`)
 - Loading state — registry item `@gaudi/stepper-loading` (uses `Loader`, `RegistryIcon`, `StatusDot`, `StepperContent`, `StepperIndicator`, `StepperItem`, `StepperNav`, `StepperPanel`, `StepperRoot`, `StepperSeparator`, `StepperTrigger`)
-- Progress bar — registry item `@gaudi/stepper-progress-bar` (uses `Button`, `Label`, `RegistryIcon`, `StepperContent`, `StepperIndicator`, `StepperItem`, `StepperNav`, `StepperPanel`, `StepperRoot`, `StepperTitle`, `StepperTrigger`, `SwitchRoot`, `cn`)
-- Vertical orientation — registry item `@gaudi/stepper-vertical` (uses `Label`, `Loader`, `RegistryIcon`, `StepperContent`, `StepperDescription`, `StepperIndicator`, `StepperItem`, `StepperNav`, `StepperPanel`, `StepperRoot`, `StepperSeparator`, `StepperTitle`, `StepperTrigger`, `SwitchRoot`)
+- Progress bar — registry item `@gaudi/stepper-progress-bar` (uses `Button`, `LabeledSwitch`, `RegistryIcon`, `StepperContent`, `StepperIndicator`, `StepperItem`, `StepperNav`, `StepperPanel`, `StepperRoot`, `StepperTitle`, `StepperTrigger`, `cn`)
+- Vertical orientation — registry item `@gaudi/stepper-vertical` (uses `LabeledSwitch`, `Loader`, `RegistryIcon`, `StepperContent`, `StepperDescription`, `StepperIndicator`, `StepperItem`, `StepperNav`, `StepperPanel`, `StepperRoot`, `StepperSeparator`, `StepperTitle`, `StepperTrigger`)
 
 ## Related
 

@@ -1,4 +1,7 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import EmptyState from '@gaudi/design-system/core/EmptyState';
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import { useState } from 'react';
 import { DashboardGrid, DashboardPanel, dashboardSpan } from '@gaudi/design-system/blocks/Dashboard';
 import { StatCard, StatMeter } from '@gaudi/design-system/blocks/StatCard';
@@ -47,7 +50,7 @@ export function Pattern() {
     <div className='grid w-full gap-4'>
       <header className='flex flex-wrap items-end justify-between gap-3'>
         <div>
-          <p className='text-text-muted text-xs'>Gaudi · Field teams</p>
+          <p className='text-text-muted text-xs'>Gaudi <MetaSeparator /> Field teams</p>
           <h2 className='text-xl font-semibold'>Coverage this week</h2>
         </div>
       </header>
@@ -86,7 +89,7 @@ export function Pattern() {
           {queue.length ? (
             <ul className='grid gap-3'>
               {queue.map((item) => (
-                <li key={item.id} className='grid gap-2 rounded-(--ds-radius-card) border p-3'>
+                <CardRoot as='li' variant='outline' radius='lg' padding='none' key={item.id} className='grid gap-2 p-3'>
                   <div className='flex items-start justify-between gap-2'>
                     <p className='text-sm font-medium'>{item.title}</p>
                     <Badge variant={item.tone}>{item.level}</Badge>
@@ -96,11 +99,11 @@ export function Pattern() {
                     <Button size='xs' onClick={() => settle(item)}>{item.action}</Button>
                     <Button size='xs' variant='ghost' tone='neutral' onClick={() => settle(item)}>Dismiss</Button>
                   </div>
-                </li>
+                </CardRoot>
               ))}
             </ul>
           ) : (
-            <p className='text-text-muted text-sm'>Every gap, approval and risk is handled.</p>
+            <EmptyState compact title='Every gap, approval and risk is handled.' />
           )}
           <p aria-live='polite' className='sr-only'>{done[0] ? `${done[0]} handled.` : ''}</p>
         </DashboardPanel>

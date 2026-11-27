@@ -166,7 +166,7 @@ export const AgentPlaybook = {
     const toggle = canvas.getByRole('switch', { name: 'Critical path' });
     await userEvent.click(toggle);
     await expect(toggle).toBeChecked();
-    await expect(canvas.getByText(/^Critical path · /).parentElement).toHaveTextContent('Post to thread');
+    await expect(canvas.getByText(/^Critical path\s+\d/).parentElement).toHaveTextContent('Post to thread');
     await userEvent.click(toggle);
   }
 };

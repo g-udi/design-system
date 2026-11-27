@@ -1,6 +1,6 @@
 'use client';
 import { Fragment, useState } from 'react';
-import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
+import { getAvatarInitials, AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { CardRoot as Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@gaudi/design-system/core/Card';
 import { CheckboxRoot as Checkbox } from '@gaudi/design-system/core/Checkbox';
@@ -118,7 +118,7 @@ export function Pattern() {
                           <ComboboxChip key={name}>
                             <Avatar className='size-4'>
                               <AvatarImage src={team[name]} alt='' />
-                              <AvatarFallback>{name[0]}</AvatarFallback>
+                              <AvatarFallback>{getAvatarInitials(name)}</AvatarFallback>
                             </Avatar>
                             {name}
                           </ComboboxChip>
@@ -140,7 +140,7 @@ export function Pattern() {
                       <ComboboxItem key={name} value={name}>
                         <Avatar className='size-5'>
                           <AvatarImage src={team[name]} alt='' />
-                          <AvatarFallback>{name[0]}</AvatarFallback>
+                          <AvatarFallback>{getAvatarInitials(name)}</AvatarFallback>
                         </Avatar>
                         {name}
                       </ComboboxItem>

@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   DataGrid,
+  DataGridSelectionBar,
   dataGridFeatures,
   getColumnHeaderLabel
 } from '@gaudi/design-system/core/DataTable';
@@ -19,6 +20,7 @@ import { default as FilterBar } from '@gaudi/design-system/core/FilterBar';
 import { useTable } from '@tanstack/react-table';
 import {
   AvatarRoot as Avatar,
+  getAvatarInitials,
   AvatarFallback,
   AvatarImage
 } from '@gaudi/design-system/core/Avatar';
@@ -227,7 +229,7 @@ export function Pattern() {
             <span className='flex min-w-0 items-center gap-2'>
               <Avatar aria-hidden='true' className='size-6 shrink-0'>
                 <AvatarImage src={`/avatars/${PORTRAITS[getValue()]}.svg`} />
-                <AvatarFallback>{getValue().split(' ').map((part) => part[0]).join('')}</AvatarFallback>
+                <AvatarFallback>{getAvatarInitials(getValue())}</AvatarFallback>
               </Avatar>
               <span className='truncate'>{getValue()}</span>
             </span>
@@ -328,47 +330,42 @@ export function Pattern() {
           />
         </CardHeader>
         {selectedCount > 0 ? (
-          <section
-            aria-label='Bulk actions'
-            className='bg-ui-muted/50 border-ui-border flex flex-wrap items-center gap-2 border-t px-4 py-2'
-          >
-            <span className='text-sm font-medium tabular-nums'>{count.format(selectedCount)} selected</span>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant='outline' size='sm'>
-                  <RegistryIcon lucide='UserPlusIcon' />
-                  Assign
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align='start'>
-                <DropdownMenuLabel>Assign to</DropdownMenuLabel>
-                {AGENTS.map((agent) => (
-                  <DropdownMenuItem key={agent} onSelect={() => assign(agent)}>
-                    {agent}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <Button variant='outline' size='sm' onClick={exportSelection}>
-              <RegistryIcon lucide='DownloadIcon' />
-              Export
-            </Button>
-            <Button variant='ghost' size='sm' onClick={clearSelection}>
-              Clear selection
-            </Button>
-            {allLoadedSelected && hasMore && !allMatching ? (
-              <p className='text-ui-muted-foreground basis-full text-xs sm:ms-auto sm:basis-auto'>
-                All {count.format(data.length)} loaded shipments are selected.{' '}
-                <Button variant='link' size='xs' className='px-0' onClick={() => setAllMatching(true)}>
-                  Select all {count.format(matching.length)} matching
-                </Button>
-              </p>
-            ) : null}
-            {allMatching ? (
-              <p className='text-ui-muted-foreground basis-full text-xs sm:ms-auto sm:basis-auto'>
-                Every matching shipment is selected, including ones not loaded yet.
-              </p>
-            ) : null}
+          <section aria-label='Bulk actions'>
+            <DataGridSelectionBar className='static mx-0 w-full max-w-none rounded-none border-x-0 border-b-0 px-4 py-2 shadow-none' label={() => `${count.format(selectedCount)} selected`} clearLabel='Clear selection' onClear={clearSelection}>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant='outline' size='sm'>
+                    <RegistryIcon lucide='UserPlusIcon' />
+                    Assign
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align='start'>
+                  <DropdownMenuLabel>Assign to</DropdownMenuLabel>
+                  {AGENTS.map((agent) => (
+                    <DropdownMenuItem key={agent} onSelect={() => assign(agent)}>
+                      {agent}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+              <Button variant='outline' size='sm' onClick={exportSelection}>
+                <RegistryIcon lucide='DownloadIcon' />
+                Export
+              </Button>
+              {allLoadedSelected && hasMore && !allMatching ? (
+                <p className='text-ui-muted-foreground basis-full text-xs sm:ms-auto sm:basis-auto'>
+                  All {count.format(data.length)} loaded shipments are selected.{' '}
+                  <Button variant='link' size='xs' className='px-0' onClick={() => setAllMatching(true)}>
+                    Select all {count.format(matching.length)} matching
+                  </Button>
+                </p>
+              ) : null}
+              {allMatching ? (
+                <p className='text-ui-muted-foreground basis-full text-xs sm:ms-auto sm:basis-auto'>
+                  Every matching shipment is selected, including ones not loaded yet.
+                </p>
+              ) : null}
+            </DataGridSelectionBar>
           </section>
         ) : null}
         <p role='status' className='text-ui-muted-foreground px-4 pb-2 text-xs empty:hidden'>

@@ -12,7 +12,7 @@ import {
 } from '@gaudi/design-system/core/Sortable';
 import { cn } from '@gaudi/design-system/utilities/cn';
 import { toast } from '@gaudi/design-system/core/Toast';
-import { formatBytes, useFileUpload } from '@gaudi/design-system/core/FileUpload';
+import { formatBytes, FileUploadDropzone, useFileUpload } from '@gaudi/design-system/core/FileUpload';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { IconTile } from '@gaudi/design-system/core/Icon';
 import {
@@ -72,7 +72,7 @@ export function Pattern({
     }
   ]);
   const createSortableImage = useCallback((entry) => ({ id: entry.id, src: entry.preview, alt: entry.file.name, type: 'uploaded' }), []);
-  const [{ files, isDragging, errors }, { removeFile, handleDragEnter, handleDragLeave, handleDragOver, handleDrop, openFileDialog, getInputProps }] = useFileUpload({
+  const [{ files, errors }, { removeFile, dropzoneProps, openFileDialog, getInputProps }] = useFileUpload({
     maxFiles, maxSize, accept, multiple: true,
     onFilesAdded: (added) => {
       setAllImages((current) => [...current, ...added.map(createSortableImage)]);
@@ -202,17 +202,8 @@ export function Pattern({
       </div>
 
       {/* Upload Area */}
-      <Card
-        className={cn(
-          'rounded-md border-dashed shadow-none transition-colors',
-          isDragging
-            ? 'border-ui-primary bg-ui-primary/5'
-            : 'border-ui-muted-foreground/25 hover:border-ui-muted-foreground/50'
-        )}
-        onDragEnter={handleDragEnter}
-        onDragLeave={handleDragLeave}
-        onDragOver={handleDragOver}
-        onDrop={handleDrop}
+      <FileUploadDropzone as={Card} {...dropzoneProps}
+        className='block rounded-md p-0 shadow-none'
       >
         <CardContent className='text-center'>
           <input {...getInputProps({ 'aria-label': 'Choose gallery images' })} className='sr-only' />
@@ -229,7 +220,7 @@ export function Pattern({
             Browse File
           </Button>
         </CardContent>
-      </Card>
+      </FileUploadDropzone>
 
       {/* Upload Progress Cards */}
       {images.length > 0 && (

@@ -10,7 +10,12 @@ export const AgentSteering = {
   play: async ({ canvasElement }) => {
     if (import.meta.env.MODE !== 'test') return;
     const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: 'Next step' }));
+    const next = canvas.getByRole('button', { name: 'Next step' });
+    await userEvent.click(canvas.getByRole('button', { name: 'Pause run', pressed: false }));
+    await expect(next).toBeDisabled();
+    await userEvent.click(canvas.getByRole('button', { name: 'Pause run', pressed: true }));
+    await expect(next).toBeEnabled();
+    await userEvent.click(next);
     await expect(canvas.getByText('Picked up at step start')).toBeVisible();
     await userEvent.type(canvas.getByLabelText('Steer the agent', { exact: true }), 'Keep the existing examples.');
     await userEvent.click(canvas.getByRole('button', { name: 'Apply now', exact: true }));

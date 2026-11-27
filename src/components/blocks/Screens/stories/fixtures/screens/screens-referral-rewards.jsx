@@ -1,6 +1,10 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import { CardRoot } from '@gaudi/design-system/core/Card';
+import { Item } from '@gaudi/design-system/core/Item';
 import { useState } from 'react';
 import {
+  getAvatarInitials,
   AvatarRoot as Avatar,
   AvatarFallback,
   AvatarImage
@@ -41,7 +45,7 @@ export function Pattern() {
   const next = tiers.find((tier) => tier.count > referred);
   return (
     <div className='grid w-full max-w-4xl gap-4 lg:grid-cols-[minmax(0,1fr)_20rem]'>
-      <section aria-labelledby='referral-title' className='grid content-start gap-4 rounded-xl border p-5'>
+      <CardRoot as='section' variant='outline' padding='none' aria-labelledby='referral-title' className='grid content-start gap-4 p-5 overflow-visible'>
         <div className='grid gap-1'>
           <h2 id='referral-title' className='text-lg font-semibold'>Invite friends, earn rewards</h2>
           <p className='text-text-muted text-sm'>Share your link. You both get a month free when they subscribe.</p>
@@ -74,22 +78,22 @@ export function Pattern() {
           <h3 className='text-sm font-medium'>Recent referrals</h3>
           <ul className='grid gap-2.5'>
             {activity.map(([name, portrait, action, when, state]) => (
-              <li key={name} className='flex items-center gap-3 text-sm'>
+              <Item as='li' size='sm' key={name} className='gap-3 text-sm'>
                 <Avatar size='sm'>
                   <AvatarImage src={`/avatars/${portrait}.svg`} alt={name} />
-                  <AvatarFallback>{name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
+                  <AvatarFallback>{getAvatarInitials(name)}</AvatarFallback>
                 </Avatar>
                 <span className='grid min-w-0 flex-1'>
                   <span className='font-medium'>{name}</span>
-                  <span className='text-text-muted text-xs'>{action} · {when}</span>
+                  <span className='text-text-muted text-xs'>{action} <MetaSeparator /> {when}</span>
                 </span>
                 <Badge size='sm' variant={state === 'Rewarded' ? 'success-light' : 'secondary'}>{state}</Badge>
-              </li>
+              </Item>
             ))}
           </ul>
         </div>
-      </section>
-      <section aria-labelledby='tiers-title' className='grid content-start gap-4 rounded-xl border p-5'>
+      </CardRoot>
+      <CardRoot as='section' variant='outline' padding='none' aria-labelledby='tiers-title' className='grid content-start gap-4 p-5 overflow-visible'>
         <div className='grid gap-1'>
           <h2 id='tiers-title' className='text-sm font-medium'>Reward tiers</h2>
           <p className='text-2xl font-semibold tabular-nums'>{referred} referrals</p>
@@ -100,7 +104,7 @@ export function Pattern() {
           {tiers.map((tier) => {
             const reached = referred >= tier.count;
             return (
-              <li key={tier.count} className='flex items-center gap-3'>
+              <Item as='li' size='sm' key={tier.count} className='gap-3'>
                 <IconTile variant='solid' size='sm' radius='full' className={reached ? 'bg-success-subtle text-success' : 'bg-surface-muted text-text-muted'}>
                   <RegistryIcon lucide={reached ? 'CheckIcon' : tier.icon} aria-hidden='true' />
                 </IconTile>
@@ -108,11 +112,11 @@ export function Pattern() {
                   <span className='font-medium'>{tier.reward}</span>
                   <span className='text-text-muted text-xs'>{tier.count} referrals{reached ? ' · unlocked' : ''}</span>
                 </span>
-              </li>
+              </Item>
             );
           })}
         </ol>
-      </section>
+      </CardRoot>
     </div>
   );
 }

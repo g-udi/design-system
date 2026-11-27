@@ -1,4 +1,6 @@
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import {
+  DialogConfirmationHeader,
   DialogConfirmationRoot as DialogConfirmation,
   DialogConfirmationCancel,
   DialogConfirmationContent,
@@ -17,7 +19,7 @@ export function Pattern() {
         <Button variant='outline'>View Confirmation</Button>
       </DialogConfirmationTrigger>
       <DialogConfirmationContent className='gap-4 p-6 sm:max-w-sm'>
-        <div className='mx-auto flex flex-col items-center justify-center gap-2'>
+        <DialogConfirmationHeader className='mx-auto flex flex-col items-center justify-center gap-2'>
           <DialogConfirmationMedia className='bg-info-muted text-info size-12 rounded-full'>
             <RegistryIcon lucide='CheckIcon' className='size-5' />
           </DialogConfirmationMedia>
@@ -28,9 +30,9 @@ export function Pattern() {
             Please check your email for confirmation and further instructions
             about the event.
           </DialogConfirmationDescription>
-        </div>
+        </DialogConfirmationHeader>
 
-        <div className='grid gap-2 rounded-lg bg-surface-muted p-3'>
+        <CardRoot as='dl' variant='soft' radius='lg' padding='none' className='grid gap-2 rounded-lg bg-surface-muted p-3'>
           {[
             ['Order Number', 'GBD99763JS'],
             ['Order Date', '7 September 2024'],
@@ -42,13 +44,13 @@ export function Pattern() {
               key={label}
               className='flex items-center justify-between text-sm'
             >
-              <span className='text-text-muted font-medium'>
+              <dt className='text-text-muted font-medium'>
                 {label}
-              </span>
-              <span className='text-text font-semibold'>{value}</span>
+              </dt>
+              <dd className='text-text font-semibold'>{value}</dd>
             </div>
           ))}
-        </div>
+        </CardRoot>
 
         <DialogConfirmationFooter className='-mx-6 -mb-6 px-6'>
           <DialogConfirmationCancel variant='default' className='w-full sm:w-full'>

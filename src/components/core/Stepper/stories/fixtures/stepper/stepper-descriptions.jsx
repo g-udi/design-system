@@ -13,8 +13,7 @@ import {
   StepperTitle,
   StepperTrigger
 } from '@gaudi/design-system/core/Stepper';
-import { Label } from '@gaudi/design-system/core/Field';
-import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
+import LabeledSwitch from '@gaudi/design-system/core/Switch';
 import {
   ToggleGroupRoot as ToggleGroup,
   ToggleGroupItem
@@ -68,10 +67,7 @@ export function Pattern() {
             </ToggleGroupItem>
           ))}
         </ToggleGroup>
-        <Label className='gap-2 text-sm font-normal'>
-          <Switch size='sm' checked={descriptions} onCheckedChange={setDescriptions} />
-          Descriptions
-        </Label>
+        <LabeledSwitch className='gap-2 text-sm font-normal' size='sm' checked={descriptions} onCheckedChange={setDescriptions} label="Descriptions" />
       </div>
       <Stepper defaultValue={2} indicators={indicators} className='space-y-6'>
         <StepperNav className={cn(layout === 'start' && 'gap-3')}>

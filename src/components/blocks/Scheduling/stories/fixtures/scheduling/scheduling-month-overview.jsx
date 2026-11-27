@@ -1,13 +1,12 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import { Item, ItemContent, ItemTitle, ItemDescription } from '@gaudi/design-system/core/Item';
+import EmptyState from '@gaudi/design-system/core/EmptyState';
+import { CardRoot as Card } from '@gaudi/design-system/core/Card';
 import { StatusDot } from '@gaudi/design-system/core/Pill';
 import { useState } from 'react';
 import { ScheduleCalendar, dayKey } from '@gaudi/design-system/blocks/Scheduling';
-import {
-  AvatarRoot as Avatar,
-  AvatarFallback,
-  AvatarGroup,
-  AvatarImage
-} from '@gaudi/design-system/core/Avatar';
+import { Avatar, AvatarGroup } from '@gaudi/design-system/core/Avatar';
 import { ProgressRoot } from '@gaudi/design-system/core/Progress';
 import {
   ToggleGroupRoot as ToggleGroup,
@@ -65,7 +64,7 @@ export function Pattern() {
       : Object.fromEntries(Object.entries(attendance).filter(([, status]) => statuses.includes(status)).map(([day, status]) => [day, [attendanceStatus[status].tone]]));
   const days = Object.values(attendance);
   return (
-    <div className='@container bg-surface grid min-w-0 w-full max-w-sm grid-cols-1 gap-3 rounded-lg border p-4'>
+    <Card variant='outline' radius='lg' padding='lg' className='@container grid w-full min-w-0 grid-cols-1 gap-3'>
       <div className='flex flex-wrap items-center justify-between gap-2'>
         <h3 className='font-medium'>October</h3>
         <ToggleGroup aria-label='View' type='single' variant='outline' size='xs' spacing={0} value={mode} onValueChange={(next) => setMode(next || mode)}>
@@ -91,25 +90,20 @@ export function Pattern() {
       {mode === 'events' ? (
         <ul className='grid gap-2 border-t pt-3'>
           {visible.filter((event) => event.day === dayKey(date)).map((event) => (
-            <li key={event.title} className='flex items-center gap-2.5 text-sm'>
-              <span aria-hidden='true' className={cn('h-8 w-1 rounded-full', dot[categories[event.category].tone])} />
-              <div className='min-w-0 flex-1'>
-                <p className='truncate font-medium'>{event.title}</p>
-                <p className='text-text-muted text-xs tabular-nums'>
-                  {event.time} · {categories[event.category].label}
-                </p>
-              </div>
+            <Item as='li' key={event.title} size='xs' className='flex-nowrap gap-2.5'>
+              <StatusDot aria-hidden='true' className={dot[categories[event.category].tone]} />
+              <ItemContent className='min-w-0'>
+                <ItemTitle className='truncate'>{event.title}</ItemTitle>
+                <ItemDescription className='tabular-nums'>{event.time} <MetaSeparator /> {categories[event.category].label}</ItemDescription>
+              </ItemContent>
               <AvatarGroup>
                 {event.people.slice(0, 3).map((person) => (
-                  <Avatar key={person} className='size-6'>
-                    <AvatarImage src={portrait(person)} alt='' />
-                    <AvatarFallback>·</AvatarFallback>
-                  </Avatar>
+                  <Avatar key={person} size='xs' surface='tinted' className='size-6' src={portrait(person)} fallback alt='' />
                 ))}
               </AvatarGroup>
-            </li>
+            </Item>
           ))}
-          {!visible.some((event) => event.day === dayKey(date)) ? <li className='text-text-muted text-sm'>No events on this day.</li> : null}
+          {!visible.some((event) => event.day === dayKey(date)) ? <li><EmptyState compact title='No events on this day.' /></li> : null}
         </ul>
       ) : (
         <dl className='grid gap-2 border-t pt-3 text-sm'>
@@ -127,6 +121,6 @@ export function Pattern() {
           })}
         </dl>
       )}
-    </div>
+    </Card>
   );
 }

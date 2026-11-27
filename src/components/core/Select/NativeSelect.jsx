@@ -1,6 +1,9 @@
+'use client';
+import { useFieldControlProps } from '../Field/fieldContext.js';
 import { cn } from '../../../utilities/cn/index.js';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
-function NativeSelect({ className, size = 'default', ...props }) {
+function NativeSelect({ className, size = 'default', invalid, ...props }) {
+  const fieldProps = useFieldControlProps({ ...props, invalid });
   return (
     <div
       className={cn(
@@ -15,6 +18,7 @@ function NativeSelect({ className, size = 'default', ...props }) {
         data-size={size}
         className='ds-part-native-select outline-none disabled:pointer-events-none disabled:cursor-not-allowed'
         {...props}
+        {...fieldProps}
       />
       <RegistryIcon
         lucide='ChevronDownIcon'

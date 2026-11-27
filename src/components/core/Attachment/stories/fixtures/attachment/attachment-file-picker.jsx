@@ -1,4 +1,5 @@
 'use client';
+import { FieldErrorPrimitive } from '@gaudi/design-system/core/Field';
 import {
   formatBytes,
   useFileUpload
@@ -60,9 +61,7 @@ export function Pattern() {
       </Attachment>
 
       {errors.length > 0 ? (
-        <p className='text-ui-destructive text-xs' role='alert'>
-          {errors[0]}
-        </p>
+        <FieldErrorPrimitive>{errors[0]}</FieldErrorPrimitive>
       ) : null}
 
       {files.length > 0 ? (

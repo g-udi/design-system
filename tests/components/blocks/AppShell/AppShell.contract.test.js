@@ -226,7 +226,7 @@ test('AppShellNav renders people, bare counts, a hover quick action and a group 
 test('shell composition additions: tile and list presets, a labelled route group and the notifications trigger', async () => {
   const { createElement: h } = await import('react');
   const { renderToStaticMarkup } = await import('react-dom/server');
-  const { AppShellNav, AppShellNotifications, SidebarProvider } = await loadComponent(new URL('../../../../src/components/blocks/AppShell/index.js', import.meta.url));
+  const { AppShellNav, AppShellNotifications, AppShellNotificationItem, SidebarProvider } = await loadComponent(new URL('../../../../src/components/blocks/AppShell/index.js', import.meta.url));
   const { AppShellPlaceholderGrid } = await loadComponent(new URL('../../../../src/components/blocks/AppShell/stories/fixtures/AppShellPlaceholder.jsx', import.meta.url));
   const tiles = renderToStaticMarkup(h(AppShellPlaceholderGrid, { preset: 'tiles' }));
   assert.equal(tiles.match(/data-kind="block"/g)?.length, 9);
@@ -246,6 +246,16 @@ test('shell composition additions: tile and list presets, a labelled route group
   assert.match(bell, /aria-haspopup="dialog"/);
   const read = renderToStaticMarkup(h(AppShellNotifications, { defaultItems: items.map((item) => ({ ...item, unread: false })) }));
   assert.match(read, /aria-label="Notifications"/);
+  const visibleTrigger = (entries) => renderToStaticMarkup(h(AppShellNotifications, { defaultItems: entries, showTriggerLabel: true }));
+  assert.match(visibleTrigger(items), /data-slot="badge"[^>]*>2<\/span>/);
+  assert.match(visibleTrigger([]), />Notifications<\/span>/);
+  assert.doesNotMatch(visibleTrigger([]), /data-slot="badge"/);
+  const attachment = { name: 'research.txt', text: 'A & B' };
+  const row = renderToStaticMarkup(h(AppShellNotificationItem, { item: { title: 'Shared field notes', attachment } }));
+  assert.match(row, /download="research.txt"/);
+  assert.match(row, /href="data:text\/plain;charset=utf-8,A%20%26%20B"/);
+  assert.doesNotMatch(row, /aria-label="Open research.txt"/);
+
 });
 
 test('AppShellNav nests collapsible groups as ul > li only, and the skip link leaves the tab order under a modal', async () => {

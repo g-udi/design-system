@@ -1,4 +1,5 @@
 'use client';
+import { ChatMessage, ChatMessageAvatar, ChatMessageContent } from '@gaudi/design-system/chat/ChatMessage';
 import { useEffect, useState } from 'react';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import {
@@ -81,24 +82,28 @@ export function Pattern() {
       </FrameHeader>
 
       <FramePanel className='flex flex-col gap-3'>
-        <div className='flex gap-2'>
-          <Avatar className='size-7 shrink-0 rounded-full'>
-            <AvatarImage
-              src='/avatars/person-20.svg'
-              alt='Isaura Stenberg'
-            />
-            <AvatarFallback>IS</AvatarFallback>
-          </Avatar>
-          <p className='pt-1 text-sm'>How do I show a reply while it is still being written?</p>
-        </div>
+        <ChatMessage aria-label='Question from Isaura Stenberg'>
+          <ChatMessageAvatar>
+            <Avatar className='size-7 shrink-0 rounded-full'>
+              <AvatarImage
+                src='/avatars/person-20.svg'
+                alt='Isaura Stenberg'
+              />
+              <AvatarFallback>IS</AvatarFallback>
+            </Avatar>
+          </ChatMessageAvatar>
+          <ChatMessageContent><p className='pt-1 text-sm'>How do I show a reply while it is still being written?</p></ChatMessageContent>
+        </ChatMessage>
 
-        <div className='flex gap-2'>
-          <Avatar className='size-7 shrink-0 rounded-full'>
-            <AvatarFallback className='bg-ui-muted text-ui-muted-foreground text-xs font-medium'>
-              AI
-            </AvatarFallback>
-          </Avatar>
-          <div className='flex min-w-0 flex-1 flex-col gap-2 pt-1'>
+        <ChatMessage aria-label='Assistant reply'>
+          <ChatMessageAvatar>
+            <Avatar className='size-7 shrink-0 rounded-full'>
+              <AvatarFallback className='bg-ui-muted text-ui-muted-foreground text-xs font-medium'>
+                AI
+              </AvatarFallback>
+            </Avatar>
+          </ChatMessageAvatar>
+          <ChatMessageContent className='gap-2 pt-1'>
             {/* markdownFences splits the partial reply into text and code
              parts; an unclosed fence is still `open` and keeps the caret. */}
             {markdownFences(reply.slice(0, length)).map((part, index) =>
@@ -133,8 +138,8 @@ export function Pattern() {
                 </CodeBlock>
               )
             )}
-          </div>
-        </div>
+          </ChatMessageContent>
+        </ChatMessage>
       </FramePanel>
     </Frame>
   );

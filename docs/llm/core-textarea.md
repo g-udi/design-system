@@ -46,7 +46,7 @@ Use FieldLabel and FieldError. Preserve entered text after a validation or submi
 
 Curated patterns:
 
-- Growing note field with a counter — registry item `@gaudi/textarea-auto-resize` (uses `FieldLabelPrimitive`, `FieldRoot`, `Textarea`)
+- Growing note field with a counter — registry item `@gaudi/textarea-auto-resize` (uses `CharacterCount`, `FieldLabelPrimitive`, `FieldRoot`, `Textarea`)
 - Field states — registry item `@gaudi/textarea-field-states` (uses `Field`, `FieldDescription`, `FieldError`, `FieldLabel`, `Textarea`)
 
 ## Related

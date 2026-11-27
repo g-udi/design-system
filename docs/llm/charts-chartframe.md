@@ -11,7 +11,7 @@ import ChartFrame from '@gaudi/design-system/charts/ChartFrame';
 // also: import { … } from '@gaudi/design-system/charts';
 ```
 
-Exports: `ChartActiveMarker`, `ChartAnnotations`, `ChartAreaGradient`, `ChartContainer`, `ChartDataTable`, `ChartFrame`, `ChartGrid`, `ChartLegend`, `ChartLegendContent`, `ChartReferenceLabel`, `ChartReferenceLine`, `ChartStatePanel`, `ChartStyle`, `ChartTooltip`, `ChartTooltipContent`, `ChartTooltipRows`, `ChartXAxis`, `ChartYAxis`, `DEFAULT_CHART_LABELS`, `binValues`, `boxStats`, `chartAxisTick`, `chartColors`, `chartScales`, `chartTones`, `createChartFormatter`, `createRowsTooltip`, `dataStatus`, `default`, `extent`, `getChartColor`, `groupSmallSlices`, `isChartNumber`, `niceTicks`, `scaleLinear`, `useChartFrame`, `useRechartsActive`
+Exports: `ChartActiveMarker`, `ChartAnnotations`, `ChartAreaGradient`, `ChartContainer`, `ChartDataTable`, `ChartFrame`, `ChartGrid`, `ChartLegend`, `ChartLegendContent`, `ChartLegendList`, `ChartReferenceLabel`, `ChartReferenceLine`, `ChartStatePanel`, `ChartStyle`, `ChartTooltip`, `ChartTooltipContent`, `ChartTooltipRows`, `ChartXAxis`, `ChartYAxis`, `DEFAULT_CHART_LABELS`, `binValues`, `boxStats`, `chartAxisTick`, `chartColors`, `chartScales`, `chartTones`, `createChartFormatter`, `createRowsTooltip`, `dataStatus`, `default`, `extent`, `getChartColor`, `groupSmallSlices`, `isChartNumber`, `niceTicks`, `scaleLinear`, `useChartFrame`, `useRechartsActive`
 
 ## Props
 
@@ -96,6 +96,7 @@ Import from `@gaudi/design-system/charts` or `@gaudi/design-system/charts/ChartF
 | `children` | ReactNode | — | Content composed from the exported parts. |
 | `useChartFrame()` | hook | — | activeIndex, setActive and format for drawn elements; mark them with data-chart-index. |
 | `ChartContainer / ChartGrid / ChartXAxis / ChartYAxis / ChartReferenceLine / ChartAnnotations / createRowsTooltip` | parts | — | Style bespoke Recharts charts with chart tokens. |
+| `ChartLegendList` | component | — | Renders a list of `{ key, label, color }` items below a plot. Give the list an accessible name with `aria-label`. |
 | `title / description` | ReactNode | — | Figure caption above the plot. |
 | `ariaLabel` | string | title or Chart | Accessible name of the plot, the single keyboard stop. |
 | `height` | number | type-specific | Plot height in pixels. |

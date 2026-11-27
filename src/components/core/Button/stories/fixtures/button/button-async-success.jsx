@@ -1,21 +1,18 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useTimeout } from '@gaudi/design-system/hooks';
+import { useState } from 'react';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { LoaderRoot as Loader } from '@gaudi/design-system/core/Loader';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 export function Pattern() {
   const [status, setStatus] = useState('idle');
-  useEffect(() => {
-    if (status !== 'success') return;
-    const timer = setTimeout(() => setStatus('idle'), 2e3);
-    return () => clearTimeout(timer);
-  }, [status]);
+  useTimeout(() => setStatus('success'), status === 'loading' ? 900 : null);
+  useTimeout(() => setStatus('idle'), status === 'success' ? 2000 : null);
   return (
     <Button
       onClick={() => {
         if (status !== 'idle') return;
         setStatus('loading');
-        setTimeout(() => setStatus('success'), 900);
       }}
       disabled={status === 'loading'}
       aria-busy={status === 'loading'}

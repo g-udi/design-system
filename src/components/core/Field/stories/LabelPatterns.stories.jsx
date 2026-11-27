@@ -15,7 +15,7 @@ export const LabelAccessories = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.type(canvas.getByRole('textbox', { name: /^Bio/ }), 'Designer');
-    await expect(canvas.getByText('8/200')).toBeVisible();
+    await expect(canvas.getByText('192 characters left')).toBeVisible();
     await userEvent.click(canvas.getByText('Accept terms and conditions'));
     await expect(canvas.getByRole('checkbox', { name: 'Accept terms and conditions' })).toHaveAttribute('aria-checked', 'true');
   }

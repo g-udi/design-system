@@ -65,7 +65,7 @@ The plot is one tab stop named by ariaLabel. The arrow keys walk the points, Hom
 
 Curated patterns:
 
-- Forecast with a stripe zone — registry item `@gaudi/line-chart-forecast-zone` (uses `CardContent`, `CardDescription`, `CardHeader`, `CardRoot`, `CardTitle`, `ChartContainer`, `ChartLegend`, `ChartLegendContent`, `ChartTooltip`, `ChartTooltipContent`)
+- Forecast with a stripe zone — registry item `@gaudi/line-chart-forecast-zone` (uses `CardContent`, `CardDescription`, `CardHeader`, `CardRoot`, `CardTitle`, `ChartContainer`, `ChartGrid`, `ChartLegend`, `ChartLegendContent`, `ChartTooltip`, `ChartXAxis`, `createRowsTooltip`)
 
 ## README
 

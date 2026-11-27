@@ -1,5 +1,5 @@
 'use client';
-import { Separator } from '@gaudi/design-system/core/Separator';
+import { MetaSeparator, Separator } from '@gaudi/design-system/core/Separator';
 import { IconTile } from '@gaudi/design-system/core/Icon';
 import { Label } from '@gaudi/design-system/core/Field';
 import { GaudiLogo, GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
@@ -11,7 +11,7 @@ import {
 import { DashboardGrid, DashboardPanel } from '@gaudi/design-system/blocks/Dashboard';
 import Button from '@gaudi/design-system/core/Button';
 import { CardRoot, CardContent } from '@gaudi/design-system/core/Card';
-import { AvatarRoot, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
+import { getAvatarInitials, AvatarRoot, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import Select from '@gaudi/design-system/core/Select';
 import DataTable from '@gaudi/design-system/core/DataTable';
@@ -124,10 +124,10 @@ function VisitorsPanel({ onDetails, fullWidth = false }) {
   return <DashboardPanel title='Total visitors' span={fullWidth ? 12 : 6} spanMd={fullWidth ? 6 : 3} className='shadow-none' action={<Button variant='outline' size='xs' onClick={onDetails}>Details</Button>}>
     <div className='mb-4 flex items-center gap-3'><strong className='text-2xl font-semibold tabular-nums'>23,018</strong><Badge variant='success-light'>+6.2%</Badge></div>
     <p className='text-text-muted mb-4 text-xs'>Compared with the previous month</p>
+    <BarChart framed={false} ariaLabel='Visitor share by device' data={devices} xKey='label' series={[{ key: 'value', label: 'Share of visitors' }]} height={130} formatValue={value => value + '%'} />
     <ul className='border-ui-border grid grid-cols-3 border-t pt-4'>
       {devices.map((device, index) => <li key={device.label} className={`min-w-0 px-2 first:ps-0 last:pe-0 ${index ? 'border-ui-border border-s border-dashed' : ''}`}>
         <span className='text-text-muted text-xs'>{device.label}</span><p className='mt-2 text-xl font-semibold tabular-nums'>{device.value}%</p>
-        <div aria-hidden='true' className='mt-3 flex h-24 items-end'><div className='bg-ui-primary/25 w-full rounded-(--ds-radius-control)' style={{ height: `${device.value * 1.4}%` }} /></div>
         <p className='text-text-muted mt-2 text-xs tabular-nums'>{device.visits.toLocaleString('en-US')} visits</p>
       </li>)}
     </ul>
@@ -158,7 +158,7 @@ function CustomersPanel({ onCustomer }) {
       <div><Label htmlFor={`${id}-plan`} className='mb-1.5 block text-xs'>Select plan</Label><Select id={`${id}-plan`} className='max-w-none' value={plan} onValueChange={setPlan} options={['all', 'Enterprise', 'Team', 'Starter'].map(value => ({ value, label: value === 'all' ? 'All plans' : value }))} /></div>
     </div>
     {visible.length ? <DataTable caption='Customer accounts' className='rounded-none border-x-0 shadow-none' rows={visible} sortable selectable getRowLabel={customer => customer.name} headerVariant='plain' density='compact' columns={[
-      { key: 'name', header: 'User', render: customer => <span className='flex items-center gap-2'><AvatarRoot className='size-8'><AvatarImage src={`/avatars/${customer.photo}.svg`} alt='' /><AvatarFallback>{customer.name.slice(0, 1)}</AvatarFallback></AvatarRoot><span><span className='block font-medium'>{customer.name}</span><span className='text-text-muted block text-xs'>{customer.email}</span></span></span> },
+      { key: 'name', header: 'User', render: customer => <span className='flex items-center gap-2'><AvatarRoot className='size-8'><AvatarImage src={`/avatars/${customer.photo}.svg`} alt='' /><AvatarFallback>{getAvatarInitials(customer.name)}</AvatarFallback></AvatarRoot><span><span className='block font-medium'>{customer.name}</span><span className='text-text-muted block text-xs'>{customer.email}</span></span></span> },
       { key: 'role', header: 'Role' }, { key: 'plan', header: 'Plan' }, { key: 'billing', header: 'Billing' },
       { key: 'status', header: 'Status', render: customer => <Badge variant={customer.status === 'Active' ? 'success-light' : 'warning-light'}>{customer.status}</Badge> }
     ]} onRowClick={onCustomer} /> : <EmptyState compact title='No matching customers' description='Try a different role or plan to find an account.' actions={<Button variant='outline' size='sm' onClick={reset}>Clear filters</Button>} />}
@@ -196,7 +196,7 @@ function FinanceShell() {
           <SidebarContent role='navigation' aria-label='Finance navigation' className='gap-4'>
             {navigation.map(group => <AppShellNav key={group.label} label={group.label} items={group.items} value={page} onValueChange={choosePage} labelClassName='uppercase tracking-wide text-[10px] font-normal' />)}
           </SidebarContent>
-          <SidebarFooter className='border-ui-border border-t p-3'><span className='text-text-muted text-xs group-data-[collapsible=icon]:sr-only'>Demo workspace · sample data</span></SidebarFooter>
+          <SidebarFooter className='border-ui-border border-t p-3'><span className='text-text-muted text-xs group-data-[collapsible=icon]:sr-only'>Demo workspace <MetaSeparator /> sample data</span></SidebarFooter>
         </Sidebar>
         <AppShellPanel ref={panel} inset={false}>
           <AppShellHeader bordered>

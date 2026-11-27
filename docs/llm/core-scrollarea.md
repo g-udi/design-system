@@ -64,7 +64,7 @@ Give the viewport a useful accessible name using aria-label or aria-labelledby. 
 
 Curated patterns:
 
-- Horizontal gallery — registry item `@gaudi/scroll-area-horizontal-gallery` (uses `ScrollArea`, `ScrollBar`, `cn`)
+- Horizontal gallery — registry item `@gaudi/scroll-area-horizontal-gallery` (uses `ScrollArea`, `ScrollBar`)
 - Wide table — registry item `@gaudi/scroll-area-wide-table` (uses `ScrollArea`, `ScrollBar`, `TableBodyPrimitive`, `TableCellPrimitive`, `TableHeadPrimitive`, `TableHeader`, `TableRoot`, `TableRowPrimitive`)
 
 ## Related

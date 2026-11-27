@@ -452,20 +452,19 @@
             "imports": [
               "Button",
               "CardContent",
+              "CardFooter",
               "CardHeader",
               "CardRoot",
               "Collapsible",
               "CollapsibleContent",
-              "CollapsibleTrigger",
-              "Item",
-              "ItemActions",
-              "ItemMedia",
-              "ItemTitle",
               "RegistryIcon",
               "Tabs",
               "TabsContent",
               "TabsList",
-              "TabsTrigger"
+              "TabsTrigger",
+              "Tree",
+              "TreeItem",
+              "TreeItemLabel"
             ]
           },
           {
@@ -485,6 +484,8 @@
               "DropdownMenuItemPrimitive",
               "DropdownMenuRoot",
               "DropdownMenuTrigger",
+              "EmptyState",
+              "FieldErrorPrimitive",
               "Frame",
               "FrameHeader",
               "FramePanel",
@@ -503,6 +504,7 @@
               "Collapsible",
               "CollapsibleContent",
               "CollapsibleTrigger",
+              "Item",
               "RegistryIcon"
             ]
           }
@@ -789,6 +791,7 @@
               "AttachmentMedia",
               "AttachmentTitle",
               "AttachmentTrigger",
+              "FieldErrorPrimitive",
               "RegistryIcon",
               "formatBytes",
               "useFileUpload"
@@ -1093,7 +1096,8 @@
               "AvatarFallback",
               "AvatarImage",
               "AvatarRoot",
-              "LoaderRoot"
+              "LoaderRoot",
+              "useInterval"
             ]
           },
           {
@@ -1107,6 +1111,11 @@
               "AvatarGroupCount",
               "AvatarImage",
               "AvatarRoot",
+              "Empty",
+              "EmptyDescription",
+              "EmptyHeader",
+              "EmptyMedia",
+              "EmptyTitle",
               "RegistryIcon"
             ]
           },
@@ -1178,6 +1187,7 @@
               "AvatarGroup",
               "AvatarImage",
               "AvatarRoot",
+              "Badge",
               "Frame",
               "FramePanel"
             ]
@@ -1851,7 +1861,8 @@
             "imports": [
               "Button",
               "LoaderRoot",
-              "RegistryIcon"
+              "RegistryIcon",
+              "useTimeout"
             ]
           },
           {
@@ -1891,12 +1902,20 @@
             "imports": [
               "Badge",
               "Button",
+              "Command",
+              "CommandDialog",
+              "CommandEmpty",
+              "CommandInput",
+              "CommandItem",
+              "CommandList",
               "Dialog",
+              "EmptyState",
               "Input",
               "Kbd",
               "Label",
               "RegistryIcon",
               "StatusDot",
+              "Toggle",
               "TooltipContent",
               "TooltipProvider",
               "TooltipRoot",
@@ -1912,10 +1931,10 @@
             "imports": [
               "Button",
               "Dialog",
-              "FieldLabel",
               "LoaderRoot",
               "RegistryIcon",
-              "SwitchRoot"
+              "Switch",
+              "Toggle"
             ]
           },
           {
@@ -1936,6 +1955,7 @@
             "imports": [
               "Button",
               "RegistryIcon",
+              "Toggle",
               "cn"
             ]
           }
@@ -2076,6 +2096,7 @@
               "DropdownMenuRoot",
               "DropdownMenuTrigger",
               "RegistryIcon",
+              "Toggle",
               "writeToClipboard"
             ]
           },
@@ -2103,10 +2124,12 @@
               "DropdownMenuRoot",
               "DropdownMenuSeparatorPrimitive",
               "DropdownMenuTrigger",
+              "EmptyState",
               "Input",
               "Label",
               "RegistryIcon",
-              "StatusDot"
+              "StatusDot",
+              "Toggle"
             ]
           },
           {
@@ -2124,6 +2147,7 @@
               "DropdownMenuItem",
               "DropdownMenuRadioGroup",
               "DropdownMenuRadioItem",
+              "EmptyState",
               "FieldInput",
               "InputGroup",
               "InputGroupAddon",
@@ -2187,6 +2211,7 @@
               "DropdownMenuSeparatorPrimitive",
               "DropdownMenuTrigger",
               "FieldInput",
+              "MetaSeparator",
               "RegistryIcon"
             ]
           },
@@ -2198,19 +2223,24 @@
             "imports": [
               "Button",
               "ButtonGroup",
-              "ButtonGroupText",
               "DropdownMenuContent",
               "DropdownMenuLabelPrimitive",
               "DropdownMenuRadioGroup",
               "DropdownMenuRadioItem",
               "DropdownMenuRoot",
               "DropdownMenuTrigger",
+              "NumberField",
+              "NumberFieldDecrement",
+              "NumberFieldGroup",
+              "NumberFieldIncrement",
+              "NumberFieldInput",
               "Pagination",
               "PaginationLink",
               "PaginationNext",
               "PaginationPrevious",
               "PaginationStatus",
-              "RegistryIcon"
+              "RegistryIcon",
+              "Toggle"
             ]
           },
           {
@@ -2230,8 +2260,10 @@
               "DropdownMenuRoot",
               "DropdownMenuSeparatorPrimitive",
               "DropdownMenuTrigger",
+              "EmptyState",
               "FieldInput",
               "RegistryIcon",
+              "Toggle",
               "ToggleGroup",
               "toCsv",
               "useCopyToClipboard",
@@ -2247,7 +2279,13 @@
               "Button",
               "ButtonGroup",
               "FieldInput",
+              "NumberField",
+              "NumberFieldDecrement",
+              "NumberFieldGroup",
+              "NumberFieldIncrement",
+              "NumberFieldInput",
               "RegistryIcon",
+              "Toggle",
               "cn",
               "useCopyToClipboard"
             ]
@@ -2557,8 +2595,7 @@
               "Calendar",
               "CardContent",
               "CardRoot",
-              "Label",
-              "SwitchRoot",
+              "Switch",
               "ToggleGroupItem",
               "ToggleGroupRoot"
             ]
@@ -2601,6 +2638,7 @@
             "imports": [
               "CardContent",
               "CardRoot",
+              "CodeBlock",
               "DateSelector",
               "Label",
               "SwitchRoot",
@@ -2679,6 +2717,16 @@
         "Avoid nested cards; separate sections with spacing or a table/list pattern instead."
       ],
       "props": [
+        {
+          "name": "as",
+          "names": [
+            "as"
+          ],
+          "type": "React.ElementType",
+          "default": "div",
+          "required": false,
+          "description": "The semantic element rendered by the shared surface, such as form or section."
+        },
         {
           "name": "title",
           "names": [
@@ -2853,6 +2901,9 @@
             "imports": [
               "CardContent",
               "CardRoot",
+              "Item",
+              "ItemGroup",
+              "ItemTitle",
               "RegistryIcon",
               "cn"
             ]
@@ -2871,7 +2922,11 @@
               "Badge",
               "Button",
               "CardContent",
+              "CardDescription",
+              "CardFooter",
+              "CardHeader",
               "CardRoot",
+              "CardTitle",
               "DropdownMenuContent",
               "DropdownMenuGroup",
               "DropdownMenuItemPrimitive",
@@ -2889,7 +2944,10 @@
             "storyId": "core-card--link-cards",
             "imports": [
               "CardContent",
+              "CardDescription",
+              "CardHeader",
               "CardRoot",
+              "CardTitle",
               "IconTile",
               "Link",
               "RegistryIcon"
@@ -2934,10 +2992,9 @@
               "Button",
               "CardContent",
               "CardRoot",
-              "Label",
               "Link",
               "RegistryIcon",
-              "SwitchRoot",
+              "Switch",
               "cn"
             ]
           },
@@ -2965,9 +3022,8 @@
               "DropdownMenuRoot",
               "DropdownMenuSeparatorPrimitive",
               "DropdownMenuTrigger",
-              "Label",
               "RegistryIcon",
-              "SwitchRoot",
+              "Switch",
               "cn"
             ]
           },
@@ -2998,7 +3054,7 @@
       "storybook": "core-card--docs",
       "docs": "docs/llm/core-card.md",
       "source": "src/components/core/Card/",
-      "readme": "# Card\n\nA bordered surface that frames one unit of content: an article teaser, a metric, a settings group. Use it when content needs a visible boundary; use spacing or a list instead for page structure.\n\n```jsx\nimport { Card } from '@gaudi/design-system';\n\n<Card title='Weekly readers' subtitle='Last 7 days' variant='outline' padding='sm'>\n  <p>12.4k</p>\n</Card>\n```\n\n- `variant`: `elevated` (default), `outline`, `soft`, or `flat`. `padding`: `none`, `sm`, `md` (default), `lg`. `radius`: `none`, `sm`, `md`, `lg`.\n- `title`, `subtitle`, and `titleLevel` (2-6, default 3) render the heading and description with the `CardTitle` and `CardDescription` parts.\n- `interactive` adds hover elevation. Keep real links and buttons inside the card rather than making the whole surface clickable.\n\n## Parts\n\nFor headers with actions or a footer, compose `CardRoot`, `CardHeader`, `CardTitle`, `CardDescription`, `CardAction`, `CardContent`, and `CardFooter`. `CardTitle` and `CardDescription` accept `as` to render a heading or paragraph.\n\n`Frame`, `FramePanel`, `FrameHeader`, `FrameTitle`, `FrameDescription`, and `FrameFooter` build a tinted tray that holds one or more panels, such as stacked settings sections.\n\n`Card` and `CardRoot` use the same surface and variant implementation. `Card` supplies a padded title/body composition; `CardRoot` defaults to section spacing for `CardHeader`, `CardContent`, and `CardFooter`. Zero-valued titles and descriptions are preserved.",
+      "readme": "# Card\n\nA bordered surface that frames one unit of content: an article teaser, a metric, a settings group. Use it when content needs a visible boundary; use spacing or a list instead for page structure.\n\n```jsx\nimport { Card } from '@gaudi/design-system';\n\n<Card title='Weekly readers' subtitle='Last 7 days' variant='outline' padding='sm'>\n  <p>12.4k</p>\n</Card>\n```\n\n- `variant`: `elevated` (default), `outline`, `soft`, or `flat`. `padding`: `none`, `sm`, `md` (default), `lg`. `radius`: `none`, `sm`, `md`, `lg`.\n- `title`, `subtitle`, and `titleLevel` (2-6, default 3) render the heading and description with the `CardTitle` and `CardDescription` parts.\n- `interactive` adds hover elevation. Keep real links and buttons inside the card rather than making the whole surface clickable.\n\n## Parts\n\nFor headers with actions or a footer, compose `CardRoot`, `CardHeader`, `CardTitle`, `CardDescription`, `CardAction`, `CardContent`, and `CardFooter`. `CardRoot` accepts `as` to preserve the native semantics of a form, section, aside, or list item. It renders a div by default. `CardTitle` and `CardDescription` accept `as` to render a heading or paragraph.\n\n`Frame`, `FramePanel`, `FrameHeader`, `FrameTitle`, `FrameDescription`, and `FrameFooter` build a tinted tray that holds one or more panels, such as stacked settings sections.\n\n`Card` and `CardRoot` use the same surface and variant implementation. `Card` supplies a padded title/body composition; `CardRoot` defaults to section spacing for `CardHeader`, `CardContent`, and `CardFooter`. Zero-valued titles and descriptions are preserved.",
       "related": []
     },
     {
@@ -3197,8 +3253,7 @@
               "CarouselNext",
               "CarouselPrevious",
               "CarouselRoot",
-              "Label",
-              "SwitchRoot",
+              "Switch",
               "cn"
             ]
           },
@@ -3212,8 +3267,7 @@
               "CarouselContent",
               "CarouselItem",
               "CarouselRoot",
-              "Label",
-              "SwitchRoot",
+              "Switch",
               "cn"
             ]
           }
@@ -3533,7 +3587,8 @@
               "CascaderStatus",
               "CascaderTrigger",
               "CascaderValue",
-              "StatusDot"
+              "StatusDot",
+              "getAvatarInitials"
             ]
           },
           {
@@ -3604,12 +3659,11 @@
               "GithubDark",
               "GithubLight",
               "GoogleDrive",
-              "Label",
               "Loom",
               "RegistryIcon",
               "Slack",
               "Stripe",
-              "SwitchRoot",
+              "Switch",
               "ToggleGroupItem",
               "ToggleGroupRoot",
               "Zoom",
@@ -3691,6 +3745,7 @@
               "CascaderPanel",
               "CascaderStatus",
               "CascaderTrigger",
+              "MetaSeparator",
               "RegistryIcon",
               "useCascaderSelection"
             ]
@@ -4232,6 +4287,7 @@
               "CodeBlockLineActions",
               "CodeBlockTitle",
               "RegistryIcon",
+              "Toggle",
               "useCodeBlockSelection"
             ]
           },
@@ -4339,7 +4395,9 @@
               "Button",
               "CardContent",
               "CardFooter",
+              "CardHeader",
               "CardRoot",
+              "CardTitle",
               "CodeBlock",
               "CodeBlockDownloadButton",
               "CodeBlockHeader",
@@ -4363,6 +4421,9 @@
               "AvatarRoot",
               "Badge",
               "Button",
+              "ChatMessage",
+              "ChatMessageAvatar",
+              "ChatMessageContent",
               "CodeBlock",
               "CodeBlockContent",
               "CodeBlockCopyButton",
@@ -4779,8 +4840,11 @@
               "CommandItem",
               "CommandList",
               "CommandSeparator",
-              "KbdRoot",
-              "RegistryIcon"
+              "CommandShortcut",
+              "Kbd",
+              "RegistryIcon",
+              "getAvatarInitials",
+              "useHotkey"
             ]
           }
         ]
@@ -5577,7 +5641,8 @@
               "DataGridScrollArea",
               "DataGridTable",
               "RegistryIcon",
-              "dataGridFeatures"
+              "dataGridFeatures",
+              "getAvatarInitials"
             ]
           },
           {
@@ -5614,8 +5679,10 @@
               "AvatarRoot",
               "Badge",
               "CardContent",
+              "CardDescription",
               "CardHeader",
               "CardRoot",
+              "CardTitle",
               "DataGrid",
               "DataGridCardView",
               "DataGridColumnHeader",
@@ -5631,12 +5698,14 @@
               "DataGridViewOptions",
               "DataGridViewToggle",
               "Filters",
+              "MetaSeparator",
               "RegistryIcon",
               "SkeletonRoot",
               "createDataGridColumnRegistry",
               "createFilterQuery",
               "dataGridEqualsFilter",
               "dataGridFeatures",
+              "getAvatarInitials",
               "isFilterRule",
               "useDataGridLayouts"
             ]
@@ -5707,6 +5776,7 @@
               "SelectValue",
               "ToastProvider",
               "dataGridFeatures",
+              "getAvatarInitials",
               "toast",
               "useCopyToClipboard"
             ]
@@ -5752,7 +5822,9 @@
               "DataGridTableDndRowHandle",
               "DataGridTableDndRows",
               "Link",
-              "dataGridFeatures"
+              "dataGridFeatures",
+              "getAvatarInitials",
+              "useDataGridRowOrder"
             ]
           },
           {
@@ -5819,9 +5891,11 @@
               "DataGridTable",
               "DataGridTableFootRow",
               "DataGridTableFootRowCell",
+              "MetaSeparator",
               "ToggleGroupItem",
               "ToggleGroupRoot",
-              "dataGridFeatures"
+              "dataGridFeatures",
+              "getAvatarInitials"
             ]
           },
           {
@@ -5845,7 +5919,8 @@
               "DataGridScrollArea",
               "DataGridTableVirtual",
               "RegistryIcon",
-              "dataGridFeatures"
+              "dataGridFeatures",
+              "getAvatarInitials"
             ]
           },
           {
@@ -5952,6 +6027,7 @@
               "RegistryIcon",
               "ToastProvider",
               "dataGridFeatures",
+              "getAvatarInitials",
               "toast",
               "useCopyToClipboard"
             ]
@@ -5986,7 +6062,8 @@
               "SelectTrigger",
               "SelectValue",
               "SkeletonRoot",
-              "dataGridFeatures"
+              "dataGridFeatures",
+              "getAvatarInitials"
             ]
           },
           {
@@ -6039,6 +6116,7 @@
               "DataGridColumnHeader",
               "DataGridHeatmapCell",
               "DataGridScrollArea",
+              "DataGridSelectionBar",
               "DataGridTableRowSelect",
               "DataGridTableRowSelectAll",
               "DataGridTableVirtual",
@@ -6052,6 +6130,7 @@
               "RegistryIcon",
               "dataGridFeatures",
               "downloadCsv",
+              "getAvatarInitials",
               "getColumnHeaderLabel",
               "toCsv"
             ]
@@ -6117,6 +6196,7 @@
               "ToastProvider",
               "buildDataGridClearDetails",
               "dataGridFeatures",
+              "getAvatarInitials",
               "getDataGridActiveRegionGrid",
               "serializeDataGridClipboardText",
               "toast",
@@ -6143,7 +6223,8 @@
               "DataGridScrollArea",
               "DataGridTable",
               "DataGridTableRowExpand",
-              "dataGridFeatures"
+              "dataGridFeatures",
+              "getAvatarInitials"
             ]
           },
           {
@@ -6164,7 +6245,8 @@
               "DataGridScrollArea",
               "DataGridTable",
               "DataGridTableRowExpand",
-              "dataGridFeatures"
+              "dataGridFeatures",
+              "getAvatarInitials"
             ]
           }
         ]
@@ -6461,11 +6543,13 @@
               "DialogConfirmationContent",
               "DialogConfirmationDescription",
               "DialogConfirmationFooter",
+              "DialogConfirmationHeader",
               "DialogConfirmationMedia",
               "DialogConfirmationRoot",
               "DialogConfirmationTitle",
               "DialogConfirmationTrigger",
               "IconTile",
+              "Item",
               "RegistryIcon"
             ]
           },
@@ -6482,6 +6566,7 @@
               "DialogConfirmationContent",
               "DialogConfirmationDescription",
               "DialogConfirmationFooter",
+              "DialogConfirmationHeader",
               "DialogConfirmationMedia",
               "DialogConfirmationRoot",
               "DialogConfirmationTitle",
@@ -6548,6 +6633,7 @@
               "DialogConfirmationContent",
               "DialogConfirmationDescription",
               "DialogConfirmationFooter",
+              "DialogConfirmationHeader",
               "DialogConfirmationMedia",
               "DialogConfirmationRoot",
               "DialogConfirmationTitle",
@@ -6562,10 +6648,12 @@
             "storyId": "core-dialog--confirmation-success-summary",
             "imports": [
               "Button",
+              "CardRoot",
               "DialogConfirmationCancel",
               "DialogConfirmationContent",
               "DialogConfirmationDescription",
               "DialogConfirmationFooter",
+              "DialogConfirmationHeader",
               "DialogConfirmationMedia",
               "DialogConfirmationRoot",
               "DialogConfirmationTitle",
@@ -7022,6 +7110,7 @@
               "Field",
               "FieldInput",
               "FieldLabel",
+              "MetaSeparator",
               "RegistryIcon",
               "Separator",
               "StatusDot",
@@ -7111,7 +7200,8 @@
               "Gemini",
               "Openai",
               "OpenaiDark",
-              "RegistryIcon"
+              "RegistryIcon",
+              "getAvatarInitials"
             ]
           },
           {
@@ -7509,6 +7599,8 @@
               "EmptyHeader",
               "EmptyMedia",
               "EmptyTitle",
+              "FieldErrorPrimitive",
+              "FileUploadDropzone",
               "Link",
               "RegistryIcon",
               "useFileUpload"
@@ -8210,6 +8302,7 @@
             "storyId": "core-field--label-accessories",
             "imports": [
               "Badge",
+              "CharacterCount",
               "CheckboxRoot",
               "EmailInput",
               "FieldDescriptionPrimitive",
@@ -8231,12 +8324,7 @@
             "registry": "label-inline-edit",
             "storyId": "core-field--label-inline-edit",
             "imports": [
-              "Button",
-              "FieldDescriptionPrimitive",
-              "FieldInput",
-              "FieldRoot",
-              "Label",
-              "RegistryIcon"
+              "EditableField"
             ]
           }
         ]
@@ -8264,6 +8352,7 @@
         "kind": "default",
         "line": "import FileUpload from '@gaudi/design-system/core/FileUpload';",
         "exports": [
+          "FileUploadDropzone",
           "default",
           "formatBytes",
           "useFileUpload"
@@ -8389,6 +8478,7 @@
       "variants": {},
       "accessibility": "The native file input remains keyboard accessible. Announce rejection reasons and retain valid files.",
       "notes": [
+        "Compose FileUploadDropzone with the dropzoneProps returned by useFileUpload for an image tile, file gallery or custom layout.",
         "Selecting files does not upload them. The application owns storage, network requests and cancellation."
       ],
       "usage": "import FileUpload from '@gaudi/design-system/core/FileUpload';\n\n<FileUpload label='Attachments' files={files} onFilesChange={setFiles} multiple\n  accept='image/*,application/pdf' getFileState={getUploadState} onRetry={retryUpload} onCancel={cancelUpload} />",
@@ -8421,6 +8511,7 @@
               "AvatarImage",
               "AvatarRoot",
               "Button",
+              "FileUploadDropzone",
               "RegistryIcon",
               "cn",
               "formatBytes",
@@ -8437,13 +8528,17 @@
               "AlertDescription",
               "AlertTitle",
               "Button",
+              "CardRoot",
+              "CardTitle",
               "Empty",
               "EmptyContent",
               "EmptyDescription",
               "EmptyHeader",
               "EmptyTitle",
+              "FileUploadDropzone",
               "IconTile",
               "Loader",
+              "MetaSeparator",
               "ProgressRing",
               "RegistryIcon",
               "cn",
@@ -8461,6 +8556,7 @@
               "AlertDescription",
               "AlertTitle",
               "Button",
+              "FileUploadDropzone",
               "IconTile",
               "RegistryIcon",
               "cn",
@@ -8480,6 +8576,7 @@
               "AttachmentMedia",
               "Badge",
               "Button",
+              "FileUploadDropzone",
               "IconTile",
               "ProgressRing",
               "RegistryIcon",
@@ -8510,6 +8607,7 @@
               "DialogHeader",
               "DialogRoot",
               "DialogTitle",
+              "FileUploadDropzone",
               "IconTile",
               "ProgressRoot",
               "RegistryIcon",
@@ -8527,7 +8625,7 @@
       "storybook": "core-fileupload--docs",
       "docs": "docs/llm/core-fileupload.md",
       "source": "src/components/core/FileUpload/",
-      "readme": "# FileUpload\n\nControlled file selection with type, size and count limits. files and onFilesChange own the selection. getFileState supplies progress/error/success, and onRetry/onCancel delegate transport actions.\n\n## Usage\n\n```jsx\nconst [files, setFiles] = useState([]);\n<FileUpload\n  files={files}\n  onFilesChange={setFiles}\n  multiple\n  accept='.pdf,.md'\n  maxFiles={3}\n  maxSize={5000000}\n/>;\n```\n\n## API\n\n| Prop / export           | Type                       | Contract                                                                         |\n| ----------------------- | -------------------------- | -------------------------------------------------------------------------------- |\n| `files / onFilesChange` | File[] / function          | Controlled selected files. List existing server attachments with Attachment.     |\n| `accept / multiple`     | string / boolean           | Native accept syntax and single/multiple selection.                              |\n| `maxSize / maxFiles`    | number                     | Bytes and count. Negative/NaN limits allow zero; omission removes a limit.       |\n| `onReject`              | function([{file, reason}]) | Reports type, size or count rejection; never clears a valid existing selection.  |\n| `getFileState`          | function(file)             | Supplies status, measured progress and error text.                               |\n| `onRetry / onCancel`    | function(file)             | Host-owned transport actions; the component starts no requests.                  |\n| `labels`                | object                     | Overrides chooser, rejection, progress, success and action copy.                 |\n| `useFileUpload`         | hook                       | Headless state (previews, drag, errors) for custom upload surfaces; same `accept` rules. |\n| `formatBytes`           | function(bytes, decimals)  | Formats a size such as `1.8MB`; FileUpload uses it for each row.                 |\n\n## Ownership and verification\n\nThe host supplies data, translations, network calls, permissions and persistence. Gaudi owns layout, semantics and local interaction. Examples document working behavior and states, with Storybook interaction/axe checks and a server-rendering contract test alongside the component.",
+      "readme": "# FileUpload\n\nControlled file selection with type, size and count limits. files and onFilesChange own the selection. getFileState supplies progress/error/success, and onRetry/onCancel delegate transport actions.\n\n## Usage\n\n```jsx\nconst [files, setFiles] = useState([]);\n<FileUpload\n  files={files}\n  onFilesChange={setFiles}\n  multiple\n  accept='.pdf,.md'\n  maxFiles={3}\n  maxSize={5000000}\n/>;\n```\n\n## API\n\n| Prop / export           | Type                       | Contract                                                                         |\n| ----------------------- | -------------------------- | -------------------------------------------------------------------------------- |\n| `files / onFilesChange` | File[] / function          | Controlled selected files. List existing server attachments with Attachment.     |\n| `accept / multiple`     | string / boolean           | Native accept syntax and single/multiple selection.                              |\n| `maxSize / maxFiles`    | number                     | Bytes and count. Negative/NaN limits allow zero; omission removes a limit.       |\n| `onReject`              | function([{file, reason}]) | Reports type, size or count rejection; never clears a valid existing selection.  |\n| `getFileState`          | function(file)             | Supplies status, measured progress and error text.                               |\n| `onRetry / onCancel`    | function(file)             | Host-owned transport actions; the component starts no requests.                  |\n| `labels`                | object                     | Overrides chooser, rejection, progress, success and action copy.                 |\n| `useFileUpload`         | hook                       | Headless state (previews, drag, errors) for custom upload surfaces; same `accept` rules. |\n| `formatBytes`           | function(bytes, decimals)  | Formats a size such as `1.8MB`; FileUpload uses it for each row.                 |\n\nA custom layout can spread the hook’s `dropzoneProps` onto `FileUploadDropzone`. The shared surface marks an active drag and delegates file validation and preview management to the hook. Use `as={Button}` when the surface also opens the chooser, and connect the button to `openFileDialog`.\n\n## Ownership and verification\n\nThe host supplies data, translations, network calls, permissions and persistence. Gaudi owns layout, semantics and local interaction. Examples document working behavior and states, with Storybook interaction/axe checks and a server-rendering contract test alongside the component.",
       "related": []
     },
     {
@@ -8888,6 +8986,7 @@
               "AvatarGroup",
               "Badge",
               "Button",
+              "CodeBlock",
               "Filters",
               "RegistryIcon",
               "StatusDot",
@@ -8966,6 +9065,7 @@
               "Button",
               "CardContent",
               "CardRoot",
+              "CodeBlock",
               "Filters",
               "RegistryIcon",
               "StatusDot",
@@ -9023,6 +9123,7 @@
               "createFilterQuery",
               "createFilterRule",
               "dataGridFeatures",
+              "getAvatarInitials",
               "isFilterRule"
             ]
           }
@@ -9537,12 +9638,18 @@
             "registry": "flow-agent-graph",
             "storyId": "core-flow--agent-graph",
             "imports": [
+              "Alert",
+              "AlertAction",
+              "AlertDescription",
               "Button",
               "ChatAgentMark",
               "ChatMessageToolApproval",
+              "EmptyState",
               "Flow",
               "FlowInspector",
               "FlowStatus",
+              "MetaSeparator",
+              "Timeline",
               "Toggle",
               "useElementSize"
             ]
@@ -9555,6 +9662,7 @@
             "imports": [
               "Button",
               "ButtonGroup",
+              "CardRoot",
               "ClaudeAiIcon",
               "Field",
               "FieldError",
@@ -9566,6 +9674,7 @@
               "FlowPanel",
               "FlowProvider",
               "FlowStatus",
+              "MetaSeparator",
               "Redis",
               "RegistryIcon",
               "Slack",
@@ -9619,8 +9728,9 @@
               "FlowPanel",
               "FlowProvider",
               "FlowStatus",
-              "KbdGroup",
-              "KbdRoot",
+              "Kbd",
+              "NativeSelect",
+              "NativeSelectOption",
               "RegistryIcon",
               "Sheet",
               "SheetContent",
@@ -9635,6 +9745,7 @@
               "unreachableNodes",
               "useElementSize",
               "useFlowHistory",
+              "useHotkey",
               "useMergedRefs",
               "useReactFlow"
             ]
@@ -9647,15 +9758,18 @@
             "imports": [
               "Badge",
               "Button",
+              "CardRoot",
               "Field",
               "FieldDescription",
               "FieldError",
-              "FieldInput",
               "FieldLabel",
               "Flow",
               "FlowPanel",
               "FlowProvider",
               "FlowStatus",
+              "MetaSeparator",
+              "NativeSelect",
+              "NativeSelectOption",
               "NumberField",
               "NumberFieldGroup",
               "NumberFieldInput",
@@ -9684,7 +9798,9 @@
               "FlowControls",
               "FlowInspector",
               "FlowProvider",
+              "Item",
               "Label",
+              "MetaSeparator",
               "Redis",
               "RegistryIcon",
               "SelectContent",
@@ -9712,6 +9828,8 @@
               "Flow",
               "FlowProvider",
               "FlowStatus",
+              "Item",
+              "MetaSeparator",
               "Progress",
               "RegistryIcon",
               "Tabs",
@@ -10061,6 +10179,7 @@
               "GanttToolbar",
               "GanttView",
               "Label",
+              "MetaSeparator",
               "RegistryIcon",
               "StatusDot",
               "SwitchRoot",
@@ -10087,9 +10206,7 @@
             "registry": "gantt-day-dispatch",
             "storyId": "core-gantt--day-dispatch",
             "imports": [
-              "AvatarFallback",
-              "AvatarImage",
-              "AvatarRoot",
+              "Avatar",
               "Badge",
               "Button",
               "CardContent",
@@ -10106,8 +10223,10 @@
               "GanttToolbar",
               "GanttView",
               "Label",
+              "MetaSeparator",
               "ProgressRoot",
               "RegistryIcon",
+              "ScrollArea",
               "SelectContent",
               "SelectItem",
               "SelectRoot",
@@ -10128,9 +10247,7 @@
             "registry": "gantt-live-validation",
             "storyId": "core-gantt--live-validation",
             "imports": [
-              "AvatarFallback",
-              "AvatarImage",
-              "AvatarRoot",
+              "Avatar",
               "Badge",
               "Button",
               "CardContent",
@@ -10181,9 +10298,7 @@
             "registry": "gantt-resource-planner",
             "storyId": "core-gantt--resource-planner",
             "imports": [
-              "AvatarFallback",
-              "AvatarImage",
-              "AvatarRoot",
+              "Avatar",
               "Badge",
               "Button",
               "CardContent",
@@ -10214,6 +10329,7 @@
               "GanttToolbar",
               "GanttView",
               "IconTile",
+              "MetaSeparator",
               "ProgressRoot",
               "RegistryIcon",
               "SelectContent",
@@ -10236,6 +10352,7 @@
               "Button",
               "CardContent",
               "CardRoot",
+              "FieldRoot",
               "Gantt",
               "GanttNav",
               "GanttToolbar",
@@ -10276,7 +10393,8 @@
               "GanttNav",
               "GanttToolbar",
               "GanttView",
-              "RegistryIcon"
+              "RegistryIcon",
+              "getAvatarInitials"
             ]
           }
         ]
@@ -10530,6 +10648,7 @@
               "ItemDescription",
               "ItemMedia",
               "ItemTitle",
+              "Link",
               "RegistryIcon"
             ]
           },
@@ -10889,6 +11008,7 @@
             "registry": "input-group-addons",
             "storyId": "core-input--input-group-addons",
             "imports": [
+              "CharacterCount",
               "EmailInput",
               "FieldLabelPrimitive",
               "FieldRoot",
@@ -10909,8 +11029,11 @@
             "registry": "input-group-ai-prompts",
             "storyId": "core-input--input-group-ai-prompts",
             "imports": [
+              "Badge",
               "DropdownMenuContent",
               "DropdownMenuItemPrimitive",
+              "DropdownMenuRadioGroup",
+              "DropdownMenuRadioItem",
               "DropdownMenuRoot",
               "DropdownMenuSeparatorPrimitive",
               "DropdownMenuSub",
@@ -10922,9 +11045,9 @@
               "InputGroupAddon",
               "InputGroupButton",
               "InputGroupInput",
-              "InputGroupText",
               "InputGroupTextarea",
-              "RegistryIcon"
+              "RegistryIcon",
+              "Toggle"
             ]
           },
           {
@@ -10934,7 +11057,8 @@
             "storyId": "core-input--input-group-composer",
             "imports": [
               "DropdownMenuContent",
-              "DropdownMenuItemPrimitive",
+              "DropdownMenuRadioGroup",
+              "DropdownMenuRadioItem",
               "DropdownMenuRoot",
               "DropdownMenuTrigger",
               "FieldRoot",
@@ -10954,11 +11078,10 @@
             "registry": "input-group-dropdowns",
             "storyId": "core-input--input-group-dropdowns",
             "imports": [
-              "AvatarFallback",
-              "AvatarImage",
-              "AvatarRoot",
+              "Avatar",
               "DropdownMenuContent",
-              "DropdownMenuItemPrimitive",
+              "DropdownMenuRadioGroup",
+              "DropdownMenuRadioItem",
               "DropdownMenuRoot",
               "DropdownMenuTrigger",
               "FieldLabelPrimitive",
@@ -11019,6 +11142,7 @@
               "PopoverTitle",
               "PopoverTriggerPrimitive",
               "RegistryIcon",
+              "Toggle",
               "TooltipContent",
               "TooltipProvider",
               "TooltipRoot",
@@ -11044,6 +11168,7 @@
               "InputGroupButton",
               "InputGroupInput",
               "Label",
+              "Link",
               "PopoverContentPrimitive",
               "PopoverPrimitive",
               "PopoverTriggerPrimitive",
@@ -11057,6 +11182,7 @@
             "storyId": "core-input--labels-messages",
             "imports": [
               "Badge",
+              "CharacterCount",
               "FieldDescriptionPrimitive",
               "FieldErrorPrimitive",
               "FieldInput",
@@ -11075,13 +11201,13 @@
             "registry": "input-password-strength",
             "storyId": "core-input--password-strength",
             "imports": [
-              "Button",
               "FieldLabelPrimitive",
               "FieldRoot",
               "Input",
               "Link",
               "ProgressRoot",
-              "RegistryIcon"
+              "RegistryIcon",
+              "Toggle"
             ]
           },
           {
@@ -11444,9 +11570,7 @@
             "registry": "item-activity-feed",
             "storyId": "core-item--activity-feed",
             "imports": [
-              "AvatarFallback",
-              "AvatarImage",
-              "AvatarRoot",
+              "Avatar",
               "Badge",
               "Item",
               "ItemActions",
@@ -11476,10 +11600,8 @@
             "registry": "item-header-footer",
             "storyId": "core-item--header-footer",
             "imports": [
-              "AvatarFallback",
+              "Avatar",
               "AvatarGroup",
-              "AvatarImage",
-              "AvatarRoot",
               "Badge",
               "Button",
               "Item",
@@ -11574,11 +11696,11 @@
               "CardHeader",
               "CardRoot",
               "CardTitle",
+              "FieldSeparator",
               "Item",
               "ItemContent",
               "ItemMedia",
-              "RegistryIcon",
-              "Separator"
+              "RegistryIcon"
             ]
           },
           {
@@ -11605,10 +11727,7 @@
             "registry": "item-team-roles",
             "storyId": "core-item--team-roles",
             "imports": [
-              "AvatarBadge",
-              "AvatarFallback",
-              "AvatarImage",
-              "AvatarRoot",
+              "Avatar",
               "Badge",
               "Button",
               "DropdownMenuContent",
@@ -11759,11 +11878,10 @@
             "registry": "kanban-access-review",
             "storyId": "core-kanban--access-review",
             "imports": [
-              "AvatarFallback",
-              "AvatarImage",
-              "AvatarRoot",
+              "Avatar",
               "Badge",
               "Button",
+              "CardRoot",
               "Kanban",
               "KanbanBoardPrimitive",
               "KanbanColumn",
@@ -11793,12 +11911,11 @@
             "registry": "kanban-collapsible-columns",
             "storyId": "core-kanban--collapsible-columns",
             "imports": [
-              "AvatarFallback",
+              "Avatar",
               "AvatarGroup",
-              "AvatarImage",
-              "AvatarRoot",
               "Badge",
               "Button",
+              "CardRoot",
               "DropdownMenuCheckboxItemPrimitive",
               "DropdownMenuContent",
               "DropdownMenuLabelPrimitive",
@@ -11827,11 +11944,10 @@
             "registry": "kanban-issue-tracking",
             "storyId": "core-kanban--issue-tracking",
             "imports": [
-              "AvatarFallback",
-              "AvatarImage",
-              "AvatarRoot",
+              "Avatar",
               "Badge",
               "Button",
+              "CardRoot",
               "DropdownMenuCheckboxItemPrimitive",
               "DropdownMenuContent",
               "DropdownMenuLabelPrimitive",
@@ -11859,9 +11975,7 @@
             "registry": "kanban-options",
             "storyId": "core-kanban--options",
             "imports": [
-              "AvatarFallback",
-              "AvatarImage",
-              "AvatarRoot",
+              "Avatar",
               "Badge",
               "Button",
               "Frame",
@@ -11919,11 +12033,10 @@
             "registry": "kanban-recruiting",
             "storyId": "core-kanban--recruiting",
             "imports": [
-              "AvatarFallback",
-              "AvatarImage",
-              "AvatarRoot",
+              "Avatar",
               "Badge",
               "Button",
+              "CardRoot",
               "Kanban",
               "KanbanBoardPrimitive",
               "KanbanColumn",
@@ -11946,11 +12059,10 @@
             "registry": "kanban-release-readiness",
             "storyId": "core-kanban--release-readiness",
             "imports": [
-              "AvatarFallback",
-              "AvatarImage",
-              "AvatarRoot",
+              "Avatar",
               "Badge",
               "Button",
+              "CardRoot",
               "CheckboxRoot",
               "DropdownMenuCheckboxItemPrimitive",
               "DropdownMenuContent",
@@ -11969,6 +12081,7 @@
               "KanbanItemHandle",
               "KanbanOverlay",
               "Label",
+              "MetaSeparator",
               "PopoverContentPrimitive",
               "PopoverHeader",
               "PopoverPrimitive",
@@ -11986,11 +12099,10 @@
             "registry": "kanban-renewals-risk",
             "storyId": "core-kanban--renewals-risk",
             "imports": [
-              "AvatarFallback",
-              "AvatarImage",
-              "AvatarRoot",
+              "Avatar",
               "Badge",
               "Button",
+              "CardRoot",
               "Discord",
               "Dropbox",
               "Kanban",
@@ -12009,6 +12121,7 @@
               "StatusDot",
               "Stripe",
               "Supabase",
+              "Toggle",
               "Zoom",
               "cn"
             ]
@@ -12021,6 +12134,7 @@
             "imports": [
               "Badge",
               "Button",
+              "CardRoot",
               "Kanban",
               "KanbanBoardPrimitive",
               "KanbanColumn",
@@ -12030,10 +12144,12 @@
               "KanbanItemHandle",
               "KanbanOverlay",
               "Label",
+              "MetaSeparator",
               "ProgressRoot",
               "RegistryIcon",
               "StatusDot",
               "SwitchRoot",
+              "Toggle",
               "cn"
             ]
           },
@@ -12043,11 +12159,10 @@
             "registry": "kanban-support-escalations",
             "storyId": "core-kanban--support-escalations",
             "imports": [
-              "AvatarFallback",
-              "AvatarImage",
-              "AvatarRoot",
+              "Avatar",
               "Badge",
               "Button",
+              "CardRoot",
               "Kanban",
               "KanbanBoardPrimitive",
               "KanbanColumn",
@@ -12059,7 +12174,8 @@
               "KanbanOverlay",
               "RegistryIcon",
               "StatusDot",
-              "cn"
+              "cn",
+              "useInterval"
             ]
           }
         ]
@@ -12742,7 +12858,8 @@
             "storyId": "core-loader--inline-status",
             "imports": [
               "ChatActivityIndicator",
-              "LoaderRoot"
+              "LoaderRoot",
+              "MetaSeparator"
             ]
           },
           {
@@ -13308,6 +13425,7 @@
             "storyId": "core-navigationmenu--site-header",
             "imports": [
               "Button",
+              "Link",
               "NavigationMenuContent",
               "NavigationMenuItemPrimitive",
               "NavigationMenuLinkPrimitive",
@@ -13895,7 +14013,10 @@
             "registry": "phone-input-field-states",
             "storyId": "core-phoneinput--field-states",
             "imports": [
-              "Label",
+              "FieldDescriptionPrimitive",
+              "FieldErrorPrimitive",
+              "FieldLabelPrimitive",
+              "FieldRoot",
               "PhoneInput"
             ]
           }
@@ -14109,7 +14230,9 @@
               "Badge",
               "Button",
               "Dialog",
-              "RegistryIcon"
+              "RegistryIcon",
+              "Toggle",
+              "getAvatarInitials"
             ]
           },
           {
@@ -14468,7 +14591,8 @@
               "HoverCard",
               "HoverCardContent",
               "HoverCardTrigger",
-              "Separator"
+              "Separator",
+              "useInterval"
             ]
           },
           {
@@ -14477,9 +14601,7 @@
             "registry": "hover-card-rich",
             "storyId": "core-popover--hover-card-rich",
             "imports": [
-              "AvatarFallback",
-              "AvatarImage",
-              "AvatarRoot",
+              "Avatar",
               "Button",
               "HoverCard",
               "HoverCardContent",
@@ -14531,6 +14653,11 @@
             "imports": [
               "Badge",
               "Button",
+              "Pagination",
+              "PaginationContent",
+              "PaginationItem",
+              "PaginationNext",
+              "PaginationPrevious",
               "PopoverContentPrimitive",
               "PopoverPrimitive",
               "PopoverTriggerPrimitive",
@@ -14558,9 +14685,7 @@
             "registry": "popover-rich",
             "storyId": "core-popover--rich",
             "imports": [
-              "AvatarFallback",
-              "AvatarImage",
-              "AvatarRoot",
+              "Avatar",
               "Badge",
               "Button",
               "Collapsible",
@@ -14570,7 +14695,8 @@
               "PopoverPrimitive",
               "PopoverTitle",
               "PopoverTriggerPrimitive",
-              "RegistryIcon"
+              "RegistryIcon",
+              "Toggle"
             ]
           },
           {
@@ -14584,7 +14710,6 @@
               "FieldInput",
               "FieldLabelPrimitive",
               "FieldRoot",
-              "Label",
               "PopoverContentPrimitive",
               "PopoverDescription",
               "PopoverHeader",
@@ -14720,8 +14845,8 @@
             "registry": "progress-multi-step",
             "storyId": "core-progress--multi-step",
             "imports": [
-              "ProgressRoot",
-              "RegistryIcon"
+              "Progress",
+              "Stepper"
             ]
           },
           {
@@ -14740,7 +14865,8 @@
             "registry": "progress-status-messages",
             "storyId": "core-progress--status-messages",
             "imports": [
-              "ProgressRoot"
+              "Progress",
+              "useInterval"
             ]
           },
           {
@@ -14936,9 +15062,7 @@
             "registry": "questionnaire-conditional-branch",
             "storyId": "core-questionnaire--conditional-branch",
             "imports": [
-              "AvatarFallback",
-              "AvatarImage",
-              "AvatarRoot",
+              "Avatar",
               "Button",
               "CardAction",
               "CardContent",
@@ -15005,6 +15129,7 @@
               "CardHeader",
               "CardRoot",
               "CardTitle",
+              "ProgressRoot",
               "Questionnaire",
               "QuestionnaireActions",
               "QuestionnaireChoice",
@@ -15017,8 +15142,7 @@
               "QuestionnairePrevious",
               "QuestionnaireProgress",
               "QuestionnaireSubmit",
-              "QuestionnaireTitle",
-              "cn"
+              "QuestionnaireTitle"
             ]
           }
         ]
@@ -15223,9 +15347,7 @@
             "registry": "radio-group-row-cards",
             "storyId": "core-radiogroup--row-cards",
             "imports": [
-              "AvatarFallback",
-              "AvatarImage",
-              "AvatarRoot",
+              "Avatar",
               "FieldContent",
               "FieldDescriptionPrimitive",
               "FieldLabelPrimitive",
@@ -15391,7 +15513,8 @@
               "Button",
               "CardContent",
               "CardRoot",
-              "Label",
+              "FieldLabelPrimitive",
+              "FieldRoot",
               "Rating",
               "Textarea",
               "ToastProvider",
@@ -15733,6 +15856,7 @@
             "registry": "resizable-handles",
             "storyId": "core-resizable--handles",
             "imports": [
+              "MetaSeparator",
               "ResizableHandle",
               "ResizablePanel",
               "ResizablePanelGroup"
@@ -16113,8 +16237,7 @@
             "storyId": "core-scrollarea--horizontal-gallery",
             "imports": [
               "ScrollArea",
-              "ScrollBar",
-              "cn"
+              "ScrollBar"
             ]
           },
           {
@@ -16571,7 +16694,8 @@
               "AvatarFallback",
               "AvatarImage",
               "AvatarRoot",
-              "Loader"
+              "Loader",
+              "getAvatarInitials"
             ]
           },
           {
@@ -16632,7 +16756,8 @@
               "AutocompleteList",
               "AvatarFallback",
               "AvatarImage",
-              "AvatarRoot"
+              "AvatarRoot",
+              "getAvatarInitials"
             ]
           },
           {
@@ -16770,6 +16895,7 @@
               "ItemDescription",
               "ItemTitle",
               "cn",
+              "getAvatarInitials",
               "useComboboxAnchor"
             ]
           },
@@ -16805,6 +16931,7 @@
               "AvatarImage",
               "AvatarRoot",
               "Button",
+              "CardRoot",
               "Combobox",
               "ComboboxCollection",
               "ComboboxContent",
@@ -16834,7 +16961,8 @@
               "ItemTitle",
               "RegistryIcon",
               "StatusDot",
-              "cn"
+              "cn",
+              "getAvatarInitials"
             ]
           },
           {
@@ -16976,6 +17104,7 @@
             "storyId": "core-select--toolbar",
             "imports": [
               "Button",
+              "EmptyState",
               "FieldInput",
               "SelectContent",
               "SelectGroup",
@@ -16990,7 +17119,7 @@
       "storybook": "core-select--docs",
       "docs": "docs/llm/core-select.md",
       "source": "src/components/core/Select/",
-      "readme": "# Select\n\nPick one or several values from a list. Use it for form fields with a known set of options; use a combobox when people type to filter a long list, an autocomplete when free text is also allowed, and a native select for the plainest, platform-styled field.\n\n```jsx\nimport { Select } from '@gaudi/design-system';\n\n<Select\n  aria-label='Topics'\n  options={[{ value: 'design-systems', label: 'Design systems', description: 'Tokens and components.' }]}\n  multiple\n  searchable\n  onValueChange={setTopics}\n/>\n```\n\n- `options` takes `{ value, label, description?, disabled? }`; native `<option>` children work when `options` is empty.\n- `multiple` keeps the popup open and counts the selection in the trigger. `searchable` adds a filter field that matches labels and descriptions.\n- `value` / `defaultValue` / `onValueChange` control the selection; `name` submits it with a form. `invalid`, `disabled` and `loading` cover the field states.\n- The options API composes the shared `Combobox` trigger, popup, search input and rows; keyboard navigation, focus and viewport collision handling belong to that primitive.\n\n## Composition\n\n`@gaudi/design-system/core/Select` also exports the compound families: `SelectRoot` with `SelectTrigger`, `SelectValue`, `SelectContent`, `SelectItem`, `SelectGroup`, `SelectLabel`, `SelectSeparator`; `Combobox*` (with chips for multiple values); `Autocomplete*`; and `NativeSelect`, `NativeSelectOption`, `NativeSelectOptGroup`.\n\n## Accessibility\n\nThe trigger is a button with `aria-haspopup='listbox'`. Arrow keys, Home and End highlight options; disabled options remain discoverable but cannot be selected. Enter selects an enabled option, and Escape closes and returns focus to the trigger. Give every select a visible label or `aria-label`.",
+      "readme": "# Select\n\nPick one or several values from a list. Use it for form fields with a known set of options; use a combobox when people type to filter a long list, an autocomplete when free text is also allowed, and a native select for the plainest, platform-styled field.\n\n```jsx\nimport { Select } from '@gaudi/design-system';\n\n<Select\n  aria-label='Topics'\n  options={[{ value: 'design-systems', label: 'Design systems', description: 'Tokens and components.' }]}\n  multiple\n  searchable\n  onValueChange={setTopics}\n/>\n```\n\n- `options` takes `{ value, label, description?, disabled? }`; native `<option>` children work when `options` is empty.\n- `multiple` keeps the popup open and counts the selection in the trigger. `searchable` adds a filter field that matches labels and descriptions.\n- `value` / `defaultValue` / `onValueChange` control the selection; `name` submits it with a form. `invalid`, `disabled` and `loading` cover the field states.\n- The options API composes the shared `Combobox` trigger, popup, search input and rows; keyboard navigation, focus and viewport collision handling belong to that primitive.\n\n## Composition\n\n`@gaudi/design-system/core/Select` also exports the compound families: `SelectRoot` with `SelectTrigger`, `SelectValue`, `SelectContent`, `SelectItem`, `SelectGroup`, `SelectLabel`, `SelectSeparator`; `Combobox*` (with chips for multiple values); `Autocomplete*`; and `NativeSelect`, `NativeSelectOption`, `NativeSelectOptGroup`.\n\n## Accessibility\n\nThe trigger is a button with `aria-haspopup='listbox'`. Arrow keys, Home and End highlight options; disabled options remain discoverable but cannot be selected. Enter selects an enabled option, and Escape closes and returns focus to the trigger. Give every select a visible label or `aria-label`.\n\nA `NativeSelect` inside a convenience `Field` inherits its label ID and mounted error and description references. Explicit control IDs and external descriptions remain supported.",
       "related": []
     },
     {
@@ -17076,7 +17205,7 @@
             "registry": "separator-text-label",
             "storyId": "core-separator--text-label",
             "imports": [
-              "Separator"
+              "FieldSeparator"
             ]
           },
           {
@@ -17250,7 +17379,9 @@
               "ChatMessage",
               "ChatMessageContent",
               "ChatPromptComposer",
+              "EmptyState",
               "RegistryIcon",
+              "ScrollArea",
               "SelectContent",
               "SelectItem",
               "SelectRoot",
@@ -17275,16 +17406,19 @@
               "AvatarRoot",
               "Badge",
               "Button",
-              "Label",
+              "EmptyState",
+              "LabeledSwitch",
               "RegistryIcon",
+              "ScrollArea",
               "Sheet",
               "SheetContent",
               "SheetDescription",
               "SheetHeader",
               "SheetTitle",
               "SheetTrigger",
-              "SwitchRoot",
-              "Textarea"
+              "Textarea",
+              "Toggle",
+              "getAvatarInitials"
             ]
           },
           {
@@ -17323,6 +17457,7 @@
               "KbdGroup",
               "KbdRoot",
               "RegistryIcon",
+              "ScrollArea",
               "Sheet",
               "SheetContent",
               "SheetDescription",
@@ -17347,11 +17482,12 @@
               "FieldInput",
               "FieldLabelPrimitive",
               "FieldRoot",
-              "Label",
+              "LabeledSwitch",
               "PopoverContentPrimitive",
               "PopoverPrimitive",
               "PopoverTriggerPrimitive",
               "RegistryIcon",
+              "ScrollArea",
               "SelectContent",
               "SelectItem",
               "SelectRoot",
@@ -17365,7 +17501,6 @@
               "SheetHeader",
               "SheetTitle",
               "SheetTrigger",
-              "SwitchRoot",
               "Textarea"
             ]
           },
@@ -17375,24 +17510,7 @@
             "registry": "sheet-notifications",
             "storyId": "core-sheet--notifications",
             "imports": [
-              "Attachment",
-              "AttachmentDescription",
-              "AttachmentMedia",
-              "AttachmentTitle",
-              "AvatarFallback",
-              "AvatarImage",
-              "AvatarRoot",
-              "Badge",
-              "Button",
-              "RegistryIcon",
-              "Sheet",
-              "SheetContent",
-              "SheetDescription",
-              "SheetHeader",
-              "SheetTitle",
-              "SheetTrigger",
-              "StatusDot",
-              "cn"
+              "AppShellNotifications"
             ]
           },
           {
@@ -17407,9 +17525,10 @@
               "AvatarRoot",
               "Badge",
               "Button",
-              "FieldInput",
+              "EditableField",
               "ProgressRoot",
               "RegistryIcon",
+              "ScrollArea",
               "Sheet",
               "SheetClose",
               "SheetContent",
@@ -17425,7 +17544,8 @@
               "TimelineItem",
               "TimelineRoot",
               "TimelineSeparator",
-              "TimelineTitle"
+              "TimelineTitle",
+              "getAvatarInitials"
             ]
           },
           {
@@ -17444,6 +17564,7 @@
               "FieldRoot",
               "FieldSet",
               "RegistryIcon",
+              "ScrollArea",
               "Sheet",
               "SheetClose",
               "SheetContent",
@@ -18258,6 +18379,7 @@
             "storyId": "core-slider--readouts",
             "imports": [
               "Label",
+              "MetaSeparator",
               "Slider"
             ]
           },
@@ -18454,11 +18576,13 @@
             "storyId": "core-sortable--media-grid",
             "imports": [
               "Badge",
+              "CardRoot",
               "Frame",
               "FrameDescription",
               "FrameHeader",
               "FramePanel",
               "FrameTitle",
+              "MetaSeparator",
               "RegistryIcon",
               "Sortable",
               "SortableItem",
@@ -18475,6 +18599,7 @@
             "imports": [
               "CardContent",
               "CardRoot",
+              "Item",
               "RegistryIcon",
               "Sortable",
               "SortableItem",
@@ -18490,13 +18615,13 @@
             "registry": "sortable-persisted",
             "storyId": "core-sortable--persisted",
             "imports": [
-              "Label",
+              "Item",
+              "LabeledSwitch",
               "RegistryIcon",
               "Sortable",
               "SortableItem",
               "SortableItemHandle",
               "SortableItemPosition",
-              "SwitchRoot",
               "ToastProvider",
               "toast",
               "useTimeout"
@@ -18515,6 +18640,7 @@
               "FramePanel",
               "FrameTitle",
               "IconTile",
+              "MetaSeparator",
               "RegistryIcon",
               "Sortable",
               "SortableItem",
@@ -18671,7 +18797,7 @@
             "registry": "stepper-descriptions",
             "storyId": "core-stepper--descriptions",
             "imports": [
-              "Label",
+              "LabeledSwitch",
               "Loader",
               "RegistryIcon",
               "StepperContent",
@@ -18684,7 +18810,6 @@
               "StepperSeparator",
               "StepperTitle",
               "StepperTrigger",
-              "SwitchRoot",
               "ToggleGroupItem",
               "ToggleGroupRoot",
               "cn"
@@ -18737,7 +18862,7 @@
             "storyId": "core-stepper--progress-bar",
             "imports": [
               "Button",
-              "Label",
+              "LabeledSwitch",
               "RegistryIcon",
               "StepperContent",
               "StepperIndicator",
@@ -18747,7 +18872,6 @@
               "StepperRoot",
               "StepperTitle",
               "StepperTrigger",
-              "SwitchRoot",
               "cn"
             ]
           },
@@ -18757,7 +18881,7 @@
             "registry": "stepper-vertical",
             "storyId": "core-stepper--vertical",
             "imports": [
-              "Label",
+              "LabeledSwitch",
               "Loader",
               "RegistryIcon",
               "StepperContent",
@@ -18769,8 +18893,7 @@
               "StepperRoot",
               "StepperSeparator",
               "StepperTitle",
-              "StepperTrigger",
-              "SwitchRoot"
+              "StepperTrigger"
             ]
           }
         ]
@@ -18937,7 +19060,7 @@
               "FieldLabelPrimitive",
               "FieldRoot",
               "FieldTitle",
-              "Label",
+              "LabeledSwitch",
               "SwitchRoot"
             ]
           },
@@ -18948,9 +19071,8 @@
             "storyId": "core-switch--labels-states",
             "imports": [
               "BadgeRoot",
-              "Label",
               "RegistryIcon",
-              "SwitchRoot",
+              "Switch",
               "TooltipContent",
               "TooltipProvider",
               "TooltipRoot",
@@ -19177,8 +19299,8 @@
               "EmailInput",
               "FieldInput",
               "Label",
+              "LabeledSwitch",
               "RegistryIcon",
-              "SwitchRoot",
               "Tabs",
               "TabsContent",
               "TabsList",
@@ -19523,6 +19645,7 @@
             "registry": "textarea-auto-resize",
             "storyId": "core-textarea--auto-resize",
             "imports": [
+              "CharacterCount",
               "FieldLabelPrimitive",
               "FieldRoot",
               "Textarea"
@@ -19776,6 +19899,7 @@
               "TimelineItem",
               "TimelineRoot",
               "TimelineSeparator",
+              "getAvatarInitials",
               "useCopyToClipboard"
             ]
           },
@@ -19819,11 +19943,10 @@
             "storyId": "core-timeline--horizontal-releases",
             "imports": [
               "Badge",
-              "Label",
+              "LabeledSwitch",
               "RegistryIcon",
               "ScrollArea",
               "ScrollBar",
-              "SwitchRoot",
               "TimelineContent",
               "TimelineDate",
               "TimelineHeader",
@@ -19860,7 +19983,8 @@
               "TimelineRoot",
               "TimelineSeparator",
               "TimelineTitle",
-              "cn"
+              "cn",
+              "getAvatarInitials"
             ]
           },
           {
@@ -19869,9 +19993,8 @@
             "registry": "timeline-vertical-progress",
             "storyId": "core-timeline--vertical-progress",
             "imports": [
-              "Label",
+              "LabeledSwitch",
               "RegistryIcon",
-              "SwitchRoot",
               "TimelineContent",
               "TimelineDate",
               "TimelineHeader",
@@ -20048,12 +20171,12 @@
               "AvatarRoot",
               "Button",
               "IconTile",
-              "Label",
+              "LabeledSwitch",
               "RegistryIcon",
               "Separator",
               "StatusDot",
-              "SwitchRoot",
               "ToastProvider",
+              "getAvatarInitials",
               "toast"
             ]
           },
@@ -20064,11 +20187,12 @@
             "storyId": "core-toast--types-options",
             "imports": [
               "Button",
+              "CardRoot",
               "Label",
+              "LabeledSwitch",
               "NativeSelect",
               "NativeSelectOption",
               "RegistryIcon",
-              "SwitchRoot",
               "ToastProvider",
               "ToggleGroupItem",
               "ToggleGroupRoot",
@@ -20457,6 +20581,7 @@
             "imports": [
               "Badge",
               "Button",
+              "MetaSeparator",
               "RegistryIcon",
               "StatusDot",
               "TooltipContent",
@@ -20592,9 +20717,8 @@
             "registry": "tree-display-options",
             "storyId": "core-tree--display-options",
             "imports": [
-              "Label",
+              "LabeledSwitch",
               "RegistryIcon",
-              "SwitchRoot",
               "Tree",
               "TreeItem",
               "TreeItemLabel"
@@ -20611,7 +20735,8 @@
               "AvatarRoot",
               "Tree",
               "TreeItem",
-              "TreeItemLabel"
+              "TreeItemLabel",
+              "getAvatarInitials"
             ]
           },
           {
@@ -21166,6 +21291,7 @@
           "AppShellFrame",
           "AppShellHeader",
           "AppShellNav",
+          "AppShellNotificationItem",
           "AppShellNotifications",
           "AppShellPanel",
           "Sidebar",
@@ -21438,6 +21564,7 @@
               "AvatarRoot",
               "Badge",
               "Button",
+              "CardRoot",
               "Collapsible",
               "CollapsibleContent",
               "CollapsibleTrigger",
@@ -21493,7 +21620,9 @@
               "AppShellFrame",
               "AppShellHeader",
               "AppShellNav",
+              "AppShellNotificationItem",
               "AppShellPanel",
+              "Avatar",
               "AvatarFallback",
               "AvatarGroup",
               "AvatarImage",
@@ -21522,6 +21651,7 @@
               "Empty",
               "EmptyDescription",
               "EmptyHeader",
+              "EmptyState",
               "EmptyTitle",
               "Field",
               "FieldInput",
@@ -21532,6 +21662,7 @@
               "InputGroupInput",
               "Item",
               "Label",
+              "MetaSeparator",
               "NativeSelect",
               "NativeSelectOption",
               "ProgressRoot",
@@ -21549,9 +21680,11 @@
               "TabsList",
               "TabsTrigger",
               "Textarea",
+              "Toggle",
               "TooltipContent",
               "TooltipRoot",
               "TooltipTrigger",
+              "getAvatarInitials",
               "useAppShellFrame",
               "useSidebar"
             ]
@@ -21598,6 +21731,7 @@
               "IconTile",
               "Kbd",
               "Label",
+              "MetaSeparator",
               "RegistryIcon",
               "Select",
               "Separator",
@@ -21607,6 +21741,7 @@
               "SidebarHeader",
               "SidebarProvider",
               "SidebarTrigger",
+              "getAvatarInitials",
               "useHotkey"
             ]
           },
@@ -21640,8 +21775,11 @@
               "DropdownMenuRoot",
               "DropdownMenuSeparatorPrimitive",
               "DropdownMenuTrigger",
+              "EmptyState",
+              "IconTile",
               "Input",
               "Label",
+              "MetaSeparator",
               "RegistryIcon",
               "Sidebar",
               "SidebarContent",
@@ -21652,6 +21790,7 @@
               "SidebarMenuItem",
               "SidebarProvider",
               "SidebarTrigger",
+              "Toggle",
               "useSidebar"
             ]
           },
@@ -21669,6 +21808,7 @@
               "AvatarRoot",
               "Badge",
               "Button",
+              "CardRoot",
               "DialogClosePrimitive",
               "DialogContent",
               "DialogDescription",
@@ -21711,11 +21851,13 @@
               "SidebarProvider",
               "SidebarTrigger",
               "StatusDot",
-              "SwitchRoot",
+              "Switch",
               "Textarea",
+              "Toggle",
               "TooltipContent",
               "TooltipRoot",
               "TooltipTrigger",
+              "getAvatarInitials",
               "useSidebar"
             ]
           },
@@ -21748,6 +21890,7 @@
               "DropdownMenuRadioItem",
               "DropdownMenuRoot",
               "DropdownMenuTrigger",
+              "EmptyState",
               "IconTile",
               "Input",
               "InputGroup",
@@ -21755,6 +21898,7 @@
               "InputGroupInput",
               "KanbanBoard",
               "Label",
+              "MetaSeparator",
               "RegistryIcon",
               "Sidebar",
               "SidebarContent",
@@ -21768,6 +21912,7 @@
               "TabsList",
               "TabsTrigger",
               "Timeline",
+              "Toggle",
               "TooltipContent",
               "TooltipRoot",
               "TooltipTrigger",
@@ -21784,9 +21929,9 @@
               "AppShellFrame",
               "AppShellHeader",
               "AppShellNav",
+              "AppShellNotifications",
               "AppShellPanel",
               "AvatarFallback",
-              "AvatarGroup",
               "AvatarImage",
               "AvatarRoot",
               "Badge",
@@ -21810,6 +21955,7 @@
               "DropdownMenuRoot",
               "DropdownMenuSeparatorPrimitive",
               "DropdownMenuTrigger",
+              "EmptyState",
               "IconTile",
               "Input",
               "Item",
@@ -21820,13 +21966,9 @@
               "ItemTitle",
               "Kbd",
               "Label",
+              "MetaSeparator",
               "ProgressRoot",
               "RegistryIcon",
-              "Sheet",
-              "SheetContent",
-              "SheetDescription",
-              "SheetHeader",
-              "SheetTitle",
               "Sidebar",
               "SidebarContent",
               "SidebarFooter",
@@ -21883,12 +22025,12 @@
               "DropdownMenuSeparatorPrimitive",
               "DropdownMenuTrigger",
               "EmptyState",
-              "Field",
-              "FieldLabel",
               "GaudiBrand",
               "GaudiLogo",
+              "IconTile",
               "Kbd",
               "Link",
+              "MetaSeparator",
               "RegistryIcon",
               "Sidebar",
               "SidebarContent",
@@ -21900,7 +22042,7 @@
               "SidebarProvider",
               "SidebarSeparator",
               "SidebarTrigger",
-              "SwitchRoot",
+              "Switch",
               "useHotkey",
               "useSidebar"
             ]
@@ -21944,6 +22086,7 @@
               "ItemDescription",
               "ItemTitle",
               "Link",
+              "MetaSeparator",
               "RegistryIcon",
               "Separator",
               "Sidebar",
@@ -21959,6 +22102,7 @@
               "SidebarProvider",
               "SidebarTrigger",
               "StatusDot",
+              "Toggle",
               "ToggleGroupItem",
               "ToggleGroupRoot",
               "useSidebar"
@@ -21974,17 +22118,8 @@
               "AppShellFrame",
               "AppShellHeader",
               "AppShellNav",
+              "AppShellNotificationItem",
               "AppShellPanel",
-              "Attachment",
-              "AttachmentAction",
-              "AttachmentDescription",
-              "AttachmentMedia",
-              "AttachmentTitle",
-              "AvatarFallback",
-              "AvatarGroup",
-              "AvatarGroupCount",
-              "AvatarImage",
-              "AvatarRoot",
               "Badge",
               "BreadcrumbItemPrimitive",
               "BreadcrumbLinkPrimitive",
@@ -22008,8 +22143,11 @@
               "DropdownMenuRoot",
               "DropdownMenuSeparatorPrimitive",
               "DropdownMenuTrigger",
+              "Frame",
+              "FramePanel",
               "GaudiBrand",
               "GaudiLogo",
+              "IconTile",
               "Item",
               "ItemActions",
               "ItemContent",
@@ -22018,6 +22156,7 @@
               "ItemTitle",
               "Kbd",
               "Link",
+              "MetaSeparator",
               "PopoverContentPrimitive",
               "PopoverPrimitive",
               "PopoverTriggerPrimitive",
@@ -22078,6 +22217,7 @@
               "InputGroup",
               "InputGroupAddon",
               "InputGroupInput",
+              "Item",
               "Kbd",
               "Link",
               "RegistryIcon",
@@ -22154,6 +22294,7 @@
               "ItemTitle",
               "Label",
               "Link",
+              "MetaSeparator",
               "RegistryIcon",
               "Sidebar",
               "SidebarContent",
@@ -22171,6 +22312,7 @@
               "TabsContent",
               "TabsList",
               "TabsTrigger",
+              "Toggle",
               "TooltipContent",
               "TooltipRoot",
               "TooltipTrigger",
@@ -22221,6 +22363,7 @@
               "ItemTitle",
               "Label",
               "Link",
+              "MetaSeparator",
               "ProgressRoot",
               "RegistryIcon",
               "Separator",
@@ -22282,6 +22425,7 @@
               "ItemTitle",
               "Label",
               "Link",
+              "MetaSeparator",
               "ProgressRoot",
               "RegistryIcon",
               "Separator",
@@ -22299,6 +22443,7 @@
               "SidebarTrigger",
               "StatusDot",
               "Textarea",
+              "Toggle",
               "TooltipContent",
               "TooltipRoot",
               "TooltipTrigger",
@@ -22358,6 +22503,7 @@
               "InputGroupInput",
               "LoaderRoot",
               "RegistryIcon",
+              "ScrollArea",
               "Sidebar",
               "SidebarContent",
               "SidebarFooter",
@@ -22392,6 +22538,7 @@
               "GaudiBrand",
               "GaudiLogo",
               "RegistryIcon",
+              "ScrollArea",
               "Sidebar",
               "SidebarContent",
               "SidebarFooter",
@@ -22432,6 +22579,7 @@
               "Field",
               "FieldLabel",
               "RegistryIcon",
+              "ScrollArea",
               "Sidebar",
               "SidebarContent",
               "SidebarGroup",
@@ -22447,7 +22595,8 @@
               "SidebarMenuItem",
               "SidebarProvider",
               "SidebarTrigger",
-              "Textarea"
+              "Textarea",
+              "Toggle"
             ]
           },
           {
@@ -22476,15 +22625,20 @@
               "DropdownMenuGroup",
               "DropdownMenuItemPrimitive",
               "DropdownMenuLabelPrimitive",
+              "DropdownMenuRadioGroup",
+              "DropdownMenuRadioItem",
               "DropdownMenuRoot",
               "DropdownMenuSeparatorPrimitive",
               "DropdownMenuShortcut",
               "DropdownMenuTrigger",
+              "EmptyState",
               "GaudiBrand",
               "GaudiLogo",
               "Input",
               "Label",
+              "MetaSeparator",
               "RegistryIcon",
+              "ScrollArea",
               "Sidebar",
               "SidebarContent",
               "SidebarFooter",
@@ -22510,7 +22664,7 @@
       "storybook": "blocks-application-appshell--docs",
       "docs": "docs/llm/blocks-app-shell.md",
       "source": "src/components/blocks/AppShell/",
-      "readme": "# App Shell\n\n## Patterns\n\nThe app-shell examples (`Blocks/App Shell`) are Gaudi compositions for knowledge, reading, research and finance workspaces: a library rail, a reading desk, research projects, a digest inbox, a publishing console, notebook tabs, a research assistant, a newsletter reader, study chat, two top-bar layouts (collections and journal), crawler control, a source network and a finance dashboard. Every example follows these conventions so parallel work stays consistent.\n\n**Files and names**\n\n- Fixture `src/components/blocks/AppShell/stories/fixtures/app-shell/app-shell-<slug>.jsx` exports `Pattern`; the slug is a short descriptive kebab-case name (for example `app-shell-library-rail`), never a number. Import Gaudi parts directly from public namespaces such as `@gaudi/design-system/blocks/AppShell`, `@gaudi/design-system/core/Button`, `@gaudi/design-system/icons/RegistryIcon`, and `@gaudi/design-system/hooks/interaction/use-hotkey`. Package self-reference lets the fixture and its copyable source share the same imports.\n- Story `export const <Slug> = { name, ...pattern('<slug>', description), play }` lives in an owner-local story file: most patterns use `AppShellPatterns.stories.jsx`, the library rail is the primary story in `AppShell.stories.jsx`, and finance uses `FinanceDashboard.stories.jsx`. Keep the shared `Blocks/App Shell` title and owner ID. `name` is `Topology · key features` (for example `Icon rail · workspace switcher, nested nav and user menu`); the description says what the reader can do and how it behaves in a narrow frame.\n- Each story has a play test built from `AppShell.story-steps.js` helpers: `expectFramed`, `openNavigation` (the docked sidebar, or the phone sheet opened from the header) and `desktopSidebar`. Cover the current page (`aria-current`), the example's actions, any menus or nested navigation, and collapse/expand when the sidebar is docked. The vitest browser is phone sized, so tests must pass in both layouts.\n- Add the example to `src/docs/catalogue/coverage.json` (`name`, `title`, `description`, `file`, `sha256` of the fixture bytes, `storyId` `blocks-application-appshell--<slug>`), then run `pnpm catalogue:sync`.\n\n**Visual vocabulary** (reuse these parts; do not restyle them per fixture)\n\n- `AppShellFrame` is the root of every example: the bordered app window on the shared card radius, 48rem tall by default (40rem on phones), with internal scrolling. Use `surface='muted'` (default) when the content sits in an inset panel and `surface='default'` for a plain surface with a flush or floating sidebar.\n- `SidebarProvider` → `Sidebar` (`collapsible='icon'` for rails, `variant='floating'` for cards) → `AppShellPanel` (the `main` landmark; `inset` by default, `inset={false}` for flush content). `AppShellHeader` holds breadcrumbs, search or actions. Place `SidebarTrigger` first in the header, or at the top inside `SidebarHeader` with a header trigger on phones; `AppShellBody` holds the page.\n- `AppShellNav` follows explicit item `href` links; items without `href` invoke `onValueChange` without navigation. Modifier-clicks keep native link behavior. It renders sidebar groups from data: icons or status dots, count `badge`, inline `tag`, live `indicator`, nested `items` (collapsible, a flyout menu on the icon rail, remembered section view), `collapsible` group labels, `hideOnRail`, and `actions` row menus. Use `itemClassName` for topology-specific active rows (for example raised rows on a floating card).\n- Collapsed `SidebarMenuButton` rows center their first visual and keep later children screen-reader-only. Portraits are capped at 24px to fit the rail; do not compensate with negative margins. Labels and account menus remain accessible.\n- `AppShellNav` also takes `item.leading` (a custom mark such as a `ProgressRing` or a presence avatar; speak its value through `status`) and `action` (a `SidebarGroupAction` at the end of the group label). Rows with a count badge keep their label clear of it.\n- Use `SidebarTrigger` at the top of the shell, inside the sidebar header or before the breadcrumbs. Keep the trigger visible and in the same place when collapsed; do not add a floating edge toggle or reserve a gutter for one. Several shells share the docs page, so give at most one of them the ⌘B shortcut (`shortcut={false}` on the others).\n- Compose Core `Skeleton` for loading content. Rich placeholder layouts live only in `stories/fixtures/AppShellPlaceholder.jsx` and the Loading layouts story; they are example compositions, not package exports.\n- The research-assistant, newsletter-reader and study-chat shells add: `SidebarProvider defaultWidth` with `SidebarResizeHandle` (a focusable separator on the edge: drag, arrow keys, Home/End, double-click resets), Core Skeleton compositions for an unloaded conversation, and `AppShellNav` people rows (`avatar`, `presence`, `suffix`), bare counts (`badge: { label, variant: 'plain' }`), a hover `quickAction` beside the row menu and a `action`. Chat shells compose the Chat parts (`ChatModelSelect` with model `icon`/`details`, `ChatPromptComposer actions`) and Core `EmptyState` with a labelled list of Core `Button` starter prompts in a responsive grid.\n- More placeholder presets: `tiles` (3 × 3 block cards), `board` (tiles under a row of blank cards), `quad` (four short cards above a 2 × 2 grid) and `stack` (three metric tiles above a tall list), from the `block`, `blank`, `tile` and `rows` kinds.\n- Top bars spanning the window: give `SidebarProvider` `className='flex-col'`, render the header first and put `Sidebar` and `AppShellPanel` in a `relative flex` row below it. `AppShellNotifications` is the bell and notifications sheet (`inset` floats it); `Sidebar` takes `mobileWidth`, `mobileClassName`, `mobileTitle` and `mobileDescription` for a wider or renamed phone sheet; `AppShellNav` takes `labelIcon` and `labelClassName` for route-group headings.\n- Overlays: menus and tooltips portal to the page; the phone sidebar sheet opens inside the frame. Command palettes (`CommandDialog`) open over the page.\n- Gaudi tokens only: semantic colours (`bg-success`, `text-text-muted`…), `rounded-(--ds-radius-control)` / `--ds-radius-card` for tiles and cards (circles only for dots and avatars), registry icons through `RegistryIcon`, brand marks from `src/icons/brands`, Gaudi's generated illustrations from Storybook's local `/avatars/...` assets for avatars, and the shared hooks (`useHotkey` for ⌘K).\n- Check each example at 320, 390, 768, 1024, 1280 and 1600 px in light and dark: the frame border is visible inside the preview, nothing overflows the page, and the rail, nested navigation, menus and phone sheet work.\n\n### Finance dashboard example\n\n[FinanceDashboard.stories.jsx](stories/FinanceDashboard.stories.jsx) presents the [finance dashboard fixture](stories/fixtures/app-shell/app-shell-finance-dashboard.jsx) as a copyable composition. It combines flat, labelled navigation groups and a compact search header with stacked revenue bars, report totals, visitor distribution, product sales and a customer table. The layout uses App Shell and Dashboard parts, `BarChart`, `DataTable` and Core controls; actions and selection use Gaudi's default accent, while charts inherit the standard chart palette. Success colours are reserved for positive changes and account or payment status.\n\nNavigation switches local views, search finds pages and record details, role and plan filters update the customer table, and report, transaction and invoice tables offer CSV export. All figures and records are illustrative fixture data. Copy the story's public-import source into the consuming application, replace the sample data and `/avatars/` assets, and connect routing, services, permissions and persistence there. The fixture and its private helpers are examples, not package exports.\n\nThe frame is 62rem tall with a 40rem compact height and internal panel scrolling. Narrow frames use the sidebar sheet, stack the dashboard panels and filters, and keep horizontal table scrolling inside each table. Preserve the frame-scoped ⌘/Ctrl+K search shortcut so other examples on the page do not respond. Closing record details returns focus to the opening control, with the search button as the fallback when a search result has unmounted.\n\n## Overview\n\nApplication frames at three levels:\n\n- **`AppShell`**: a simple responsive workspace with a navigation rail (or a top bar), a mobile navigation sheet, a header, the content landmark, a skip link, an optional detail rail and an optional status bar. It stays in document flow.\n- **Sidebar parts** (`SidebarProvider`, `Sidebar`, `SidebarInset`, `SidebarTrigger`, `SidebarRail`, menus, groups and sub-menus): for richer shells, such as a rail that collapses to icons, floating and inset sidebars, nested groups with badges and row menus, secondary panels, and right-hand inspectors. On phones the sidebar becomes a Sheet drawer.\n- **Frame parts** (`AppShellFrame`, `AppShellPanel`, `AppShellHeader`, `AppShellBody`, `AppShellNav`): present either kind of shell as an app window inside a page, a marketing section or a documentation preview.\n\n## Usage\n\n```jsx\nimport AppShell, { AppShellFrame } from '@gaudi/design-system/blocks/AppShell';\nimport { SkeletonRoot as Skeleton } from '@gaudi/design-system/core/Skeleton';\n\n<AppShell\n  brand='Gaudi'\n  navigation={navigation}\n  header={<h1>Articles</h1>}\n  aside={<IssueDetails />}\n  statusBar={<span>All changes saved</span>}\n>\n  <DataTable columns={columns} rows={articles} searchable sortable pagination />\n</AppShell>\n\n// Sidebar-free apps put the brand and navigation in the header.\n<AppShell layout='topbar' brand='Gaudi' navigation={sections} header={<UserMenu />}>…</AppShell>\n\n// Inside a page, present the shell as an app window.\n<AppShellFrame>\n  <AppShell brand='Gaudi' navigation={navigation}>…</AppShell>\n</AppShellFrame>\n```\n\n```jsx\nimport {\n  AppShellBody, AppShellFrame, AppShellHeader, AppShellNav, AppShellPanel,\n  Sidebar, SidebarContent, SidebarProvider, SidebarTrigger\n} from '@gaudi/design-system/blocks/AppShell';\nimport { SkeletonRoot as Skeleton } from '@gaudi/design-system/core/Skeleton';\n\n<AppShellFrame>\n  <SidebarProvider storageKey='gaudi-sidebar'>\n    <Sidebar collapsible='icon'>\n      <SidebarContent role='navigation' aria-label='Workspace'>\n        <AppShellNav label='Library' items={pages} value={page} onValueChange={setPage} />\n      </SidebarContent>\n    </Sidebar>\n    <AppShellPanel>\n      <AppShellHeader><SidebarTrigger />{breadcrumb}</AppShellHeader>\n      <AppShellBody>\n        <Skeleton className='m-4 h-64' />\n      </AppShellBody>\n    </AppShellPanel>\n  </SidebarProvider>\n</AppShellFrame>\n```\n\n## Frame\n\n`AppShellFrame` draws a bordered window on `--ds-radius-card` with clipped overflow and a fixed height (`height`, 56rem by default and 40rem in compact layouts; the CSS variables `--ds-app-shell-frame-height` and `--ds-app-shell-frame-height-compact` also set it). Content scrolls inside: `AppShellPanel` (and the simple `AppShell` workspace) scroll on their own, and the sidebar is positioned against the frame instead of the viewport. The frame measures itself, and sidebar parts switch to the phone layout when the frame, not the viewport, is narrower than `compactBelow` (768px). The phone sheet portals into the frame, so it opens inside the window. Menus, tooltips and dialogs still portal to the page.\n\n## API\n\n| Prop / export                             | Type                       | Contract                                                                                   |\n| ----------------------------------------- | -------------------------- | ------------------------------------------------------------------------------------------ |\n| `brand / navigation / header / footer`    | ReactNode                  | Supplied slot content; the host owns route state and active links.                         |\n| `layout`                                  | `sidebar` / `topbar`       | A navigation rail, or brand and navigation in the header.                                  |\n| `aside / asideLabel`                      | ReactNode / string         | A named complementary rail beside the content; stacks below it under xl.                   |\n| `statusBar`                               | ReactNode                  | A status strip under the content.                                                          |\n| `children`                                | ReactNode                  | Page content inside the shell main landmark.                                               |\n| `navigationLabel / menuLabel / skipLabel` | string                     | Localized accessible labels.                                                               |\n| `className`                               | string                     | Root composition; the desktop rail begins at 1024px.                                       |\n| `AppShellFrame.height / compactBelow`     | string or number / number  | Window height (56rem; 40rem when compact) and the frame width for the phone layout (768).     |\n| `AppShellFrame.surface / label`           | `muted` / `default`; string | The window surface, and an optional region name.                                          |\n| `AppShellPanel.inset`                     | boolean                    | A bordered panel set into the frame (default), or flush beside a floating sidebar.         |\n| `AppShellHeader.bordered`                 | boolean                    | A rule under the sticky panel header.                                                      |\n| `AppShellNav`                             | items, value, …            | Data-driven sidebar group; see the Patterns section and the component docs.                |\n| `SidebarProvider.storageKey`              | string                     | Restores and saves the expanded state in localStorage after mount.                         |\n| `SidebarProvider.shortcut`                | string / false             | The ⌘/Ctrl key that toggles the sidebar (`b`); `false` turns it off.                       |\n| `SidebarProvider.labels`                  | object                     | `expanded`, `collapsed` announcements and the `toggle` trigger name. |\n| `Sidebar.variant / collapsible / side`    | string                     | `sidebar`, `floating` or `inset`; `offcanvas`, `icon` or `none`; edge.                     |\n| `SidebarTrigger.label / tooltip`          | string / boolean           | Trigger name, and a tooltip with the shortcut keys.                                        |\n| `SidebarMenuButton.tooltip`               | string / object            | Names the item on the collapsed icon rail.                                                 |\n\n## Accessibility\n\nKeep the skip link and the main landmark, and name each navigation and complementary region. Mark the current page with `aria-current` (`AppShellNav` does; a remembered section view is only highlighted). The trigger reports `aria-expanded` and `aria-keyshortcuts`, and expanding or collapsing is announced politely. Keep the trigger at the top of the sidebar or before the breadcrumbs, including when collapsed. On phones the sidebar is a Sheet that traps focus and returns it to the trigger, and choosing a page closes it. Collapsed icon rails name every item with a tooltip, and nested sections open as menus. Status dots carry a spoken `status`; placeholder grids are decorative and hidden from assistive technology, and their skeletons do not animate.\n\nWhen several shells share a page (as in these docs), turn the shortcut off on all but one, because each provider listens on the window.\n\n## Ownership and verification\n\nThe host supplies data, translations, network calls, permissions and persistence. Gaudi owns layout, semantics and local interaction. Examples document working behavior and states, with Storybook interaction/axe checks and a server-rendering contract test alongside the component.",
+      "readme": "# App Shell\n\n## Patterns\n\nThe app-shell examples (`Blocks/App Shell`) are Gaudi compositions for knowledge, reading, research and finance workspaces: a library rail, a reading desk, research projects, a digest inbox, a publishing console, notebook tabs, a research assistant, a newsletter reader, study chat, two top-bar layouts (collections and journal), crawler control, a source network and a finance dashboard. Every example follows these conventions so parallel work stays consistent.\n\n**Files and names**\n\n- Fixture `src/components/blocks/AppShell/stories/fixtures/app-shell/app-shell-<slug>.jsx` exports `Pattern`; the slug is a short descriptive kebab-case name (for example `app-shell-library-rail`), never a number. Import Gaudi parts directly from public namespaces such as `@gaudi/design-system/blocks/AppShell`, `@gaudi/design-system/core/Button`, `@gaudi/design-system/icons/RegistryIcon`, and `@gaudi/design-system/hooks/interaction/use-hotkey`. Package self-reference lets the fixture and its copyable source share the same imports.\n- Story `export const <Slug> = { name, ...pattern('<slug>', description), play }` lives in an owner-local story file: most patterns use `AppShellPatterns.stories.jsx`, the library rail is the primary story in `AppShell.stories.jsx`, and finance uses `FinanceDashboard.stories.jsx`. Keep the shared `Blocks/App Shell` title and owner ID. `name` is `Topology · key features` (for example `Icon rail · workspace switcher, nested nav and user menu`); the description says what the reader can do and how it behaves in a narrow frame.\n- Each story has a play test built from `AppShell.story-steps.js` helpers: `expectFramed`, `openNavigation` (the docked sidebar, or the phone sheet opened from the header) and `desktopSidebar`. Cover the current page (`aria-current`), the example's actions, any menus or nested navigation, and collapse/expand when the sidebar is docked. The vitest browser is phone sized, so tests must pass in both layouts.\n- Add the example to `src/docs/catalogue/coverage.json` (`name`, `title`, `description`, `file`, `sha256` of the fixture bytes, `storyId` `blocks-application-appshell--<slug>`), then run `pnpm catalogue:sync`.\n\n**Visual vocabulary** (reuse these parts; do not restyle them per fixture)\n\n- `AppShellFrame` is the root of every example: the bordered app window on the shared card radius, 48rem tall by default (40rem on phones), with internal scrolling. Use `surface='muted'` (default) when the content sits in an inset panel and `surface='default'` for a plain surface with a flush or floating sidebar.\n- `SidebarProvider` → `Sidebar` (`collapsible='icon'` for rails, `variant='floating'` for cards) → `AppShellPanel` (the `main` landmark; `inset` by default, `inset={false}` for flush content). `AppShellHeader` holds breadcrumbs, search or actions. Place `SidebarTrigger` first in the header, or at the top inside `SidebarHeader` with a header trigger on phones; `AppShellBody` holds the page.\n- `AppShellNav` follows explicit item `href` links; items without `href` invoke `onValueChange` without navigation. Modifier-clicks keep native link behavior. It renders sidebar groups from data: icons or status dots, count `badge`, inline `tag`, live `indicator`, nested `items` (collapsible, a flyout menu on the icon rail, remembered section view), `collapsible` group labels, `hideOnRail`, and `actions` row menus. Use `itemClassName` for topology-specific active rows (for example raised rows on a floating card).\n- Collapsed `SidebarMenuButton` rows center their first visual and keep later children screen-reader-only. Portraits are capped at 24px to fit the rail; do not compensate with negative margins. Labels and account menus remain accessible.\n- `AppShellNav` also takes `item.leading` (a custom mark such as a `ProgressRing` or a presence avatar; speak its value through `status`) and `action` (a `SidebarGroupAction` at the end of the group label). Rows with a count badge keep their label clear of it.\n- Use `SidebarTrigger` at the top of the shell, inside the sidebar header or before the breadcrumbs. Keep the trigger visible and in the same place when collapsed; do not add a floating edge toggle or reserve a gutter for one. Several shells share the docs page, so give at most one of them the ⌘B shortcut (`shortcut={false}` on the others).\n- Compose Core `Skeleton` for loading content. Rich placeholder layouts live only in `stories/fixtures/AppShellPlaceholder.jsx` and the Loading layouts story; they are example compositions, not package exports.\n- The research-assistant, newsletter-reader and study-chat shells add: `SidebarProvider defaultWidth` with `SidebarResizeHandle` (a focusable separator on the edge: drag, arrow keys, Home/End, double-click resets), Core Skeleton compositions for an unloaded conversation, and `AppShellNav` people rows (`avatar`, `presence`, `suffix`), bare counts (`badge: { label, variant: 'plain' }`), a hover `quickAction` beside the row menu and a `action`. Chat shells compose the Chat parts (`ChatModelSelect` with model `icon`/`details`, `ChatPromptComposer actions`) and Core `EmptyState` with a labelled list of Core `Button` starter prompts in a responsive grid.\n- More placeholder presets: `tiles` (3 × 3 block cards), `board` (tiles under a row of blank cards), `quad` (four short cards above a 2 × 2 grid) and `stack` (three metric tiles above a tall list), from the `block`, `blank`, `tile` and `rows` kinds.\n- Top bars spanning the window: give `SidebarProvider` `className='flex-col'`, render the header first and put `Sidebar` and `AppShellPanel` in a `relative flex` row below it. `AppShellNotifications` is the bell and notifications sheet (`inset` floats it). Use `showTriggerLabel` for a button showing the label and unread count. Use `showDescription` to display the description beneath the title. `AppShellNotificationItem` renders the same row in a popover list. Its attachment accepts an HTTP or blob href, or plain text for a download-only file. The onAction(item, action) callback receives the selected action; `Sidebar` takes `mobileWidth`, `mobileClassName`, `mobileTitle` and `mobileDescription` for a wider or renamed phone sheet; `AppShellNav` takes `labelIcon` and `labelClassName` for route-group headings.\n- Overlays: menus and tooltips portal to the page; the phone sidebar sheet opens inside the frame. Command palettes (`CommandDialog`) open over the page.\n- Gaudi tokens only: semantic colours (`bg-success`, `text-text-muted`…), `rounded-(--ds-radius-control)` / `--ds-radius-card` for tiles and cards (circles only for dots and avatars), registry icons through `RegistryIcon`, brand marks from `src/icons/brands`, Gaudi's generated illustrations from Storybook's local `/avatars/...` assets for avatars, and the shared hooks (`useHotkey` for ⌘K).\n- Check each example at 320, 390, 768, 1024, 1280 and 1600 px in light and dark: the frame border is visible inside the preview, nothing overflows the page, and the rail, nested navigation, menus and phone sheet work.\n\n### Finance dashboard example\n\n[FinanceDashboard.stories.jsx](stories/FinanceDashboard.stories.jsx) presents the [finance dashboard fixture](stories/fixtures/app-shell/app-shell-finance-dashboard.jsx) as a copyable composition. It combines flat, labelled navigation groups and a compact search header with stacked revenue bars, report totals, visitor distribution, product sales and a customer table. The layout uses App Shell and Dashboard parts, `BarChart`, `DataTable` and Core controls; actions and selection use Gaudi's default accent, while charts inherit the standard chart palette. Success colours are reserved for positive changes and account or payment status.\n\nNavigation switches local views, search finds pages and record details, role and plan filters update the customer table, and report, transaction and invoice tables offer CSV export. All figures and records are illustrative fixture data. Copy the story's public-import source into the consuming application, replace the sample data and `/avatars/` assets, and connect routing, services, permissions and persistence there. The fixture and its private helpers are examples, not package exports.\n\nThe frame is 62rem tall with a 40rem compact height and internal panel scrolling. Narrow frames use the sidebar sheet, stack the dashboard panels and filters, and keep horizontal table scrolling inside each table. Preserve the frame-scoped ⌘/Ctrl+K search shortcut so other examples on the page do not respond. Closing record details returns focus to the opening control, with the search button as the fallback when a search result has unmounted.\n\n## Overview\n\nApplication frames at three levels:\n\n- **`AppShell`**: a simple responsive workspace with a navigation rail (or a top bar), a mobile navigation sheet, a header, the content landmark, a skip link, an optional detail rail and an optional status bar. It stays in document flow.\n- **Sidebar parts** (`SidebarProvider`, `Sidebar`, `SidebarInset`, `SidebarTrigger`, `SidebarRail`, menus, groups and sub-menus): for richer shells, such as a rail that collapses to icons, floating and inset sidebars, nested groups with badges and row menus, secondary panels, and right-hand inspectors. On phones the sidebar becomes a Sheet drawer.\n- **Frame parts** (`AppShellFrame`, `AppShellPanel`, `AppShellHeader`, `AppShellBody`, `AppShellNav`): present either kind of shell as an app window inside a page, a marketing section or a documentation preview.\n\n## Usage\n\n```jsx\nimport AppShell, { AppShellFrame } from '@gaudi/design-system/blocks/AppShell';\nimport { SkeletonRoot as Skeleton } from '@gaudi/design-system/core/Skeleton';\n\n<AppShell\n  brand='Gaudi'\n  navigation={navigation}\n  header={<h1>Articles</h1>}\n  aside={<IssueDetails />}\n  statusBar={<span>All changes saved</span>}\n>\n  <DataTable columns={columns} rows={articles} searchable sortable pagination />\n</AppShell>\n\n// Sidebar-free apps put the brand and navigation in the header.\n<AppShell layout='topbar' brand='Gaudi' navigation={sections} header={<UserMenu />}>…</AppShell>\n\n// Inside a page, present the shell as an app window.\n<AppShellFrame>\n  <AppShell brand='Gaudi' navigation={navigation}>…</AppShell>\n</AppShellFrame>\n```\n\n```jsx\nimport {\n  AppShellBody, AppShellFrame, AppShellHeader, AppShellNav, AppShellPanel,\n  Sidebar, SidebarContent, SidebarProvider, SidebarTrigger\n} from '@gaudi/design-system/blocks/AppShell';\nimport { SkeletonRoot as Skeleton } from '@gaudi/design-system/core/Skeleton';\n\n<AppShellFrame>\n  <SidebarProvider storageKey='gaudi-sidebar'>\n    <Sidebar collapsible='icon'>\n      <SidebarContent role='navigation' aria-label='Workspace'>\n        <AppShellNav label='Library' items={pages} value={page} onValueChange={setPage} />\n      </SidebarContent>\n    </Sidebar>\n    <AppShellPanel>\n      <AppShellHeader><SidebarTrigger />{breadcrumb}</AppShellHeader>\n      <AppShellBody>\n        <Skeleton className='m-4 h-64' />\n      </AppShellBody>\n    </AppShellPanel>\n  </SidebarProvider>\n</AppShellFrame>\n```\n\n## Frame\n\n`AppShellFrame` draws a bordered window on `--ds-radius-card` with clipped overflow and a fixed height (`height`, 56rem by default and 40rem in compact layouts; the CSS variables `--ds-app-shell-frame-height` and `--ds-app-shell-frame-height-compact` also set it). Content scrolls inside: `AppShellPanel` (and the simple `AppShell` workspace) scroll on their own, and the sidebar is positioned against the frame instead of the viewport. The frame measures itself, and sidebar parts switch to the phone layout when the frame, not the viewport, is narrower than `compactBelow` (768px). The phone sheet portals into the frame, so it opens inside the window. Menus, tooltips and dialogs still portal to the page.\n\n## API\n\n| Prop / export                             | Type                       | Contract                                                                                   |\n| ----------------------------------------- | -------------------------- | ------------------------------------------------------------------------------------------ |\n| `brand / navigation / header / footer`    | ReactNode                  | Supplied slot content; the host owns route state and active links.                         |\n| `layout`                                  | `sidebar` / `topbar`       | A navigation rail, or brand and navigation in the header.                                  |\n| `aside / asideLabel`                      | ReactNode / string         | A named complementary rail beside the content; stacks below it under xl.                   |\n| `statusBar`                               | ReactNode                  | A status strip under the content.                                                          |\n| `children`                                | ReactNode                  | Page content inside the shell main landmark.                                               |\n| `navigationLabel / menuLabel / skipLabel` | string                     | Localized accessible labels.                                                               |\n| `className`                               | string                     | Root composition; the desktop rail begins at 1024px.                                       |\n| `AppShellFrame.height / compactBelow`     | string or number / number  | Window height (56rem; 40rem when compact) and the frame width for the phone layout (768).     |\n| `AppShellFrame.surface / label`           | `muted` / `default`; string | The window surface, and an optional region name.                                          |\n| `AppShellPanel.inset`                     | boolean                    | A bordered panel set into the frame (default), or flush beside a floating sidebar.         |\n| `AppShellHeader.bordered`                 | boolean                    | A rule under the sticky panel header.                                                      |\n| `AppShellNav`                             | items, value, …            | Data-driven sidebar group; see the Patterns section and the component docs.                |\n| `SidebarProvider.storageKey`              | string                     | Restores and saves the expanded state in localStorage after mount.                         |\n| `SidebarProvider.shortcut`                | string / false             | The ⌘/Ctrl key that toggles the sidebar (`b`); `false` turns it off.                       |\n| `SidebarProvider.labels`                  | object                     | `expanded`, `collapsed` announcements and the `toggle` trigger name. |\n| `Sidebar.variant / collapsible / side`    | string                     | `sidebar`, `floating` or `inset`; `offcanvas`, `icon` or `none`; edge.                     |\n| `SidebarTrigger.label / tooltip`          | string / boolean           | Trigger name, and a tooltip with the shortcut keys.                                        |\n| `SidebarMenuButton.tooltip`               | string / object            | Names the item on the collapsed icon rail.                                                 |\n\n## Accessibility\n\nKeep the skip link and the main landmark, and name each navigation and complementary region. Mark the current page with `aria-current` (`AppShellNav` does; a remembered section view is only highlighted). The trigger reports `aria-expanded` and `aria-keyshortcuts`, and expanding or collapsing is announced politely. Keep the trigger at the top of the sidebar or before the breadcrumbs, including when collapsed. On phones the sidebar is a Sheet that traps focus and returns it to the trigger, and choosing a page closes it. Collapsed icon rails name every item with a tooltip, and nested sections open as menus. Status dots carry a spoken `status`; placeholder grids are decorative and hidden from assistive technology, and their skeletons do not animate.\n\nWhen several shells share a page (as in these docs), turn the shortcut off on all but one, because each provider listens on the window.\n\n## Ownership and verification\n\nThe host supplies data, translations, network calls, permissions and persistence. Gaudi owns layout, semantics and local interaction. Examples document working behavior and states, with Storybook interaction/axe checks and a server-rendering contract test alongside the component.",
       "related": [
         "blocks-navigation"
       ]
@@ -22802,6 +22956,7 @@
               "Badge",
               "CheckboxRoot",
               "IconTile",
+              "Item",
               "Label",
               "Link",
               "RegistryIcon",
@@ -22815,6 +22970,7 @@
             "storyId": "blocks-application-authform--magic-link",
             "imports": [
               "AuthForm",
+              "CardRoot",
               "Discord",
               "Dropbox",
               "Frame",
@@ -22861,6 +23017,7 @@
             "imports": [
               "AuthForm",
               "Borealis",
+              "CardRoot",
               "GaudiBrand",
               "Link",
               "RegistryIcon",
@@ -23100,6 +23257,7 @@
             "registry": "chat-writing-assistant",
             "storyId": "blocks-chat--writing-assistant",
             "imports": [
+              "CardRoot",
               "ChatBubble",
               "ChatBubbleContent",
               "ChatMessage",
@@ -23118,6 +23276,7 @@
               "ChatShell",
               "Label",
               "Textarea",
+              "useInterval",
               "usePrefersReducedMotion"
             ]
           }
@@ -23402,6 +23561,7 @@
               "DashboardToolbar",
               "DataTable",
               "Dialog",
+              "MetaSeparator",
               "ProgressRoot",
               "Sparkline",
               "StatCard",
@@ -23416,11 +23576,13 @@
             "imports": [
               "Badge",
               "Button",
+              "CardRoot",
               "ComposedChart",
               "DashboardGrid",
               "DashboardPanel",
               "DataTable",
               "Label",
+              "MetaSeparator",
               "Progress",
               "ProgressRing",
               "RegistryIcon",
@@ -23446,6 +23608,7 @@
               "Button",
               "DashboardGrid",
               "DashboardPanel",
+              "MetaSeparator",
               "ProgressRing",
               "RegistryIcon",
               "StatCard",
@@ -23472,14 +23635,15 @@
             "imports": [
               "Badge",
               "BarChart",
-              "Button",
               "DashboardGrid",
               "DashboardPanel",
+              "MetaSeparator",
               "Progress",
               "RegistryIcon",
               "SankeyChart",
               "Sparkline",
               "StatCard",
+              "Toggle",
               "ToggleGroupItem",
               "ToggleGroupRoot",
               "dashboardSpan"
@@ -23494,10 +23658,13 @@
               "Avatar",
               "Badge",
               "Button",
+              "CardRoot",
               "ComposedChart",
               "DashboardGrid",
               "DashboardPanel",
               "DataTable",
+              "EmptyState",
+              "MetaSeparator",
               "ProgressRoot",
               "StatCard",
               "StatMeter",
@@ -23519,6 +23686,7 @@
               "DataTable",
               "FunnelChart",
               "HeatmapChart",
+              "MetaSeparator",
               "StatCard",
               "dashboardSpan"
             ]
@@ -23537,6 +23705,7 @@
               "DataTable",
               "FilterBar",
               "GaugeChart",
+              "MetaSeparator",
               "RegistryIcon",
               "Sparkline",
               "StackedBarList",
@@ -23786,6 +23955,10 @@
               "AlertTitle",
               "Badge",
               "Button",
+              "CardDescription",
+              "CardHeader",
+              "CardRoot",
+              "CardTitle",
               "CheckboxRoot",
               "CodeBlockGroup",
               "FieldDescriptionPrimitive",
@@ -23797,6 +23970,9 @@
               "FieldSet",
               "FormErrorSummary",
               "Input",
+              "Item",
+              "ItemGroup",
+              "MetaSeparator",
               "RadioGroup",
               "RegistryIcon",
               "SelectContent",
@@ -23805,6 +23981,7 @@
               "SelectTrigger",
               "SelectValue",
               "Textarea",
+              "Toggle",
               "useCopyToClipboard",
               "useFormValidation",
               "validators"
@@ -23820,8 +23997,11 @@
               "Button",
               "Calendar",
               "CardContent",
+              "CardDescription",
               "CardFooter",
+              "CardHeader",
               "CardRoot",
+              "CardTitle",
               "FieldContent",
               "FieldDescriptionPrimitive",
               "FieldErrorPrimitive",
@@ -23832,6 +24012,7 @@
               "FieldSet",
               "FormErrorSummary",
               "Input",
+              "MetaSeparator",
               "PopoverContentPrimitive",
               "PopoverPrimitive",
               "PopoverTriggerPrimitive",
@@ -23856,6 +24037,11 @@
             "storyId": "blocks-forms--article-feedback",
             "imports": [
               "Button",
+              "CardDescription",
+              "CardFooter",
+              "CardHeader",
+              "CardRoot",
+              "CardTitle",
               "FieldDescriptionPrimitive",
               "FieldErrorPrimitive",
               "FieldLabelPrimitive",
@@ -23880,6 +24066,10 @@
             "imports": [
               "Badge",
               "Button",
+              "CardDescription",
+              "CardHeader",
+              "CardRoot",
+              "CardTitle",
               "DialogContent",
               "DialogDescription",
               "DialogFooter",
@@ -23915,6 +24105,8 @@
               "AlertDescription",
               "AlertTitle",
               "Button",
+              "CardRoot",
+              "CardTitle",
               "CheckboxRoot",
               "FieldErrorPrimitive",
               "FieldGroup",
@@ -23946,6 +24138,11 @@
               "AlertDescription",
               "AlertTitle",
               "Button",
+              "CardDescription",
+              "CardFooter",
+              "CardHeader",
+              "CardRoot",
+              "CardTitle",
               "CharacterCount",
               "CheckboxRoot",
               "EmailInput",
@@ -24012,6 +24209,7 @@
               "Textarea",
               "ToggleGroupItem",
               "ToggleGroupRoot",
+              "getAvatarInitials",
               "useComboboxAnchor",
               "useFormValidation",
               "validators"
@@ -24025,6 +24223,11 @@
             "imports": [
               "Badge",
               "Button",
+              "CardDescription",
+              "CardFooter",
+              "CardHeader",
+              "CardRoot",
+              "CardTitle",
               "CheckboxRoot",
               "EmailInput",
               "FieldDescriptionPrimitive",
@@ -24039,6 +24242,7 @@
               "InputOTP",
               "InputOTPGroup",
               "InputOTPSlot",
+              "MetaSeparator",
               "NumberField",
               "NumberFieldDecrement",
               "NumberFieldGroup",
@@ -24082,6 +24286,7 @@
               "FieldSet",
               "FormErrorSummary",
               "Input",
+              "Item",
               "Link",
               "NumberField",
               "NumberFieldDecrement",
@@ -24108,6 +24313,10 @@
               "Badge",
               "Button",
               "Calendar",
+              "CardFooter",
+              "CardHeader",
+              "CardRoot",
+              "CardTitle",
               "Combobox",
               "ComboboxContent",
               "ComboboxEmpty",
@@ -24122,6 +24331,7 @@
               "Input",
               "InputGroupAddon",
               "InputGroupText",
+              "MetaSeparator",
               "NumberField",
               "NumberFieldGroup",
               "NumberFieldInput",
@@ -24155,6 +24365,10 @@
             "imports": [
               "Badge",
               "Button",
+              "CardDescription",
+              "CardHeader",
+              "CardRoot",
+              "CardTitle",
               "CharacterCount",
               "CheckboxRoot",
               "Combobox",
@@ -24172,6 +24386,7 @@
               "FieldGroup",
               "FieldLabelPrimitive",
               "FieldRoot",
+              "FileUploadDropzone",
               "FormErrorSummary",
               "Input",
               "NumberField",
@@ -24202,6 +24417,10 @@
             "storyId": "blocks-forms--newsletter",
             "imports": [
               "Button",
+              "CardDescription",
+              "CardHeader",
+              "CardRoot",
+              "CardTitle",
               "CheckboxRoot",
               "EmailInput",
               "FieldContent",
@@ -24266,20 +24485,21 @@
             "registry": "forms-profile-tabs",
             "storyId": "blocks-forms--profile-tabs",
             "imports": [
-              "AvatarFallback",
-              "AvatarImage",
-              "AvatarRoot",
+              "Avatar",
               "Badge",
               "Button",
+              "CardRoot",
+              "CardTitle",
               "EmailInput",
               "FieldDescriptionPrimitive",
               "FieldErrorPrimitive",
               "FieldGroup",
               "FieldLabelPrimitive",
               "FieldRoot",
+              "HeatmapChart",
               "Input",
+              "Item",
               "Label",
-              "RegistryIcon",
               "SelectContent",
               "SelectItem",
               "SelectRoot",
@@ -24290,7 +24510,7 @@
               "TabsContent",
               "TabsList",
               "TabsTrigger",
-              "cn",
+              "Timeline",
               "useFormValidation",
               "validators"
             ]
@@ -24305,6 +24525,11 @@
               "AlertDescription",
               "AlertTitle",
               "Button",
+              "CardDescription",
+              "CardFooter",
+              "CardHeader",
+              "CardRoot",
+              "CardTitle",
               "CheckboxRoot",
               "FieldContent",
               "FieldDescriptionPrimitive",
@@ -24343,13 +24568,14 @@
             "registry": "forms-support-ticket",
             "storyId": "blocks-forms--support-ticket",
             "imports": [
-              "AvatarFallback",
-              "AvatarImage",
-              "AvatarRoot",
+              "Avatar",
               "Badge",
               "Button",
+              "CardRoot",
               "DropdownMenuContent",
               "DropdownMenuItemPrimitive",
+              "DropdownMenuRadioGroup",
+              "DropdownMenuRadioItem",
               "DropdownMenuRoot",
               "DropdownMenuTrigger",
               "EditableField",
@@ -24388,6 +24614,7 @@
               "InputGroup",
               "InputGroupInput",
               "RegistryIcon",
+              "ScrollArea",
               "SelectContent",
               "SelectItem",
               "SelectRoot",
@@ -24823,6 +25050,7 @@
             "storyId": "blocks-onboarding--coding-agent",
             "imports": [
               "Button",
+              "CardRoot",
               "CheckboxRoot",
               "ClaudeAiIcon",
               "CodeBlock",
@@ -24834,6 +25062,7 @@
               "Gemini",
               "Input",
               "Label",
+              "MetaSeparator",
               "Openai",
               "RadioGroup",
               "RegistryIcon",
@@ -24857,6 +25086,7 @@
               "DialogTitle",
               "DialogTrigger",
               "EmptyState",
+              "Item",
               "KbdGroup",
               "KbdRoot",
               "Label",
@@ -24873,6 +25103,7 @@
             "storyId": "blocks-onboarding--new-publication",
             "imports": [
               "Button",
+              "CardRoot",
               "CarouselContent",
               "CarouselItem",
               "CarouselRoot",
@@ -24881,6 +25112,7 @@
               "FieldError",
               "FieldLabel",
               "Input",
+              "Item",
               "Label",
               "RadioGroup",
               "RegistryIcon",
@@ -24901,6 +25133,7 @@
               "AvatarFallback",
               "AvatarRoot",
               "Badge",
+              "CardRoot",
               "Discord",
               "Dropbox",
               "Field",
@@ -24909,7 +25142,9 @@
               "FieldLabel",
               "GoogleDrive",
               "Input",
+              "Item",
               "Loom",
+              "MetaSeparator",
               "RadioGroup",
               "RegistryIcon",
               "Slack",
@@ -24918,7 +25153,8 @@
               "ToggleGroupItem",
               "ToggleGroupRoot",
               "Wizard",
-              "Zoom"
+              "Zoom",
+              "getAvatarInitials"
             ]
           }
         ]
@@ -25028,6 +25264,7 @@
               "AvatarRoot",
               "Badge",
               "Button",
+              "CardRoot",
               "Collapsible",
               "CollapsibleContent",
               "CollapsibleTrigger",
@@ -25038,12 +25275,15 @@
               "FieldLabelPrimitive",
               "FieldRoot",
               "Input",
+              "Item",
+              "MetaSeparator",
               "NativeSelect",
               "NativeSelectOption",
               "RegistryIcon",
               "Separator",
               "SwitchRoot",
               "cn",
+              "getAvatarInitials",
               "useFileUpload"
             ]
           },
@@ -25055,6 +25295,8 @@
             "imports": [
               "Badge",
               "Button",
+              "CardRoot",
+              "MetaSeparator",
               "ProgressRoot",
               "RegistryIcon",
               "StatCard",
@@ -25076,6 +25318,7 @@
             "storyId": "blocks-profile--inbox-capture",
             "imports": [
               "Badge",
+              "CardRoot",
               "FieldContent",
               "FieldDescriptionPrimitive",
               "FieldGroup",
@@ -25084,11 +25327,11 @@
               "FieldRoot",
               "FieldSeparator",
               "FieldSet",
+              "Item",
               "Label",
               "NativeSelect",
               "NativeSelectOption",
-              "RadioGroupItem",
-              "RadioGroupRoot",
+              "RadioGroup",
               "RegistryIcon",
               "SwitchRoot",
               "Textarea"
@@ -25110,7 +25353,9 @@
               "FieldRoot",
               "FieldSet",
               "Input",
+              "Item",
               "Label",
+              "MetaSeparator",
               "NativeSelect",
               "NativeSelectOption",
               "SwitchRoot",
@@ -25125,7 +25370,8 @@
               "TabsList",
               "TabsTrigger",
               "ToggleGroupItem",
-              "ToggleGroupRoot"
+              "ToggleGroupRoot",
+              "getAvatarInitials"
             ]
           },
           {
@@ -25139,13 +25385,17 @@
               "AvatarRoot",
               "Badge",
               "Button",
+              "CardRoot",
               "IconTile",
               "InputGroup",
               "InputGroupAddon",
               "InputGroupButton",
               "InputGroupInput",
+              "Item",
+              "MetaSeparator",
               "ProgressRoot",
               "RegistryIcon",
+              "getAvatarInitials",
               "useCopyToClipboard"
             ]
           }
@@ -25331,10 +25581,9 @@
             "registry": "scheduling-book-meeting",
             "storyId": "blocks-scheduling--book-meeting",
             "imports": [
-              "AvatarFallback",
-              "AvatarImage",
-              "AvatarRoot",
+              "Avatar",
               "Button",
+              "CardRoot",
               "RegistryIcon",
               "ScheduleCalendar",
               "ScrollArea",
@@ -25404,11 +25653,12 @@
             "registry": "scheduling-day-agenda",
             "storyId": "blocks-scheduling--day-agenda",
             "imports": [
-              "AvatarFallback",
+              "Avatar",
               "AvatarGroup",
-              "AvatarImage",
-              "AvatarRoot",
               "Badge",
+              "CardRoot",
+              "EmptyState",
+              "Item",
               "RegistryIcon",
               "ScheduleCalendar",
               "ToggleGroupItem",
@@ -25422,10 +25672,15 @@
             "registry": "scheduling-month-overview",
             "storyId": "blocks-scheduling--month-overview",
             "imports": [
-              "AvatarFallback",
+              "Avatar",
               "AvatarGroup",
-              "AvatarImage",
-              "AvatarRoot",
+              "CardRoot",
+              "EmptyState",
+              "Item",
+              "ItemContent",
+              "ItemDescription",
+              "ItemTitle",
+              "MetaSeparator",
               "ProgressRoot",
               "ScheduleCalendar",
               "StatusDot",
@@ -25442,6 +25697,7 @@
             "storyId": "blocks-scheduling--plan-meeting",
             "imports": [
               "Button",
+              "CardRoot",
               "Label",
               "ScheduleCalendar",
               "SelectContent",
@@ -25464,18 +25720,22 @@
             "registry": "scheduling-webinar-rsvp",
             "storyId": "blocks-scheduling--webinar-rsvp",
             "imports": [
+              "Avatar",
               "AvatarFallback",
               "AvatarGroup",
               "AvatarGroupCount",
               "AvatarImage",
               "AvatarRoot",
               "Badge",
+              "CardRoot",
               "Collapsible",
               "CollapsibleContent",
               "CollapsibleTrigger",
+              "MetaSeparator",
               "RegistryIcon",
               "ToggleGroupItem",
-              "ToggleGroupRoot"
+              "ToggleGroupRoot",
+              "getAvatarInitials"
             ]
           }
         ]
@@ -25715,6 +25975,7 @@
               "AlertTitle",
               "Badge",
               "Button",
+              "CardRoot",
               "CodeBlockGroup",
               "Label",
               "RegistryIcon",
@@ -25737,10 +25998,12 @@
             "imports": [
               "Badge",
               "Button",
+              "CardRoot",
               "Discord",
               "Dropbox",
               "GoogleDrive",
               "IconTile",
+              "Item",
               "Loom",
               "Slack",
               "Stripe",
@@ -25757,6 +26020,7 @@
             "registry": "screens-notifications",
             "storyId": "blocks-settings--notifications",
             "imports": [
+              "CardRoot",
               "CheckboxRoot",
               "Collapsible",
               "CollapsibleContent",
@@ -25804,6 +26068,7 @@
               "FieldDescriptionPrimitive",
               "FieldLabelPrimitive",
               "FieldRoot",
+              "Item",
               "NativeSelect",
               "NativeSelectOption",
               "RegistryIcon",
@@ -26113,6 +26378,7 @@
             "storyId": "blocks-stat-cards--kpi-overview",
             "imports": [
               "Button",
+              "CardRoot",
               "Dialog",
               "DropdownMenuContent",
               "DropdownMenuItemPrimitive",
@@ -26191,9 +26457,11 @@
               "AvatarFallback",
               "AvatarImage",
               "AvatarRoot",
+              "CardRoot",
               "ProgressRoot",
               "StatCard",
-              "StatDelta"
+              "StatDelta",
+              "getAvatarInitials"
             ]
           },
           {
@@ -26213,6 +26481,7 @@
               "Collapsible",
               "CollapsibleContent",
               "CollapsibleTrigger",
+              "MetaSeparator",
               "ProgressRoot",
               "Sparkline",
               "StatMeter",
@@ -26407,10 +26676,12 @@
             "imports": [
               "Badge",
               "Button",
+              "CardRoot",
               "Field",
               "FieldError",
               "FieldLabel",
               "Input",
+              "MetaSeparator",
               "NativeSelect",
               "NativeSelectOption",
               "NumberField",
@@ -26436,12 +26707,14 @@
             "registry": "screens-plan-upgrade",
             "storyId": "blocks-application-wizard--plan-upgrade",
             "imports": [
+              "CardRoot",
               "EmailInput",
               "Field",
               "FieldDescription",
               "FieldError",
               "FieldLabel",
               "Input",
+              "MetaSeparator",
               "NumberField",
               "NumberFieldGroup",
               "NumberFieldInput",
@@ -26459,10 +26732,12 @@
             "storyId": "blocks-application-wizard--send-invoice",
             "imports": [
               "Button",
+              "CardRoot",
               "Field",
               "FieldError",
               "FieldLabel",
               "Input",
+              "MetaSeparator",
               "NativeSelect",
               "NativeSelectOption",
               "NumberField",
@@ -26489,6 +26764,7 @@
               "Alert",
               "AlertDescription",
               "AlertTitle",
+              "CardRoot",
               "Combobox",
               "ComboboxContent",
               "ComboboxEmpty",
@@ -26517,17 +26793,20 @@
               "AvatarRoot",
               "Badge",
               "Button",
+              "CardRoot",
               "Field",
               "FieldDescription",
               "FieldError",
               "FieldLabel",
+              "Item",
               "Label",
               "NativeSelect",
               "NativeSelectOption",
               "RegistryIcon",
               "SwitchRoot",
               "Textarea",
-              "Wizard"
+              "Wizard",
+              "getAvatarInitials"
             ]
           },
           {
@@ -26536,6 +26815,7 @@
             "registry": "screens-vendor-onboarding",
             "storyId": "blocks-application-wizard--vendor-onboarding",
             "imports": [
+              "CardRoot",
               "CheckboxRoot",
               "Field",
               "FieldDescription",
@@ -26758,7 +27038,9 @@
             "storyId": "chat-activityindicator--reply-lifecycle",
             "imports": [
               "Button",
-              "ChatActivityIndicator"
+              "ChatActivityIndicator",
+              "Item",
+              "useInterval"
             ]
           }
         ]
@@ -27421,7 +27703,9 @@
               "Badge",
               "Button",
               "ChatAgentQueue",
-              "RegistryIcon"
+              "RegistryIcon",
+              "Toggle",
+              "useInterval"
             ]
           }
         ]
@@ -27584,7 +27868,6 @@
               "AvatarFallback",
               "AvatarImage",
               "AvatarRoot",
-              "Button",
               "CardContent",
               "CardDescription",
               "CardHeader",
@@ -27593,7 +27876,8 @@
               "ChatBubble",
               "ChatBubbleContent",
               "ChatBubbleGroup",
-              "ChatBubbleReactions"
+              "ChatBubbleReactions",
+              "Toggle"
             ]
           }
         ]
@@ -27857,6 +28141,7 @@
               "AccordionTrigger",
               "Badge",
               "Button",
+              "CardRoot",
               "ChatAgentMark",
               "ChatMessageToolApproval",
               "ChatPlan",
@@ -27866,6 +28151,8 @@
               "DialogHeader",
               "DialogRoot",
               "DialogTitle",
+              "EmptyState",
+              "MetaSeparator",
               "ProgressRoot",
               "Tree",
               "TreeItem",
@@ -27902,6 +28189,7 @@
               "EmptyDescription",
               "EmptyHeader",
               "EmptyTitle",
+              "MetaSeparator",
               "RadioGroup",
               "RegistryIcon",
               "ToggleGroupItem",
@@ -27920,6 +28208,7 @@
               "Collapsible",
               "CollapsibleContent",
               "CollapsibleTrigger",
+              "MetaSeparator",
               "RegistryIcon"
             ]
           }
@@ -29018,6 +29307,7 @@
             "storyId": "chat-chatinput--mentions-attachments",
             "imports": [
               "Badge",
+              "CardRoot",
               "ChatPromptComposer"
             ]
           },
@@ -29043,6 +29333,9 @@
             "imports": [
               "ChatPromptComposer",
               "ChatPromptQueue",
+              "Item",
+              "ItemContent",
+              "ItemMedia",
               "LoaderRoot",
               "RegistryIcon"
             ]
@@ -29215,7 +29508,6 @@
             "registry": "message-research-answer",
             "storyId": "chat-message--research-answer",
             "imports": [
-              "Button",
               "ChatAgentMark",
               "ChatMessage",
               "ChatMessageContent",
@@ -29226,10 +29518,13 @@
               "ItemDescription",
               "ItemTitle",
               "LoaderRoot",
+              "MetaSeparator",
               "Popover",
               "PopoverContent",
               "PopoverTrigger",
               "RegistryIcon",
+              "ToggleGroupItem",
+              "ToggleGroupRoot",
               "usePrefersReducedMotion"
             ]
           },
@@ -29246,10 +29541,7 @@
               "AttachmentDescription",
               "AttachmentMedia",
               "AttachmentTitle",
-              "AvatarBadge",
-              "AvatarFallback",
-              "AvatarImage",
-              "AvatarRoot",
+              "Avatar",
               "ChatBubble",
               "ChatBubbleContent",
               "ChatMessage",
@@ -29460,9 +29752,7 @@
             "registry": "message-scroller-anchored-turn",
             "storyId": "chat-messagelist--anchored-turn",
             "imports": [
-              "AvatarFallback",
-              "AvatarImage",
-              "AvatarRoot",
+              "Avatar",
               "CardContent",
               "CardDescription",
               "CardFooter",
@@ -29530,7 +29820,7 @@
               "ChatMessageScrollerItem",
               "ChatMessageScrollerProvider",
               "ChatMessageScrollerViewport",
-              "Separator",
+              "FieldSeparator",
               "ToggleGroupItem",
               "ToggleGroupRoot"
             ]
@@ -29541,9 +29831,7 @@
             "registry": "message-scroller-load-earlier",
             "storyId": "chat-messagelist--load-earlier",
             "imports": [
-              "AvatarFallback",
-              "AvatarImage",
-              "AvatarRoot",
+              "Avatar",
               "Badge",
               "Button",
               "CardAction",
@@ -29563,9 +29851,9 @@
               "ChatMessageScrollerItem",
               "ChatMessageScrollerProvider",
               "ChatMessageScrollerViewport",
+              "FieldSeparator",
               "LoaderRoot",
               "RegistryIcon",
-              "Separator",
               "useMessageScrollerScrollable"
             ]
           },
@@ -29575,9 +29863,7 @@
             "registry": "message-scroller-streaming-follow",
             "storyId": "chat-messagelist--streaming-follow",
             "imports": [
-              "AvatarFallback",
-              "AvatarImage",
-              "AvatarRoot",
+              "Avatar",
               "Badge",
               "Button",
               "CardAction",
@@ -29607,9 +29893,7 @@
             "registry": "message-scroller-thread-navigator",
             "storyId": "chat-messagelist--thread-navigator",
             "imports": [
-              "AvatarFallback",
-              "AvatarImage",
-              "AvatarRoot",
+              "Avatar",
               "Button",
               "CardContent",
               "CardDescription",
@@ -29958,12 +30242,15 @@
             "imports": [
               "Badge",
               "Button",
+              "CharacterCount",
               "ChatAgentMark",
               "ChatPlan",
               "ChatPromptQueue",
               "Label",
+              "MetaSeparator",
               "RegistryIcon",
-              "Textarea"
+              "Textarea",
+              "Toggle"
             ]
           }
         ]
@@ -30597,7 +30884,8 @@
               "ChatCitedAnswer",
               "ChatMessage",
               "ChatMessageContent",
-              "ChatMessageHeader"
+              "ChatMessageHeader",
+              "MetaSeparator"
             ]
           },
           {
@@ -30956,7 +31244,8 @@
               "ChatMessageAvatar",
               "ChatMessageContent",
               "ChatMessageHeader",
-              "ChatMessageParts"
+              "ChatMessageParts",
+              "useTimeout"
             ]
           }
         ]
@@ -31787,8 +32076,7 @@
               "ChartLegendContent",
               "ChartTooltip",
               "ChartTooltipContent",
-              "Label",
-              "SwitchRoot",
+              "Switch",
               "ToggleGroupItem",
               "ToggleGroupRoot"
             ]
@@ -32103,8 +32391,7 @@
               "ChartLegendContent",
               "ChartTooltip",
               "ChartTooltipContent",
-              "Label",
-              "SwitchRoot",
+              "Switch",
               "ToggleGroupItem",
               "ToggleGroupRoot"
             ]
@@ -32407,6 +32694,7 @@
           "ChartGrid",
           "ChartLegend",
           "ChartLegendContent",
+          "ChartLegendList",
           "ChartReferenceLabel",
           "ChartReferenceLine",
           "ChartStatePanel",
@@ -32696,7 +32984,7 @@
       "storybook": "charts-chartframe--docs",
       "docs": "docs/llm/charts-chartframe.md",
       "source": "src/components/charts/ChartFrame/",
-      "readme": "# ChartFrame\n\nThe frame every chart renders in: a captioned figure with one keyboard stop and a readout, loading, empty, invalid and error states, locale-aware numbers and a data table built from points. Use it around a custom visual, with the Recharts composition parts and Gaudi primitives.\n\n[Open the docs](http://localhost:6007/?path=/docs/charts-chartframe--docs) for the Playground and detailed examples, each with its complete JSX.\n\n## Usage\n\n```jsx\nimport { ChartFrame, useChartFrame } from '@gaudi/design-system/charts';\n\n<ChartFrame title='Writing goals' ariaLabel='Progress towards writing goals' points={points} showData='toggle'>\n  <GoalBars />\n</ChartFrame>\n```\n\nImport from `@gaudi/design-system/charts` or `@gaudi/design-system/charts/ChartFrame`. Charts are not exported from the root entry, so pages without a chart never load Recharts. In an article, render the same chart through MDX/Chart.\n\n## API\n\n| Prop | Type | Default | Contract |\n| --- | --- | --- | --- |\n| `points` | Array<{ label, values: Array<{ name, value, display?, color? }> }> | [] | What the keyboard walks and the table lists. |\n| `status` | ready \\| loading \\| empty \\| invalid \\| error | ready | The frame state; charts derive it from their data. |\n| `columns` | number | — | Row length for Up and Down on grid-shaped visuals. |\n| `children` | ReactNode | — | Content composed from the exported parts. |\n| `useChartFrame()` | hook | — | activeIndex, setActive and format for drawn elements; mark them with data-chart-index. |\n| `ChartContainer / ChartGrid / ChartXAxis / ChartYAxis / ChartReferenceLine / ChartAnnotations / createRowsTooltip` | parts | — | Style bespoke Recharts charts with chart tokens. |\n| `title / description` | ReactNode | — | Figure caption above the plot. |\n| `ariaLabel` | string | title or Chart | Accessible name of the plot, the single keyboard stop. |\n| `height` | number | type-specific | Plot height in pixels. |\n| `state` | loading \\| error \\| empty \\| invalid | from data | Force a state; empty and invalid are otherwise detected from the data. |\n| `labels` | Partial<DEFAULT_CHART_LABELS> | English copy | Copy for states, the keyboard hint, the data table and its toggle. |\n| `locale / formatValue` | string / Intl.NumberFormatOptions \\| (value) => string | runtime / number | Number format for axes, tooltips, the readout and the table. |\n| `showData` | hidden \\| toggle \\| visible | hidden | Data table visibility; hidden keeps it available to assistive technology. |\n| `onActivate / onActiveChange` | (point, index) => void / (index \\| null) => void | — | Click, Enter or Space on a point; the active point changed. |\n| `toolbar / framed` | ReactNode / boolean | — / true | Controls beside the caption; the figure border and padding. |\n| `className` | string | — | Additional classes on the outer element. |\n\n## Accessibility\n\nThe plot is one tab stop named by ariaLabel. The arrow keys walk the points, Home and End jump to the ends, Enter or Space activates and Escape clears; the active point is drawn and read out politely. Every value is mirrored in a data table, and the SVG is hidden from assistive technology.\n\nColours come from the chart palette tokens (`--ds-color-chart-1` … `-8`, the sequential, diverging and heatmap ramps and the chart neutrals), with light and dark values checked by the token tests.\n\nIn right-to-left interfaces, shared SVG axis ticks, value-grid labels and reference labels keep left-to-right direction so their text anchors stay aligned with the plot's physical coordinates. Captions, controls, readouts and data tables inherit the surrounding interface direction; number formatting still follows `locale` or `formatValue`.\n\nSee [source notices](../../../../README.md#third-party-notices).",
+      "readme": "# ChartFrame\n\nThe frame every chart renders in: a captioned figure with one keyboard stop and a readout, loading, empty, invalid and error states, locale-aware numbers and a data table built from points. Use it around a custom visual, with the Recharts composition parts and Gaudi primitives.\n\n[Open the docs](http://localhost:6007/?path=/docs/charts-chartframe--docs) for the Playground and detailed examples, each with its complete JSX.\n\n## Usage\n\n```jsx\nimport { ChartFrame, useChartFrame } from '@gaudi/design-system/charts';\n\n<ChartFrame title='Writing goals' ariaLabel='Progress towards writing goals' points={points} showData='toggle'>\n  <GoalBars />\n</ChartFrame>\n```\n\nImport from `@gaudi/design-system/charts` or `@gaudi/design-system/charts/ChartFrame`. Charts are not exported from the root entry, so pages without a chart never load Recharts. In an article, render the same chart through MDX/Chart.\n\n## API\n\n| Prop | Type | Default | Contract |\n| --- | --- | --- | --- |\n| `points` | Array<{ label, values: Array<{ name, value, display?, color? }> }> | [] | What the keyboard walks and the table lists. |\n| `status` | ready \\| loading \\| empty \\| invalid \\| error | ready | The frame state; charts derive it from their data. |\n| `columns` | number | — | Row length for Up and Down on grid-shaped visuals. |\n| `children` | ReactNode | — | Content composed from the exported parts. |\n| `useChartFrame()` | hook | — | activeIndex, setActive and format for drawn elements; mark them with data-chart-index. |\n| `ChartContainer / ChartGrid / ChartXAxis / ChartYAxis / ChartReferenceLine / ChartAnnotations / createRowsTooltip` | parts | — | Style bespoke Recharts charts with chart tokens. |\n| `ChartLegendList` | component | — | Renders a list of `{ key, label, color }` items below a plot. Give the list an accessible name with `aria-label`. |\n| `title / description` | ReactNode | — | Figure caption above the plot. |\n| `ariaLabel` | string | title or Chart | Accessible name of the plot, the single keyboard stop. |\n| `height` | number | type-specific | Plot height in pixels. |\n| `state` | loading \\| error \\| empty \\| invalid | from data | Force a state; empty and invalid are otherwise detected from the data. |\n| `labels` | Partial<DEFAULT_CHART_LABELS> | English copy | Copy for states, the keyboard hint, the data table and its toggle. |\n| `locale / formatValue` | string / Intl.NumberFormatOptions \\| (value) => string | runtime / number | Number format for axes, tooltips, the readout and the table. |\n| `showData` | hidden \\| toggle \\| visible | hidden | Data table visibility; hidden keeps it available to assistive technology. |\n| `onActivate / onActiveChange` | (point, index) => void / (index \\| null) => void | — | Click, Enter or Space on a point; the active point changed. |\n| `toolbar / framed` | ReactNode / boolean | — / true | Controls beside the caption; the figure border and padding. |\n| `className` | string | — | Additional classes on the outer element. |\n\n## Accessibility\n\nThe plot is one tab stop named by ariaLabel. The arrow keys walk the points, Home and End jump to the ends, Enter or Space activates and Escape clears; the active point is drawn and read out politely. Every value is mirrored in a data table, and the SVG is hidden from assistive technology.\n\nColours come from the chart palette tokens (`--ds-color-chart-1` … `-8`, the sequential, diverging and heatmap ramps and the chart neutrals), with light and dark values checked by the token tests.\n\nIn right-to-left interfaces, shared SVG axis ticks, value-grid labels and reference labels keep left-to-right direction so their text anchors stay aligned with the plot's physical coordinates. Captions, controls, readouts and data tables inherit the surrounding interface direction; number formatting still follows `locale` or `formatValue`.\n\nSee [source notices](../../../../README.md#third-party-notices).",
       "related": []
     },
     {
@@ -33290,6 +33578,8 @@
             "registry": "donut-chart-topic-select",
             "storyId": "charts-donutchart--topic-select",
             "imports": [
+              "CardRoot",
+              "CardTitle",
               "DonutChart"
             ]
           }
@@ -34658,10 +34948,12 @@
               "CardRoot",
               "CardTitle",
               "ChartContainer",
+              "ChartGrid",
               "ChartLegend",
               "ChartLegendContent",
               "ChartTooltip",
-              "ChartTooltipContent"
+              "ChartXAxis",
+              "createRowsTooltip"
             ]
           }
         ]
@@ -36634,9 +36926,8 @@
             "registry": "stacked-bar-list-top-posts",
             "storyId": "charts-stackedbarlist--top-posts",
             "imports": [
-              "Label",
-              "StackedBarList",
-              "SwitchRoot"
+              "LabeledSwitch",
+              "StackedBarList"
             ]
           }
         ]
@@ -37003,6 +37294,8 @@
             "storyId": "charts-treemapchart--context-map",
             "imports": [
               "Button",
+              "ChartLegendList",
+              "MetaSeparator",
               "Select",
               "ToggleGroupItem",
               "ToggleGroupRoot",
@@ -47540,13 +47833,14 @@
               "AvatarImage",
               "AvatarRoot",
               "Badge",
-              "RegistryIcon",
+              "StatDelta",
               "TableBodyPrimitive",
               "TableCellPrimitive",
               "TableHeadPrimitive",
               "TableHeader",
               "TableRoot",
-              "TableRowPrimitive"
+              "TableRowPrimitive",
+              "getAvatarInitials"
             ]
           },
           {
@@ -47560,6 +47854,7 @@
               "AvatarRoot",
               "Badge",
               "Button",
+              "CardRoot",
               "Dialog",
               "DropdownMenuContent",
               "DropdownMenuItemPrimitive",
@@ -47573,7 +47868,8 @@
               "TableHeadPrimitive",
               "TableHeader",
               "TableRoot",
-              "TableRowPrimitive"
+              "TableRowPrimitive",
+              "getAvatarInitials"
             ]
           },
           {

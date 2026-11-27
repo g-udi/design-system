@@ -74,7 +74,7 @@ The header is a disclosure naming the tool and status; errors are alerts. An app
 
 Curated patterns:
 
-- Running tools — registry item `@gaudi/chat-tool-running-tools` (uses `ChatAgentMark`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageHeader`, `ChatMessageParts`)
+- Running tools — registry item `@gaudi/chat-tool-running-tools` (uses `ChatAgentMark`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageHeader`, `ChatMessageParts`, `useTimeout`)
 
 ## Related
 

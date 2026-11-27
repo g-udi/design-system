@@ -1,4 +1,6 @@
 'use client';
+import { NumberField, NumberFieldGroup, NumberFieldDecrement, NumberFieldInput, NumberFieldIncrement } from '@gaudi/design-system/core/NumberField';
+import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
 import { useState } from 'react';
 import { FieldInput } from '@gaudi/design-system/core/Field';
 import { useCopyToClipboard } from '@gaudi/design-system/hooks/interaction/use-copy-to-clipboard';
@@ -32,13 +34,16 @@ export function Pattern() {
           </Button>
         ))}
       </ButtonGroup>
-      <ButtonGroup orientation='vertical' aria-label='Quantity'>
-        <Button variant='outline' size='icon' aria-label='Add' onClick={() => setQuantity(quantity + 1)}><RegistryIcon aria-hidden='true' lucide='PlusIcon' /></Button>
-        <Button variant='outline' size='icon' aria-label='Subtract' disabled={quantity === 0} onClick={() => setQuantity(quantity - 1)}><RegistryIcon aria-hidden='true' lucide='MinusIcon' /></Button>
-      </ButtonGroup>
+      <NumberField min={0} value={quantity} onValueChange={value => setQuantity(value ?? 0)} size='sm' className='w-12'>
+        <NumberFieldGroup className='h-auto flex-col'>
+          <NumberFieldIncrement aria-label='Add' />
+          <NumberFieldInput aria-label='Entries per section' />
+          <NumberFieldDecrement aria-label='Subtract' />
+        </NumberFieldGroup>
+      </NumberField>
       <ButtonGroup orientation='vertical' aria-label='Tool palette'>
         <ButtonGroup orientation='vertical'>
-          <Button variant='outline' size='icon' aria-label='Search this section' aria-pressed={searching} onClick={() => { setSearching(!searching); setQuery(''); }}><RegistryIcon aria-hidden='true' lucide='SearchIcon' /></Button>
+          <Toggle variant='outline' size='sm' aria-label='Search this section' pressed={searching} onPressedChange={() => { setSearching(!searching); setQuery(''); }}><RegistryIcon aria-hidden='true' lucide='SearchIcon' /></Toggle>
           <Button variant='outline' size='icon' aria-label={isCopied ? 'Copied section' : 'Copy section'} disabled={!items.length || quantity === 0} onClick={() => copy(items.slice(0, quantity).join('\n'))}><RegistryIcon aria-hidden='true' lucide='CopyIcon' /></Button>
         </ButtonGroup>
         <ButtonGroup orientation='vertical'>

@@ -56,10 +56,10 @@ Keep a keyboard-operable handle and announce moves. The application owns saving 
 
 Curated patterns:
 
-- Media grid — registry item `@gaudi/sortable-media-grid` (uses `Badge`, `Frame`, `FrameDescription`, `FrameHeader`, `FramePanel`, `FrameTitle`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `SortableItemPosition`, `cn`)
-- Nested lists — registry item `@gaudi/sortable-nested` (uses `CardContent`, `CardRoot`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `SortableItemPosition`, `ToastProvider`, `toast`)
-- Persisted order — registry item `@gaudi/sortable-persisted` (uses `Label`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `SortableItemPosition`, `SwitchRoot`, `ToastProvider`, `toast`, `useTimeout`)
-- List with row controls — registry item `@gaudi/sortable-row-controls` (uses `Badge`, `Frame`, `FrameDescription`, `FrameHeader`, `FramePanel`, `FrameTitle`, `IconTile`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `SortableItemPosition`, `SwitchRoot`, `ToastProvider`, `toast`)
+- Media grid — registry item `@gaudi/sortable-media-grid` (uses `Badge`, `CardRoot`, `Frame`, `FrameDescription`, `FrameHeader`, `FramePanel`, `FrameTitle`, `MetaSeparator`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `SortableItemPosition`, `cn`)
+- Nested lists — registry item `@gaudi/sortable-nested` (uses `CardContent`, `CardRoot`, `Item`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `SortableItemPosition`, `ToastProvider`, `toast`)
+- Persisted order — registry item `@gaudi/sortable-persisted` (uses `Item`, `LabeledSwitch`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `SortableItemPosition`, `ToastProvider`, `toast`, `useTimeout`)
+- List with row controls — registry item `@gaudi/sortable-row-controls` (uses `Badge`, `Frame`, `FrameDescription`, `FrameHeader`, `FramePanel`, `FrameTitle`, `IconTile`, `MetaSeparator`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `SortableItemPosition`, `SwitchRoot`, `ToastProvider`, `toast`)
 
 ## README
 

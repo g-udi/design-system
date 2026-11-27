@@ -16,7 +16,7 @@ import { Card } from '@gaudi/design-system';
 
 ## Parts
 
-For headers with actions or a footer, compose `CardRoot`, `CardHeader`, `CardTitle`, `CardDescription`, `CardAction`, `CardContent`, and `CardFooter`. `CardTitle` and `CardDescription` accept `as` to render a heading or paragraph.
+For headers with actions or a footer, compose `CardRoot`, `CardHeader`, `CardTitle`, `CardDescription`, `CardAction`, `CardContent`, and `CardFooter`. `CardRoot` accepts `as` to preserve the native semantics of a form, section, aside, or list item. It renders a div by default. `CardTitle` and `CardDescription` accept `as` to render a heading or paragraph.
 
 `Frame`, `FramePanel`, `FrameHeader`, `FrameTitle`, `FrameDescription`, and `FrameFooter` build a tinted tray that holds one or more panels, such as stacked settings sections.
 

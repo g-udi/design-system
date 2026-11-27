@@ -1,12 +1,10 @@
 'use client';
+import { Item } from '@gaudi/design-system/core/Item';
+import EmptyState from '@gaudi/design-system/core/EmptyState';
+import { CardRoot as Card } from '@gaudi/design-system/core/Card';
 import { useState } from 'react';
 import { ScheduleCalendar, dayKey } from '@gaudi/design-system/blocks/Scheduling';
-import {
-  AvatarRoot as Avatar,
-  AvatarFallback,
-  AvatarGroup,
-  AvatarImage
-} from '@gaudi/design-system/core/Avatar';
+import { Avatar, AvatarGroup } from '@gaudi/design-system/core/Avatar';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import {
   ToggleGroupRoot as ToggleGroup,
@@ -42,7 +40,7 @@ export function Pattern() {
   const [filter, setFilter] = useState('all');
   const events = (agenda[dayKey(date)] || []).filter((event) => filter === 'all' || event.status === filter);
   return (
-    <div className='bg-surface grid w-full max-w-3xl overflow-hidden rounded-lg border md:grid-cols-[auto_1fr]'>
+    <Card variant='outline' radius='lg' padding='none' className='grid w-full max-w-3xl md:grid-cols-[auto_1fr]'>
       <ScheduleCalendar
         mode='single'
         required
@@ -69,7 +67,7 @@ export function Pattern() {
         {events.length ? (
           <ul className='grid gap-2'>
             {events.map((event) => (
-              <li key={event.title} className='grid grid-cols-[3.5rem_1fr] gap-3 rounded-md border p-3'>
+              <Item as='li' key={event.title} variant='outline' size='sm' className='grid grid-cols-[3.5rem_1fr] items-start gap-3'>
                 <div className='text-sm tabular-nums'>
                   <p className='font-medium'>{event.time}</p>
                   <p className='text-text-muted text-xs'>{event.end}</p>
@@ -88,21 +86,18 @@ export function Pattern() {
                     </span>
                     <AvatarGroup>
                       {event.people.map((person) => (
-                        <Avatar key={person} className='size-5'>
-                          <AvatarImage src={portrait(person)} alt='' />
-                          <AvatarFallback>·</AvatarFallback>
-                        </Avatar>
+                        <Avatar key={person} size='xs' surface='tinted' src={portrait(person)} fallback alt='' />
                       ))}
                     </AvatarGroup>
                   </div>
                 </div>
-              </li>
+              </Item>
             ))}
           </ul>
         ) : (
-          <p className='text-text-muted rounded-md border border-dashed p-6 text-center text-sm'>Nothing scheduled{filter === 'all' ? '' : ` with this status`}.</p>
+          <EmptyState compact title={`Nothing scheduled${filter === 'all' ? '' : ' with this status'}.`} />
         )}
       </div>
-    </div>
+    </Card>
   );
 }

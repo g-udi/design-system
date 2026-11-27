@@ -1,4 +1,5 @@
 'use client';
+import EmptyState from '@gaudi/design-system/core/EmptyState';
 import { useState } from 'react';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { FieldInput as Input } from '@gaudi/design-system/core/Field';
@@ -48,7 +49,7 @@ export function Pattern() {
       </Select>
       <Button type='submit'>Search</Button>
       </div>
-      {results && <p role='status' className='text-sm text-text-muted'>{results.length ? results.map((member) => member.name).join(', ') : 'No members found.'}</p>}
+      {results && (results.length ? <p role='status' className='text-sm text-text-muted'>{results.map(member => member.name).join(', ')}</p> : <EmptyState compact role='status' title='No members found.' />)}
     </form>
   );
 }

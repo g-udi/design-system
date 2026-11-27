@@ -1,10 +1,11 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
 import { useState } from 'react';
 import { format } from 'date-fns';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { Calendar } from '@gaudi/design-system/core/Calendar';
-import { CardRoot as Card, CardContent, CardFooter } from '@gaudi/design-system/core/Card';
+import { CardHeader, CardTitle, CardDescription, CardRoot as Card, CardContent, CardFooter } from '@gaudi/design-system/core/Card';
 import { FieldRoot as Field, FieldContent, FieldDescriptionPrimitive as FieldDescription, FieldErrorPrimitive as FieldError, FieldGroup, FieldLabelPrimitive as FieldLabel, FieldLegend, FieldSet } from '@gaudi/design-system/core/Field';
 import { default as Input } from '@gaudi/design-system/core/Input';
 import { PopoverPrimitive as Popover, PopoverContentPrimitive as PopoverContent, PopoverTriggerPrimitive as PopoverTrigger } from '@gaudi/design-system/core/Popover';
@@ -22,9 +23,9 @@ const platforms = [
 ];
 const regions = { eu: 'Europe (Frankfurt)', uk: 'United Kingdom (London)', us: 'United States (Virginia)', ap: 'Asia Pacific (Singapore)' };
 const plans = [
-  { value: 'hobby', label: 'Hobby', description: 'Free · 1 GB' },
-  { value: 'pro', label: 'Pro', description: '£20/month · 50 GB' },
-  { value: 'scale', label: 'Scale', description: '£90/month · 500 GB' }
+  { value: 'hobby', label: 'Hobby', description: <>Free <MetaSeparator /> 1 GB</> },
+  { value: 'pro', label: 'Pro', description: <>£20/month <MetaSeparator /> 50 GB</> },
+  { value: 'scale', label: 'Scale', description: <>£90/month <MetaSeparator /> 500 GB</> }
 ];
 const slugify = (value) => String(value).toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 32);
 const taken = ['notes', 'field-notes', 'gaudi'];
@@ -51,22 +52,22 @@ export function Pattern() {
   return (
     <Card className='mx-auto w-full max-w-3xl overflow-hidden pt-0'>
       <form noValidate aria-labelledby='launch-title' onSubmit={form.handleSubmit(() => setLaunched(true))} className='flex flex-col gap-(--card-spacing)'>
-        <div aria-live='polite' className='from-accent-subtle via-discovery/15 to-attention/15 grid gap-3 border-b bg-linear-to-br p-5 sm:p-6'>
+        <CardHeader aria-live='polite' className='from-accent-subtle via-discovery/15 to-attention/15 grid gap-3 border-b bg-linear-to-br p-5 sm:p-6'>
           <div className='flex flex-wrap items-center gap-2'>
             <Badge variant={values.channel === 'beta' ? 'attention' : 'success'} size='sm'>{values.channel === 'beta' ? 'Beta' : 'Stable'}</Badge>
             <Badge variant='secondary' size='sm'>{plan.label}</Badge>
             {launched ? <Badge variant='success-light' size='sm'>Scheduled</Badge> : null}
           </div>
           <div className='grid gap-1'>
-            <h2 id='launch-title' className='text-xl font-semibold'>{values.name || 'Untitled app'}</h2>
-            <p className='text-text-muted font-mono text-sm break-all'>{values.slug || 'your-app'}.gaudi.app</p>
+            <CardTitle as='h2' id='launch-title' className='text-xl font-semibold'>{values.name || 'Untitled app'}</CardTitle>
+            <CardDescription as='p' className='text-text-muted font-mono text-sm break-all'>{values.slug || 'your-app'}.gaudi.app</CardDescription>
           </div>
           <dl className='flex flex-wrap gap-x-6 gap-y-1 text-sm'>
             <div className='flex gap-1.5'><dt className='text-text-muted'>Platforms</dt><dd>{values.platforms.length ? values.platforms.map((value) => platforms.find((item) => item.value === value).label).join(', ') : 'None'}</dd></div>
             <div className='flex gap-1.5'><dt className='text-text-muted'>Region</dt><dd>{regions[values.region]}</dd></div>
             <div className='flex gap-1.5'><dt className='text-text-muted'>Launch</dt><dd>{format(values.date, 'EEE d MMM')}</dd></div>
           </dl>
-        </div>
+        </CardHeader>
         <CardContent className='grid gap-5 pt-2'>
           <FormErrorSummary form={form} labels={{ name: 'App name', slug: 'Address', platforms: 'Platforms' }} />
           <FieldGroup className='gap-5'>

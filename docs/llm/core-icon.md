@@ -62,7 +62,7 @@ Curated patterns:
 
 - In an empty state and list row — registry item `@gaudi/icon-stack-in-context` (uses `Button`, `Empty`, `EmptyContent`, `EmptyDescription`, `EmptyHeader`, `EmptyMedia`, `EmptyTitle`, `IconStack`, `Item`, `ItemContent`, `ItemDescription`, `ItemMedia`, `ItemTitle`, `RegistryIcon`)
 - Sizes, colors and badge — registry item `@gaudi/icon-stack-sizes-badge` (uses `IconStack`, `IconTile`, `RegistryIcon`)
-- In a card, list row and empty state — registry item `@gaudi/icon-tile-in-context` (uses `Empty`, `EmptyDescription`, `EmptyHeader`, `EmptyMedia`, `EmptyTitle`, `Frame`, `FramePanel`, `IconTile`, `Item`, `ItemActions`, `ItemContent`, `ItemDescription`, `ItemMedia`, `ItemTitle`, `RegistryIcon`)
+- In a card, list row and empty state — registry item `@gaudi/icon-tile-in-context` (uses `Empty`, `EmptyDescription`, `EmptyHeader`, `EmptyMedia`, `EmptyTitle`, `Frame`, `FramePanel`, `IconTile`, `Item`, `ItemActions`, `ItemContent`, `ItemDescription`, `ItemMedia`, `ItemTitle`, `Link`, `RegistryIcon`)
 - Tones — registry item `@gaudi/icon-tile-tones` (uses `IconTile`, `RegistryIcon`)
 - Variants, sizes and shapes — registry item `@gaudi/icon-tile-variants` (uses `IconTile`, `RegistryIcon`, `StatusDot`)
 

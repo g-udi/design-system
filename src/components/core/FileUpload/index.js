@@ -1,4 +1,4 @@
-export { default } from './FileUpload';
+export { default, FileUploadDropzone } from './FileUpload';
 
 // Composition exports
 export { useFileUpload } from './use-file-upload.js';

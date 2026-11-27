@@ -1,4 +1,5 @@
 'use client';
+import { ScrollArea } from '@gaudi/design-system/core/ScrollArea';
 import { useState } from 'react';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
@@ -55,47 +56,49 @@ export function Pattern() {
           <SheetTitle>Site settings</SheetTitle>
           <SheetDescription>Your public profile and how the site behaves for readers.</SheetDescription>
         </SheetHeader>
-        <div className='grid min-h-0 flex-1 gap-6 overflow-y-auto p-3'>
-          <FieldSet>
-            <FieldLegend>Profile</FieldLegend>
-            <FieldGroup>
-              <Field>
-                <FieldLabel htmlFor='settings-name'>Site name</FieldLabel>
-                <Input id='settings-name' defaultValue='Gaudi Journal' />
-              </Field>
-              <Field>
-                <FieldLabel htmlFor='settings-email'>Contact email</FieldLabel>
-                <EmailInput id='settings-email'  defaultValue='hello@gaudi.dev' />
-                <FieldDescription>Shown on the about page and in newsletter footers.</FieldDescription>
-              </Field>
-            </FieldGroup>
-          </FieldSet>
-          <FieldSet>
-            <FieldLegend>Reading</FieldLegend>
-            <FieldGroup className='gap-4'>
-              {toggles.map(([id, label, hint, on]) => (
-                <Field key={id} orientation='horizontal' className='items-start justify-between'>
-                  <div className='grid gap-0.5'>
-                    <FieldLabel htmlFor={`settings-${id}`}>{label}</FieldLabel>
-                    <FieldDescription>{hint}</FieldDescription>
-                  </div>
-                  <Switch id={`settings-${id}`} defaultChecked={on} />
+        <ScrollArea aria-label='Settings fields' className='min-h-0 min-w-0 flex-1 **:data-[slot=scroll-area-viewport]:[&>div]:block!'>
+          <div className='grid gap-6 p-3'>
+            <FieldSet>
+              <FieldLegend>Profile</FieldLegend>
+              <FieldGroup>
+                <Field>
+                  <FieldLabel htmlFor='settings-name'>Site name</FieldLabel>
+                  <Input id='settings-name' defaultValue='Gaudi Journal' />
                 </Field>
-              ))}
-              <Field>
-                <FieldLabel id='settings-layout'>Home page layout</FieldLabel>
-                <ToggleGroup aria-labelledby='settings-layout' type='single' variant='outline' spacing={2} value={layout} onValueChange={(next) => setLayout(next || layout)} className='grid w-full grid-cols-3'>
-                  {layouts.map(([value, label, icon]) => (
-                    <ToggleGroupItem key={value} value={value} className='h-16 flex-col gap-1'>
-                      <RegistryIcon lucide={icon} aria-hidden='true' />
-                      {label}
-                    </ToggleGroupItem>
-                  ))}
-                </ToggleGroup>
-              </Field>
-            </FieldGroup>
-          </FieldSet>
-        </div>
+                <Field>
+                  <FieldLabel htmlFor='settings-email'>Contact email</FieldLabel>
+                  <EmailInput id='settings-email'  defaultValue='hello@gaudi.dev' />
+                  <FieldDescription>Shown on the about page and in newsletter footers.</FieldDescription>
+                </Field>
+              </FieldGroup>
+            </FieldSet>
+            <FieldSet>
+              <FieldLegend>Reading</FieldLegend>
+              <FieldGroup className='gap-4'>
+                {toggles.map(([id, label, hint, on]) => (
+                  <Field key={id} orientation='horizontal' className='items-start justify-between'>
+                    <div className='grid gap-0.5'>
+                      <FieldLabel htmlFor={`settings-${id}`}>{label}</FieldLabel>
+                      <FieldDescription>{hint}</FieldDescription>
+                    </div>
+                    <Switch id={`settings-${id}`} defaultChecked={on} />
+                  </Field>
+                ))}
+                <Field>
+                  <FieldLabel id='settings-layout'>Home page layout</FieldLabel>
+                  <ToggleGroup aria-labelledby='settings-layout' type='single' variant='outline' spacing={2} value={layout} onValueChange={(next) => setLayout(next || layout)} className='grid w-full grid-cols-3'>
+                    {layouts.map(([value, label, icon]) => (
+                      <ToggleGroupItem key={value} value={value} className='h-16 flex-col gap-1'>
+                        <RegistryIcon lucide={icon} aria-hidden='true' />
+                        {label}
+                      </ToggleGroupItem>
+                    ))}
+                  </ToggleGroup>
+                </Field>
+              </FieldGroup>
+            </FieldSet>
+          </div>
+        </ScrollArea>
         <SheetFooter className='flex-row justify-end border-t'>
           <SheetClose asChild>
             <Button variant='outline'>Cancel</Button>

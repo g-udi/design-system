@@ -1,4 +1,5 @@
 'use client';
+import { CardRoot as Card } from '@gaudi/design-system/core/Card';
 import { useState } from 'react';
 import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import {
@@ -12,12 +13,7 @@ import {
   KanbanItemHandle,
   KanbanOverlay
 } from '@gaudi/design-system/core/KanbanBoard';
-import {
-  AvatarRoot as Avatar,
-  AvatarFallback,
-  AvatarGroup,
-  AvatarImage
-} from '@gaudi/design-system/core/Avatar';
+import { Avatar, AvatarGroup } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
   DropdownMenuRoot as DropdownMenu,
@@ -106,7 +102,7 @@ function Meta({ icon, children }) {
 
 function WorkCard({ item, view, isOverlay }) {
   const body = (
-    <div className='grid gap-2.5 rounded-lg border border-border bg-surface p-3 text-sm shadow-xs'>
+    <Card variant='elevated' radius='lg' padding='md' className='grid gap-2.5 text-sm'>
       <p className='line-clamp-2 font-medium text-text'>{item.title}</p>
       {view === 'tasks' ? (
         <>
@@ -118,10 +114,7 @@ function WorkCard({ item, view, isOverlay }) {
             </span>
           </div>
           <div className='flex items-center gap-2'>
-            <Avatar className='size-7'>
-              <AvatarImage src={item.avatar} alt='' />
-              <AvatarFallback>{item.owner.charAt(0)}</AvatarFallback>
-            </Avatar>
+            <Avatar size='sm' surface='tinted' className='size-7' src={item.avatar} name={item.owner} alt='' />
             <span className='grid min-w-0 flex-1 text-xs leading-tight'>
               <span className='truncate font-medium text-text'>{item.owner}</span>
               <span className='text-text-muted'>{item.role}</span>
@@ -132,10 +125,7 @@ function WorkCard({ item, view, isOverlay }) {
       ) : (
         <div className='grid gap-1.5 text-xs text-text-muted'>
           <span className='inline-flex items-center gap-2 text-text'>
-            <Avatar className='size-5'>
-              <AvatarImage src={item.avatar} alt='' />
-              <AvatarFallback>{item.owner.charAt(0)}</AvatarFallback>
-            </Avatar>
+            <Avatar size='xs' surface='tinted' src={item.avatar} name={item.owner} alt='' />
             {item.owner}
           </span>
           <Meta icon='DollarSignIcon'><span className='font-medium text-text tabular-nums'>{item.amount}</span></Meta>
@@ -149,10 +139,7 @@ function WorkCard({ item, view, isOverlay }) {
         {view === 'deals' ? (
           <AvatarGroup className='ms-auto'>
             {item.team.map(([name, src]) => (
-              <Avatar key={name} className='size-5'>
-                <AvatarImage src={src} alt={name} />
-                <AvatarFallback>{name.charAt(0)}</AvatarFallback>
-              </Avatar>
+              <Avatar key={name} size='xs' surface='tinted' src={src} name={name} />
             ))}
           </AvatarGroup>
         ) : null}
@@ -161,7 +148,7 @@ function WorkCard({ item, view, isOverlay }) {
           {item.days ? `${item.days}d` : 'Closed'}
         </span>
       </div>
-    </div>
+    </Card>
   );
   return <KanbanItem value={item.id}>{isOverlay ? body : <KanbanItemHandle>{body}</KanbanItemHandle>}</KanbanItem>;
 }

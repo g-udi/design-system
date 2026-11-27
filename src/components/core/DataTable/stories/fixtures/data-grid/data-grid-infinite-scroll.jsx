@@ -11,6 +11,7 @@ import { DataGridScrollArea } from '@gaudi/design-system/core/DataTable';
 import { DataGridTableVirtual } from '@gaudi/design-system/core/DataTable';
 import { useTable } from '@tanstack/react-table';
 import {
+  getAvatarInitials,
   AvatarRoot as Avatar,
   AvatarFallback,
   AvatarImage
@@ -125,10 +126,7 @@ export function Pattern() {
             <Avatar className='size-7'>
               <AvatarImage src={row.original.avatar} alt={row.original.name} />
               <AvatarFallback>
-                {row.original.name
-                  .split(' ')
-                  .map((namePart) => namePart[0])
-                  .join('')}
+                {getAvatarInitials(row.original.name)}
               </AvatarFallback>
             </Avatar>
             <div>

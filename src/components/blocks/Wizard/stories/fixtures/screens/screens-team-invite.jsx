@@ -1,6 +1,8 @@
 'use client';
+import { CardRoot } from '@gaudi/design-system/core/Card';
+import { Item } from '@gaudi/design-system/core/Item';
 import { useState } from 'react';
-import { AvatarRoot as Avatar, AvatarFallback } from '@gaudi/design-system/core/Avatar';
+import { getAvatarInitials, AvatarRoot as Avatar, AvatarFallback } from '@gaudi/design-system/core/Avatar';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { default as Field, FieldDescription, FieldError, FieldLabel } from '@gaudi/design-system/core/Field';
@@ -31,7 +33,7 @@ export function Pattern() {
   const syncPeople = () =>
     setPeople((current) => addresses.map((email) => current.find((person) => person.email === email) || { email, role: email.endsWith('northwind.dev') ? 'editor' : 'viewer' }));
   return (
-    <div className='w-full max-w-2xl rounded-xl border p-5'>
+    <CardRoot variant='outline' padding='none' className='w-full max-w-2xl p-5 overflow-visible'>
       <Wizard
         title='Invite your team'
         description='People get an email with a link that expires in 7 days.'
@@ -59,9 +61,9 @@ export function Pattern() {
           ) : step === 1 ? (
             <ul className='grid gap-2'>
               {people.map((person) => (
-                <li key={person.email} className='flex flex-wrap items-center gap-3 rounded-lg border p-2.5'>
+                <Item as='li' size='sm' variant='outline' key={person.email} className='gap-3 p-2.5'>
                   <Avatar size='sm'>
-                    <AvatarFallback>{person.email[0].toUpperCase()}</AvatarFallback>
+                    <AvatarFallback>{getAvatarInitials(person.email)}</AvatarFallback>
                   </Avatar>
                   <span className='min-w-0 flex-1 truncate text-sm'>{person.email}</span>
                   <NativeSelect
@@ -76,7 +78,7 @@ export function Pattern() {
                   <Button size='icon-xs' variant='ghost' aria-label={`Remove ${person.email}`} disabled={people.length === 1} onClick={() => setPeople((current) => current.filter((item) => item.email !== person.email))}>
                     <RegistryIcon lucide='XIcon' />
                   </Button>
-                </li>
+                </Item>
               ))}
             </ul>
           ) : (
@@ -85,7 +87,7 @@ export function Pattern() {
                 {Object.entries(roles).map(([value, [label, description]]) => {
                   const count = people.filter((person) => person.role === value).length;
                   return count ? (
-                    <li key={value} className='flex items-start justify-between gap-3 border-b pb-2'>
+                    <Item as='li' size='sm' key={value} className='items-start justify-between gap-3 border-b pb-2'>
                       <span className='grid gap-0.5'>
                         <span className='flex items-center gap-2 font-medium'>
                           {count} × <Badge size='sm' variant={roleBadge[value]}>{label}</Badge>
@@ -93,7 +95,7 @@ export function Pattern() {
                         <span className='text-text-muted text-xs'>{description}</span>
                       </span>
                       <span className='text-text-muted truncate text-xs'>{people.filter((person) => person.role === value).map((person) => person.email.split('@')[0]).join(', ')}</span>
-                    </li>
+                    </Item>
                   ) : null;
                 })}
               </ul>
@@ -105,6 +107,6 @@ export function Pattern() {
           )
         }
       </Wizard>
-    </div>
+    </CardRoot>
   );
 }

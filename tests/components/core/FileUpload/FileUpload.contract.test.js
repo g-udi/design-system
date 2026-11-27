@@ -1,5 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { createElement } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 import { loadComponent, renderComponent } from '../../../support/renderComponent.js';
 
 test('FileUpload preserves its server-rendered public contract', async () => {
@@ -81,4 +83,13 @@ test('native file pickers leave unrestricted files selectable and preserve speci
     { label: 'Choose files', accept: '*' }
   );
   assert.doesNotMatch(html, /accept=/);
+});
+
+test('custom dropzones preserve the element, drop styles and the active drag state', async () => {
+  const { FileUploadDropzone } = await loadComponent(new URL('../../../../src/components/core/FileUpload/FileUpload.jsx', import.meta.url));
+  const html = renderToStaticMarkup(createElement(FileUploadDropzone, { as: 'button', type: 'button', className: 'gallery', 'data-dragging': true }, 'Choose files'));
+  assert.match(html, /^<button /);
+  assert.match(html, /class="ds-dropzone gallery"/);
+  assert.match(html, /data-dragging="true"/);
+  assert.match(html, />Choose files<\/button>/);
 });

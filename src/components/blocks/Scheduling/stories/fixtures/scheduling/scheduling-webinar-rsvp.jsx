@@ -1,6 +1,9 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import { useState } from 'react';
-import {
+import { Avatar as PortraitAvatar,
+  getAvatarInitials,
   AvatarRoot as Avatar,
   AvatarFallback,
   AvatarGroup,
@@ -34,7 +37,7 @@ const replies = { yes: 'You’re going. A calendar invite is on its way.', maybe
 export function Pattern() {
   const [rsvp, setRsvp] = useState('');
   return (
-    <article className='bg-surface w-full max-w-md overflow-hidden rounded-lg border'>
+    <CardRoot as='article' variant='outline' padding='none' radius='lg' className='w-full max-w-md overflow-hidden'>
       <img src='static/images/art/5.svg' alt='' className='h-28 w-full object-cover' />
       <div className='grid gap-4 p-5'>
         <div className='grid gap-1.5'>
@@ -45,10 +48,10 @@ export function Pattern() {
           <h3 className='text-lg font-semibold'>One component for every code block</h3>
           <p className='text-text-muted flex items-center gap-1.5 text-sm'>
             <RegistryIcon lucide='CalendarClockIcon' aria-hidden='true' className='size-4' />
-            Thu, 22 Oct · 17:00–17:45 CEST
+            Thu, 22 Oct <MetaSeparator /> 17:00–17:45 CEST
           </p>
         </div>
-        <div className='divide-y rounded-md border'>
+        <CardRoot variant='outline' padding='none' radius='md' className='divide-y overflow-visible'>
           {sections.map((section) => (
             <Collapsible key={section.title} defaultOpen={section.open}>
               <CollapsibleTrigger className='group flex w-full items-center justify-between px-3 py-2.5 text-sm font-medium'>
@@ -58,14 +61,14 @@ export function Pattern() {
               <CollapsibleContent className='text-text-muted px-3 pb-3 text-sm'>{section.body}</CollapsibleContent>
             </Collapsible>
           ))}
-        </div>
+        </CardRoot>
         <div className='grid gap-2'>
           <p className='text-sm font-medium'>Presenters</p>
           {presenters.map((presenter) => (
             <div key={presenter.name} className='flex items-center gap-2.5'>
               <Avatar className='size-8'>
                 <AvatarImage src={portrait(presenter.portrait)} alt={presenter.name} />
-                <AvatarFallback>{presenter.name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
+                <AvatarFallback>{getAvatarInitials(presenter.name)}</AvatarFallback>
               </Avatar>
               <div className='text-sm'>
                 <p className='font-medium'>{presenter.name}</p>
@@ -80,10 +83,7 @@ export function Pattern() {
             <div className='flex items-center gap-2'>
               <AvatarGroup>
                 {['person-20', 'person-41', 'person-07'].map((person) => (
-                  <Avatar key={person} className='size-6'>
-                    <AvatarImage src={portrait(person)} alt='' />
-                    <AvatarFallback>·</AvatarFallback>
-                  </Avatar>
+                  <PortraitAvatar key={person} src={portrait(person)} className='size-6' decorative fallback />
                 ))}
                 <AvatarGroupCount className='size-6 text-xs'>+{rsvp === 'yes' ? 129 : 128}</AvatarGroupCount>
               </AvatarGroup>
@@ -99,6 +99,6 @@ export function Pattern() {
           </p>
         </div>
       </div>
-    </article>
+    </CardRoot>
   );
 }

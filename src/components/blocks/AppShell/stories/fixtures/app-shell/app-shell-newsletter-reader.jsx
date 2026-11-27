@@ -1,6 +1,8 @@
 'use client';
+import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import { useState } from 'react';
-import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
+import { getAvatarInitials, AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
 import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { Item } from '@gaudi/design-system/core/Item';
@@ -23,7 +25,7 @@ import {
   DropdownMenuTrigger
 } from '@gaudi/design-system/core/DropdownMenu';
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@gaudi/design-system/core/EmptyState';
-import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
+import Switch from '@gaudi/design-system/core/Switch';
 import { NativeSelect, NativeSelectOption } from '@gaudi/design-system/core/Select';
 import { Field, FieldInput, FieldLabel } from '@gaudi/design-system/core/Field';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@gaudi/design-system/core/Input';
@@ -355,9 +357,9 @@ function MailEmpty({ title, description, children }) {
 
 function MessageList({ mails, folderLabel, selected, onSelect, query, onQuery, filters, onFilters, onClear, onReadAll, hidden }) {
   return (
-    <section
+    <CardRoot as='section' variant='outline' padding='none'
       aria-label={`${folderLabel} messages`}
-      className={`bg-ui-background min-h-0 min-w-0 flex-col rounded-(--ds-radius-card) border @[40rem]/mail:w-72 @[40rem]/mail:shrink-0 @4xl/mail:w-80 @6xl/mail:w-96 ${hidden ? 'hidden @[40rem]/mail:flex' : 'flex flex-1'}`}
+      className={`bg-ui-background min-h-0 min-w-0 flex-col gap-0 @[40rem]/mail:w-72 @[40rem]/mail:shrink-0 @4xl/mail:w-80 @6xl/mail:w-96 ${hidden ? 'hidden @[40rem]/mail:flex' : 'flex flex-1'}`}
     >
       <div className='flex items-center gap-1 p-2'>
         <SidebarTrigger />
@@ -407,7 +409,7 @@ function MessageList({ mails, folderLabel, selected, onSelect, query, onQuery, f
                   >
                     <Avatar className='size-8 shrink-0 rounded-full'>
                       <AvatarImage src={mail.photo} alt='' className='rounded-full' />
-                      <AvatarFallback className='rounded-full'>{mail.from.slice(0, 1)}</AvatarFallback>
+                      <AvatarFallback className='rounded-full'>{getAvatarInitials(mail.from)}</AvatarFallback>
                     </Avatar>
                     <span className='grid min-w-0 flex-1 grid-cols-1 gap-0.5'>
                       <span className='flex items-center gap-2'>
@@ -446,26 +448,21 @@ function MessageList({ mails, folderLabel, selected, onSelect, query, onQuery, f
           />
         )}
       </div>
-    </section>
+    </CardRoot>
   );
 }
 
 function ToolbarButton({ label, icon, pressed, tone, disabled, onClick, className }) {
+  const Control = pressed === undefined ? Button : Toggle;
+  const controlProps = pressed === undefined
+    ? { variant: 'ghost', size: 'icon-sm', onClick, tone }
+    : { size: 'sm', pressed, onPressedChange: onClick };
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button
-          variant='ghost'
-          size='icon-sm'
-          tone={tone}
-          aria-label={label}
-          aria-pressed={pressed}
-          disabled={disabled}
-          className={className}
-          onClick={onClick}
-        >
+        <Control {...controlProps} aria-label={label} disabled={disabled} className={className}>
           <RegistryIcon lucide={icon} aria-hidden='true' className={pressed ? 'fill-current' : undefined} />
-        </Button>
+        </Control>
       </TooltipTrigger>
       <TooltipContent side='bottom'>{label}</TooltipContent>
     </Tooltip>
@@ -475,9 +472,9 @@ function ToolbarButton({ label, icon, pressed, tone, disabled, onClick, classNam
 function ReadingPane({ mail, hidden, position, onBack, onStep, onUpdate, onDelete, onCompose, onEdit, largeText, topics, onTopic }) {
   const none = !mail;
   return (
-    <section
+    <CardRoot as='section' variant='outline' padding='none'
       aria-label='Reading pane'
-      className={`bg-ui-background @container/reading min-h-0 min-w-0 flex-1 flex-col rounded-(--ds-radius-card) border ${hidden ? 'hidden @[40rem]/mail:flex' : 'flex'}`}
+      className={`bg-ui-background @container/reading min-h-0 min-w-0 flex-1 flex-col gap-0 ${hidden ? 'hidden @[40rem]/mail:flex' : 'flex'}`}
     >
       <div className='flex flex-wrap items-center gap-0.5 p-2'>
         <Button variant='ghost' size='icon-sm' aria-label='Back to messages' className='@[40rem]/mail:hidden' onClick={onBack}>
@@ -493,10 +490,10 @@ function ReadingPane({ mail, hidden, position, onBack, onStep, onUpdate, onDelet
           onClick={() => onUpdate({ unread: !mail.unread })}
         />
         <div className='ms-auto flex items-center gap-0.5'>
-          <Button variant='outline' size='xs' disabled={none} className='me-1' aria-label={mail?.saved ? 'Remove from notebook' : 'Save to notebook'} aria-pressed={Boolean(mail?.saved)} onClick={() => onUpdate({ saved: !mail.saved })}>
+          <Toggle variant='outline' size='sm' disabled={none} className='me-1' aria-label={mail?.saved ? 'Remove from notebook' : 'Save to notebook'} pressed={Boolean(mail?.saved)} onPressedChange={() => onUpdate({ saved: !mail.saved })}>
             <RegistryIcon lucide='Book' aria-hidden='true' />
             <span>{mail?.saved ? 'Saved' : 'Save'}<span className='hidden @sm/reading:inline'> to notebook</span></span>
-          </Button>
+          </Toggle>
           <ToolbarButton label='Add a note' icon='SquarePen' disabled={none} onClick={() => onEdit('note')} className='hidden @2xl/reading:inline-flex' />
           <ToolbarButton label='Read later' icon='Bookmark' pressed={Boolean(mail?.flagged)} disabled={none} onClick={() => onUpdate({ flagged: !mail.flagged })} className='hidden @lg/reading:inline-flex' />
           <ToolbarButton label='Star issue' icon='Star' pressed={Boolean(mail?.starred)} disabled={none} onClick={() => onUpdate({ starred: !mail.starred })} />
@@ -524,7 +521,7 @@ function ReadingPane({ mail, hidden, position, onBack, onStep, onUpdate, onDelet
             <div className='flex min-w-0 items-center gap-3'>
               <Avatar className='size-9 shrink-0 rounded-full'>
                 <AvatarImage src={mail.photo} alt='' className='rounded-full' />
-                <AvatarFallback className='rounded-full'>{mail.from.slice(0, 1)}</AvatarFallback>
+                <AvatarFallback className='rounded-full'>{getAvatarInitials(mail.from)}</AvatarFallback>
               </Avatar>
               <div className='grid min-w-0 flex-1 text-sm leading-tight'>
                 <span className='truncate font-medium'>{mail.from}</span>
@@ -558,7 +555,7 @@ function ReadingPane({ mail, hidden, position, onBack, onStep, onUpdate, onDelet
           </div>
         )}
       </div>
-    </section>
+    </CardRoot>
   );
 }
 
@@ -585,12 +582,12 @@ const readerEmails = { 'dm-leo': me.email, 'dm-ines': 'ines@example.com', 'dm-to
 function ReaderTools({ view, mails, subscriptions, setSubscriptions, largeText, setLargeText, onOpen }) {
   const title = [...links, ...shortcuts].find(item => item.id === view)?.label;
   const saved = mails.filter(mail => view === 'highlights' ? mail.highlight : mail.saved || mail.note);
-  return <section className='bg-ui-background min-w-0 flex-1 overflow-auto rounded-(--ds-radius-card) border p-4'>
+  return <CardRoot as='section' variant='outline' padding='none' className='bg-ui-background min-w-0 flex-1 overflow-auto gap-0 p-4'>
     <header className='mb-4 flex items-center gap-2'><SidebarTrigger /><h1 className='text-lg font-semibold'>{title}</h1></header>
-    {view === 'settings' && <Field className='max-w-sm'><FieldLabel htmlFor='reader-large-text'>Larger issue text</FieldLabel><Switch id='reader-large-text' checked={largeText} onCheckedChange={setLargeText} /></Field>}
+    {view === 'settings' && <Switch id='reader-large-text' label='Larger issue text' className='max-w-sm' checked={largeText} onCheckedChange={setLargeText} />}
     {view === 'subscriptions' && <ul className='grid max-w-lg gap-2'>{mailSeed.map(issue => <li key={issue.id}>
-      <Item variant='outline' className='flex flex-wrap items-center justify-between'><span className='text-sm'>{issue.from}</span><Button size='sm' variant='outline' aria-pressed={subscriptions.includes(issue.from)}
-        onClick={() => setSubscriptions(list => list.includes(issue.from) ? list.filter(from => from !== issue.from) : [...list, issue.from])}>{subscriptions.includes(issue.from) ? 'Subscribed' : 'Subscribe'}</Button></Item>
+      <Item variant='outline' className='flex flex-wrap items-center justify-between'><span className='text-sm'>{issue.from}</span><Toggle size='sm' variant='outline' pressed={subscriptions.includes(issue.from)}
+        onPressedChange={() => setSubscriptions(list => list.includes(issue.from) ? list.filter(from => from !== issue.from) : [...list, issue.from])}>{subscriptions.includes(issue.from) ? 'Subscribed' : 'Subscribe'}</Toggle></Item>
     </li>)}</ul>}
     {view === 'stats' && <dl className='grid max-w-sm gap-2'>{[['Read issues', mails.filter(m => m.folder !== 'sent' && !m.unread).length], ['Saved to notebook', mails.filter(m => m.saved || m.note).length], ['Highlights', mails.filter(m => m.highlight).length]].map(([label, count]) => <Item key={label} variant='outline' className='justify-between'><dt>{label}</dt><dd className='font-semibold'>{count}</dd></Item>)}</dl>}
     {['notebook', 'highlights'].includes(view) && (saved.length ? <ul className='grid max-w-2xl gap-2'>{saved.map(issue => <li key={issue.id}>
@@ -598,7 +595,7 @@ function ReaderTools({ view, mails, subscriptions, setSubscriptions, largeText, 
         <span className='font-medium'>{issue.subject}</span><span className='text-text-muted text-sm'>{view === 'highlights' ? issue.highlight : issue.note || issue.preview}</span>
       </button></Item>
     </li>)}</ul> : <MailEmpty title={view === 'highlights' ? 'No highlights yet' : 'Your notebook is empty'} description='Open an issue to save a passage or a reading note.' />)}
-  </section>;
+  </CardRoot>;
 }
 
 function AnnotationDialog({ mode, mail, onSave, onClose }) {

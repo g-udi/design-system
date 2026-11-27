@@ -1,4 +1,5 @@
 'use client';
+import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
 import { useRef, useState } from 'react';
 import { useCopyToClipboard } from '@gaudi/design-system/hooks/interaction/use-copy-to-clipboard';
 import {
@@ -89,15 +90,10 @@ export function Pattern() {
             </InputGroupAddon>
             <InputGroupInput id='ig-password' type={showPassword ? 'text' : 'password'} defaultValue='correct-horse' />
             <InputGroupAddon align='inline-end'>
-              <InputGroupButton
-                aria-label={showPassword ? 'Hide password' : 'Show password'}
-                aria-pressed={showPassword}
-                variant='ghost'
-                size='icon-xs'
-                onClick={() => setShowPassword((current) => !current)}
-              >
+              <Toggle size='sm' pressed={showPassword} onPressedChange={setShowPassword}
+                aria-label={showPassword ? 'Hide password' : 'Show password'} aria-controls='ig-password' className='size-6 px-0'>
                 <RegistryIcon lucide={showPassword ? 'EyeOffIcon' : 'EyeIcon'} className='size-4' />
-              </InputGroupButton>
+              </Toggle>
             </InputGroupAddon>
           </InputGroup>
         </Cell>
@@ -162,7 +158,7 @@ export function Pattern() {
                 <DropdownMenuContent align='end' onCloseAutoFocus={(event) => { if (renameRequested.current) { event.preventDefault(); renameRequested.current = false; fileRef.current?.focus(); fileRef.current?.select(); } }}>
                   <DropdownMenuItem onSelect={() => { renameRequested.current = true; }}>Rename</DropdownMenuItem>
                   <DropdownMenuItem disabled={!fileName} onSelect={() => { setFileName((name) => `Copy of ${name}`); setCopyFeedback('File name duplicated in this demo.'); }}>Duplicate</DropdownMenuItem>
-                  <DropdownMenuItem disabled={!fileName} className='text-danger' onSelect={() => { setFileName(''); setCopyFeedback('File name cleared in this demo.'); }}>Delete</DropdownMenuItem>
+                  <DropdownMenuItem disabled={!fileName} variant='destructive' onSelect={() => { setFileName(''); setCopyFeedback('File name cleared in this demo.'); }}>Delete</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </InputGroupAddon>

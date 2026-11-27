@@ -1,4 +1,6 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import { Item } from '@gaudi/design-system/core/Item';
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import {
   Flow,
@@ -136,11 +138,11 @@ function Wiring({ node, nodes, edges }) {
       {list.length ? (
         <ul className='grid gap-1 text-sm'>
           {list.map((edge) => (
-            <li key={edge.id} className='flex items-center gap-2 rounded-(--ds-radius-control) border px-2.5 py-1.5'>
+            <Item as='li' variant='outline' size='sm' key={edge.id} className='flex items-center gap-2 rounded-(--ds-radius-control) px-2.5 py-1.5'>
               <RegistryIcon lucide={side === 'in' ? 'ArrowRightIcon' : side === 'out' ? 'ArrowRightIcon' : 'CableIcon'} className='text-text-muted size-3.5 shrink-0' />
               <span className='truncate'>{name(side === 'in' ? edge.source : side === 'out' ? edge.target : edge.source === node.id ? edge.target : edge.source)}</span>
               {edge.data?.label && <span className='text-text-muted ms-auto text-xs tabular-nums'>{edge.data.label}</span>}
-            </li>
+            </Item>
           ))}
         </ul>
       ) : <p className='text-text-muted text-sm'>None</p>}
@@ -211,7 +213,7 @@ function PaymentsPipeline() {
       <div className='flex flex-wrap items-center gap-x-4 gap-y-2'>
         <div className='me-auto grid'>
           <h3 className='text-sm font-semibold'>Payments to MRR</h3>
-          <p className='text-text-muted text-xs'>Nightly at 02:00 UTC · last run 4 minutes ago</p>
+          <p className='text-text-muted text-xs'>Nightly at 02:00 UTC <MetaSeparator /> last run 4 minutes ago</p>
         </div>
         <ToggleGroup type='single' variant='outline' size='sm' spacing={0} aria-label='Connection style' value={variant} onValueChange={(next) => next && setVariant(next)}>
           <ToggleGroupItem value='solid'>Solid</ToggleGroupItem>

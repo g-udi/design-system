@@ -1,4 +1,5 @@
 'use client';
+import { CardRoot as Card } from '@gaudi/design-system/core/Card';
 import { useState } from 'react';
 import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import {
@@ -11,7 +12,7 @@ import {
   KanbanItemHandle,
   KanbanOverlay
 } from '@gaudi/design-system/core/KanbanBoard';
-import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
+import { Avatar } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { Label } from '@gaudi/design-system/core/Field';
 import { ProgressRoot as Progress } from '@gaudi/design-system/core/Progress';
@@ -75,12 +76,9 @@ const INITIAL = {
 function CandidateCard({ item, isOverlay }) {
   const [text, bar] = MATCH(item.match);
   const body = (
-    <div className='grid gap-2.5 rounded-lg border border-border bg-surface p-3 text-sm shadow-xs'>
+    <Card variant='elevated' radius='lg' padding='md' className='grid gap-2.5 text-sm'>
       <div className='flex items-center gap-2'>
-        <Avatar className='size-8'>
-          <AvatarImage src={item.avatar} alt='' />
-          <AvatarFallback>{item.name.charAt(0)}</AvatarFallback>
-        </Avatar>
+        <Avatar size='sm' surface='tinted' src={item.avatar} name={item.name} alt='' />
         <span className='grid min-w-0 leading-tight'>
           <span className='truncate font-medium text-text'>{item.name}</span>
           <span className='truncate text-xs text-text-muted'>{item.role}</span>
@@ -116,7 +114,7 @@ function CandidateCard({ item, isOverlay }) {
           <span className='ms-auto'>{item.note}</span>
         )}
       </div>
-    </div>
+    </Card>
   );
   return <KanbanItem value={item.id}>{isOverlay ? body : <KanbanItemHandle>{body}</KanbanItemHandle>}</KanbanItem>;
 }

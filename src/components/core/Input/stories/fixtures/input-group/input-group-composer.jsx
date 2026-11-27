@@ -2,8 +2,9 @@
 import { useState } from 'react';
 import {
   DropdownMenuRoot as DropdownMenu,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuContent,
-  DropdownMenuItemPrimitive as DropdownMenuItem,
   DropdownMenuTrigger
 } from '@gaudi/design-system/core/DropdownMenu';
 import { Separator } from '@gaudi/design-system/core/Separator';
@@ -66,15 +67,9 @@ export function Pattern() {
               </InputGroupButton>
             </DropdownMenuTrigger>
             <DropdownMenuContent align='end'>
-              <DropdownMenuItem onClick={() => setVisibility('Personal')}>
-                Personal
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setVisibility('Team')}>
-                Team
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setVisibility('Public')}>
-                Public
-              </DropdownMenuItem>
+              <DropdownMenuRadioGroup value={visibility} onValueChange={setVisibility}>
+                {['Personal', 'Team', 'Public'].map((option) => <DropdownMenuRadioItem key={option} value={option}>{option}</DropdownMenuRadioItem>)}
+              </DropdownMenuRadioGroup>
             </DropdownMenuContent>
           </DropdownMenu>
 

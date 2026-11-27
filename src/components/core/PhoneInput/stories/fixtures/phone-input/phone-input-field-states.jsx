@@ -1,25 +1,25 @@
 import { PhoneInput } from '@gaudi/design-system/core/PhoneInput';
-import { Label } from '@gaudi/design-system/core/Field';
+import { FieldRoot as Field, FieldLabelPrimitive as Label, FieldDescriptionPrimitive as FieldDescription, FieldErrorPrimitive as FieldError } from '@gaudi/design-system/core/Field';
 
 export function Pattern() {
   return (
     <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-cols-2'>
-      <div className='grid gap-1.5'>
+      <Field>
         <Label htmlFor='phone-empty'>Phone number</Label>
-        <PhoneInput id='phone-empty' defaultCountry='NL' placeholder='Enter phone number' />
-        <p className='text-xs text-text-muted'>Empty, Netherlands preselected</p>
-      </div>
-      <div className='grid gap-1.5'>
+        <PhoneInput id='phone-empty' aria-describedby='phone-empty-description' defaultCountry='NL' placeholder='Enter phone number' />
+        <FieldDescription id='phone-empty-description'>Empty, Netherlands preselected</FieldDescription>
+      </Field>
+      <Field>
         <Label htmlFor='phone-readonly'>Office line</Label>
-        <PhoneInput id='phone-readonly' readOnly value='+12125551234' />
-        <p className='text-xs text-text-muted'>Read-only</p>
-      </div>
-      <div className='grid gap-1.5'>
+        <PhoneInput id='phone-readonly' aria-describedby='phone-readonly-description' readOnly value='+12125551234' />
+        <FieldDescription id='phone-readonly-description'>Read-only</FieldDescription>
+      </Field>
+      <Field>
         <Label htmlFor='phone-disabled'>Fax</Label>
-        <PhoneInput id='phone-disabled' disabled defaultCountry='FR' value='+33612345678' />
-        <p className='text-xs text-text-muted'>Disabled</p>
-      </div>
-      <div className='grid gap-1.5'>
+        <PhoneInput id='phone-disabled' aria-describedby='phone-disabled-description' disabled defaultCountry='FR' value='+33612345678' />
+        <FieldDescription id='phone-disabled-description'>Disabled</FieldDescription>
+      </Field>
+      <Field>
         <Label htmlFor='phone-error'>Emergency contact</Label>
         <PhoneInput
           id='phone-error'
@@ -27,10 +27,10 @@ export function Pattern() {
           aria-describedby='phone-error-message'
           placeholder='Enter phone number'
         />
-        <p id='phone-error-message' className='text-xs text-danger'>
+        <FieldError id='phone-error-message'>
           Enter a valid phone number.
-        </p>
-      </div>
+        </FieldError>
+      </Field>
     </div>
   );
 }

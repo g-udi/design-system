@@ -18,7 +18,21 @@ export const IconsLoading = {
     await expect(canvas.getByRole('link', { name: 'Back to home' })).toHaveAttribute('data-slot', 'button');
   }
 };
-export const CountsShortcuts = { name: 'Counts, badges and shortcuts', ...pattern('counts-shortcuts', 'Split counts, inline and corner badges, a live status dot, and keyboard shortcuts inline or in a tooltip.') };
+export const CountsShortcuts = {
+  name: 'Counts, badges and shortcuts',
+  ...pattern('counts-shortcuts', 'Split counts, inline and corner badges, a live status dot, and keyboard shortcuts inline or in a tooltip.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
+    await userEvent.click(canvas.getByRole('button', { name: 'Command palette' }));
+    const command = await body.findByRole('dialog', { name: 'Command palette' });
+    await userEvent.type(within(command).getByRole('combobox'), 'Messages');
+    await expect(within(command).getByRole('option', { name: 'Messages' })).toBeVisible();
+    await userEvent.keyboard('{Enter}');
+    await expect(await body.findByRole('dialog', { name: 'Messages' })).toBeVisible();
+    await userEvent.keyboard('{Escape}');
+  }
+};
 export const AvatarTwoLine = { name: 'Avatar and two-line content', ...pattern('avatar-two-line') };
 export const AsyncSuccess = {
   name: 'Async loading and success',

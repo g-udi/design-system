@@ -1,4 +1,7 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import EmptyState from '@gaudi/design-system/core/EmptyState';
+import { ScrollArea } from '@gaudi/design-system/core/ScrollArea';
 import { GaudiLogo, GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
 import { useRef, useState } from 'react';
 import Input from '@gaudi/design-system/core/Input';
@@ -29,6 +32,8 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItemPrimitive as DropdownMenuItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuLabelPrimitive as DropdownMenuLabel,
   DropdownMenuSeparatorPrimitive as DropdownMenuSeparator,
   DropdownMenuShortcut,
@@ -182,21 +187,14 @@ function WorkspaceSwitcher({ workspace, workspaces, onSelect, onNew }) {
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent side='bottom' align='start'>
-            <DropdownMenuGroup>
+            <DropdownMenuRadioGroup value={workspace.id} aria-label='Workspaces' onValueChange={(id) => onSelect(workspaces.find(item => item.id === id))}>
               <DropdownMenuLabel>Workspaces</DropdownMenuLabel>
               {workspaces.map((item) => (
-                <DropdownMenuItem key={item.id} onClick={() => onSelect(item)}>
+                <DropdownMenuRadioItem key={item.id} value={item.id}>
                   {!['gaudi-workspace', 'acme'].includes(item.id) ? <><Avatar size='sm'><AvatarImage src={item.avatar} alt='' /><AvatarFallback>{item.initials}</AvatarFallback></Avatar><span>{item.name}</span></> : <><GaudiBrand className='text-sm' />{item.id === 'gaudi-workspace' && <span>Workspace</span>}</>}
-                  {item.id === workspace.id ? (
-                    <RegistryIcon
-                      lucide='CheckIcon'
-                      className='ml-auto size-3.5'
-                      aria-hidden='true'
-                    />
-                  ) : null}
-                </DropdownMenuItem>
+                </DropdownMenuRadioItem>
               ))}
-            </DropdownMenuGroup>
+            </DropdownMenuRadioGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem onSelect={() => { onNew(); setOpenMobile(false); }}>
@@ -481,83 +479,85 @@ function Workbench({ workspace, page, onPage, projects, onCreateWorkspace, membe
         </Button>
       </header>
 
-      <div className='flex-1 overflow-auto p-4'>
-        {page === 'new-workspace' || page === 'invite' ? (
-          <form
-            className='grid justify-items-start gap-3'
-            onSubmit={(event) => {
-              event.preventDefault();
-              if (!value.trim()) return;
-              if (page === 'new-workspace') onCreateWorkspace(value.trim());
-              else onInvite(value.trim());
-              setValue('');
-            }}
-          >
-            <Label>
-              {page === 'new-workspace' ? 'Workspace name' : 'Member name'}
-              <Input value={value} onChange={(event) => setValue(event.target.value)} />
-            </Label>
-            <Button size='sm' type='submit' disabled={!value.trim()}>
-              {page === 'new-workspace' ? 'Create workspace' : 'Add member locally'}
-            </Button>
-            {page === 'invite' ? (
-              <ul aria-label='Workspace members'>
-                {members.map((name) => (
-                  <li key={name}>{name}</li>
-                ))}
-              </ul>
-            ) : null}
-          </form>
-        ) : null}
-        {['deployments', 'overview', 'analytics'].includes(page) ? (
-          <>
-            <div className='grid gap-3 sm:grid-cols-3'>
-              {STATS.map((stat) => (
-                <Card key={stat.id} size='sm'>
-                  <CardHeader>
-                    <CardDescription>{stat.label}</CardDescription>
-                    <CardTitle>{stat.value}</CardTitle>
-                  </CardHeader>
-                </Card>
-              ))}
-            </div>
-          </>
-        ) : null}
-        {page === 'deployments' || page === 'logs' || project ? (
-          <Card size='sm' className='mt-3'>
-            <CardHeader>
-              <CardTitle>
-                {project
-                  ? `${project.name} deployments`
-                  : page === 'logs'
-                    ? 'Deployment log'
-                    : 'Recent deployments'}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className='flex flex-col gap-2.5'>
-                {(project ? DEPLOYMENTS.filter((item) => item.project === project.id) : DEPLOYMENTS).map(
-                  (deployment) => (
-                    <DeploymentRow key={deployment.id} deployment={deployment} />
-                  )
-                )}
-              </div>
-              {project && !DEPLOYMENTS.some((item) => item.project === project.id) ? (
-                <p className='text-sm text-text-muted'>No deployments for this project yet.</p>
+      <ScrollArea aria-label='Workspace content' className='min-h-0 min-w-0 flex-1 **:data-[slot=scroll-area-viewport]:[&>div]:block!'>
+        <div className='p-4'>
+          {page === 'new-workspace' || page === 'invite' ? (
+            <form
+              className='grid justify-items-start gap-3'
+              onSubmit={(event) => {
+                event.preventDefault();
+                if (!value.trim()) return;
+                if (page === 'new-workspace') onCreateWorkspace(value.trim());
+                else onInvite(value.trim());
+                setValue('');
+              }}
+            >
+              <Label>
+                {page === 'new-workspace' ? 'Workspace name' : 'Member name'}
+                <Input value={value} onChange={(event) => setValue(event.target.value)} />
+              </Label>
+              <Button size='sm' type='submit' disabled={!value.trim()}>
+                {page === 'new-workspace' ? 'Create workspace' : 'Add member locally'}
+              </Button>
+              {page === 'invite' ? (
+                <ul aria-label='Workspace members'>
+                  {members.map((name) => (
+                    <li key={name}>{name}</li>
+                  ))}
+                </ul>
               ) : null}
-            </CardContent>
-          </Card>
-        ) : null}
-        {page === 'storage' ? <p>Local projects in this workspace: {projects.length}.</p> : null}
-        {['inbox', 'notifications'].includes(page) ? <p>No new workspace messages.</p> : null}
-        {page === 'profile' ? <p>Nadira Rahimi · nadira@example.com</p> : null}
-        {page === 'billing' ? (
-          <p>
-            {workspace.name} is on the {workspace.plan} plan.
-          </p>
-        ) : null}
-        {page === 'sign-out' ? <p>This local preview has no signed-in account.</p> : null}
-      </div>
+            </form>
+          ) : null}
+          {['deployments', 'overview', 'analytics'].includes(page) ? (
+            <>
+              <div className='grid gap-3 sm:grid-cols-3'>
+                {STATS.map((stat) => (
+                  <Card key={stat.id} size='sm'>
+                    <CardHeader>
+                      <CardDescription>{stat.label}</CardDescription>
+                      <CardTitle>{stat.value}</CardTitle>
+                    </CardHeader>
+                  </Card>
+                ))}
+              </div>
+            </>
+          ) : null}
+          {page === 'deployments' || page === 'logs' || project ? (
+            <Card size='sm' className='mt-3'>
+              <CardHeader>
+                <CardTitle>
+                  {project
+                    ? `${project.name} deployments`
+                    : page === 'logs'
+                      ? 'Deployment log'
+                      : 'Recent deployments'}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className='flex flex-col gap-2.5'>
+                  {(project ? DEPLOYMENTS.filter((item) => item.project === project.id) : DEPLOYMENTS).map(
+                    (deployment) => (
+                      <DeploymentRow key={deployment.id} deployment={deployment} />
+                    )
+                  )}
+                </div>
+                {project && !DEPLOYMENTS.some((item) => item.project === project.id) ? (
+                  <EmptyState compact title='No deployments for this project yet.' />
+                ) : null}
+              </CardContent>
+            </Card>
+          ) : null}
+          {page === 'storage' ? <p>Local projects in this workspace: {projects.length}.</p> : null}
+          {['inbox', 'notifications'].includes(page) ? <EmptyState compact title='No new workspace messages.' /> : null}
+          {page === 'profile' ? <p>Nadira Rahimi <MetaSeparator /> nadira@example.com</p> : null}
+          {page === 'billing' ? (
+            <p>
+              {workspace.name} is on the {workspace.plan} plan.
+            </p>
+          ) : null}
+          {page === 'sign-out' ? <p>This local preview has no signed-in account.</p> : null}
+        </div>
+      </ScrollArea>
     </SidebarInset>
   );
 }

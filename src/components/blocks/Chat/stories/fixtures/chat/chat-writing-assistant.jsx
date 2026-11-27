@@ -1,4 +1,5 @@
 'use client';
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import { useEffect, useRef, useState } from 'react';
 import { ChatShell } from '@gaudi/design-system/blocks/Chat';
 import { ChatSessionList } from '@gaudi/design-system/chat/ChatSessionList';
@@ -10,7 +11,7 @@ import { ChatMessageFeedback } from '@gaudi/design-system/chat/ChatFeedback';
 import { ChatPromptComposer, ChatPromptQueue } from '@gaudi/design-system/chat/ChatInput';
 import { default as Textarea } from '@gaudi/design-system/core/Textarea';
 import { Label } from '@gaudi/design-system/core/Field';
-import { usePrefersReducedMotion } from '@gaudi/design-system/hooks/a11y/use-prefers-reduced-motion';
+import { useInterval, usePrefersReducedMotion } from '@gaudi/design-system/hooks';
 
 const draft = `Drafts used to live on the server. On a train with patchy signal that meant lost paragraphs, and editors learned to copy their work into a notes app before pressing save.
 
@@ -46,15 +47,14 @@ export function Pattern() {
       }
       return undefined;
     }
-    const timer = setTimeout(() => {
-      setTurns((list) => list.map((turn, index) => {
-        if (index !== list.length - 1) return turn;
-        const cut = reducedMotion ? turn.target.length : turn.target.indexOf(' ', turn.text.length + 4);
-        return { ...turn, text: cut === -1 ? turn.target : turn.target.slice(0, cut) };
-      }));
-    }, 30);
-    return () => clearTimeout(timer);
-  }, [turns, streaming, reducedMotion]);
+  }, [streaming]);
+  useInterval(() => {
+    setTurns((list) => list.map((turn, index) => {
+      if (index !== list.length - 1) return turn;
+      const cut = reducedMotion ? turn.target.length : turn.target.indexOf(' ', turn.text.length + 4);
+      return { ...turn, text: cut === -1 ? turn.target : turn.target.slice(0, cut) };
+    }));
+  }, streaming ? 30 : null);
 
   function ask(text) {
     const id = nextId++;
@@ -63,10 +63,10 @@ export function Pattern() {
 
   return (
     <div className='grid h-150 w-full gap-3 md:grid-cols-[minmax(0,1fr)_22rem]'>
-      <div className='bg-surface hidden min-h-0 flex-col gap-2 rounded-(--ds-radius-card) border p-4 md:flex'>
+      <CardRoot className='hidden min-h-0 flex-col gap-2 p-4 md:flex'>
         <Label htmlFor='chat-2-draft'>Draft</Label>
         <Textarea id='chat-2-draft' defaultValue={draft} className='min-h-0 flex-1 resize-none leading-relaxed' />
-      </div>
+      </CardRoot>
       <ChatMessageScrollerProvider autoScroll>
         <ChatShell
           variant='sidebar'

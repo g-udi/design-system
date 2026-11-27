@@ -1,51 +1,17 @@
-import { ProgressRoot as Progress } from '@gaudi/design-system/core/Progress';
-import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
+import Progress from '@gaudi/design-system/core/Progress';
+import Stepper from '@gaudi/design-system/core/Stepper';
 const steps = [
-  { label: 'Account', completed: true },
-  { label: 'Profile', completed: true },
-  { label: 'Preferences', completed: false },
-  { label: 'Review', completed: false }
+  { id: 'account', label: 'Account', completed: true },
+  { id: 'profile', label: 'Profile', completed: true },
+  { id: 'preferences', label: 'Preferences', completed: false },
+  { id: 'review', label: 'Review', completed: false }
 ];
 export function Pattern() {
-  const completedSteps = steps.filter((s) => s.completed).length;
-  const progressValue = (completedSteps / steps.length) * 100;
+  const completedSteps = steps.filter((step) => step.completed).length;
   return (
     <div className='mx-auto w-full max-w-xs space-y-4'>
-      <div className='flex items-center justify-between'>
-        <span className='text-sm font-medium'>Setup Progress</span>
-        <span className='text-ui-muted-foreground text-xs'>
-          {completedSteps} of {steps.length} steps
-        </span>
-      </div>
-      <Progress value={progressValue} />
-      <div className='flex flex-col gap-2'>
-        {steps.map((step) => (
-          <div key={step.label} className='flex items-center gap-2 text-sm'>
-            {step.completed ? (
-              <RegistryIcon
-                lucide='CircleCheckIcon'
-                className='text-success size-4'
-                aria-hidden='true'
-              />
-            ) : (
-              <RegistryIcon
-                lucide='CircleIcon'
-                className='text-ui-muted-foreground size-4'
-                aria-hidden='true'
-              />
-            )}
-            <span
-              className={
-                step.completed
-                  ? 'text-ui-foreground'
-                  : 'text-ui-muted-foreground'
-              }
-            >
-              {step.label}
-            </span>
-          </div>
-        ))}
-      </div>
+      <Progress label='Setup Progress' value={completedSteps} max={steps.length} valueText={`${completedSteps} of ${steps.length} steps`} />
+      <Stepper orientation='vertical' steps={steps} activeStep={completedSteps} label='Setup steps' />
     </div>
   );
 }

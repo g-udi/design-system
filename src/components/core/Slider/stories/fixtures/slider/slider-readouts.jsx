@@ -1,4 +1,5 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
 import { useState } from 'react';
 import { Label } from '@gaudi/design-system/core/Field';
 import { Slider } from '@gaudi/design-system/core/Slider';
@@ -36,7 +37,7 @@ export function Pattern() {
         <div className='flex items-center justify-between'>
           <Label>Color temperature</Label>
           <span className='text-xs font-medium tabular-nums text-text-muted'>
-            {temperature}K &middot; {temperatureName(temperature)}
+            {temperature}K <MetaSeparator /> {temperatureName(temperature)}
           </span>
         </div>
         <div aria-hidden='true' className='h-2 rounded-full bg-linear-to-r from-orange-400 via-amber-50 to-blue-300' />

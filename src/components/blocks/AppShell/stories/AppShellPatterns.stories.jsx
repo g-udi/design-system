@@ -229,12 +229,12 @@ export const PublishingConsole = {
     await userEvent.click(await body.findByRole('menuitemradio', { name: /Lab Journal/ }));
     await waitFor(() => expect(canvas.getByRole('button', { name: 'Site: Lab Journal' })).toBeInTheDocument());
     // The notifications sheet opens inside the window.
-    await userEvent.click(canvas.getByRole('button', { name: 'Notifications' }));
-    const sheet = within(await canvas.findByRole('dialog', { name: 'Notifications' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Notifications, 5 unread' }));
+    const sheet = within(await canvas.findByRole('dialog', { name: /Notifications/ }));
     await userEvent.click(sheet.getByRole('button', { name: 'Flag for review' }));
     await expect(sheet.getByText('Flagged for review')).toBeVisible();
     await userEvent.click(sheet.getByRole('button', { name: 'Close notifications' }));
-    await waitFor(() => expect(canvas.queryByRole('dialog', { name: 'Notifications' })).not.toBeInTheDocument());
+    await waitFor(() => expect(canvas.queryByRole('dialog', { name: /Notifications/ })).not.toBeInTheDocument());
     // Search reaches pages in every section.
     await userEvent.click(canvas.getByRole('button', { name: 'Search' }));
     const palette = await body.findByRole('dialog', { name: 'Search' });

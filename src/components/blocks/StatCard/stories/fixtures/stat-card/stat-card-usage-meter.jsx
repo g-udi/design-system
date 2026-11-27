@@ -1,4 +1,5 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
 import { useId, useState } from 'react';
 import { StatMeter } from '@gaudi/design-system/blocks/StatCard';
 import { CardRoot, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@gaudi/design-system/core/Card';
@@ -49,7 +50,7 @@ export function Pattern() {
       <CardRoot role='region' aria-labelledby={titleId} className='@container w-full gap-5 py-4'>
         <CardHeader className='gap-1 px-4'>
           <CardTitle id={titleId}>Workspace usage</CardTitle>
-          <CardDescription>Team plan · {historical ? '1–31 October' : 'Resets 1 December'}</CardDescription>
+          <CardDescription>Team plan <MetaSeparator /> {historical ? '1–31 October' : 'Resets 1 December'}</CardDescription>
         </CardHeader>
         <CardContent className='grid min-w-0 gap-5 px-4'>
           <ToggleGroupRoot aria-label='Usage period' type='single' variant='outline' size='sm' spacing={0} value={period}

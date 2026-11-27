@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle
 } from '@gaudi/design-system/core/Card';
-import { Separator } from '@gaudi/design-system/core/Separator';
+import { FieldSeparator } from '@gaudi/design-system/core/Field';
 import { ChatMessage, ChatMessageContent } from '@gaudi/design-system/chat/ChatMessage';
 import { ChatMessageScroller, ChatMessageScrollerButton, ChatMessageScrollerContent, ChatMessageScrollerItem, ChatMessageScrollerProvider, ChatMessageScrollerViewport } from '@gaudi/design-system/chat/ChatMessageList';
 import {
@@ -84,11 +84,7 @@ export function Pattern() {
                  * to the same pixel and the option looks broken.
                  */}
                 <ChatMessageScrollerItem scrollAnchor={false}>
-                  <div className='text-text-muted flex items-center gap-3 text-xs'>
-                    <Separator className='min-w-3 flex-1' />
-                    <span className='min-w-0'>Tuesday</span>
-                  <Separator className='min-w-3 flex-1' />
-                  </div>
+                  <FieldSeparator className='text-xs text-text-muted'>Tuesday</FieldSeparator>
                 </ChatMessageScrollerItem>
                 {TURNS.map((turn) => {
                   const isUser = turn.role === 'user';

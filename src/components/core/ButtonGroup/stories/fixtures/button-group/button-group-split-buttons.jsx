@@ -1,4 +1,5 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
 import { useState } from 'react';
 import { FieldInput } from '@gaudi/design-system/core/Field';
 import { default as Button } from '@gaudi/design-system/core/Button';
@@ -78,7 +79,7 @@ export function Pattern() {
           <ButtonGroupSeparator className='bg-ui-primary-foreground/35' />
           <Menu label='More review options' items={[['Request changes', 'MessageSquareIcon'], ['Reject', 'XIcon', true]]} onSelect={(action) => setReview(action === 'Reject' ? 'Rejected' : 'Changes requested')} />
         </ButtonGroup>
-        <p className='w-full text-sm' aria-live='polite'>{saved} · {review}</p>
+        <p className='w-full text-sm' aria-live='polite'>{saved} <MetaSeparator /> {review}</p>
       </Row>
       <Row label='Outline'>
         <ButtonGroup aria-label='Create'>
@@ -111,7 +112,7 @@ export function Pattern() {
             </DropdownMenuContent>
           </DropdownMenu>
         </ButtonGroup>
-        <p className='w-full text-sm' aria-live='polite'>{day} · {transfer}</p>
+        <p className='w-full text-sm' aria-live='polite'>{day} <MetaSeparator /> {transfer}</p>
       </Row>
     </div>
   );

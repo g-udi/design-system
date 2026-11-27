@@ -1,4 +1,5 @@
 'use client';
+import { CodeBlock } from '@gaudi/design-system/core/CodeBlock';
 import { useState } from 'react';
 import { format } from 'date-fns';
 import {
@@ -54,14 +55,12 @@ export function Pattern() {
           {summary || 'Nothing selected yet.'}
         </p>
         {summary && (
-          <pre className='overflow-auto rounded-md bg-surface-muted p-2 font-mono text-xs'>
-            {JSON.stringify(
+          <CodeBlock label='Selected date value' language='json' highlight={false} code={JSON.stringify(
               value,
               (key, val) =>
                 key && /date$/i.test(key) && val ? format(new Date(val), 'MM/dd/yyyy') : val,
               2
-            )}
-          </pre>
+            )} />
         )}
       </div>
     </div>

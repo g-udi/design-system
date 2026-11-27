@@ -7,8 +7,7 @@ import {
   CarouselContent,
   CarouselItem
 } from '@gaudi/design-system/core/Carousel';
-import { Label } from '@gaudi/design-system/core/Field';
-import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
+import Switch from '@gaudi/design-system/core/Switch';
 const slides = Array.from({ length: 10 }, (_, index) => `static/images/art/${(index + 2) % 12}.svg`);
 function Thumbnails({ setApi, selected, onSelect, overlay }) {
   return (
@@ -63,10 +62,7 @@ export function Pattern() {
   );
   return (
     <div className='mx-auto grid w-full max-w-md gap-3'>
-      <Label className='gap-2 text-sm font-normal'>
-        <Switch size='sm' checked={overlay} onCheckedChange={setOverlay} />
-        Overlay thumbnails
-      </Label>
+      <Switch label='Overlay thumbnails' size='sm' checked={overlay} onCheckedChange={setOverlay} />
       <div className='relative overflow-hidden rounded-xl'>
         <Carousel setApi={setMainApi} className='w-full' aria-label='Gallery'>
           <CarouselContent>

@@ -4,8 +4,7 @@ import { addDays } from 'date-fns';
 import { de, enUS, zhCN } from 'react-day-picker/locale';
 import { CardRoot as Card, CardContent } from '@gaudi/design-system/core/Card';
 import { Calendar } from '@gaudi/design-system/core/Calendar';
-import { Label } from '@gaudi/design-system/core/Field';
-import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
+import Switch from '@gaudi/design-system/core/Switch';
 import {
   ToggleGroupRoot as ToggleGroup,
   ToggleGroupItem
@@ -87,16 +86,13 @@ export function Pattern() {
         className='flex max-w-sm flex-wrap gap-x-4 gap-y-2'
       >
         {options.map((option) => (
-          <Label key={option.key} className='gap-2 text-sm font-normal'>
-            <Switch
+          <Switch key={option.key} label={option.label}
               size='sm'
               checked={flags[option.key]}
               onCheckedChange={(checked) =>
                 setFlags((current) => ({ ...current, [option.key]: checked }))
               }
             />
-            {option.label}
-          </Label>
         ))}
       </div>
       <Card className='w-fit max-w-full p-0'>

@@ -61,7 +61,7 @@ Pill includes visible text so status or category meaning is not color-only.
 Curated patterns:
 
 - Icons, dots, avatars and images — registry item `@gaudi/badge-icons-avatars` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `RegistryIcon`, `StatusDot`)
-- Removable filters and links — registry item `@gaudi/badge-removable-filters` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `Dialog`, `RegistryIcon`)
+- Removable filters and links — registry item `@gaudi/badge-removable-filters` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `Dialog`, `RegistryIcon`, `Toggle`, `getAvatarInitials`)
 - Sizes, counts and labels — registry item `@gaudi/badge-sizes-counts` (uses `Badge`)
 - Variants — registry item `@gaudi/badge-variants` (uses `Badge`)
 

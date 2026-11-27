@@ -14,6 +14,11 @@ const REJECTION_TEXT = {
   count: 'file count limit reached.'
 };
 
+/** Drop surface shared by the controlled uploader and compositions using useFileUpload. */
+export function FileUploadDropzone({ as: Element = 'div', className, ...props }) {
+  return <Element className={cn('ds-dropzone', className)} {...props} />;
+}
+
 /** Selects local files. Transport, persisted attachments and preview URLs are host-owned. */
 export default function FileUpload({
   label = 'Attachments',
@@ -57,8 +62,7 @@ export default function FileUpload({
       <span className='ds-label' id={`${id}-label`}>
         {label}
       </span>
-      <div
-        className='ds-dropzone'
+      <FileUploadDropzone
         data-dragging={dragging || undefined}
         data-disabled={disabled || undefined}
         onDragOver={(e) => {
@@ -103,7 +107,7 @@ export default function FileUpload({
         >
           {labels.choose || 'Choose files'}
         </Button>
-      </div>
+      </FileUploadDropzone>
       {rejections.length > 0 && (
         <div role='alert'>
           <ul className='ds-error'>

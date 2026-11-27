@@ -65,10 +65,10 @@ Native labels and autocomplete support password managers; the password keeps its
 Curated patterns:
 
 - Centred card — registry item `@gaudi/screens-centred-card` (uses `AuthForm`, `CardContent`, `CardRoot`, `CheckboxRoot`, `GaudiBrand`, `Label`, `Link`, `RegistryIcon`, `Screen`, `ToggleGroupItem`, `ToggleGroupRoot`, `cn`)
-- Free trial sign-up — registry item `@gaudi/screens-free-trial` (uses `AuthForm`, `Badge`, `CheckboxRoot`, `IconTile`, `Label`, `Link`, `RegistryIcon`, `Screen`)
-- Magic link with logos — registry item `@gaudi/screens-magic-link` (uses `AuthForm`, `Discord`, `Dropbox`, `Frame`, `FramePanel`, `GaudiBrand`, `Loom`, `Redis`, `Screen`, `ScreenTestimonial`, `Slack`, `Stripe`, `Supabase`, `Zoom`)
+- Free trial sign-up — registry item `@gaudi/screens-free-trial` (uses `AuthForm`, `Badge`, `CheckboxRoot`, `IconTile`, `Item`, `Label`, `Link`, `RegistryIcon`, `Screen`)
+- Magic link with logos — registry item `@gaudi/screens-magic-link` (uses `AuthForm`, `CardRoot`, `Discord`, `Dropbox`, `Frame`, `FramePanel`, `GaudiBrand`, `Loom`, `Redis`, `Screen`, `ScreenTestimonial`, `Slack`, `Stripe`, `Supabase`, `Zoom`)
 - Choose a sign-in method — registry item `@gaudi/screens-sign-in-methods` (uses `AuthForm`, `Button`, `Dropbox`, `GaudiBrand`, `InputOTP`, `InputOTPGroup`, `InputOTPSeparator`, `InputOTPSlot`, `Label`, `Link`, `Loom`, `RegistryIcon`, `Screen`, `Stripe`, `Supabase`)
-- Split with imagery — registry item `@gaudi/screens-split-imagery` (uses `AuthForm`, `Borealis`, `GaudiBrand`, `Link`, `RegistryIcon`, `Screen`, `ToggleGroupItem`, `ToggleGroupRoot`)
+- Split with imagery — registry item `@gaudi/screens-split-imagery` (uses `AuthForm`, `Borealis`, `CardRoot`, `GaudiBrand`, `Link`, `RegistryIcon`, `Screen`, `ToggleGroupItem`, `ToggleGroupRoot`)
 - Split with testimonials — registry item `@gaudi/screens-split-testimonials` (uses `AuthForm`, `GaudiBrand`, `Link`, `RegistryIcon`, `Screen`, `ScreenTestimonial`)
 
 ## Related

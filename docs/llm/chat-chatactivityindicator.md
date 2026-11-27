@@ -50,7 +50,7 @@ A polite status; motion slows to a fade for reduced motion.
 Curated patterns:
 
 - Playground — registry item `@gaudi/activity-indicator-playground` (uses `ChatActivityIndicator`)
-- A reply from thinking to done — registry item `@gaudi/activity-indicator-reply-lifecycle` (uses `Button`, `ChatActivityIndicator`)
+- A reply from thinking to done — registry item `@gaudi/activity-indicator-reply-lifecycle` (uses `Button`, `ChatActivityIndicator`, `Item`, `useInterval`)
 
 ## README
 

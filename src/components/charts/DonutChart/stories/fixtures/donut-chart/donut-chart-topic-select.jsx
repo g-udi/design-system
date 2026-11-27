@@ -1,4 +1,5 @@
 'use client';
+import { CardTitle, CardRoot } from '@gaudi/design-system/core/Card';
 import { useState } from 'react';
 import { DonutChart } from '@gaudi/design-system/charts/DonutChart';
 
@@ -30,8 +31,8 @@ export function Pattern() {
         height={300}
         className='my-0'
       />
-      <section aria-live='polite' aria-labelledby='topic-essays-heading' className='rounded-xl border border-border bg-surface p-4'>
-        <h3 id='topic-essays-heading' className='text-sm font-semibold text-text'>{selected ? selected.label : 'No topic selected'}</h3>
+      <CardRoot as='section' variant='outline' radius='xl' padding='none' aria-live='polite' aria-labelledby='topic-essays-heading' className='p-4'>
+        <CardTitle as='h3' id='topic-essays-heading' className='text-sm font-semibold text-text'>{selected ? selected.label : 'No topic selected'}</CardTitle>
         {members.length ? (
           <ul className='mt-3 grid gap-2 text-sm text-text-muted'>
             {members.flatMap((topic) => topic.posts).map((post) => <li key={post}>{post}</li>)}
@@ -39,7 +40,7 @@ export function Pattern() {
         ) : (
           <p className='mt-3 text-sm text-text-muted'>Pick a slice to see the essays behind it.</p>
         )}
-      </section>
+      </CardRoot>
     </div>
   );
 }

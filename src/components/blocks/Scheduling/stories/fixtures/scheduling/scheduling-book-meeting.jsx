@@ -1,4 +1,5 @@
 'use client';
+import { CardRoot as Card } from '@gaudi/design-system/core/Card';
 import { useState } from 'react';
 import {
   ScheduleCalendar,
@@ -7,11 +8,7 @@ import {
   dayKey,
   timeSlots
 } from '@gaudi/design-system/blocks/Scheduling';
-import {
-  AvatarRoot as Avatar,
-  AvatarFallback,
-  AvatarImage
-} from '@gaudi/design-system/core/Avatar';
+import { Avatar } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { ScrollArea } from '@gaudi/design-system/core/ScrollArea';
 import {
@@ -33,12 +30,9 @@ export function Pattern() {
   const minutes = Number(duration);
   const day = dayKey(date);
   return (
-    <div className='bg-surface grid w-full max-w-4xl overflow-hidden rounded-lg border md:grid-cols-[14rem_auto_1fr]'>
+    <Card variant='outline' radius='lg' padding='none' className='grid w-full max-w-4xl md:grid-cols-[14rem_auto_1fr]'>
       <div className='grid content-start gap-3 border-b p-5 md:border-e md:border-b-0'>
-        <Avatar className='size-10'>
-          <AvatarImage src='/avatars/person-20.svg' alt='Sabine Okafor' />
-          <AvatarFallback>SO</AvatarFallback>
-        </Avatar>
+        <Avatar size='md' surface='tinted' src='/avatars/person-20.svg' name='Sabine Okafor' />
         <div>
           <p className='text-text-muted text-sm'>Sabine Okafor</p>
           <h3 className='text-lg font-semibold'>Product walkthrough</h3>
@@ -90,6 +84,6 @@ export function Pattern() {
         </Button>
         {confirmation && <p role='status' className='text-text-muted text-sm'>{confirmation}</p>}
       </div>
-    </div>
+    </Card>
   );
 }

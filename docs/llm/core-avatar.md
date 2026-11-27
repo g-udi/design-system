@@ -63,13 +63,13 @@ A named Avatar exposes one image label, including host-provided presence. Use al
 Curated patterns:
 
 - Account dropdown menu — registry item `@gaudi/avatar-account-menu` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`, `Dialog`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuTrigger`, `Field`, `FieldInput`, `FieldLabel`, `RegistryIcon`)
-- Rings and activity — registry item `@gaudi/avatar-activity-rings` (uses `AvatarBadge`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `LoaderRoot`)
-- Empty state — registry item `@gaudi/avatar-empty-state` (uses `AvatarFallback`, `AvatarGroup`, `AvatarGroupCount`, `AvatarImage`, `AvatarRoot`, `RegistryIcon`)
+- Rings and activity — registry item `@gaudi/avatar-activity-rings` (uses `AvatarBadge`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `LoaderRoot`, `useInterval`)
+- Empty state — registry item `@gaudi/avatar-empty-state` (uses `AvatarFallback`, `AvatarGroup`, `AvatarGroupCount`, `AvatarImage`, `AvatarRoot`, `Empty`, `EmptyDescription`, `EmptyHeader`, `EmptyMedia`, `EmptyTitle`, `RegistryIcon`)
 - Groups — registry item `@gaudi/avatar-groups` (uses `AvatarBadge`, `AvatarFallback`, `AvatarGroup`, `AvatarGroupCount`, `AvatarImage`, `AvatarRoot`, `Button`, `RegistryIcon`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`)
 - Hover groups with tooltips — registry item `@gaudi/avatar-hover-groups` (uses `Avatar`, `AvatarGroup`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`)
 - Inside buttons — registry item `@gaudi/avatar-in-buttons` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`)
 - Sizes, shapes and fallbacks — registry item `@gaudi/avatar-sizes-fallbacks` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `RegistryIcon`)
-- Social proof — registry item `@gaudi/avatar-social-proof` (uses `AvatarFallback`, `AvatarGroup`, `AvatarImage`, `AvatarRoot`, `Frame`, `FramePanel`)
+- Social proof — registry item `@gaudi/avatar-social-proof` (uses `AvatarFallback`, `AvatarGroup`, `AvatarImage`, `AvatarRoot`, `Badge`, `Frame`, `FramePanel`)
 - Status and icon badges — registry item `@gaudi/avatar-status-badges` (uses `AvatarBadge`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Icon`, `RegistryIcon`)
 - User details and badge — registry item `@gaudi/avatar-user-details` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`)
 

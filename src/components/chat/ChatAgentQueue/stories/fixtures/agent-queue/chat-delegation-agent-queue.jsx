@@ -1,5 +1,7 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
+import { useInterval } from '@gaudi/design-system/hooks';
+import { useRef, useState } from 'react';
 import Button from '@gaudi/design-system/core/Button';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { ChatAgentQueue } from '@gaudi/design-system/chat/ChatAgentQueue';
@@ -64,11 +66,7 @@ export function Pattern({ title = 'Agent queue' } = {}) {
   const recent = state.jobs.filter(job => ['done', 'failed', 'cancelled'].includes(job.status)).sort((a, b) => b.endedAt - a.endedAt).slice(0, 6);
   const hasWork = !!(waiting.length || running.length || state.limited);
   const lastWorkerBusy = running.some(job => job.worker === state.workers.at(-1));
-  useEffect(() => {
-    if (!playing || !hasWork) return;
-    const timer = setInterval(() => setState(advanceQueue), 1500);
-    return () => clearInterval(timer);
-  }, [playing, hasWork]);
+  useInterval(() => setState(advanceQueue), playing && hasWork ? 1500 : null);
 
   function action(id, actionName) {
     setState(current => {
@@ -94,7 +92,7 @@ export function Pattern({ title = 'Agent queue' } = {}) {
     workers={state.workers.map(id => { const job = running.find(item => item.worker === id); return { id, name: `Worker ${id}`, job: job ? present(job) : undefined, statusLabel: job ? state.paused || state.limited ? 'Paused' : 'Running' : 'Idle', tone: job && (state.paused || state.limited) ? 'warning-light' : 'secondary' }; })}
     summary={[['Waiting', waiting.length], ['Running', `${running.length}/${state.workers.length}`], ['Done', state.jobs.filter(job => job.status === 'done').length], ['Failed', state.jobs.filter(job => job.status === 'failed').length]].map(([label, value]) => ({ id: label, label, value }))}
     toolbar={<div className='flex flex-wrap items-center gap-2'>
-        <Button size='sm' variant='outline' aria-pressed={state.paused} onClick={() => setState(current => ({ ...current, paused: !current.paused, notice: current.paused ? 'Queue resumed.' : 'Queue paused. Jobs keep their place and progress.' }))}><RegistryIcon lucide={state.paused ? 'Play' : 'Pause'} className='size-3.5' />{state.paused ? 'Resume queue' : 'Pause queue'}</Button>
+        <Toggle size='sm' variant='outline' pressed={state.paused} onPressedChange={() => setState(current => ({ ...current, paused: !current.paused, notice: current.paused ? 'Queue resumed.' : 'Queue paused. Jobs keep their place and progress.' }))}><RegistryIcon lucide={state.paused ? 'Play' : 'Pause'} className='size-3.5' />{state.paused ? 'Resume queue' : 'Pause queue'}</Toggle>
         <div role='group' aria-label='Worker capacity' className='flex items-center gap-2'><Button size='icon-sm' variant='outline' aria-label='Remove idle worker' disabled={state.workers.length <= 1 || lastWorkerBusy} onClick={() => setState(current => ({ ...current, workers: current.workers.slice(0, -1), notice: 'One idle worker removed.' }))}><RegistryIcon lucide='Minus' className='size-3.5' /></Button><span className='text-xs tabular-nums'><bdi>{state.workers.length} {state.workers.length === 1 ? 'worker' : 'workers'}</bdi></span><Button size='icon-sm' variant='outline' aria-label='Add worker' disabled={state.workers.length >= 4} onClick={() => setState(current => ({ ...current, workers: [...current.workers, current.nextWorker], nextWorker: current.nextWorker + 1, notice: 'Worker added. The next update assigns waiting work.' }))}><RegistryIcon lucide='Plus' className='size-3.5' /></Button></div>
       </div>}
     notice={(state.paused || state.limited > 0 || waiting.length >= 6) && <div className='flex flex-wrap items-center gap-2 text-sm'><Badge variant='warning-light'>{state.paused ? 'Paused' : state.limited ? 'Rate limited' : 'Backlog growing'}</Badge><span>{state.limited ? `Provider limit resets in ${state.limited}s of demo time. ${state.paused ? 'Queue is also paused.' : 'Worker progress is held.'}` : state.paused ? 'New jobs can wait here while workers are paused.' : 'Six or more jobs are waiting. Add a worker or let the queue drain.'}</span></div>}
@@ -105,7 +103,7 @@ export function Pattern({ title = 'Agent queue' } = {}) {
       <div className='flex flex-wrap items-center gap-2'>
         <Button ref={addRef} size='sm' onClick={addJob}><RegistryIcon lucide='Plus' className='size-3.5' />Add demo job</Button>
         <Button size='sm' variant='outline' onClick={() => setState(advanceQueue)}>Next update</Button>
-        <Button size='sm' variant='outline' aria-pressed={playing} disabled={!hasWork && !playing} onClick={() => setPlaying(value => !value)}>{playing ? 'Stop demo' : 'Play demo'}</Button>
+        <Toggle size='sm' variant='outline' pressed={playing} disabled={!hasWork && !playing} onPressedChange={setPlaying}>{playing ? 'Stop demo' : 'Play demo'}</Toggle>
         <Button size='sm' variant='ghost' disabled={state.limited > 0} onClick={() => setState(current => ({ ...current, limited: 30, notice: 'Provider rate limit. Worker progress is held for 30 seconds of demo time.' }))}>Simulate rate limit</Button>
         <Button size='sm' variant='ghost' onClick={() => reset()}>Reset demo</Button>
         <Button size='sm' variant='ghost' onClick={() => reset(true)}>Empty queue</Button>

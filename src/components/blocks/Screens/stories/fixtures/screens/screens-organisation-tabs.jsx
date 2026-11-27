@@ -1,8 +1,11 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import { Item } from '@gaudi/design-system/core/Item';
 import { NativeSelect, NativeSelectOption } from '@gaudi/design-system/core/Select';
 import { TableRoot as Table, TableHeader, TableBodyPrimitive as TableBody, TableRowPrimitive as TableRow, TableHeadPrimitive as TableHead, TableCellPrimitive as TableCell } from '@gaudi/design-system/mdx/Table';
 import { useState } from 'react';
 import {
+  getAvatarInitials,
   AvatarRoot as Avatar,
   AvatarFallback,
   AvatarImage
@@ -99,7 +102,7 @@ export function Pattern() {
     <Tabs defaultValue='members' className='bg-surface w-full max-w-3xl rounded-xl border p-5'>
       <div className='grid gap-1'>
         <h2 className='text-lg font-semibold'>Organisation</h2>
-        <p className='text-text-muted text-sm'>Gaudi · 4 members</p>
+        <p className='text-text-muted text-sm'>Gaudi <MetaSeparator /> 4 members</p>
       </div>
       <TabsList aria-label='Organisation settings' className='mt-2 w-full justify-start border-b'>
         <TabsTrigger value='profile'>Profile</TabsTrigger>
@@ -134,7 +137,7 @@ export function Pattern() {
                   <span className='flex items-center gap-2'>
                     <Avatar size='sm'>
                       <AvatarImage src={`/avatars/${portrait}.svg`} alt={name} />
-                      <AvatarFallback>{name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
+                      <AvatarFallback>{getAvatarInitials(name)}</AvatarFallback>
                     </Avatar>
                     {name}
                   </span>
@@ -172,13 +175,13 @@ export function Pattern() {
       </TabsContent>
       <TabsContent value='integrations' className='grid gap-2 pt-3'>
         {integrations.map(([name, purpose, connected]) => (
-          <div key={name} className='flex items-center gap-3 rounded-lg border p-3'>
+          <Item size='sm' variant='outline' key={name} className='gap-3 p-3'>
             <span className='grid flex-1 text-sm'>
               <span className='font-medium'>{name}</span>
               <span className='text-text-muted text-xs'>{purpose}</span>
             </span>
             <Badge size='sm' variant={connected ? 'success-light' : 'outline'}>{connected ? 'Connected' : 'Not connected'}</Badge>
-          </div>
+          </Item>
         ))}
       </TabsContent>
     </Tabs>

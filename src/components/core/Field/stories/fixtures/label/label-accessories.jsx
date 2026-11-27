@@ -1,4 +1,5 @@
 'use client';
+import { CharacterCount } from '@gaudi/design-system/blocks/Forms';
 import { useState } from 'react';
 import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import { CheckboxRoot as Checkbox } from '@gaudi/design-system/core/Checkbox';
@@ -16,7 +17,7 @@ import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 import { EmailInput } from '@gaudi/design-system/core/Input';
 
 export function Pattern() {
-  const [bio, setBio] = useState(0);
+  const [bio, setBio] = useState('');
   return (
     <TooltipProvider>
       <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-flow-dense sm:grid-cols-2'>
@@ -70,14 +71,14 @@ export function Pattern() {
         <Field className='sm:col-span-2'>
           <Label htmlFor='label-counter' className='justify-between'>
             Bio
-            <span className='font-normal tabular-nums text-text-muted'>{bio}/200</span>
+            <CharacterCount value={bio} max={200} className='font-normal' />
           </Label>
           <Textarea
             id='label-counter'
             rows={2}
             placeholder='Tell us about yourself…'
             maxLength={200}
-            onChange={(e) => setBio(e.target.value.length)}
+            onChange={(e) => setBio(e.target.value)}
           />
         </Field>
         <Field orientation='horizontal' className='sm:col-span-2'>

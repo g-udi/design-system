@@ -1,4 +1,6 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import EmptyState from '@gaudi/design-system/core/EmptyState';
 import { useId, useRef, useState } from 'react';
 import { useTree } from '@headless-tree/react';
 import { hotkeysCoreFeature, syncDataLoaderFeature } from '@headless-tree/core';
@@ -6,6 +8,7 @@ import { AccordionRoot, AccordionItem, AccordionTrigger, AccordionContent } from
 import { Tree, TreeItem, TreeItemLabel } from '@gaudi/design-system/core/Tree';
 import { DialogRoot, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@gaudi/design-system/core/Dialog';
 import Button from '@gaudi/design-system/core/Button';
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { ProgressRoot } from '@gaudi/design-system/core/Progress';
 import { ChatAgentMark } from '@gaudi/design-system/chat/ChatAgentMark';
@@ -123,15 +126,15 @@ export function Pattern() {
       `}</style>
       <header className='grid gap-3 border-b pb-4'>
         <div className='flex flex-wrap items-start justify-between gap-3'>
-          <div className='grid min-w-0 gap-1'><h2 id={titleId} className='text-lg font-semibold'>Migration fleet</h2><p className='text-text-muted'>Workspace migration · Demo run</p></div>
+          <div className='grid min-w-0 gap-1'><h2 id={titleId} className='text-lg font-semibold'>Migration fleet</h2><p className='text-text-muted'>Workspace migration <MetaSeparator /> Demo run</p></div>
           <Badge variant={attention ? 'warning-light' : 'secondary'}>{attention ? `${attention} ${attention === 1 ? 'needs' : 'need'} you` : all.length && done === all.length ? 'Complete' : 'No blockers'}</Badge>
         </div>
         <div aria-label='Fleet summary' className='text-text-muted flex flex-wrap gap-x-5 gap-y-2 text-xs tabular-nums'>
-          <span>{empty ? 0 : leads.length} leads · {Math.max(0, all.length - (empty ? 0 : leads.length))} sub-agents</span>
+          <span>{empty ? 0 : leads.length} leads <MetaSeparator /> {Math.max(0, all.length - (empty ? 0 : leads.length))} sub-agents</span>
           <span>{all.filter(agent => agent.status === 'running').length} running</span><span>{done} of {all.length} done</span><span>{money(all.reduce((sum, agent) => sum + agent.cost, 0))} total</span>
         </div>
       </header>
-      {empty ? <div className='grid justify-items-start gap-3 py-8'><h3 className='font-medium'>No agents assigned</h3><p className='text-text-muted'>Start the demo to explore delegated work and approvals.</p><Button onClick={reset}>Start demo fleet</Button></div> : (
+      {empty ? <EmptyState title='No agents assigned' titleAs='h3' description='Start the demo to explore delegated work and approvals.' actions={<Button onClick={reset}>Start demo fleet</Button>} /> : (
         <AccordionRoot value={open} onValueChange={setOpen} variant='plain' className='fleet-list'>
           {leads.map((lead, index) => {
             const members = branchIds(lead.id).map(id => current[id]);
@@ -145,14 +148,14 @@ export function Pattern() {
                     <span className='text-text-muted text-xs font-normal [overflow-wrap:anywhere]'>{lead.task}</span>
                     <span className='flex flex-wrap gap-2'><Status status={current[lead.id].status} />{needsYou > 0 && <Badge variant='warning-light'>{needsYou} {needsYou === 1 ? 'needs' : 'need'} you</Badge>}</span>
                     <ProgressRoot value={finished / members.length * 100} aria-label={`${lead.name} completion`} className='h-1' />
-                    <span className='text-text-muted flex flex-wrap justify-between gap-2 text-xs font-normal tabular-nums'><span>{finished}/{members.length} done · {current[lead.id].elapsed}</span><span>{money(members.reduce((sum, agent) => sum + agent.cost, 0))}</span></span>
+                    <span className='text-text-muted flex flex-wrap justify-between gap-2 text-xs font-normal tabular-nums'><span>{finished}/{members.length} done <MetaSeparator /> {current[lead.id].elapsed}</span><span>{money(members.reduce((sum, agent) => sum + agent.cost, 0))}</span></span>
                   </span>
                 </AccordionTrigger>
                 <AccordionContent>
-                  <div className='min-w-0 rounded-(--ds-radius-card) border p-3'>
+                  <CardRoot variant='outline' padding='md' className='min-w-0 rounded-(--ds-radius-card)'>
                     <div className='mb-2 grid gap-1 border-b px-2 pb-3'><h4 className='font-medium'>{lead.name} team</h4><p className='text-text-muted text-xs'>Expand a team or open an agent’s tasks.</p></div>
                     <AgentTree lead={lead} current={current} onInspect={inspect} />
-                  </div>
+                  </CardRoot>
                 </AccordionContent>
               </AccordionItem>
             );

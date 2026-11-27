@@ -1,4 +1,5 @@
 'use client';
+import { CharacterCount } from '@gaudi/design-system/blocks/Forms';
 import { useState } from 'react';
 import {
   FieldRoot as Field,
@@ -117,9 +118,7 @@ export function Pattern() {
             className='min-h-12'
           />
           <InputGroupAddon align='block-end'>
-            <InputGroupText className='text-xs tabular-nums text-text-muted'>
-              {description.length}/{maxLength} characters
-            </InputGroupText>
+            <CharacterCount value={description} max={maxLength} />
             <RegistryIcon lucide='InfoIcon' className='ml-auto text-text-muted' />
           </InputGroupAddon>
         </InputGroup>

@@ -1,4 +1,5 @@
 'use client';
+import { Item } from '@gaudi/design-system/core/Item';
 import { useState } from 'react';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { CardRoot as Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@gaudi/design-system/core/Card';
@@ -164,11 +165,11 @@ export function Pattern() {
           </FieldGroup>
         </CardContent>
         <CardFooter className='flex-wrap gap-3 border-t'>
-          <div aria-hidden='true' className='bg-surface-muted flex min-w-0 flex-1 basis-60 items-center gap-3 rounded-md border px-3 py-2'>
+          <Item variant='outline' size='sm' aria-hidden='true' className='bg-surface-muted flex min-w-0 flex-1 basis-60 items-center gap-3 rounded-md border px-3 py-2'>
             <RegistryIcon lucide='LockIcon' className='text-text-muted size-4 shrink-0' />
             <span className='truncate text-sm'>{values.product || 'Your product'}</span>
             <Badge className='ms-auto'>{labelText}</Badge>
-          </div>
+          </Item>
           {link ? (
             <p role='status' className='text-sm'>
               Live at <Link href={link} tone='accent' className='underline underline-offset-2'>{link.replace('https://', '')}</Link>

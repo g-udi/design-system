@@ -94,8 +94,23 @@ export async function checkScrollspyUpdates(canvasElement) {
     const expectedTop = host.querySelector('h2').getBoundingClientRect().top + window.scrollY - 24;
     const documentScroll = spyOn(window, 'scrollTo').mockImplementation(() => {});
     try {
-      await fireEvent.click(documentLink, { ctrlKey: true });
-      await expect(documentScroll).not.toHaveBeenCalled();
+      for (const modifiers of [{ ctrlKey: true }, { metaKey: true }]) {
+        // Observe the event after Scrollspy handles it, then keep the native
+        // new-tab action from opening a second copy of the browser test runner.
+        let handledByScrollspy;
+        const interceptNavigation = event => {
+          handledByScrollspy = event.defaultPrevented;
+          event.preventDefault();
+        };
+        document.addEventListener('click', interceptNavigation, { once: true });
+        try {
+          await fireEvent.click(documentLink, modifiers);
+          await expect(handledByScrollspy).toBe(false);
+          await expect(documentScroll).not.toHaveBeenCalled();
+        } finally {
+          document.removeEventListener('click', interceptNavigation);
+        }
+      }
       await fireEvent.click(documentLink);
       await expect(documentScroll).toHaveBeenCalledWith({ top: expectedTop, left: 0, behavior: 'auto' });
       await expect(documentLink).toHaveAttribute('aria-current', 'location');

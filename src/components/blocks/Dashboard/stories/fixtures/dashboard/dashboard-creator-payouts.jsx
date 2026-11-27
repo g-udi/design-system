@@ -1,4 +1,6 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import { Label } from '@gaudi/design-system/core/Field';
 import { useState } from 'react';
 import { DashboardGrid, DashboardPanel } from '@gaudi/design-system/blocks/Dashboard';
@@ -50,11 +52,11 @@ export function Pattern() {
   return (
     <div className='grid w-full gap-4'>
       <header>
-        <p className='text-text-muted text-xs'>Gaudi · Creator earnings</p>
+        <p className='text-text-muted text-xs'>Gaudi <MetaSeparator /> Creator earnings</p>
         <h2 className='text-xl font-semibold'>Payouts</h2>
       </header>
       <DashboardGrid label='Payouts'>
-        <section aria-label='Claimable balance' className='bg-surface-muted col-span-full grid gap-4 rounded-(--ds-radius-card) border p-4 @2xl/dashboard:grid-cols-[1fr_auto] @2xl/dashboard:items-center'>
+        <CardRoot as='section' variant='soft' radius='lg' padding='none' aria-label='Claimable balance' className='col-span-full grid gap-4 p-4 @2xl/dashboard:grid-cols-[1fr_auto] @2xl/dashboard:items-center'>
           <div className='flex items-center gap-4'>
             <ProgressRing value={claimable + pending} max={threshold} size='lg' label={`${Math.round(((claimable + pending) / threshold) * 100)}% of the monthly payout goal`} showValue />
             <div className='grid gap-1'>
@@ -74,7 +76,7 @@ export function Pattern() {
             </Button>
             <Button onClick={claim} disabled={!claimable}><RegistryIcon lucide='WalletIcon' aria-hidden='true' />{claimable ? `Claim ${money(claimable)}` : 'Claimed'}</Button>
           </div>
-        </section>
+        </CardRoot>
         <DashboardPanel span={7} title='Receipts and buffer' description='Monthly receipts with the reserve kept back for refunds'>
           <ComposedChart
             framed={false}

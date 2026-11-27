@@ -1,6 +1,7 @@
 'use client';
 import { Fragment, useId } from 'react';
 import {
+  getAvatarInitials,
   AvatarRoot as Avatar,
   AvatarFallback,
   AvatarImage
@@ -37,13 +38,12 @@ const members = [
   { id: '8', name: 'Quentin Hale', position: 'UX Designer', avatar: '/avatars/person-23.svg' }
 ];
 
-const initials = (name) => name.split(' ').map((part) => part[0]).join('');
 
 function MemberAvatar({ member, className }) {
   return (
     <Avatar className={className}>
       <AvatarImage src={member.avatar} alt={member.name} />
-      <AvatarFallback>{initials(member.name)}</AvatarFallback>
+      <AvatarFallback>{getAvatarInitials(member.name)}</AvatarFallback>
     </Avatar>
   );
 }

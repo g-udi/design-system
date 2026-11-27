@@ -31,8 +31,7 @@ import {
   ToggleGroupRoot as ToggleGroup,
   ToggleGroupItem
 } from '@gaudi/design-system/core/ToggleGroup';
-import { Label } from '@gaudi/design-system/core/Field';
-import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
+import Switch from '@gaudi/design-system/core/Switch';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 const slackLogo = <Slack className='size-4' aria-hidden='true' />;
 const githubLogo = (
@@ -522,12 +521,7 @@ export function Pattern() {
             <ToggleGroupItem value='leaf'>Leaf</ToggleGroupItem>
             <ToggleGroupItem value='custom'>Headless</ToggleGroupItem>
           </ToggleGroup>
-          <div className='flex items-center gap-2'>
-            <Switch id={fieldId} size='sm' checked={deep} onCheckedChange={setDeep} />
-            <Label htmlFor={fieldId} className='text-xs'>
-              Search every level
-            </Label>
-          </div>
+          <Switch id={fieldId} size='sm' checked={deep} onCheckedChange={setDeep} label='Search every level' />
         </div>
       </div>
     </div>

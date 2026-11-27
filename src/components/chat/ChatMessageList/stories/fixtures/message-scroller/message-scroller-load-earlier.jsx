@@ -1,11 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { Badge } from '@gaudi/design-system/core/Pill';
-import {
-  AvatarRoot as Avatar,
-  AvatarFallback,
-  AvatarImage
-} from '@gaudi/design-system/core/Avatar';
+import { Avatar } from '@gaudi/design-system/core/Avatar';
 import { ChatBubble, ChatBubbleContent } from '@gaudi/design-system/chat/ChatBubble';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
@@ -16,7 +12,7 @@ import {
   CardHeader,
   CardTitle
 } from '@gaudi/design-system/core/Card';
-import { Separator } from '@gaudi/design-system/core/Separator';
+import { FieldSeparator } from '@gaudi/design-system/core/Field';
 import { ChatMessage, ChatMessageAvatar, ChatMessageContent } from '@gaudi/design-system/chat/ChatMessage';
 import { ChatMessageScroller, ChatMessageScrollerButton, ChatMessageScrollerContent, ChatMessageScrollerItem, ChatMessageScrollerProvider, ChatMessageScrollerViewport, useMessageScrollerScrollable } from '@gaudi/design-system/chat/ChatMessageList';
 import { LoaderRoot as Loader } from '@gaudi/design-system/core/Loader';
@@ -206,13 +202,7 @@ export function Pattern() {
                       <ChatMessage align={isUser ? 'end' : 'start'}>
                         <ChatMessageAvatar className='size-8'>
                           {isUser ? (
-                            <Avatar>
-                              <AvatarImage
-                                src={VIEWER_AVATAR}
-                                alt={turn.author}
-                              />
-                              <AvatarFallback>JW</AvatarFallback>
-                            </Avatar>
+                            <Avatar size='sm' surface='tinted' src={VIEWER_AVATAR} name={turn.author} />
                           ) : (
                             <>
                               <RegistryIcon
@@ -253,11 +243,7 @@ export function Pattern() {
                  * and to visibility tracking. A divider wants exactly that.
                  */}
                 <ChatMessageScrollerItem scrollAnchor={false}>
-                  <div className='text-text-muted flex items-center gap-3 text-xs'>
-                    <Separator className='min-w-3 flex-1' />
-                    <span className='min-w-0'>Handed to Ines Calder</span>
-                  <Separator className='min-w-3 flex-1' />
-                  </div>
+                  <FieldSeparator className='text-xs text-text-muted'>Handed to Ines Calder</FieldSeparator>
                 </ChatMessageScrollerItem>
               </ChatMessageScrollerContent>
             </ChatMessageScrollerViewport>

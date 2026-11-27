@@ -1,4 +1,5 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
 import { TableRoot as Table, TableHeader, TableBodyPrimitive as TableBody, TableFooter, TableRowPrimitive as TableRow, TableHeadPrimitive as TableHead, TableCellPrimitive as TableCell, TableCaption } from '@gaudi/design-system/mdx/Table';
 import { useState } from 'react';
 import { addDays, format } from 'date-fns';
@@ -68,7 +69,7 @@ export function Pattern() {
         <div className='flex flex-wrap items-center justify-between gap-3'>
           <div className='grid gap-1'>
             <h2 className='flex items-center gap-2 text-xl font-semibold'>Reader app 2.0 <Badge variant='success-light'>On track</Badge></h2>
-            <p className='text-text-muted text-sm'>Beta ships October 23 · 5 people · 62% of scope done</p>
+            <p className='text-text-muted text-sm'>Beta ships October 23 <MetaSeparator /> 5 people <MetaSeparator /> 62% of scope done</p>
           </div>
           <div className='flex items-center gap-3'>
             <AvatarGroup avatars={people.map((person) => ({ id: person.id, src: person.avatar, name: person.name }))} max={4} label='Project collaborators' />

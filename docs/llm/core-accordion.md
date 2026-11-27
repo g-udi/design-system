@@ -88,9 +88,9 @@ Curated patterns:
 - Variants and indicators — registry item `@gaudi/accordion-variants` (uses `AccordionGroup`)
 - Collapsible: Advanced form fields — registry item `@gaudi/collapsible-advanced-fields` (uses `Button`, `CardContent`, `CardHeader`, `CardRoot`, `CardTitle`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `FieldGroup`, `FieldLabelPrimitive`, `FieldRoot`, `InputGroupAddon`, `InputGroupText`, `NumberField`, `NumberFieldGroup`, `NumberFieldInput`, `RegistryIcon`)
 - Collapsible: Card that opens from its footer — registry item `@gaudi/collapsible-bottom-trigger` (uses `Button`, `CardAction`, `CardContent`, `CardHeader`, `CardRoot`, `CardTitle`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `ProgressRoot`, `RegistryIcon`)
-- Collapsible: Tree view with file actions — registry item `@gaudi/collapsible-file-tree` (uses `Button`, `CardContent`, `CardHeader`, `CardRoot`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `Item`, `ItemActions`, `ItemMedia`, `ItemTitle`, `RegistryIcon`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`)
-- Collapsible: Framed sections — registry item `@gaudi/collapsible-framed-sections` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuTrigger`, `Frame`, `FrameHeader`, `FramePanel`, `RegistryIcon`, `useCopyToClipboard`)
-- Collapsible: Show more details — registry item `@gaudi/collapsible-show-more` (uses `Badge`, `Button`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `RegistryIcon`)
+- Collapsible: Tree view with file actions — registry item `@gaudi/collapsible-file-tree` (uses `Button`, `CardContent`, `CardFooter`, `CardHeader`, `CardRoot`, `Collapsible`, `CollapsibleContent`, `RegistryIcon`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`, `Tree`, `TreeItem`, `TreeItemLabel`)
+- Collapsible: Framed sections — registry item `@gaudi/collapsible-framed-sections` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuTrigger`, `EmptyState`, `FieldErrorPrimitive`, `Frame`, `FrameHeader`, `FramePanel`, `RegistryIcon`, `useCopyToClipboard`)
+- Collapsible: Show more details — registry item `@gaudi/collapsible-show-more` (uses `Badge`, `Button`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `Item`, `RegistryIcon`)
 
 ## README
 

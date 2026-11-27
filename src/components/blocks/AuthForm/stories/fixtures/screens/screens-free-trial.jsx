@@ -1,4 +1,5 @@
 'use client';
+import { Item } from '@gaudi/design-system/core/Item';
 import { IconTile } from '@gaudi/design-system/core/Icon';
 import { default as AuthForm } from '@gaudi/design-system/blocks/AuthForm';
 import { Screen } from '@gaudi/design-system/blocks/Screens';
@@ -30,12 +31,12 @@ export function Pattern() {
           <p className='text-2xl font-semibold text-balance'>Everything in Pro, free for two weeks</p>
           <ul className='grid gap-3 text-sm'>
             {perks.map(([perk, icon]) => (
-              <li key={perk} className='flex items-center gap-3'>
+              <Item as='li' size='sm' key={perk} className='gap-3'>
                 <IconTile aria-hidden='true' size='sm'>
                   <RegistryIcon lucide={icon} className='size-4' />
                 </IconTile>
                 {perk}
-              </li>
+              </Item>
             ))}
           </ul>
         </div>

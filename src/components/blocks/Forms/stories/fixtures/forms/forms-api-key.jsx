@@ -1,4 +1,8 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
+import { ItemGroup, Item } from '@gaudi/design-system/core/Item';
+import { CardHeader, CardTitle, CardDescription, CardRoot } from '@gaudi/design-system/core/Card';
 import { useState } from 'react';
 import { Alert, AlertDescription, AlertTitle } from '@gaudi/design-system/core/Banner';
 import { Badge } from '@gaudi/design-system/core/Pill';
@@ -53,11 +57,17 @@ export function Pattern() {
   });
   const [created, setCreated] = useState(null);
   const [revealed, setRevealed] = useState(false);
-  const { isCopied, copyToClipboard } = useCopyToClipboard();
+  const [copyFailed, setCopyFailed] = useState(false);
+  const { isCopied, copyToClipboard, reset: resetCopy } = useCopyToClipboard({
+    onCopy: () => setCopyFailed(false),
+    onError: () => setCopyFailed(true)
+  });
   const { values, errors } = form;
   const setAccess = (scope, level) => form.setValue('access', { ...values.access, [scope]: level });
 
   const create = form.handleSubmit((data) => {
+    resetCopy();
+    setCopyFailed(false);
     const secret = secretFor(data.env);
     setCreated({ name: data.name.trim(), secret });
     setRevealed(false);
@@ -77,25 +87,26 @@ export function Pattern() {
                 {revealed ? created.secret : `${created.secret.slice(0, 12)}${'•'.repeat(16)}`}
               </code>
               <div className='ms-auto flex shrink-0 items-center gap-2'>
-              <Button size='sm' variant='outline' tone='neutral' aria-pressed={revealed} onClick={() => setRevealed(!revealed)}>
-                <RegistryIcon lucide={revealed ? 'EyeOffIcon' : 'EyeIcon'} aria-hidden='true' />
-                {revealed ? 'Hide' : 'Reveal'}
-              </Button>
-              <Button size='sm' onClick={() => copyToClipboard(created.secret)}>
-                <RegistryIcon lucide={isCopied ? 'CheckIcon' : 'CopyIcon'} aria-hidden='true' />
-                {isCopied ? 'Copied' : 'Copy'}
-              </Button>
+                <Toggle size='sm' variant='outline' pressed={revealed} onPressedChange={setRevealed}>
+                  <RegistryIcon lucide={revealed ? 'EyeOffIcon' : 'EyeIcon'} aria-hidden='true' />
+                  {revealed ? 'Hide' : 'Reveal'}
+                </Toggle>
+                <Button size='sm' onClick={() => copyToClipboard(created.secret)}>
+                  <RegistryIcon lucide={isCopied ? 'CheckIcon' : 'CopyIcon'} aria-hidden='true' />
+                  {isCopied ? 'Copied' : copyFailed ? 'Retry copy' : 'Copy'}
+                </Button>
               </div>
             </div>
+            <FieldError id='api-key-copy-error'>{copyFailed ? 'Could not copy the key. Retry or reveal the key and copy it manually.' : null}</FieldError>
             <CodeBlockGroup className='w-full' label='Add the key to your project' items={snippets(created.name, revealed ? created.secret : 'paste-the-secret-here')} />
           </AlertDescription>
         </Alert>
       ) : null}
-      <form noValidate aria-labelledby='api-key-title' onSubmit={create} className='grid grid-cols-[minmax(0,1fr)] gap-5 rounded-lg border p-5 sm:p-6'>
-        <div className='grid gap-1'>
-          <h2 id='api-key-title' className='text-lg font-semibold'>Create an API key</h2>
-          <p className='text-text-muted text-sm'>Give each app its own key so you can revoke one without breaking the others.</p>
-        </div>
+      <CardRoot as='form' variant='outline' radius='lg' padding='none' noValidate aria-labelledby='api-key-title' onSubmit={create} className='grid grid-cols-[minmax(0,1fr)] gap-5 p-5 sm:p-6'>
+        <CardHeader className='p-0 grid gap-1'>
+          <CardTitle as='h2' id='api-key-title' className='text-lg font-semibold'>Create an API key</CardTitle>
+          <CardDescription as='p' className='text-text-muted text-sm'>Give each app its own key so you can revoke one without breaking the others.</CardDescription>
+        </CardHeader>
         <FormErrorSummary form={form} labels={{ name: 'Name', access: 'Access', allow: 'Allowed IPs' }} />
         <FieldGroup className='gap-5'>
           <Field data-invalid={errors.name ? true : undefined}>
@@ -116,9 +127,9 @@ export function Pattern() {
           />
           <FieldSet aria-describedby={errors.access ? form.errorId('access') : undefined}>
             <FieldLegend variant='label'>Access</FieldLegend>
-            <div id={form.id('access')} className='divide-y rounded-md border'>
+            <ItemGroup aria-label='API key permissions' id={form.id('access')} className='divide-y rounded-md border'>
               {scopes.map((scope) => (
-                <div key={scope.id} className='flex flex-wrap items-center justify-between gap-2 px-3 py-2'>
+                <Item size='sm' key={scope.id} className='flex flex-wrap items-center justify-between gap-2 px-3 py-2'>
                   <span className='text-sm font-medium'>{scope.label}</span>
                   <Select value={values.access[scope.id]} onValueChange={(level) => setAccess(scope.id, level)}>
                     <SelectTrigger aria-label={`${scope.label} access`} size='sm' className='w-36'><SelectValue /></SelectTrigger>
@@ -128,9 +139,9 @@ export function Pattern() {
                       <SelectItem value='write'>Read and write</SelectItem>
                     </SelectContent>
                   </Select>
-                </div>
+                </Item>
               ))}
-            </div>
+            </ItemGroup>
             <FieldError id={form.errorId('access')}>{errors.access}</FieldError>
           </FieldSet>
           <div className='grid gap-4 sm:grid-cols-2'>
@@ -166,19 +177,19 @@ export function Pattern() {
         <Button type='submit' className='justify-self-end' disabled={values.env === 'production' && !values.confirmProduction}>
           Create key
         </Button>
-      </form>
+      </CardRoot>
       <section aria-labelledby='api-keys-list-title' className='grid gap-2'>
         <h3 id='api-keys-list-title' className='text-sm font-semibold'>Active keys</h3>
         <ul className='divide-y rounded-lg border'>
           {values.keys.map((key) => (
-            <li key={key.id} className='flex flex-wrap items-center gap-3 px-4 py-3'>
+            <Item as='li' size='sm' key={key.id} className='rounded-none flex flex-wrap items-center gap-3 px-4 py-3'>
               <span className='grid min-w-0 flex-1 basis-48'>
                 <span className='flex items-center gap-2 text-sm font-medium'>
                   {key.name}
                   <Badge size='xs' variant={key.env === 'production' ? 'attention-light' : 'info-light'}>{key.env}</Badge>
                 </span>
                 <span className='text-text-muted text-xs'>
-                  <code className='font-mono'>{key.prefix}…</code> · created {key.created} · expires {key.expires}
+                  <code className='font-mono'>{key.prefix}…</code> <MetaSeparator /> created {key.created} <MetaSeparator /> expires {key.expires}
                 </span>
               </span>
               <div className='ms-auto flex shrink-0 items-center gap-2'>
@@ -201,7 +212,7 @@ export function Pattern() {
                 Revoke
               </Button>
               </div>
-            </li>
+            </Item>
           ))}
         </ul>
       </section>

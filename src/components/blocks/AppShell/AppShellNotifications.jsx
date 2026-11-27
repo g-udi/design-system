@@ -4,10 +4,11 @@ import { useControllableState } from '../../../hooks/state/use-controllable-stat
 import { cn } from '../../../utilities/cn/index.js';
 import { default as Button } from '../../core/Button/index.js';
 import { Badge } from '../../core/Pill/Badge.jsx';
-import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from '../../core/Avatar/AvatarPrimitives.jsx';
+import { Avatar, AvatarFallback, AvatarGroup, AvatarGroupCount, AvatarImage } from '../../core/Avatar/AvatarPrimitives.jsx';
 import { Attachment, AttachmentMedia, AttachmentContent, AttachmentTitle, AttachmentDescription, AttachmentActions, AttachmentAction } from '../../core/Attachment/Attachment.jsx';
 import { Progress } from '../../core/Progress/ProgressPrimitives.jsx';
 import { Rating } from '../../core/Rating/Rating.jsx';
+import EmptyState from '../../core/EmptyState/EmptyState.jsx';
 import { ScrollArea } from '../../core/ScrollArea/index.js';
 import {
   Sheet,
@@ -39,10 +40,10 @@ const toneOf = (tone) => TONES[tone] || TONES.neutral;
 /** A two-part outline pill: a muted label beside a toned value (for example Priority · High). */
 function MetaPill({ label, value, tone }) {
   return (
-    <span className='inline-flex h-5 items-stretch overflow-hidden rounded-(--ds-radius-control) border border-ui-border text-xs leading-none'>
+    <Badge variant='outline' className='h-5 items-stretch gap-0 overflow-hidden p-0 font-normal leading-none'>
       <span className='text-text-muted flex items-center px-1.5'>{label}</span>
       <span className={cn('flex items-center border-s border-ui-border px-1.5 font-medium', toneOf(tone))}>{value}</span>
-    </span>
+    </Badge>
   );
 }
 
@@ -62,16 +63,21 @@ function Lead({ item }) {
   );
 }
 
-function NotificationItem({ item, onAction }) {
+function AppShellNotificationItem({ item, onAction }) {
+  const attachment = item.attachment;
+  const openUrl = normalizeDownloadHref(attachment?.href);
+  const downloadUrl = typeof attachment?.text === 'string'
+    ? 'data:text/plain;charset=utf-8,' + encodeURIComponent(attachment.text)
+    : openUrl;
   return (
     <li
       data-slot='app-shell-notification'
       data-unread={item.unread ? 'true' : undefined}
-      className='flex gap-3 border-b border-ui-border px-4 py-3 last:border-b-0'
+      className='relative flex gap-3 border-b border-ui-border px-4 py-3 last:border-b-0'
     >
       <Lead item={item} />
       <div className='flex min-w-0 flex-1 flex-col gap-1.5'>
-        <div className='flex items-start gap-2'>
+        <div className='flex items-start gap-2 pe-2'>
           <p className='min-w-0 flex-1 text-sm leading-5 font-medium'>
             {item.title}
             {item.unread ? <span className='sr-only'> (unread)</span> : null}
@@ -85,13 +91,14 @@ function NotificationItem({ item, onAction }) {
         {item.body ? <p className='text-text-muted text-sm leading-5'>{item.body}</p> : null}
         {item.rating ? <Rating rating={item.rating} size='sm' className='gap-0.5' /> : null}
         {item.people ? (
-          <AvatarGroup className='-space-x-1.5' role='img' aria-label={item.peopleLabel || `${item.people.length} people`}>
+          <AvatarGroup className='-space-x-1.5' role='img' aria-label={item.peopleLabel || `${item.people.length + (item.peopleExtra || 0)} people`}>
             {item.people.map((src) => (
               <Avatar key={src} className='size-6'>
                 <AvatarImage src={src} alt='' />
                 <AvatarFallback />
               </Avatar>
             ))}
+            {item.peopleExtra > 0 && <AvatarGroupCount className='size-6 text-xs'>+{item.peopleExtra}</AvatarGroupCount>}
           </AvatarGroup>
         ) : null}
         {item.progress ? (
@@ -103,11 +110,11 @@ function NotificationItem({ item, onAction }) {
           />
         ) : null}
         {item.schedule ? (
-          <span className='inline-flex w-fit items-center gap-1.5 rounded-(--ds-radius-control) border border-ui-border px-2 py-1 text-xs'>
+          <Badge variant='outline' size='lg' className='w-fit gap-1.5 font-normal'>
             <RegistryIcon lucide='Calendar' aria-hidden='true' className='text-text-muted size-3.5' />
             <span className='font-medium'>{item.schedule.date}</span>
             <span className='text-text-muted'>{item.schedule.time}</span>
-          </span>
+          </Badge>
         ) : null}
         {item.attachment ? (
           <Attachment size='xs' className='w-fit'>
@@ -116,13 +123,13 @@ function NotificationItem({ item, onAction }) {
               <AttachmentTitle>{item.attachment.name}</AttachmentTitle>
               {item.attachment.size ? <AttachmentDescription>{item.attachment.size}</AttachmentDescription> : null}
             </AttachmentContent>
-            {normalizeDownloadHref(item.attachment.href) ? (
+            {downloadUrl ? (
               <AttachmentActions>
-                <AttachmentAction asChild aria-label={`Open ${item.attachment.name}`}>
-                  <a href={normalizeDownloadHref(item.attachment.href)}><RegistryIcon lucide='ExternalLink' aria-hidden='true' /></a>
-                </AttachmentAction>
+                {openUrl && <AttachmentAction asChild aria-label={`Open ${item.attachment.name}`}>
+                  <a href={openUrl}><RegistryIcon lucide='ExternalLink' aria-hidden='true' /></a>
+                </AttachmentAction>}
                 <AttachmentAction asChild aria-label={`Download ${item.attachment.name}`}>
-                  <a href={normalizeDownloadHref(item.attachment.href)} download={item.attachment.name}><RegistryIcon lucide='Download' aria-hidden='true' /></a>
+                  <a href={downloadUrl} download={item.attachment.name}><RegistryIcon lucide='Download' aria-hidden='true' /></a>
                 </AttachmentAction>
               </AttachmentActions>
             ) : null}
@@ -141,6 +148,7 @@ function NotificationItem({ item, onAction }) {
                 size='xs'
                 variant={action.primary ? 'solid' : 'outline'}
                 tone='neutral'
+                disabled={!onAction}
                 onClick={() => onAction(item, action)}
               >
                 {action.label}
@@ -153,6 +161,7 @@ function NotificationItem({ item, onAction }) {
           {item.meta ? <MetaPill {...item.meta} /> : null}
         </div>
       </div>
+      {item.unread && <StatusDot className='absolute end-3 top-4 bg-ui-foreground' />}
     </li>
   );
 }
@@ -179,6 +188,8 @@ function AppShellNotifications({
   label = 'Notifications',
   description = 'View and manage your notifications',
   viewAllLabel = 'View all notifications',
+  showTriggerLabel = false,
+  showDescription = false,
   triggerClassName,
   className
 }) {
@@ -202,13 +213,16 @@ function AppShellNotifications({
           <TooltipTrigger asChild>
             <SheetTrigger asChild>
               <Button
-                variant='ghost'
-                size='icon-sm'
+                variant={showTriggerLabel ? 'outline' : 'ghost'}
+                size={showTriggerLabel ? 'sm' : 'icon-sm'}
                 aria-label={unread ? `${label}, ${unread} unread` : label}
                 className={cn('relative', triggerClassName)}
               >
                 <RegistryIcon lucide='Bell' aria-hidden='true' />
-                {unread ? <StatusDot className='bg-ui-destructive absolute top-1.5 right-1.5 size-1.5' /> : null}
+                {showTriggerLabel && <span>{label}</span>}
+                {unread > 0 && (showTriggerLabel
+                  ? <Badge size='xs' variant='invert' aria-hidden='true'>{unread}</Badge>
+                  : <StatusDot className='bg-ui-destructive absolute top-1.5 right-1.5 size-1.5' />)}
               </Button>
             </SheetTrigger>
           </TooltipTrigger>
@@ -224,16 +238,18 @@ function AppShellNotifications({
         className={cn('flex w-[24rem] max-w-[calc(100%-1rem)] flex-col gap-0 overflow-hidden p-0', className)}
       >
         <SheetHeader className='flex-row items-center gap-2 border-b border-ui-border px-4 py-3'>
-          <SheetTitle className='flex items-center gap-2 text-base font-medium'>
-            {label}
-            {unread ? (
-              <Badge variant='invert' size='sm'>
-                {unread}
-                <span className='sr-only'> unread</span>
-              </Badge>
-            ) : null}
-          </SheetTitle>
-          <SheetDescription className='sr-only'>{description}</SheetDescription>
+          <div className='grid min-w-0 gap-1'>
+            <SheetTitle className='flex items-center gap-2 text-base font-medium'>
+              {label}
+              {unread ? (
+                <Badge variant='invert' size='sm'>
+                  {unread}
+                  <span className='sr-only'> unread</span>
+                </Badge>
+              ) : null}
+            </SheetTitle>
+            <SheetDescription className={showDescription ? 'text-xs text-text-muted' : 'sr-only'}>{description}</SheetDescription>
+          </div>
           <span className='ms-auto flex items-center gap-1'>
             <Button
               variant='ghost'
@@ -256,21 +272,23 @@ function AppShellNotifications({
           {items.length ? (
             <ul aria-label={label}>
               {items.map((item) => (
-                <NotificationItem key={item.id} item={item} onAction={handleAction} />
+                <AppShellNotificationItem key={item.id} item={item} onAction={handleAction} />
               ))}
             </ul>
           ) : (
-            <p className='text-text-muted px-4 py-10 text-center text-sm'>You are all caught up.</p>
+            <EmptyState compact title='You are all caught up.' />
           )}
         </ScrollArea>
-        <SheetFooter className='border-t border-ui-border p-1'>
-          <Button variant='ghost' className='w-full' onClick={onViewAll}>
-            {viewAllLabel}
-          </Button>
-        </SheetFooter>
+        {onViewAll && (
+          <SheetFooter className='border-t border-ui-border p-1'>
+            <Button variant='ghost' className='w-full' onClick={onViewAll}>
+              {viewAllLabel}
+            </Button>
+          </SheetFooter>
+        )}
       </SheetContent>
     </Sheet>
   );
 }
 
-export { AppShellNotifications };
+export { AppShellNotificationItem, AppShellNotifications };

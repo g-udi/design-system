@@ -1,4 +1,6 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import { TableRoot as Table, TableHeader, TableBodyPrimitive as TableBody, TableRowPrimitive as TableRow, TableHeadPrimitive as TableHead, TableCellPrimitive as TableCell, TableCaption } from '@gaudi/design-system/mdx/Table';
 import { useState } from 'react';
 import { default as Button } from '@gaudi/design-system/core/Button';
@@ -53,7 +55,7 @@ export function Pattern() {
     </dl>
   );
   return (
-    <div className='w-full max-w-3xl rounded-xl border p-5'>
+    <CardRoot variant='outline' padding='none' className='w-full max-w-3xl p-5 overflow-visible'>
       <Wizard
         title='New invoice'
         description='INV-2026-011'
@@ -132,7 +134,7 @@ export function Pattern() {
                 <RegistryIcon lucide='PlusIcon' />
                 Add line item
               </Button>
-              {checked && !itemsValid ? <p role='alert' className='text-danger text-sm'>Every line needs a description and a quantity.</p> : null}
+              {checked && !itemsValid ? <FieldError>Every line needs a description and a quantity.</FieldError> : null}
               <div className='flex flex-wrap items-end justify-between gap-4'>
                 <div className='flex gap-3'>
                   <Field className='w-28'>
@@ -172,7 +174,7 @@ export function Pattern() {
               <p>
                 <span className='text-text-muted'>To </span>
                 <span className='font-medium'>{client}</span>
-                <span className='text-text-muted'> · {due} · {items.length} line {items.length === 1 ? 'item' : 'items'}</span>
+                <span className='text-text-muted'> <MetaSeparator /> {due} <MetaSeparator /> {items.length} line {items.length === 1 ? 'item' : 'items'}</span>
               </p>
               <blockquote className='bg-surface-muted rounded-md border px-3 py-2'>{message}</blockquote>
               {totals}
@@ -180,6 +182,6 @@ export function Pattern() {
           )
         }
       </Wizard>
-    </div>
+    </CardRoot>
   );
 }

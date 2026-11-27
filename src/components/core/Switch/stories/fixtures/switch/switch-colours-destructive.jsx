@@ -6,8 +6,7 @@ import {
   FieldLabelPrimitive as FieldLabel,
   FieldTitle
 } from '@gaudi/design-system/core/Field';
-import { Label } from '@gaudi/design-system/core/Field';
-import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
+import LabeledSwitch, { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
 
 const tones = [
   { id: 'sw-info', label: 'Info', className: 'data-checked:bg-info' },
@@ -22,8 +21,7 @@ export function Pattern() {
       <div className='flex flex-wrap items-center gap-4'>
         {tones.map((tone) => (
           <div key={tone.id} className='flex items-center gap-2'>
-            <Switch id={`${id}-${tone.id}`} defaultChecked className={tone.className} />
-            <Label htmlFor={`${id}-${tone.id}`}>{tone.label}</Label>
+            <LabeledSwitch id={`${id}-${tone.id}`} defaultChecked className={tone.className} label={tone.label} />
           </div>
         ))}
       </div>

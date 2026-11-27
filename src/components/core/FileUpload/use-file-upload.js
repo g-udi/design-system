@@ -145,6 +145,13 @@ export const useFileUpload = (options = {}) => {
       removeFile,
       clearFiles,
       clearErrors,
+      dropzoneProps: {
+        'data-dragging': state.isDragging || undefined,
+        onDragEnter: handleDragEnter,
+        onDragLeave: handleDragLeave,
+        onDragOver: handleDragOver,
+        onDrop: handleDrop
+      },
       handleDragEnter,
       handleDragLeave,
       handleDragOver,

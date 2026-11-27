@@ -71,7 +71,7 @@ Curated patterns:
 
 - Command dialog with groups and shortcuts — registry item `@gaudi/command-dialog-shortcuts` (uses `Button`, `Command`, `CommandDialog`, `CommandEmpty`, `CommandGroup`, `CommandInput`, `CommandItem`, `CommandList`, `CommandSeparator`, `CommandShortcut`, `RegistryIcon`)
 - Inline palette — registry item `@gaudi/command-inline-palette` (uses `CardContent`, `CardRoot`, `Command`, `CommandEmpty`, `CommandGroup`, `CommandInput`, `CommandItem`, `CommandList`, `CommandSeparator`, `CommandShortcut`, `RegistryIcon`)
-- Search everything — registry item `@gaudi/command-search-everything` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `Command`, `CommandDialog`, `CommandEmpty`, `CommandGroup`, `CommandInput`, `CommandItem`, `CommandList`, `CommandSeparator`, `KbdRoot`, `RegistryIcon`)
+- Search everything — registry item `@gaudi/command-search-everything` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `Command`, `CommandDialog`, `CommandEmpty`, `CommandGroup`, `CommandInput`, `CommandItem`, `CommandList`, `CommandSeparator`, `CommandShortcut`, `Kbd`, `RegistryIcon`, `getAvatarInitials`, `useHotkey`)
 
 ## README
 

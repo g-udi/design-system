@@ -1,4 +1,5 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
 import { IconTile } from '@gaudi/design-system/core/Icon';
 import { useCallback, useId, useMemo, useRef, useState } from 'react';
 import { addDays, format, isWeekend, startOfDay, startOfWeek } from 'date-fns';
@@ -15,7 +16,7 @@ import {
   DialogConfirmationHeader,
   DialogConfirmationTitle
 } from '@gaudi/design-system/core/Dialog';
-import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
+import { Avatar } from '@gaudi/design-system/core/Avatar';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { CardRoot as Card, CardContent } from '@gaudi/design-system/core/Card';
@@ -248,10 +249,7 @@ export function Pattern() {
               return (
                 <span className='flex min-w-0 items-center gap-2'>
                   {person ? (
-                    <Avatar className='size-6 shrink-0'>
-                      <AvatarImage src={person.photo} alt='' />
-                      <AvatarFallback>{person.name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
-                    </Avatar>
+                    <Avatar size='xs' className='size-6 shrink-0' surface='tinted' src={person.photo} name={person.name} alt='' />
                   ) : (
                     <IconTile aria-hidden='true' size='xs' variant='muted'>
                       <RegistryIcon lucide='BuildingIcon' className='size-3.5' aria-hidden='true' />
@@ -268,7 +266,7 @@ export function Pattern() {
               <span className='flex min-w-0 flex-col leading-tight'>
                 <span className='truncate font-medium'>{occurrence.event.title}</span>
                 <span className='truncate opacity-80'>
-                  {occurrence.event.hoursPerDay}h/day · {occurrence.event.client}
+                  {occurrence.event.hoursPerDay}h/day <MetaSeparator /> {occurrence.event.client}
                 </span>
               </span>
             )}

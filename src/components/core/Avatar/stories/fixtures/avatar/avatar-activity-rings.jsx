@@ -1,5 +1,6 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useInterval } from '@gaudi/design-system/hooks';
+import { useState } from 'react';
 import {
   AvatarRoot as Avatar,
   AvatarBadge,
@@ -28,10 +29,7 @@ function Photo({ person, className, imageClassName, children }) {
 
 function Uploading() {
   const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const interval = setInterval(() => setLoading((current) => !current), 2e3);
-    return () => clearInterval(interval);
-  }, []);
+  useInterval(() => setLoading((current) => !current), 2000);
   return (
     <div className='relative' aria-busy={loading}>
       <Photo person={people[0]} />

@@ -61,7 +61,7 @@ The plot is one tab stop named by ariaLabel. The arrow keys walk the points, Hom
 
 Curated patterns:
 
-- Context map — registry item `@gaudi/treemap-chart-context-map` (uses `Button`, `Select`, `ToggleGroupItem`, `ToggleGroupRoot`, `TreemapChart`)
+- Context map — registry item `@gaudi/treemap-chart-context-map` (uses `Button`, `ChartLegendList`, `MetaSeparator`, `Select`, `ToggleGroupItem`, `ToggleGroupRoot`, `TreemapChart`)
 - Storage by folder — registry item `@gaudi/treemap-chart-storage-folders` (uses `ToggleGroupItem`, `ToggleGroupRoot`, `TreemapChart`)
 
 ## Related

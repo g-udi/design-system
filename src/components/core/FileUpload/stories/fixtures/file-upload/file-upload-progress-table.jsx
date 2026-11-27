@@ -3,7 +3,7 @@ import { IconTile } from '@gaudi/design-system/core/Icon';
 import { useEffect, useState } from 'react';
 import {
   formatBytes,
-  useFileUpload
+  FileUploadDropzone, useFileUpload
 } from '@gaudi/design-system/core/FileUpload';
 import {
   Alert,
@@ -81,10 +81,7 @@ export function Pattern({
     {
       removeFile,
       clearFiles,
-      handleDragEnter,
-      handleDragLeave,
-      handleDragOver,
-      handleDrop,
+      dropzoneProps,
       openFileDialog,
       getInputProps
     }
@@ -173,17 +170,8 @@ export function Pattern({
   return (
     <div className={cn('w-full space-y-3', className)}>
       {/* Upload Area */}
-      <div
-        className={cn(
-          'relative rounded-lg border border-dashed p-4 text-center transition-colors',
-          isDragging
-            ? 'border-ui-primary bg-ui-primary/5'
-            : 'border-ui-muted-foreground/25 hover:border-ui-muted-foreground/50'
-        )}
-        onDragEnter={handleDragEnter}
-        onDragLeave={handleDragLeave}
-        onDragOver={handleDragOver}
-        onDrop={handleDrop}
+      <FileUploadDropzone {...dropzoneProps}
+        className='relative block rounded-lg p-4'
       >
         <input {...getInputProps()} className='sr-only' />
 
@@ -213,7 +201,7 @@ export function Pattern({
             </p>
           </div>
         </div>
-      </div>
+      </FileUploadDropzone>
 
       {/* Files Table */}
       {uploadFiles.length > 0 && (

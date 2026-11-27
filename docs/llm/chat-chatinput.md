@@ -106,9 +106,9 @@ The prompt is a labelled combobox; icon buttons and queue actions are named. The
 
 Curated patterns:
 
-- Chat composer: Mentions, commands and attachments — registry item `@gaudi/prompt-composer-mentions-attachments` (uses `Badge`, `ChatPromptComposer`)
+- Chat composer: Mentions, commands and attachments — registry item `@gaudi/prompt-composer-mentions-attachments` (uses `Badge`, `CardRoot`, `ChatPromptComposer`)
 - Chat composer: Model and effort — registry item `@gaudi/prompt-composer-model-effort` (uses `ChatModelSelect`, `ChatPromptComposer`, `RegistryIcon`, `Toggle`, `ToggleGroupItem`, `ToggleGroupRoot`)
-- Chat composer: Queue follow-ups while a reply streams — registry item `@gaudi/prompt-composer-queued-follow-ups` (uses `ChatPromptComposer`, `ChatPromptQueue`, `LoaderRoot`, `RegistryIcon`)
+- Chat composer: Queue follow-ups while a reply streams — registry item `@gaudi/prompt-composer-queued-follow-ups` (uses `ChatPromptComposer`, `ChatPromptQueue`, `Item`, `ItemContent`, `ItemMedia`, `LoaderRoot`, `RegistryIcon`)
 
 ## Related
 

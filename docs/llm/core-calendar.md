@@ -65,10 +65,10 @@ Curated patterns:
 - Event list — registry item `@gaudi/calendar-event-list` (uses `Button`, `Calendar`, `CardContent`, `CardFooter`, `CardRoot`, `EmptyState`, `RegistryIcon`, `cn`)
 - Date pickers in popovers — registry item `@gaudi/calendar-popover-pickers` (uses `Button`, `Calendar`, `FieldGroup`, `FieldLabelPrimitive`, `FieldRoot`, `InputGroup`, `InputGroupAddon`, `InputGroupInput`, `PopoverContentPrimitive`, `PopoverPrimitive`, `PopoverTriggerPrimitive`, `RegistryIcon`, `Separator`, `cn`)
 - Presets — registry item `@gaudi/calendar-presets` (uses `Button`, `Calendar`, `CardContent`, `CardRoot`, `ToggleGroupItem`, `ToggleGroupRoot`)
-- Selection and display options — registry item `@gaudi/calendar-selection-options` (uses `Calendar`, `CardContent`, `CardRoot`, `Label`, `SwitchRoot`, `ToggleGroupItem`, `ToggleGroupRoot`)
+- Selection and display options — registry item `@gaudi/calendar-selection-options` (uses `Calendar`, `CardContent`, `CardRoot`, `Switch`, `ToggleGroupItem`, `ToggleGroupRoot`)
 - Year and month grid — registry item `@gaudi/calendar-year-month-grid` (uses `Button`, `Calendar`, `CardContent`, `CardRoot`, `RegistryIcon`, `ScrollArea`)
 - Date selector: Opened from a field — registry item `@gaudi/date-selector-in-popover` (uses `Button`, `DateSelector`, `PopoverContentPrimitive`, `PopoverPrimitive`, `PopoverTriggerPrimitive`, `RegistryIcon`, `Separator`, `formatDateValue`)
-- Date selector: Options — registry item `@gaudi/date-selector-options` (uses `CardContent`, `CardRoot`, `DateSelector`, `Label`, `SwitchRoot`, `formatDateValue`)
+- Date selector: Options — registry item `@gaudi/date-selector-options` (uses `CardContent`, `CardRoot`, `CodeBlock`, `DateSelector`, `Label`, `SwitchRoot`, `formatDateValue`)
 - Date selector: Translated, in a dialog — registry item `@gaudi/date-selector-translated-dialog` (uses `Button`, `DEFAULT_DATE_SELECTOR_I18N`, `DateSelector`, `DialogClosePrimitive`, `DialogContent`, `DialogFooter`, `DialogHeader`, `DialogRoot`, `DialogTitle`, `DialogTrigger`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuTrigger`, `RegistryIcon`, `formatDateValue`)
 
 ## README

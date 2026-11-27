@@ -1,4 +1,5 @@
 'use client';
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import { downloadCsv, toCsv } from '@gaudi/design-system/core/DataTable';
 import Dialog from '@gaudi/design-system/core/Dialog';
 import { useState } from 'react';
@@ -119,7 +120,7 @@ export function Pattern() {
       </ToggleGroup>
       {layout === 'panel' ? (
         /* One bordered panel divided into cells, for dense dashboards. */
-        <dl className='bg-surface grid overflow-hidden rounded-lg border sm:grid-cols-2 lg:grid-cols-4'>
+        <CardRoot as='dl' variant='outline' padding='none' radius='lg' className='grid overflow-hidden sm:grid-cols-2 lg:grid-cols-4'>
           {metrics.map((metric) => (
             <div
               key={metric.label}
@@ -132,7 +133,7 @@ export function Pattern() {
               </dd>
             </div>
           ))}
-        </dl>
+        </CardRoot>
       ) : (
         <div className='grid gap-3 sm:grid-cols-2 lg:grid-cols-4'>
           {metrics.map((metric) => (

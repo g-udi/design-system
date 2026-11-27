@@ -1,3 +1,4 @@
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
 import { ChatActivityIndicator } from '@gaudi/design-system/chat/ChatActivityIndicator';
 import { LoaderRoot as Loader } from '@gaudi/design-system/core/Loader';
 const statuses = [
@@ -15,7 +16,7 @@ export function Pattern() {
         <div key={title} className='flex items-center gap-2 text-sm'>
           <Loader className={`size-3.5 ${tone}`} aria-label={title} />
           <span className={`font-medium ${tone}`}>{title}</span>
-          {detail ? <span className='text-text-muted'>· {detail}</span> : null}
+          {detail ? <span className='text-text-muted'><MetaSeparator /> {detail}</span> : null}
         </div>
       ))}
       <div className='flex items-center gap-2 text-sm'>

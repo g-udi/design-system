@@ -1,4 +1,5 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
 import { useId, useState } from 'react';
 import Button from '@gaudi/design-system/core/Button';
 import { Badge } from '@gaudi/design-system/core/Pill';
@@ -123,7 +124,7 @@ export function Pattern() {
         <div className='flex flex-wrap items-center gap-2'>
           <Button size='sm' variant='outline' onClick={reset}>Reset demo</Button>
           <Button size='sm' variant='ghost' disabled={done} onClick={() => { setDisconnected(value => !value); setNotice(disconnected ? `${current.name} reconnected. ${blocked ? 'Restore the missing context to continue.' : 'Ready to continue.'}` : `${current.name} disconnected. All handoffs are preserved. Retry to continue.`); }}>{disconnected ? 'Retry connection' : 'Simulate disconnect'}</Button>
-          <span className='text-xs text-text-muted'>Local demo · no agents or files are changed.</span>
+          <span className='text-xs text-text-muted'>Local demo <MetaSeparator /> no agents or files are changed.</span>
         </div>
       </footer>
     </section>

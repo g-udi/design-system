@@ -1,6 +1,6 @@
 'use client';
 import { useId, useState } from 'react';
-import { cn } from '@gaudi/design-system/utilities/cn';
+import { ProgressRoot } from '@gaudi/design-system/core/Progress';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
   CardRoot as Card,
@@ -171,7 +171,7 @@ export function Pattern() {
               {/* Hidden: the wrapper already announces the position as a progressbar. */}
               <div aria-hidden='true' className='flex gap-1.5'>
                 {Array.from({ length: state.total }, (_, index) => (
-                  <span key={index} className={cn('h-1.5 flex-1 rounded-full', index < state.current ? 'bg-ui-primary' : 'bg-ui-muted')} />
+                  <ProgressRoot key={index} value={index < state.current ? 1 : 0} max={1} className='h-1.5 flex-1' />
                 ))}
               </div>
               <span>{label}</span>

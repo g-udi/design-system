@@ -62,7 +62,7 @@ Curated patterns:
 
 - Files in an assistant reply — registry item `@gaudi/attachment-assistant-reply` (uses `Attachment`, `AttachmentAction`, `AttachmentActions`, `AttachmentContent`, `AttachmentDescription`, `AttachmentGroup`, `AttachmentMedia`, `AttachmentTitle`, `MetaSeparator`, `RegistryIcon`)
 - Composer tray with removable files — registry item `@gaudi/attachment-composer-tray` (uses `Attachment`, `AttachmentAction`, `AttachmentActions`, `AttachmentContent`, `AttachmentGroup`, `AttachmentMedia`, `AttachmentTitle`, `FieldLabelPrimitive`, `FieldRoot`, `InputGroup`, `InputGroupAddon`, `InputGroupButton`, `InputGroupText`, `InputGroupTextarea`, `RegistryIcon`)
-- File picker that fills a tray — registry item `@gaudi/attachment-file-picker` (uses `Attachment`, `AttachmentAction`, `AttachmentActions`, `AttachmentContent`, `AttachmentDescription`, `AttachmentMedia`, `AttachmentTitle`, `AttachmentTrigger`, `RegistryIcon`, `formatBytes`, `useFileUpload`)
+- File picker that fills a tray — registry item `@gaudi/attachment-file-picker` (uses `Attachment`, `AttachmentAction`, `AttachmentActions`, `AttachmentContent`, `AttachmentDescription`, `AttachmentMedia`, `AttachmentTitle`, `AttachmentTrigger`, `FieldErrorPrimitive`, `RegistryIcon`, `formatBytes`, `useFileUpload`)
 - Image thumbnail strip — registry item `@gaudi/attachment-thumbnail-strip` (uses `Attachment`, `AttachmentContent`, `AttachmentGroup`, `AttachmentMedia`, `AttachmentTitle`, `AttachmentTrigger`, `MetaSeparator`)
 
 ## README

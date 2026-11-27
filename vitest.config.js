@@ -10,7 +10,10 @@ import { captureStoryViewport, emulateStoryMedia, recordStoryAudit } from './.st
 
 const rootDir = dirname(fileURLToPath(import.meta.url));
 const lodashEsDir = resolve(rootDir, 'node_modules/lodash-es');
-const auditTimeout = process.env.VITE_GAUDI_AUDIT === '1' ? 180000 : undefined;
+// Responsive stories visit every breakpoint. Visual stories can also sample several
+// real WebGL contexts before axe runs on a software-rendered CI browser.
+const auditTimeout = process.env.VITE_GAUDI_AUDIT === '1' ? 180000
+  : process.env.VITE_GAUDI_VISUAL === '1' ? 60000 : undefined;
 
 export default defineConfig({
   server: { watch: { ignored: ['**/.storybook/verification/**'] } },
@@ -43,7 +46,6 @@ export default defineConfig({
         ],
         test: {
           name: 'storybook',
-          // Overlay stories can run several full responsive/capture matrices.
           testTimeout: auditTimeout,
           hookTimeout: auditTimeout,
           browser: {

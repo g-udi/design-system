@@ -1,4 +1,5 @@
 import {
+  DialogConfirmationHeader,
   DialogConfirmationRoot as DialogConfirmation,
   DialogConfirmationAction,
   DialogConfirmationCancel,
@@ -20,7 +21,7 @@ export function Pattern() {
         <Button variant='outline'>Discard Changes</Button>
       </DialogConfirmationTrigger>
       <DialogConfirmationContent className='gap-0 overflow-hidden p-0 sm:max-w-md'>
-        <div className='flex items-start gap-3 p-4'>
+        <DialogConfirmationHeader className='flex items-start gap-3 p-4'>
           <DialogConfirmationMedia className='size-9 shrink-0 rounded-full bg-warning-muted text-warning'>
             <RegistryIcon lucide='TriangleAlertIcon' aria-hidden='true' className='size-4' />
           </DialogConfirmationMedia>
@@ -33,7 +34,7 @@ export function Pattern() {
               progress will be lost.
             </DialogConfirmationDescription>
           </div>
-        </div>
+        </DialogConfirmationHeader>
         <DialogConfirmationFooter className='mx-0 mb-0 items-center gap-4 border-t border-border p-4 sm:justify-between'>
           <div className='flex items-center gap-2'>
             <Checkbox id='dont-ask-again' />

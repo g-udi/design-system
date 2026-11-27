@@ -15,8 +15,7 @@ import {
   ChartTooltip,
   ChartTooltipContent
 } from '@gaudi/design-system/charts/ChartFrame';
-import { Label } from '@gaudi/design-system/core/Field';
-import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
+import Switch from '@gaudi/design-system/core/Switch';
 import {
   ToggleGroupRoot as ToggleGroup,
   ToggleGroupItem
@@ -92,14 +91,8 @@ export function Pattern() {
               <ToggleGroupItem key={option} value={option}>{option}</ToggleGroupItem>
             ))}
           </ToggleGroup>
-          <Label className='gap-2 text-sm font-normal'>
-            <Switch size='sm' checked={compare} onCheckedChange={setCompare} />
-            Compare
-          </Label>
-          <Label className='gap-2 text-sm font-normal'>
-            <Switch size='sm' checked={horizontal} disabled={fill === '3D'} onCheckedChange={setHorizontal} />
-            Horizontal
-          </Label>
+          <Switch label='Compare' size='sm' checked={compare} onCheckedChange={setCompare} />
+          <Switch label='Horizontal' size='sm' checked={horizontal} disabled={fill === '3D'} onCheckedChange={setHorizontal} />
         </div>
         <ChartContainer config={chartConfig} className={flat ? 'aspect-[4/3]' : undefined}>
           <BarChart

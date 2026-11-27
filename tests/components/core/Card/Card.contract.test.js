@@ -34,3 +34,12 @@ test('compound cards retain section spacing and independent header, body, and fo
     assert.equal((html.match(new RegExp(`data-slot="${slot}"`, 'g')) || []).length, 1, slot);
   }
 });
+
+test('a card can serve as a native form while preserving its method, action and children', () => {
+  const html = renderToStaticMarkup(h(CardRoot, { as: 'form', method: 'post', action: '/subscribe' }, h('button', { type: 'submit' }, 'Subscribe')));
+  assert.match(html, /^<form /);
+  assert.match(html, /data-slot="card"/);
+  assert.match(html, /method="post"/);
+  assert.match(html, /action="\/subscribe"/);
+  assert.match(html, /<button type="submit">Subscribe<\/button><\/form>$/);
+});

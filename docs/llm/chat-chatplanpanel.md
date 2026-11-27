@@ -45,7 +45,7 @@ The header reads the count of finished steps. Steps and notes form named lists; 
 
 Curated patterns:
 
-- Agent steering — registry item `@gaudi/plan-agent-steering` (uses `Badge`, `Button`, `ChatAgentMark`, `ChatPlan`, `ChatPromptQueue`, `Label`, `RegistryIcon`, `Textarea`)
+- Agent steering — registry item `@gaudi/plan-agent-steering` (uses `Badge`, `Button`, `CharacterCount`, `ChatAgentMark`, `ChatPlan`, `ChatPromptQueue`, `Label`, `MetaSeparator`, `RegistryIcon`, `Textarea`, `Toggle`)
 
 ## Related
 

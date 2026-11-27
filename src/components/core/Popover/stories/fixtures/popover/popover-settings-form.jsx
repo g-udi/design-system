@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
-  Label,
   FieldRoot as Field,
   FieldGroup,
   FieldLabelPrimitive as FieldLabel
@@ -53,14 +52,14 @@ export function Pattern() {
               </Field>
             </FieldGroup>
             <div className='grid gap-2 border-t border-border pt-3'>
-              <div className='flex items-center justify-between'>
-                <Label htmlFor='layer-visible'>Visible</Label>
+              <Field orientation='horizontal' className='justify-between'>
+                <FieldLabel htmlFor='layer-visible'>Visible</FieldLabel>
                 <Switch id='layer-visible' defaultChecked />
-              </div>
-              <div className='flex items-center justify-between'>
-                <Label htmlFor='layer-lock'>Lock position</Label>
+              </Field>
+              <Field orientation='horizontal' className='justify-between'>
+                <FieldLabel htmlFor='layer-lock'>Lock position</FieldLabel>
                 <Switch id='layer-lock' />
-              </div>
+              </Field>
               <div className='grid gap-2'>
                 <div className='flex items-center justify-between'>
                   <span>Opacity</span>

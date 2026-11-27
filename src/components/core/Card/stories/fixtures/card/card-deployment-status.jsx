@@ -1,3 +1,4 @@
+import { Item, ItemGroup, ItemTitle } from '@gaudi/design-system/core/Item';
 import { cn } from '@gaudi/design-system/utilities/cn';
 import {
   CardRoot as Card,
@@ -34,24 +35,24 @@ export function Pattern() {
         </div>
 
         {/* Status Rows */}
-        <div className='w-full space-y-1 px-4 pb-6'>
+        <ItemGroup className='gap-1 px-4 pb-6'>
           {stats.map((item, index) => (
-            <div
+            <Item size='sm'
               key={item.label}
               className={cn(
-                'rounded-lg flex items-center justify-between px-3 py-2.5',
+                'justify-between',
                 index % 2 === 0 && 'bg-ui-muted/40'
               )}
             >
-              <span className='text-ui-foreground text-sm font-medium'>
+              <ItemTitle>
                 {item.label}
-              </span>
+              </ItemTitle>
               <span className='text-ui-muted-foreground text-sm'>
                 {item.value}
               </span>
-            </div>
+            </Item>
           ))}
-        </div>
+        </ItemGroup>
       </CardContent>
     </Card>
   );

@@ -1,8 +1,8 @@
 'use client';
+import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
 import { useState } from 'react';
 import Dialog from '@gaudi/design-system/core/Dialog';
-import { SwitchRoot } from '@gaudi/design-system/core/Switch';
-import { FieldLabel } from '@gaudi/design-system/core/Field';
+import Switch from '@gaudi/design-system/core/Switch';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { LoaderRoot as Loader } from '@gaudi/design-system/core/Loader';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
@@ -68,10 +68,10 @@ export function Pattern() {
           Options
           <RegistryIcon lucide='Settings2Icon' aria-hidden='true' />
         </Button>
-        <Button variant='ghost' aria-pressed={showItems} onClick={() => setShowItems(!showItems)}>
+        <Toggle variant='default' pressed={showItems} onPressedChange={setShowItems}>
           {showItems ? 'Hide notes' : 'Show notes'}
           <RegistryIcon lucide='LogOutIcon' aria-hidden='true' />
-        </Button>
+        </Toggle>
         <Button variant='destructive' disabled={!items} onClick={() => setRemoving(true)}>
           Remove note
           <RegistryIcon lucide='CircleAlertIcon' aria-hidden='true' />
@@ -160,10 +160,7 @@ export function Pattern() {
         </p>
       </Row>
       <Dialog open={optionsOpen} onOpenChange={setOptionsOpen} title='Notebook options'>
-        <FieldLabel>
-          <SwitchRoot checked={showNumbers} onCheckedChange={setShowNumbers} />
-          Show note count
-        </FieldLabel>
+        <Switch label='Show note count' checked={showNumbers} onCheckedChange={setShowNumbers} />
       </Dialog>
       <Dialog
         variant='confirmation'

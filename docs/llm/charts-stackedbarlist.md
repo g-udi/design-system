@@ -63,7 +63,7 @@ The plot is one tab stop named by ariaLabel. The arrow keys walk the points, Hom
 
 Curated patterns:
 
-- Top posts by source — registry item `@gaudi/stacked-bar-list-top-posts` (uses `Label`, `StackedBarList`, `SwitchRoot`)
+- Top posts by source — registry item `@gaudi/stacked-bar-list-top-posts` (uses `LabeledSwitch`, `StackedBarList`)
 
 ## README
 

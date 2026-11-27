@@ -52,14 +52,14 @@ The trigger is a DS button with aria-expanded; the panel is portalled, dismisses
 
 Curated patterns:
 
-- Relative timestamp — registry item `@gaudi/hover-card-relative-time` (uses `Badge`, `Button`, `HoverCard`, `HoverCardContent`, `HoverCardTrigger`, `Separator`)
-- Rich hover cards — registry item `@gaudi/hover-card-rich` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`, `HoverCard`, `HoverCardContent`, `HoverCardTrigger`, `RegistryIcon`)
+- Relative timestamp — registry item `@gaudi/hover-card-relative-time` (uses `Badge`, `Button`, `HoverCard`, `HoverCardContent`, `HoverCardTrigger`, `Separator`, `useInterval`)
+- Rich hover cards — registry item `@gaudi/hover-card-rich` (uses `Avatar`, `Button`, `HoverCard`, `HoverCardContent`, `HoverCardTrigger`, `RegistryIcon`)
 - Sides — registry item `@gaudi/hover-card-sides` (uses `Button`, `HoverCard`, `HoverCardContent`, `HoverCardTrigger`)
 - Inside a dialog — registry item `@gaudi/popover-in-dialog` (uses `Button`, `DialogContent`, `DialogDescription`, `DialogHeader`, `DialogRoot`, `DialogTitle`, `DialogTrigger`, `HoverCard`, `HoverCardContent`, `HoverCardTrigger`, `PopoverContentPrimitive`, `PopoverDescription`, `PopoverHeader`, `PopoverPrimitive`, `PopoverTitle`, `PopoverTriggerPrimitive`)
-- Paged content — registry item `@gaudi/popover-paged` (uses `Badge`, `Button`, `PopoverContentPrimitive`, `PopoverPrimitive`, `PopoverTriggerPrimitive`, `RegistryIcon`)
+- Paged content — registry item `@gaudi/popover-paged` (uses `Badge`, `Button`, `Pagination`, `PaginationContent`, `PaginationItem`, `PaginationNext`, `PaginationPrevious`, `PopoverContentPrimitive`, `PopoverPrimitive`, `PopoverTriggerPrimitive`, `RegistryIcon`)
 - Sides and alignment — registry item `@gaudi/popover-placement` (uses `Button`, `PopoverContentPrimitive`, `PopoverDescription`, `PopoverHeader`, `PopoverPrimitive`, `PopoverTitle`, `PopoverTriggerPrimitive`)
-- Rich content — registry item `@gaudi/popover-rich` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `PopoverContentPrimitive`, `PopoverPrimitive`, `PopoverTitle`, `PopoverTriggerPrimitive`, `RegistryIcon`)
-- Settings form — registry item `@gaudi/popover-settings-form` (uses `Button`, `FieldGroup`, `FieldInput`, `FieldLabelPrimitive`, `FieldRoot`, `Label`, `PopoverContentPrimitive`, `PopoverDescription`, `PopoverHeader`, `PopoverPrimitive`, `PopoverTitle`, `PopoverTriggerPrimitive`, `RegistryIcon`, `Slider`, `SwitchRoot`)
+- Rich content — registry item `@gaudi/popover-rich` (uses `Avatar`, `Badge`, `Button`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `PopoverContentPrimitive`, `PopoverPrimitive`, `PopoverTitle`, `PopoverTriggerPrimitive`, `RegistryIcon`, `Toggle`)
+- Settings form — registry item `@gaudi/popover-settings-form` (uses `Button`, `FieldGroup`, `FieldInput`, `FieldLabelPrimitive`, `FieldRoot`, `PopoverContentPrimitive`, `PopoverDescription`, `PopoverHeader`, `PopoverPrimitive`, `PopoverTitle`, `PopoverTriggerPrimitive`, `RegistryIcon`, `Slider`, `SwitchRoot`)
 
 ## README
 

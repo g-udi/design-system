@@ -1,4 +1,5 @@
 'use client';
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import { TableRoot as Table, TableHeader, TableBodyPrimitive as TableBody, TableRowPrimitive as TableRow, TableHeadPrimitive as TableHead, TableCellPrimitive as TableCell, TableCaption } from '@gaudi/design-system/mdx/Table';
 import { useState } from 'react';
 import { Alert, AlertDescription, AlertTitle } from '@gaudi/design-system/core/Banner';
@@ -40,7 +41,7 @@ export function Pattern() {
   const update = (id, change) => setKeys((current) => current.map((key) => (key.id === id ? { ...key, ...change } : key)));
   return (
     <div className='grid w-full max-w-4xl gap-5'>
-      <section aria-labelledby='keys-title' className='grid gap-4 rounded-xl border p-5'>
+      <CardRoot as='section' variant='outline' padding='none' aria-labelledby='keys-title' className='grid gap-4 p-5 overflow-visible'>
         <div className='flex flex-wrap items-start justify-between gap-3'>
           <div className='grid gap-1'>
             <h2 id='keys-title' className='text-lg font-semibold'>API keys</h2>
@@ -127,15 +128,15 @@ export function Pattern() {
           </TableBody>
         </Table>
         <p role='status' className='text-text-muted min-h-5 text-sm'>{notice}</p>
-      </section>
+      </CardRoot>
 
-      <section aria-labelledby='hooks-title' className='grid gap-4 rounded-xl border p-5'>
+      <CardRoot as='section' variant='outline' padding='none' aria-labelledby='hooks-title' className='grid gap-4 p-5 overflow-visible'>
         <div className='flex flex-wrap items-center justify-between gap-3'>
           <h2 id='hooks-title' className='text-lg font-semibold'>Webhook endpoints</h2>
         </div>
         <ul className='grid gap-3'>
           {endpoints.map((endpoint) => (
-            <li key={endpoint.id} className='grid gap-3 rounded-lg border p-4'>
+            <CardRoot as='li' variant='outline' padding='none' radius='lg' key={endpoint.id} className='grid gap-3 p-4 overflow-visible'>
               <div className='flex flex-wrap items-center gap-3'>
                 <RegistryIcon lucide='WebhookIcon' className='text-text-muted size-4' />
                 <span className='grid min-w-0 flex-1 basis-48 gap-0.5'>
@@ -152,10 +153,10 @@ export function Pattern() {
                   <AlertDescription>The endpoint returned HTTP 502. Check its server logs for the failed requests.</AlertDescription>
                 </Alert>
               ) : null}
-            </li>
+            </CardRoot>
           ))}
         </ul>
-      </section>
+      </CardRoot>
 
       <section aria-labelledby='sdk-title' className='grid gap-3'>
         <h2 id='sdk-title' className='text-lg font-semibold'>Quick start</h2>
